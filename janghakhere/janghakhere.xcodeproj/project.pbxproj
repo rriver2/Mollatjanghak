@@ -14,6 +14,13 @@
 		FB978C992BCD770800347D47 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB978C982BCD770800347D47 /* Preview Assets.xcassets */; };
 		FB978CA12BCD773600347D47 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB978CA02BCD773600347D47 /* ContentView.swift */; };
 		FB978CA42BCD777000347D47 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB978CA32BCD777000347D47 /* Utils.swift */; };
+		FB978CA62BCD79CF00347D47 /* MyScholarshipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB978CA52BCD79CF00347D47 /* MyScholarshipView.swift */; };
+		FB978CA82BCD79E900347D47 /* AllScholarshipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB978CA72BCD79E900347D47 /* AllScholarshipView.swift */; };
+		FB978CAA2BCD79F300347D47 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB978CA92BCD79F300347D47 /* MyPageView.swift */; };
+		FB978CAF2BCD7FF800347D47 /* extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB978CAE2BCD7FF800347D47 /* extension.swift */; };
+		FB978CB12BCD83CC00347D47 /* IconCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB978CB02BCD83CB00347D47 /* IconCategory.swift */; };
+		FB978CB32BCD8C5700347D47 /* ScholarshipBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB978CB22BCD8C5700347D47 /* ScholarshipBoxView.swift */; };
+		FB978CB82BCD8F2200347D47 /* DefaultMVVMView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB978CB72BCD8F2200347D47 /* DefaultMVVMView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +33,13 @@
 		FB978CA02BCD773600347D47 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FB978CA22BCD775600347D47 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		FB978CA32BCD777000347D47 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		FB978CA52BCD79CF00347D47 /* MyScholarshipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyScholarshipView.swift; sourceTree = "<group>"; };
+		FB978CA72BCD79E900347D47 /* AllScholarshipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllScholarshipView.swift; sourceTree = "<group>"; };
+		FB978CA92BCD79F300347D47 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
+		FB978CAE2BCD7FF800347D47 /* extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
+		FB978CB02BCD83CB00347D47 /* IconCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconCategory.swift; sourceTree = "<group>"; };
+		FB978CB22BCD8C5700347D47 /* ScholarshipBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScholarshipBoxView.swift; sourceTree = "<group>"; };
+		FB978CB72BCD8F2200347D47 /* DefaultMVVMView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMVVMView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,8 +74,11 @@
 			children = (
 				FB978C8F2BCD770600347D47 /* janghakhereApp.swift */,
 				FB978CA02BCD773600347D47 /* ContentView.swift */,
+				FB978CB42BCD8EBC00347D47 /* AllScholarship */,
+				FB978CB52BCD8ECF00347D47 /* MyScholarship */,
+				FB978CB62BCD8ED700347D47 /* MyPage */,
+				FB978CAB2BCD7F3800347D47 /* Util */,
 				FB978CA22BCD775600347D47 /* Config.xcconfig */,
-				FB978CA32BCD777000347D47 /* Utils.swift */,
 				FB978C9F2BCD771100347D47 /* SwiftData */,
 				FB978C952BCD770800347D47 /* Assets.xcassets */,
 				FB978C972BCD770800347D47 /* Preview Content */,
@@ -82,8 +99,44 @@
 			children = (
 				FB978C912BCD770600347D47 /* SwiftDataView.swift */,
 				FB978C932BCD770600347D47 /* Item.swift */,
+				FB978CB72BCD8F2200347D47 /* DefaultMVVMView.swift */,
 			);
 			path = SwiftData;
+			sourceTree = "<group>";
+		};
+		FB978CAB2BCD7F3800347D47 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				FB978CA32BCD777000347D47 /* Utils.swift */,
+				FB978CAE2BCD7FF800347D47 /* extension.swift */,
+				FB978CB02BCD83CB00347D47 /* IconCategory.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		FB978CB42BCD8EBC00347D47 /* AllScholarship */ = {
+			isa = PBXGroup;
+			children = (
+				FB978CA72BCD79E900347D47 /* AllScholarshipView.swift */,
+				FB978CB22BCD8C5700347D47 /* ScholarshipBoxView.swift */,
+			);
+			path = AllScholarship;
+			sourceTree = "<group>";
+		};
+		FB978CB52BCD8ECF00347D47 /* MyScholarship */ = {
+			isa = PBXGroup;
+			children = (
+				FB978CA52BCD79CF00347D47 /* MyScholarshipView.swift */,
+			);
+			path = MyScholarship;
+			sourceTree = "<group>";
+		};
+		FB978CB62BCD8ED700347D47 /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				FB978CA92BCD79F300347D47 /* MyPageView.swift */,
+			);
+			path = MyPage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,10 +210,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB978CA42BCD777000347D47 /* Utils.swift in Sources */,
+				FB978CAA2BCD79F300347D47 /* MyPageView.swift in Sources */,
 				FB978CA12BCD773600347D47 /* ContentView.swift in Sources */,
+				FB978CAF2BCD7FF800347D47 /* extension.swift in Sources */,
+				FB978CB12BCD83CC00347D47 /* IconCategory.swift in Sources */,
+				FB978CB32BCD8C5700347D47 /* ScholarshipBoxView.swift in Sources */,
 				FB978C922BCD770600347D47 /* SwiftDataView.swift in Sources */,
 				FB978C942BCD770600347D47 /* Item.swift in Sources */,
 				FB978C902BCD770600347D47 /* janghakhereApp.swift in Sources */,
+				FB978CA82BCD79E900347D47 /* AllScholarshipView.swift in Sources */,
+				FB978CB82BCD8F2200347D47 /* DefaultMVVMView.swift in Sources */,
+				FB978CA62BCD79CF00347D47 /* MyScholarshipView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
