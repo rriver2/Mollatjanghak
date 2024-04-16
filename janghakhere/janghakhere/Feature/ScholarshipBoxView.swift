@@ -10,8 +10,7 @@ import SwiftUI
 struct ScholarshipBoxView: View {
     let scholarshipBox: ScholarshipBox
     
-    var body: some View {
-        HStack(spacing: 0) {
+    var body: some View {HStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
                 Text(scholarshipBox.sponsor)
                     .font(.semi_title_sm)

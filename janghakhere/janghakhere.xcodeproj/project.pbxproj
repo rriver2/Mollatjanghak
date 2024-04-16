@@ -30,6 +30,7 @@
 		FBEEBB932BCE9CC6006CE5EA /* DetailScholarship.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEEBB922BCE9CC6006CE5EA /* DetailScholarship.swift */; };
 		FBEEBBA12BCEAB40006CE5EA /* PathModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEEBBA02BCEAB40006CE5EA /* PathModel.swift */; };
 		FBEEBBA42BCEAB56006CE5EA /* PathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEEBBA32BCEAB56006CE5EA /* PathType.swift */; };
+		FBEEBBA62BCEB1AA006CE5EA /* HTTPUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEEBBA52BCEB1AA006CE5EA /* HTTPUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		FBEEBB922BCE9CC6006CE5EA /* DetailScholarship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScholarship.swift; sourceTree = "<group>"; };
 		FBEEBBA02BCEAB40006CE5EA /* PathModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathModel.swift; sourceTree = "<group>"; };
 		FBEEBBA32BCEAB56006CE5EA /* PathType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathType.swift; sourceTree = "<group>"; };
+		FBEEBBA52BCEB1AA006CE5EA /* HTTPUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +171,7 @@
 		FBEEBB952BCEA5C6006CE5EA /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				FBEEBBA52BCEB1AA006CE5EA /* HTTPUtils.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 				FB978CA62BCD79CF00347D47 /* MyScholarshipView.swift in Sources */,
 				FBEEBB852BCE972B006CE5EA /* ScholarshipBox.swift in Sources */,
 				FBEEBBA42BCEAB56006CE5EA /* PathType.swift in Sources */,
+				FBEEBBA62BCEB1AA006CE5EA /* HTTPUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
