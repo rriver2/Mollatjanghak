@@ -136,6 +136,7 @@
 		FB978CB42BCD8EBC00347D47 /* AllScholarship */ = {
 			isa = PBXGroup;
 			children = (
+				FBEEBBA92BCEC1C8006CE5EA /* Search */,
 				FB978CA72BCD79E900347D47 /* AllScholarshipView.swift */,
 				FBEEBB8D2BCE9BC1006CE5EA /* AllScholarshipViewModel.swift */,
 				FBEEBB8B2BCE9BB0006CE5EA /* AllScholarshipActor.swift */,
@@ -204,6 +205,7 @@
 			children = (
 				FB978CB22BCD8C5700347D47 /* ScholarshipBoxView.swift */,
 				FBEEBB902BCE9CB2006CE5EA /* DetailScholarshipView.swift */,
+				FBEEBBA72BCEC1A6006CE5EA /* Onboarding */,
 				FB978CB42BCD8EBC00347D47 /* AllScholarship */,
 				FB978CB52BCD8ECF00347D47 /* MyScholarship */,
 				FB978CB62BCD8ED700347D47 /* MyPage */,
@@ -217,6 +219,7 @@
 				FBEEBB922BCE9CC6006CE5EA /* DetailScholarship.swift */,
 				FBEEBB842BCE972B006CE5EA /* ScholarshipBox.swift */,
 				FBEEBB862BCE97C2006CE5EA /* PublicAnnouncementStatusCategory.swift */,
+				FBEEBBA82BCEC1B0006CE5EA /* Onboarding */,
 				FBEEBB9C2BCEA97A006CE5EA /* AllScholarship */,
 				FBEEBB9D2BCEA9A9006CE5EA /* MyScholarship */,
 				FBEEBB9E2BCEA9AC006CE5EA /* MyPage */,
@@ -228,6 +231,7 @@
 		FBEEBB9C2BCEA97A006CE5EA /* AllScholarship */ = {
 			isa = PBXGroup;
 			children = (
+				FBEEBBAA2BCEC1FB006CE5EA /* Search */,
 				FBEEBB892BCE98DF006CE5EA /* ScholarshipCategory.swift */,
 			);
 			path = AllScholarship;
@@ -263,6 +267,34 @@
 				FBEEBBA32BCEAB56006CE5EA /* PathType.swift */,
 			);
 			path = Path;
+			sourceTree = "<group>";
+		};
+		FBEEBBA72BCEC1A6006CE5EA /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		FBEEBBA82BCEC1B0006CE5EA /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		FBEEBBA92BCEC1C8006CE5EA /* Search */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		FBEEBBAA2BCEC1FB006CE5EA /* Search */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
