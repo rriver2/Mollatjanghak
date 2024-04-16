@@ -8,8 +8,8 @@
 import Foundation
 
 enum PublicAnnouncementStatusCategory: String {
-    case storage
+    case Storage
     case ToBeSupported
     case SupportCompleted
-    case nothing
+    case Nothing
 }

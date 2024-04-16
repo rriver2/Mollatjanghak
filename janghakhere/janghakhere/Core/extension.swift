@@ -9,6 +9,7 @@ import SwiftUI
 
 // MARK: - View
 extension View {
+    //FIXME: 켄 padding enum으로 변경하기
     func paddingHorizontal() -> some View {
         self
             .padding(.horizontal, 20)

@@ -7,6 +7,7 @@
 #if DEBUG
 import SwiftUI
 
+//TODO: 켄 고마워요
 actor DefaultMyManagerActor {
     func getData() async throws -> String {
         "some data!"

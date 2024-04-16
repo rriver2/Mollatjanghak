@@ -35,9 +35,9 @@ extension ScholarshipBox: Equatable {
 
 extension ScholarshipBox {
     static var mockCustomData: ScholarshipBox {
-        ScholarshipBox(id: UUID().uuidString, sponsor: "청양사랑인재육성장학회", title: "(맞춤)인문100년장학금", DDay: 4, prize: "300만원+", publicAnnouncementStatus: .nothing)
+        ScholarshipBox(id: UUID().uuidString, sponsor: "청양사랑인재육성장학회", title: "(맞춤)인문100년장학금", DDay: 4, prize: "300만원+", publicAnnouncementStatus: .Nothing)
     }
     static var mockAllData: ScholarshipBox {
-        ScholarshipBox(id: UUID().uuidString, sponsor: "(재)한국장학재단", title: "(전체)인문100년장학금", DDay: 3, prize: "200만원+", publicAnnouncementStatus: .nothing)
+        ScholarshipBox(id: UUID().uuidString, sponsor: "(재)한국장학재단", title: "(전체)인문100년장학금", DDay: 3, prize: "200만원+", publicAnnouncementStatus: .Nothing)
     }
 }

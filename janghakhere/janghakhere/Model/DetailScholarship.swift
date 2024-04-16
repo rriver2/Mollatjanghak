@@ -37,7 +37,7 @@ extension DetailScholarship: Equatable {
 
 extension DetailScholarship {
     static var mockData: DetailScholarship {
-        DetailScholarship(id: UUID().uuidString, sponsor: "청양사랑인재육성장학회", title: "(맞춤)인문100년장학금", DDay: 4, prize: "300만원+", publicAnnouncementStatus: .nothing)
+        DetailScholarship(id: UUID().uuidString, sponsor: "청양사랑인재육성장학회", title: "(맞춤)인문100년장학금", DDay: 4, prize: "300만원+", publicAnnouncementStatus: .Nothing)
     }
 }
 

@@ -15,11 +15,11 @@ struct ScholarshipBoxView: View {
             VStack(alignment: .leading, spacing: 0) {
                 Text(scholarshipBox.sponsor)
                     .font(.semi_title_sm)
-                    .tint(Color.gray400)
+                    .foregroundStyle(Color.gray400)
                     .padding(.bottom, 4)
                 Text(scholarshipBox.title)
                     .font(.title_xsm)
-                    .tint(Color.black)
+                    .foregroundStyle(Color.black)
                     .padding(.bottom, 25)
                 HStack(spacing: 0) {
                     Text("D-\(scholarshipBox.DDay)")
@@ -28,7 +28,7 @@ struct ScholarshipBoxView: View {
                         .padding(.vertical, 4)
                         .background(.destructiveRed.opacity(0.08))
                         .cornerRadius(4)
-                        .tint(.destructiveRed)
+                        .foregroundStyle(.destructiveRed)
                         .padding(.trailing, 8)
                     HStack(spacing: 0) {
                         Icon(name: .exempleIcon, color: .subGreen, size: 11)
@@ -40,7 +40,7 @@ struct ScholarshipBoxView: View {
                         .padding(.vertical, 4)
                         .background(.subGreen.opacity(0.08))
                         .cornerRadius(50)
-                        .tint(.subGreen)
+                        .foregroundStyle(.subGreen)
                 }
             }
             Spacer()
@@ -54,7 +54,7 @@ struct ScholarshipBoxView: View {
                 .padding(.vertical, 8)
                 .background(.gray70)
                 .cornerRadius(50)
-                .tint(.gray700)
+                .foregroundStyle(.gray700)
         }
         .frame(maxWidth: .infinity)
         .padding(.top, 19)

@@ -7,7 +7,24 @@
 
 import SwiftUI
 
+struct MainButtonStyle: ButtonStyle {
+  func makeBody(configuration: Configuration) -> some View {
+    configuration.label
+      .font(.title3)
+      .foregroundStyle(.white)
+      .padding()
+      .frame(maxWidth: .infinity)
+      .frame(height: 50)
+      .background(
+        RoundedRectangle(cornerRadius: 5)
+          .fill(.mainGray.opacity(0.8))
+      )
+      .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
+  }
+}
+
 struct AllScholarshipView: View {
+    @EnvironmentObject private var pathModel: PathModel
     @StateObject private var viewModel = AllScholarshipViewModel()
     var body: some View {
         VStack(spacing: 0) {
@@ -76,7 +93,7 @@ extension AllScholarshipView {
                         .padding(.trailing, 4)
                     Icon(name: .exempleIcon, size: 20)
                 }
-                .tint(.gray500)
+                .foregroundStyle(.gray500)
             }
         }
         .padding(.bottom, 16)
@@ -89,7 +106,7 @@ extension AllScholarshipView {
                 // 장학금 박스들
                 ForEach(viewModel.scholarshipList, id: \.self) { scholarship in
                     Button {
-                        viewModel.scholarshipButtonPressed(id: scholarship.id)
+                        pathModel.paths.append(.detailScholarshipView(id: scholarship.id))
                     } label: {
                         ScholarshipBoxView(scholarshipBox: scholarship)
                     }
