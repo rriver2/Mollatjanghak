@@ -8,19 +8,21 @@
 import SwiftUI
 
 struct ScholarshipBoxView: View {
+    let scholarshipBox: ScholarshipBox
+    
     var body: some View {
         HStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
-                Text("(재)한국장학재단")
+                Text(scholarshipBox.sponsor)
                     .font(.semi_title_sm)
                     .tint(Color.gray400)
                     .padding(.bottom, 4)
-                Text("인문100년장학금")
+                Text(scholarshipBox.title)
                     .font(.title_xsm)
                     .tint(Color.black)
                     .padding(.bottom, 25)
                 HStack(spacing: 0) {
-                    Text("D-3")
+                    Text("D-\(scholarshipBox.DDay)")
                         .font(.semi_title_sm)
                         .padding(.horizontal, 8)
                         .padding(.vertical, 4)
@@ -31,7 +33,7 @@ struct ScholarshipBoxView: View {
                     HStack(spacing: 0) {
                         Icon(name: .exempleIcon, color: .subGreen, size: 11)
                             .padding(.trailing, 5)
-                        Text("200만원+")
+                        Text(scholarshipBox.prize)
                             .font(.semi_title_sm)
                     }
                         .padding(.horizontal, 8)
@@ -66,5 +68,5 @@ struct ScholarshipBoxView: View {
 }
 
 #Preview {
-    ScholarshipBoxView()
+    ScholarshipBoxView(scholarshipBox: .mockAllData)
 }
