@@ -20,7 +20,9 @@
 		FB978CAF2BCD7FF800347D47 /* extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB978CAE2BCD7FF800347D47 /* extension.swift */; };
 		FB978CB12BCD83CC00347D47 /* IconCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB978CB02BCD83CB00347D47 /* IconCategory.swift */; };
 		FB978CB32BCD8C5700347D47 /* ScholarshipBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB978CB22BCD8C5700347D47 /* ScholarshipBoxView.swift */; };
-		FB978CB82BCD8F2200347D47 /* DefaultMVVMView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB978CB72BCD8F2200347D47 /* DefaultMVVMView.swift */; };
+		FBE769772BCF7698007F8DEF /* GrayLineTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE769762BCF7698007F8DEF /* GrayLineTextFieldView.swift */; };
+		FBE769792BCF769E007F8DEF /* MainButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE769782BCF769E007F8DEF /* MainButtonView.swift */; };
+		FBE7697B2BCF76A4007F8DEF /* GrayBoxGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE7697A2BCF76A4007F8DEF /* GrayBoxGridView.swift */; };
 		FBEEBB852BCE972B006CE5EA /* ScholarshipBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEEBB842BCE972B006CE5EA /* ScholarshipBox.swift */; };
 		FBEEBB872BCE97C2006CE5EA /* PublicAnnouncementStatusCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEEBB862BCE97C2006CE5EA /* PublicAnnouncementStatusCategory.swift */; };
 		FBEEBB8A2BCE98DF006CE5EA /* ScholarshipCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEEBB892BCE98DF006CE5EA /* ScholarshipCategory.swift */; };
@@ -49,7 +51,9 @@
 		FB978CAE2BCD7FF800347D47 /* extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
 		FB978CB02BCD83CB00347D47 /* IconCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconCategory.swift; sourceTree = "<group>"; };
 		FB978CB22BCD8C5700347D47 /* ScholarshipBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScholarshipBoxView.swift; sourceTree = "<group>"; };
-		FB978CB72BCD8F2200347D47 /* DefaultMVVMView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMVVMView.swift; sourceTree = "<group>"; };
+		FBE769762BCF7698007F8DEF /* GrayLineTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayLineTextFieldView.swift; sourceTree = "<group>"; };
+		FBE769782BCF769E007F8DEF /* MainButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButtonView.swift; sourceTree = "<group>"; };
+		FBE7697A2BCF76A4007F8DEF /* GrayBoxGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayBoxGridView.swift; sourceTree = "<group>"; };
 		FBEEBB842BCE972B006CE5EA /* ScholarshipBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScholarshipBox.swift; sourceTree = "<group>"; };
 		FBEEBB862BCE97C2006CE5EA /* PublicAnnouncementStatusCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicAnnouncementStatusCategory.swift; sourceTree = "<group>"; };
 		FBEEBB892BCE98DF006CE5EA /* ScholarshipCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScholarshipCategory.swift; sourceTree = "<group>"; };
@@ -118,7 +122,6 @@
 			children = (
 				FB978C912BCD770600347D47 /* SwiftDataView.swift */,
 				FB978C932BCD770600347D47 /* Item.swift */,
-				FB978CB72BCD8F2200347D47 /* DefaultMVVMView.swift */,
 			);
 			path = SwiftData;
 			sourceTree = "<group>";
@@ -272,6 +275,9 @@
 		FBEEBBA72BCEC1A6006CE5EA /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				FBE769762BCF7698007F8DEF /* GrayLineTextFieldView.swift */,
+				FBE769782BCF769E007F8DEF /* MainButtonView.swift */,
+				FBE7697A2BCF76A4007F8DEF /* GrayBoxGridView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -370,12 +376,15 @@
 				FB978CA42BCD777000347D47 /* Utils.swift in Sources */,
 				FB978CAA2BCD79F300347D47 /* MyPageView.swift in Sources */,
 				FB978CA12BCD773600347D47 /* ContentView.swift in Sources */,
+				FBE769792BCF769E007F8DEF /* MainButtonView.swift in Sources */,
 				FBEEBB932BCE9CC6006CE5EA /* DetailScholarship.swift in Sources */,
 				FB978CAF2BCD7FF800347D47 /* extension.swift in Sources */,
 				FBEEBB912BCE9CB2006CE5EA /* DetailScholarshipView.swift in Sources */,
 				FB978CB12BCD83CC00347D47 /* IconCategory.swift in Sources */,
 				FBEEBB872BCE97C2006CE5EA /* PublicAnnouncementStatusCategory.swift in Sources */,
 				FBEEBB8C2BCE9BB0006CE5EA /* AllScholarshipActor.swift in Sources */,
+				FBE7697B2BCF76A4007F8DEF /* GrayBoxGridView.swift in Sources */,
+				FBE769772BCF7698007F8DEF /* GrayLineTextFieldView.swift in Sources */,
 				FB978CB32BCD8C5700347D47 /* ScholarshipBoxView.swift in Sources */,
 				FB978C922BCD770600347D47 /* SwiftDataView.swift in Sources */,
 				FB978C942BCD770600347D47 /* Item.swift in Sources */,
@@ -384,7 +393,6 @@
 				FBEEBB8E2BCE9BC1006CE5EA /* AllScholarshipViewModel.swift in Sources */,
 				FBEEBB8A2BCE98DF006CE5EA /* ScholarshipCategory.swift in Sources */,
 				FB978CA82BCD79E900347D47 /* AllScholarshipView.swift in Sources */,
-				FB978CB82BCD8F2200347D47 /* DefaultMVVMView.swift in Sources */,
 				FB978CA62BCD79CF00347D47 /* MyScholarshipView.swift in Sources */,
 				FBEEBB852BCE972B006CE5EA /* ScholarshipBox.swift in Sources */,
 				FBEEBBA42BCEAB56006CE5EA /* PathType.swift in Sources */,
