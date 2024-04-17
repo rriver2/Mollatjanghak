@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B64459F2BCFF78100D4AF74 /* ChipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B64459E2BCFF78100D4AF74 /* ChipsView.swift */; };
+		7B6445A22BCFF89A00D4AF74 /* Chip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445A12BCFF89A00D4AF74 /* Chip.swift */; };
 		FB978C902BCD770600347D47 /* janghakhereApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB978C8F2BCD770600347D47 /* janghakhereApp.swift */; };
 		FB978C922BCD770600347D47 /* SwiftDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB978C912BCD770600347D47 /* SwiftDataView.swift */; };
 		FB978C942BCD770600347D47 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB978C932BCD770600347D47 /* Item.swift */; };
@@ -37,6 +39,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7B64459E2BCFF78100D4AF74 /* ChipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChipsView.swift; path = "../../../../../../../Interactions/Interactions/New Group/ChipsView.swift"; sourceTree = "<group>"; };
+		7B6445A12BCFF89A00D4AF74 /* Chip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chip.swift; sourceTree = "<group>"; };
 		FB978C8C2BCD770600347D47 /* janghakhere.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = janghakhere.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB978C8F2BCD770600347D47 /* janghakhereApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = janghakhereApp.swift; sourceTree = "<group>"; };
 		FB978C912BCD770600347D47 /* SwiftDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataView.swift; sourceTree = "<group>"; };
@@ -79,6 +83,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7B64459C2BCFF76000D4AF74 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				7B64459E2BCFF78100D4AF74 /* ChipsView.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		7B6445A02BCFF88100D4AF74 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				7B6445A12BCFF89A00D4AF74 /* Chip.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		FB978C832BCD770600347D47 = {
 			isa = PBXGroup;
 			children = (
@@ -141,7 +161,7 @@
 		FB978CB42BCD8EBC00347D47 /* AllScholarship */ = {
 			isa = PBXGroup;
 			children = (
-				FBEEBBA92BCEC1C8006CE5EA /* Search */,
+				7B64459C2BCFF76000D4AF74 /* Search */,
 				FB978CA72BCD79E900347D47 /* AllScholarshipView.swift */,
 				FBEEBB8D2BCE9BC1006CE5EA /* AllScholarshipViewModel.swift */,
 				FBEEBB8B2BCE9BB0006CE5EA /* AllScholarshipActor.swift */,
@@ -236,7 +256,7 @@
 		FBEEBB9C2BCEA97A006CE5EA /* AllScholarship */ = {
 			isa = PBXGroup;
 			children = (
-				FBEEBBAA2BCEC1FB006CE5EA /* Search */,
+				7B6445A02BCFF88100D4AF74 /* Search */,
 				FBEEBB892BCE98DF006CE5EA /* ScholarshipCategory.swift */,
 			);
 			path = AllScholarship;
@@ -290,20 +310,6 @@
 			children = (
 			);
 			path = Onboarding;
-			sourceTree = "<group>";
-		};
-		FBEEBBA92BCEC1C8006CE5EA /* Search */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Search;
-			sourceTree = "<group>";
-		};
-		FBEEBBAA2BCEC1FB006CE5EA /* Search */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Search;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -396,7 +402,9 @@
 				FBEEBB8E2BCE9BC1006CE5EA /* AllScholarshipViewModel.swift in Sources */,
 				FBEEBB8A2BCE98DF006CE5EA /* ScholarshipCategory.swift in Sources */,
 				FB978CA82BCD79E900347D47 /* AllScholarshipView.swift in Sources */,
+				7B64459F2BCFF78100D4AF74 /* ChipsView.swift in Sources */,
 				FBE769832BCF8E11007F8DEF /* SlotMachineView.swift in Sources */,
+				7B6445A22BCFF89A00D4AF74 /* Chip.swift in Sources */,
 				FB978CA62BCD79CF00347D47 /* MyScholarshipView.swift in Sources */,
 				FBEEBB852BCE972B006CE5EA /* ScholarshipBox.swift in Sources */,
 				FBEEBBA42BCEAB56006CE5EA /* PathType.swift in Sources */,
