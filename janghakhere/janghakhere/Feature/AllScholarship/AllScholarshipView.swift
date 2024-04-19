@@ -35,7 +35,7 @@ struct AllScholarshipView: View {
             }
             .paddingHorizontal()
             
-            scholarshipBoxList()
+            ScholarshipBoxListView(scholarshipList: viewModel.scholarshipList)
         }
         .onAppear {
             viewModel.viewOpened()
@@ -97,28 +97,6 @@ extension AllScholarshipView {
             }
         }
         .padding(.bottom, 16)
-    }
-    @ViewBuilder
-    func scholarshipBoxList() -> some View {
-        //FIXME: 맞춤 <-> 전체 시 제일 위로 스크롤 되도록
-        VStack(spacing: 0) {
-            ScrollView {
-                // 장학금 박스들
-                ForEach(viewModel.scholarshipList, id: \.self) { scholarship in
-                    Button {
-                        pathModel.paths.append(.detailScholarshipView(id: scholarship.id))
-                    } label: {
-                        ScholarshipBoxView(scholarshipBox: scholarship)
-                    }
-                }
-            }
-            .scrollIndicators(.hidden)
-            .padding(.top, 16)
-            .paddingHorizontal()
-            Spacer()
-        }
-        .frame(maxWidth: .infinity)
-        .background(Color.gray50)
     }
 }
 

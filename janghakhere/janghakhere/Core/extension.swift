@@ -35,7 +35,7 @@ extension Font {
     static let semi_title_md = Font.system(size: 15, weight: .semibold, design: .default)
     static let semi_title_sm = Font.system(size: 12, weight: .semibold, design: .default)
     
-    static let text_md = Font.system(size: 16, weight: .semibold, design: .default)
-    static let text_sm = Font.system(size: 14, weight: .semibold, design: .default)
-    static let caption = Font.system(size: 12, weight: .semibold, design: .default)
+    static let text_md = Font.system(size: 16, weight: .regular, design: .default)
+    static let text_sm = Font.system(size: 14, weight: .regular, design: .default)
+    static let caption = Font.system(size: 12, weight: .regular, design: .default)
 }
