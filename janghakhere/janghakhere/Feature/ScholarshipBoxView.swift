@@ -74,14 +74,9 @@ struct ScholarshipBoxView: View {
                 case .SupportCompleted:
                     status = .Nothing
                 }
-                print("status", status)
                 scholarshipBox.publicAnnouncementStatus = ScholarshipBoxManager.scholarshipStatusButtonPressed(status: publicAnnouncementStatus(id: scholarshipBox.id, status: status))
-                print("scholarshipBox.publicAnnouncementStatus", scholarshipBox.publicAnnouncementStatus)
             }
         }
-        .onChange(of: scholarshipBox, {
-            print("scholarsh22ipBox", scholarshipBox)
-        })
         .animation(.easeIn, value: scholarshipBox)
         .frame(maxWidth: .infinity)
         .padding(.top, 20)

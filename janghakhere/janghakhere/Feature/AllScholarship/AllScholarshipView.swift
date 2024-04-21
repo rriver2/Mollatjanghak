@@ -26,6 +26,7 @@ struct MainButtonStyle: ButtonStyle {
 struct AllScholarshipView: View {
     @EnvironmentObject private var pathModel: PathModel
     @StateObject private var viewModel = AllScholarshipViewModel()
+    
     var body: some View {
         VStack(spacing: 0) {
             ScrollViewReader { proxy in
@@ -80,10 +81,40 @@ extension AllScholarshipView {
     //FIXME: 디자인 자세하게 어떻게 될 지 모르겠어서 아직 반영 안 했습니다.
     @ViewBuilder
     func advertisement() -> some View {
-        RoundedRectangle(cornerRadius: 8)
-            .fill(Color.gray50)
-            .frame(height: 93)
-            .padding(.bottom, 12)
+        TabView(selection: $viewModel.advertisementSelection) {
+            Rectangle()
+                .fill(Color.red)
+                .tag(0)
+            Rectangle()
+                .fill(Color.green)
+                .tag(1)
+            Rectangle()
+                .fill(Color.yellow)
+                .tag(2)
+        }
+        .frame(height: 93)
+        .clipShape(
+            RoundedRectangle(cornerRadius: 8)
+        )
+        .overlay(alignment: .bottomTrailing) {
+            ZStack(alignment: .leading) {
+                RoundedRectangle(cornerRadius: 5)
+                    .frame(width: 113, height: 2)
+                    .foregroundStyle(.gray200)
+                RoundedRectangle(cornerRadius: 5)
+                    .frame(width: viewModel.advertisementSelectionWidth, height: 2)
+                    .foregroundStyle(.gray500)
+                    .animation(.linear, value: viewModel.advertisementSelectionWidth)
+            }
+            .padding(.bottom, 7)
+            .padding(.trailing, 12)
+        }
+        .padding(.bottom, 12)
+        .tabViewStyle(.page)
+        .onAppear {
+            UIPageControl.appearance().currentPageIndicatorTintColor = .clear
+            UIPageControl.appearance().pageIndicatorTintColor = .clear
+        }
     }
     @ViewBuilder
     func sortingScholarship() -> some View {

@@ -13,6 +13,19 @@ final class AllScholarshipViewModel: ObservableObject {
     
     @Published private(set) var scholarshipCategory: ScholarshipCategory = .custom
     @Published private(set) var scholarshipList: [ScholarshipBox] = []
+    @Published var advertisementSelection: Int = 0 {
+        didSet {
+            if advertisementSelection == 0 {
+                advertisementSelectionWidth = 113/3
+            } else if advertisementSelection == 1 {
+                advertisementSelectionWidth = 113/3*2
+            } else {
+                advertisementSelectionWidth = 113
+            }
+        }
+    }
+    @Published var advertisementSelectionWidth: CGFloat = 113/3
+    
     private var tasks: [Task<Void, Never>] = []
     
     /// header의 맞춤, 전체 버튼 클릭
