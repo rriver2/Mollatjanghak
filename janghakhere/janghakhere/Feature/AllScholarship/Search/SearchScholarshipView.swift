@@ -33,11 +33,12 @@ struct SearchScholarshipView: View {
         .background(.gray50)
         .onAppear {
             isKeyBoardOn = true
-            print(HeightRatio, "176")
+            viewModel.viewOpened()
         }
         .onDisappear {
             viewModel.cancelTasks()
         }
+        .navigationBarBackButtonHidden()
     }
 }
 
@@ -91,7 +92,7 @@ extension SearchScholarshipView {
                         .foregroundStyle(.gray800)
                     Spacer()
                     Button {
-                        
+                        viewModel.removeAllSearchedScholarshipTextHistory()
                     } label: {
                         Text("전체 삭제")
                             .font(.text_sm)
@@ -99,7 +100,7 @@ extension SearchScholarshipView {
                     }
                 }
                 .padding(.bottom, 19)
-                //FIXME: 켄이 동글이들 push한 다음에 추가할 예정!
+                ChipsGroupView(viewModel: viewModel)
                 
                 Spacer()
             }

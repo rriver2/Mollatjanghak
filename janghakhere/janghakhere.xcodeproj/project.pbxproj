@@ -11,13 +11,17 @@
 		FB27A2AB2BD2A118007C62D0 /* SearchScholarshipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB27A2A92BD2A118007C62D0 /* SearchScholarshipView.swift */; };
 		FB27A2AC2BD2A118007C62D0 /* SearchScholarshipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB27A2AA2BD2A118007C62D0 /* SearchScholarshipViewModel.swift */; };
 		FB27A2AE2BD2A124007C62D0 /* SearchScholarshipStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB27A2AD2BD2A124007C62D0 /* SearchScholarshipStatus.swift */; };
-		FB27A2B12BD2A933007C62D0 /* ChipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB27A2B02BD2A933007C62D0 /* ChipsView.swift */; };
+		FB27A2B12BD2A933007C62D0 /* ChipsGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB27A2B02BD2A933007C62D0 /* ChipsGroupView.swift */; };
+		FB27A2B32BD2ABAC007C62D0 /* UserDefaultKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB27A2B22BD2ABAC007C62D0 /* UserDefaultKey.swift */; };
+		FB676A9E2BD50A410077700E /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB676A9D2BD50A410077700E /* Onboarding.swift */; };
+		FB676AA02BD50A510077700E /* MyScholarship.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB676A9F2BD50A510077700E /* MyScholarship.swift */; };
+		FB676AA22BD50A5A0077700E /* MyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB676AA12BD50A5A0077700E /* MyPage.swift */; };
 		FB978C902BCD770600347D47 /* janghakhereApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB978C8F2BCD770600347D47 /* janghakhereApp.swift */; };
 		FB978C922BCD770600347D47 /* SwiftDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB978C912BCD770600347D47 /* SwiftDataView.swift */; };
 		FB978C942BCD770600347D47 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB978C932BCD770600347D47 /* Item.swift */; };
 		FB978C962BCD770800347D47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB978C952BCD770800347D47 /* Assets.xcassets */; };
 		FB978C992BCD770800347D47 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB978C982BCD770800347D47 /* Preview Assets.xcassets */; };
-		FB978CA12BCD773600347D47 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB978CA02BCD773600347D47 /* ContentView.swift */; };
+		FB978CA12BCD773600347D47 /* FirstView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB978CA02BCD773600347D47 /* FirstView.swift */; };
 		FB978CA42BCD777000347D47 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB978CA32BCD777000347D47 /* Utils.swift */; };
 		FB978CA62BCD79CF00347D47 /* MyScholarshipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB978CA52BCD79CF00347D47 /* MyScholarshipView.swift */; };
 		FB978CA82BCD79E900347D47 /* AllScholarshipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB978CA72BCD79E900347D47 /* AllScholarshipView.swift */; };
@@ -49,14 +53,18 @@
 		FB27A2A92BD2A118007C62D0 /* SearchScholarshipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchScholarshipView.swift; sourceTree = "<group>"; };
 		FB27A2AA2BD2A118007C62D0 /* SearchScholarshipViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchScholarshipViewModel.swift; sourceTree = "<group>"; };
 		FB27A2AD2BD2A124007C62D0 /* SearchScholarshipStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchScholarshipStatus.swift; sourceTree = "<group>"; };
-		FB27A2B02BD2A933007C62D0 /* ChipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipsView.swift; sourceTree = "<group>"; };
+		FB27A2B02BD2A933007C62D0 /* ChipsGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipsGroupView.swift; sourceTree = "<group>"; };
+		FB27A2B22BD2ABAC007C62D0 /* UserDefaultKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKey.swift; sourceTree = "<group>"; };
+		FB676A9D2BD50A410077700E /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
+		FB676A9F2BD50A510077700E /* MyScholarship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyScholarship.swift; sourceTree = "<group>"; };
+		FB676AA12BD50A5A0077700E /* MyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPage.swift; sourceTree = "<group>"; };
 		FB978C8C2BCD770600347D47 /* janghakhere.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = janghakhere.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB978C8F2BCD770600347D47 /* janghakhereApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = janghakhereApp.swift; sourceTree = "<group>"; };
 		FB978C912BCD770600347D47 /* SwiftDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataView.swift; sourceTree = "<group>"; };
 		FB978C932BCD770600347D47 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		FB978C952BCD770800347D47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FB978C982BCD770800347D47 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		FB978CA02BCD773600347D47 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		FB978CA02BCD773600347D47 /* FirstView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstView.swift; sourceTree = "<group>"; };
 		FB978CA22BCD775600347D47 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		FB978CA32BCD777000347D47 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		FB978CA52BCD79CF00347D47 /* MyScholarshipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyScholarshipView.swift; sourceTree = "<group>"; };
@@ -103,7 +111,7 @@
 			children = (
 				FB27A2A92BD2A118007C62D0 /* SearchScholarshipView.swift */,
 				FB27A2AA2BD2A118007C62D0 /* SearchScholarshipViewModel.swift */,
-				FB27A2B02BD2A933007C62D0 /* ChipsView.swift */,
+				FB27A2B02BD2A933007C62D0 /* ChipsGroupView.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -276,6 +284,7 @@
 				FBEEBB922BCE9CC6006CE5EA /* DetailScholarship.swift */,
 				FBEEBB842BCE972B006CE5EA /* ScholarshipBox.swift */,
 				FBEEBB862BCE97C2006CE5EA /* PublicAnnouncementStatusCategory.swift */,
+				FB27A2B22BD2ABAC007C62D0 /* UserDefaultKey.swift */,
 				FBEEBBA82BCEC1B0006CE5EA /* Onboarding */,
 				FBEEBB9C2BCEA97A006CE5EA /* AllScholarship */,
 				FBEEBB9D2BCEA9A9006CE5EA /* MyScholarship */,
@@ -297,6 +306,7 @@
 		FBEEBB9D2BCEA9A9006CE5EA /* MyScholarship */ = {
 			isa = PBXGroup;
 			children = (
+				FB676A9F2BD50A510077700E /* MyScholarship.swift */,
 			);
 			path = MyScholarship;
 			sourceTree = "<group>";
@@ -304,6 +314,7 @@
 		FBEEBB9E2BCEA9AC006CE5EA /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				FB676AA12BD50A5A0077700E /* MyPage.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -312,7 +323,7 @@
 			isa = PBXGroup;
 			children = (
 				FB978C8F2BCD770600347D47 /* janghakhereApp.swift */,
-				FB978CA02BCD773600347D47 /* ContentView.swift */,
+				FB978CA02BCD773600347D47 /* FirstView.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -340,6 +351,7 @@
 		FBEEBBA82BCEC1B0006CE5EA /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				FB676A9D2BD50A410077700E /* Onboarding.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -418,18 +430,22 @@
 				FB978CAA2BCD79F300347D47 /* MyPageView.swift in Sources */,
 				FB27A2AC2BD2A118007C62D0 /* SearchScholarshipViewModel.swift in Sources */,
 				FBE769872BCFF36D007F8DEF /* SearchScholarshipActor.swift in Sources */,
-				FB978CA12BCD773600347D47 /* ContentView.swift in Sources */,
+				FB978CA12BCD773600347D47 /* FirstView.swift in Sources */,
 				FBE769792BCF769E007F8DEF /* MainButtonView.swift in Sources */,
 				FBEEBB932BCE9CC6006CE5EA /* DetailScholarship.swift in Sources */,
 				FB978CAF2BCD7FF800347D47 /* extension.swift in Sources */,
 				FBEEBB912BCE9CB2006CE5EA /* DetailScholarshipView.swift in Sources */,
 				FB978CB12BCD83CC00347D47 /* IconCategory.swift in Sources */,
 				FBEEBB872BCE97C2006CE5EA /* PublicAnnouncementStatusCategory.swift in Sources */,
+				FB676AA22BD50A5A0077700E /* MyPage.swift in Sources */,
 				FBEEBB8C2BCE9BB0006CE5EA /* AllScholarshipActor.swift in Sources */,
+				FB676AA02BD50A510077700E /* MyScholarship.swift in Sources */,
 				FBE7697B2BCF76A4007F8DEF /* GrayBoxGridView.swift in Sources */,
+				FB676A9E2BD50A410077700E /* Onboarding.swift in Sources */,
 				FBE769772BCF7698007F8DEF /* GrayLineTextFieldView.swift in Sources */,
+				FB27A2B32BD2ABAC007C62D0 /* UserDefaultKey.swift in Sources */,
 				FB978CB32BCD8C5700347D47 /* ScholarshipBoxView.swift in Sources */,
-				FB27A2B12BD2A933007C62D0 /* ChipsView.swift in Sources */,
+				FB27A2B12BD2A933007C62D0 /* ChipsGroupView.swift in Sources */,
 				FB27A2AE2BD2A124007C62D0 /* SearchScholarshipStatus.swift in Sources */,
 				FB978C922BCD770600347D47 /* SwiftDataView.swift in Sources */,
 				FB978C942BCD770600347D47 /* Item.swift in Sources */,

@@ -16,16 +16,37 @@ final class SearchScholarshipViewModel: ObservableObject {
     @Published var searchContent: String = ""
     @Published private (set)var searchScholarshipStatus: SearchScholarshipStatus = .notSearchedYet
     @Published private (set)var scholarshipList: [ScholarshipBox] = []
+    @Published private (set)var chips: [Chip] = []
     
+    /// 검색 내용 지우기 X 버튼 클릭시
     func searchbarXButtonPressed() {
         self.searchContent = ""
         self.scholarshipList = []
         self.searchScholarshipStatus = .notSearchedYet
+        //FIXME: API 끊기게
     }
     
+    /// 돋보기 클릭시
     func searchButtonPressed() {
         self.searchScholarshipStatus = .loading
         getScholarshipList()
+        AddOneOfSearchedScholarshipText(searchContent)
+    }
+    
+    /// 검색 장학금 전체 삭제 버튼 클릭시
+    func removeAllSearchedScholarshipTextHistory() {
+        UserDefaults.removeSomething(key: .searchedScholarshipTextList)
+    }
+    
+    /// Chip 버튼 클릭
+    func clickedChipButton(_ chip: Chip) {
+        self.searchContent = chip.title
+        searchButtonPressed()
+    }
+    
+    /// Chip의 X 버튼 클릭
+    func clickedChipXButton(_ chip: Chip) {
+        removeSearchedScholarshipTextList(chip.title)
     }
 }
 
@@ -35,7 +56,7 @@ extension SearchScholarshipViewModel {
         let task = Task {
             do {
                 let scholarshipList = try await managerActor.fetchScholarshipBoxList()
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0) {
                     self.scholarshipList = scholarshipList
                     if scholarshipList.isEmpty {
                         self.searchScholarshipStatus = .searchedNoData
@@ -50,10 +71,39 @@ extension SearchScholarshipViewModel {
         }
         tasks.append(task)
     }
+    
+    private func AddOneOfSearchedScholarshipText(_ content: String) {
+        let newChip = Chip(title: content)
+        if !chips.contains(newChip) {
+            chips.insert(newChip, at: 0)
+        }
+        
+        // 4개 이상일 시 삭제
+        if chips.count > 3 {
+            if !chips.isEmpty {
+                chips.removeLast()
+            }
+        }
+        
+        UserDefaults.saveObjectInDevice(key: .searchedScholarshipTextList, content: chips)
+    }
+    
+    private func getSearchedScholarshipTextList() {
+        self.chips = UserDefaults.getObjectFromDevice(key: .searchedScholarshipTextList, [Chip].self) ?? []
+    }
+    
+    private func removeSearchedScholarshipTextList(_ content: String) {
+        self.chips = chips.filter { $0.title != content }
+        UserDefaults.saveObjectInDevice(key: .searchedScholarshipTextList, content: chips)
+    }
 }
 
 // MARK: - 기본 함수들
 extension SearchScholarshipViewModel {
+    func viewOpened() {
+        getSearchedScholarshipTextList()
+    }
+    
     func cancelTasks() {
         tasks.forEach({ $0.cancel()})
         tasks = []

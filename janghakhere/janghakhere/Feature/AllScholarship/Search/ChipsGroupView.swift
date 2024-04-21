@@ -1,5 +1,5 @@
 //
-//  ChipsView.swift
+//  ChipsGroupView.swift
 //  janghakhere
 //
 //  Created by Gaeun Lee on 4/19/24.
@@ -8,16 +8,18 @@
 import SwiftUI
 
 struct ChipsGroupView: View {
-    var chips: [Chip]
-
+    @ObservedObject var viewModel: SearchScholarshipViewModel
+    
+    @State var lastOverTwoLineCallTime: Date?
+    
     var body: some View {
         var width = CGFloat.zero
         var height = CGFloat.zero
-
+        
         GeometryReader { geometry in
             ZStack(alignment: .topLeading) {
-                ForEach(chips, id: \.id) { chip in
-                    ChipsView(chip: chip)
+                ForEach(viewModel.chips, id: \.id) { chip in
+                    ChipView(viewModel: viewModel, chip: chip)
                         .padding(.horizontal, 5)
                         .padding(.vertical, 5)
                         .alignmentGuide(.leading) { dimension in
@@ -26,7 +28,7 @@ struct ChipsGroupView: View {
                                 height -= dimension.height
                             }
                             let result = width
-                            if chip.id == chips.last!.id {
+                            if chip.id == viewModel.chips.last!.id {
                                 width = 0
                             } else {
                                 width -= dimension.width
@@ -35,30 +37,30 @@ struct ChipsGroupView: View {
                         }
                         .alignmentGuide(.top) { dimension in
                             let result = height
-                            if chip.id == chips.last!.id {
+                            if chip.id == viewModel.chips.last!.id {
                                 height = 0
                             }
                             return result
                         }
                 }
-                .padding(.horizontal, 16)
             }
         }
     }
 }
 
-private struct ChipsView: View {
-    var chip: Chip
-
+private struct ChipView: View {
+    @ObservedObject var viewModel: SearchScholarshipViewModel
+    
+    let chip: Chip
+    
     var body: some View {
         HStack {
             Text(chip.title)
                 .onTapGesture {
-                    print("여기서 검색창과 바인딩 하는게 좋을거 같아요")
-                    // viewModel.tapChip(chip: chip)
+                    viewModel.clickedChipButton(chip)
                 }
             Button {
-                print("viewModel에 있는 chip 삭제")
+                viewModel.clickedChipXButton(chip)
             } label: {
                 Image(systemName: "xmark")
             }
@@ -74,7 +76,7 @@ private struct ChipsView: View {
         )
     }
 }
-
-#Preview {
-    ChipsGroupView(chips: [.init(title: "긴급지원"), .init(title: "성적장학금"), .init(title: "에코"), .init(title: "국가장학금"), .init(title: "시흥시인재양성재단")])
-}
+//
+//#Preview {
+//    ChipsGroupView(chips: [.init(title: "긴급지원"), .init(title: "성적장학금"), .init(title: "에코"), .init(title: "국가장학금"), .init(title: "시흥시인재양성재단")])
+//}

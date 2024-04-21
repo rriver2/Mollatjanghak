@@ -39,3 +39,33 @@ extension Font {
     static let text_sm = Font.system(size: 14, weight: .regular, design: .default)
     static let caption = Font.system(size: 12, weight: .regular, design: .default)
 }
+
+// MARK: - UserDefault
+extension UserDefaults {
+    static func saveObjectInDevice<T: Encodable>(key: UserDefaultKey, content: T) {
+        let encoder = JSONEncoder()
+        if let encoded = try? encoder.encode(content) {
+            UserDefaults.standard.setValue(encoded, forKey: key.rawValue)
+        }
+    }
+    
+    static func getObjectFromDevice<T:Decodable>(key: UserDefaultKey, _ type: T.Type) -> T? {
+        if let object = UserDefaults.standard.object(forKey: key.rawValue) as? Data {
+            return try? JSONDecoder().decode(T.self, from: object)
+        } else {
+            return nil
+        }
+    }
+    
+    static func saveValueInDevice<T>(key: UserDefaultKey, content: T) {
+        UserDefaults.standard.setValue(content, forKey: key.rawValue)
+    }
+    
+    static func getValueFromDevice<T>(key: UserDefaultKey, _ type: T.Type) -> T? {
+        return UserDefaults.standard.object(forKey: key.rawValue) as? T
+    }
+    
+    static func removeSomething(key: UserDefaultKey) {
+        UserDefaults.standard.removeObject(forKey: key.rawValue)
+    }
+}

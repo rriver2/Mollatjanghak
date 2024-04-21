@@ -9,5 +9,5 @@ import Foundation
 
 enum PathType: Hashable {
     case detailScholarshipView(id: String)
-  case bbb
+    case searchScholarshipView
 }

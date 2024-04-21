@@ -64,6 +64,9 @@ extension AllScholarshipView {
             Spacer()
             Icon(name: .exempleIcon, size: 28)
                 .padding(.trailing, 12)
+                .onTapGesture {
+                    pathModel.paths.append(.searchScholarshipView)
+                }
             Icon(name: .exempleIcon, size: 28)
         }
         .padding(.bottom, 16)
