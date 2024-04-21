@@ -8,19 +8,19 @@
 import SwiftUI
 
 struct MainButtonStyle: ButtonStyle {
-  func makeBody(configuration: Configuration) -> some View {
-    configuration.label
-      .font(.title3)
-      .foregroundStyle(.white)
-      .padding()
-      .frame(maxWidth: .infinity)
-      .frame(height: 50)
-      .background(
-        RoundedRectangle(cornerRadius: 5)
-          .fill(.mainGray.opacity(0.8))
-      )
-      .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
-  }
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.title3)
+            .foregroundStyle(.white)
+            .padding()
+            .frame(maxWidth: .infinity)
+            .frame(height: 50)
+            .background(
+                RoundedRectangle(cornerRadius: 5)
+                    .fill(.mainGray.opacity(0.8))
+            )
+            .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
+    }
 }
 
 struct AllScholarshipView: View {
@@ -28,14 +28,15 @@ struct AllScholarshipView: View {
     @StateObject private var viewModel = AllScholarshipViewModel()
     var body: some View {
         VStack(spacing: 0) {
-            VStack(spacing: 0) {
-                header()
-                advertisement()
-                sortingScholarship()
+            ScrollViewReader { proxy in
+                VStack(spacing: 0) {
+                    header(proxy: proxy)
+                    advertisement()
+                    sortingScholarship()
+                }
+                .paddingHorizontal()
+                ScholarshipBoxListView(scholarshipList: viewModel.scholarshipList)
             }
-            .paddingHorizontal()
-            
-            ScholarshipBoxListView(scholarshipList: viewModel.scholarshipList)
         }
         .onAppear {
             viewModel.viewOpened()
@@ -48,11 +49,14 @@ struct AllScholarshipView: View {
 
 extension AllScholarshipView {
     @ViewBuilder
-    func header() -> some View {
+    func header(proxy: ScrollViewProxy) -> some View {
         HStack(spacing: 0) {
             ForEach(ScholarshipCategory.allCases, id: \.self) { category in
                 Button {
                     viewModel.scholarshipCategoryButtonPressed(category)
+                    withAnimation {
+                        proxy.scrollTo(viewModel.scholarshipList.first?.id, anchor: .top) // ⬅️ anchor 인자를 바꿔가며 실험해보자!
+                    }
                 } label: {
                     Text(category.name)
                         .font(.title_md)
@@ -79,7 +83,7 @@ extension AllScholarshipView {
         RoundedRectangle(cornerRadius: 8)
             .fill(Color.gray50)
             .frame(height: 93)
-            .padding(.bottom, 16)
+            .padding(.bottom, 12)
     }
     @ViewBuilder
     func sortingScholarship() -> some View {
@@ -99,6 +103,7 @@ extension AllScholarshipView {
                 .foregroundStyle(.gray500)
             }
         }
+        .padding(.top, 4)
         .padding(.bottom, 16)
     }
 }

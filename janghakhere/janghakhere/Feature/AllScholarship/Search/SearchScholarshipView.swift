@@ -48,6 +48,9 @@ extension SearchScholarshipView {
         HStack(spacing: 0) {
             Icon(name: .exempleIcon, color: .black, size: 28)
                 .padding(.trailing, 10)
+                .onTapGesture {
+                    pathModel.paths.removeLast()
+                }
             HStack(spacing: 0) {
                 TextField(text: $viewModel.searchContent, label: {
                     Text("어떤 장학금을 찾으시나요?")

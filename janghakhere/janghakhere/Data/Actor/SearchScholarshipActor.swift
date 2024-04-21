@@ -10,6 +10,10 @@ import Foundation
 actor SearchScholarshipActor {
     func fetchScholarshipBoxList() async throws -> [ScholarshipBox] {
         //FIXME: API 데이터로 변경
-        return Array(repeating: ScholarshipBox.mockAllData, count: 10)
+        return [ScholarshipBox(id: "10", sponsor: "(재)한국장학재단", title: "(전체)인문100년장학금", DDay: 3, prize: "200만원+", publicAnnouncementStatus: .Nothing),
+                ScholarshipBox(id: "11", sponsor: "(재)한국장학재단", title: "(전체)인문100년장학금", DDay: 3, prize: "200만원+", publicAnnouncementStatus: .Nothing),
+                ScholarshipBox(id: "12", sponsor: "(재)한국장학재단", title: "(전체)인문100년장학금", DDay: 3, prize: "200만원+", publicAnnouncementStatus: .Nothing),
+                ScholarshipBox(id: "13", sponsor: "(재)한국장학재단", title: "(전체)인문100년장학금", DDay: 3, prize: "200만원+", publicAnnouncementStatus: .Nothing),
+                ScholarshipBox(id: "14", sponsor: "(재)한국장학재단", title: "(전체)인문100년장학금", DDay: 3, prize: "200만원+", publicAnnouncementStatus: .Nothing)]
     }
 }

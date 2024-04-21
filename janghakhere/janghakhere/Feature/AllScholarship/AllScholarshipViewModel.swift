@@ -36,7 +36,8 @@ extension AllScholarshipViewModel {
     private func getScholarShipList(_ category : ScholarshipCategory) {
         let task = Task {
             do {
-                scholarshipList = try await managerActor.fetchScholarshipList(category)
+                let scholarshipList = try await managerActor.fetchScholarshipList(category)
+                self.scholarshipList = ScholarshipBoxManager.checkScholarshipBoxListStatus(scholarshipBoxList: scholarshipList)
             } catch {
                 print(error)
             }

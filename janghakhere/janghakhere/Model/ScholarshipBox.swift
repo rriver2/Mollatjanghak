@@ -13,12 +13,12 @@ struct ScholarshipBox: Identifiable, Hashable {
     let title: String
     let DDay: Int
     let prize: String
-    let publicAnnouncementStatus: PublicAnnouncementStatusCategory
+    var publicAnnouncementStatus: PublicAnnouncementStatusCategory
 }
 
 extension ScholarshipBox: CustomStringConvertible {
     var description: String {
-        "장학금 후원자: \(sponsor) 제목: \(title) 디데이: D-\(DDay) 상금: \(prize) 상태: \(publicAnnouncementStatus.rawValue)"
+        "id: \(id) 장학금 후원자: \(sponsor) 제목: \(title) 디데이: D-\(DDay) 상금: \(prize) 상태: \(publicAnnouncementStatus.rawValue)"
     }
 }
 
@@ -39,5 +39,24 @@ extension ScholarshipBox {
     }
     static var mockAllData: ScholarshipBox {
         ScholarshipBox(id: UUID().uuidString, sponsor: "(재)한국장학재단", title: "(전체)인문100년장학금", DDay: 3, prize: "200만원+", publicAnnouncementStatus: .Nothing)
+    }
+    
+    static func mockDataList(_ category : ScholarshipCategory) -> [ScholarshipBox] {
+        switch category {
+        case .custom:
+            return [ScholarshipBox(id: "1", sponsor: "청양사랑인재육성장학회", title: "(전체)인문100년장학금", DDay: 3, prize: "200만원+", publicAnnouncementStatus: .Nothing),
+                    ScholarshipBox(id: "2", sponsor: "청양사랑인재육성장학회", title: "(전체)인문100년장학금", DDay: 3, prize: "200만원+", publicAnnouncementStatus: .Nothing),
+                    ScholarshipBox(id: "3", sponsor: "청양사랑인재육성장학회", title: "(전체)인문100년장학금", DDay: 3, prize: "200만원+", publicAnnouncementStatus: .Nothing),
+                    ScholarshipBox(id: "4", sponsor: "청양사랑인재육성장학회", title: "(전체)인문100년장학금", DDay: 3, prize: "200만원+", publicAnnouncementStatus: .Nothing),
+                    ScholarshipBox(id: "5", sponsor: "청양사랑인재육성장학회", title: "(전체)인문100년장학금", DDay: 3, prize: "200만원+", publicAnnouncementStatus: .Nothing),
+                    ScholarshipBox(id: "6", sponsor: "청양사랑인재육성장학회", title: "(전체)인문100년장학금", DDay: 3, prize: "200만원+", publicAnnouncementStatus: .Nothing),
+                    ScholarshipBox(id: "7", sponsor: "청양사랑인재육성장학회", title: "(전체)인문100년장학금", DDay: 3, prize: "200만원+", publicAnnouncementStatus: .Nothing)]
+        case .all:
+            return [ScholarshipBox(id: "20", sponsor: "(재)한국장학재단", title: "(전체)인문100년장학금", DDay: 3, prize: "200만원+", publicAnnouncementStatus: .Nothing),
+                    ScholarshipBox(id: "21", sponsor: "(재)한국장학재단", title: "(전체)인문100년장학금", DDay: 3, prize: "200만원+", publicAnnouncementStatus: .Nothing),
+                    ScholarshipBox(id: "22", sponsor: "(재)한국장학재단", title: "(전체)인문100년장학금", DDay: 3, prize: "200만원+", publicAnnouncementStatus: .Nothing),
+                    ScholarshipBox(id: "23", sponsor: "(재)한국장학재단", title: "(전체)인문100년장학금", DDay: 3, prize: "200만원+", publicAnnouncementStatus: .Nothing),
+                    ScholarshipBox(id: "24", sponsor: "(재)한국장학재단", title: "(전체)인문100년장학금", DDay: 3, prize: "200만원+", publicAnnouncementStatus: .Nothing)]
+        }
     }
 }
