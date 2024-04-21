@@ -8,5 +8,10 @@
 import Foundation
 
 enum IconCategory: String {
+    // 작은 Icon
     case exempleIcon
+    
+    // 장학금 검색 뷰
+    case nothing
+    case paper
 }

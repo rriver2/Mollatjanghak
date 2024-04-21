@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  FirstView.swift
 //  janghakhere
 //
 //  Created by Gaeun Lee on 4/15/24.
@@ -35,8 +35,8 @@ struct FirstView: View {
                 switch pathType {
                 case .detailScholarshipView(let id):
                     DetailScholarshipView(id: id)
-                case .bbb:
-                    Text("")
+                case .searchScholarshipView:
+                    SearchScholarshipView()
                 }
             }
         }
