@@ -8,6 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		7B6445A22BCFF89A00D4AF74 /* Chip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445A12BCFF89A00D4AF74 /* Chip.swift */; };
+		7B6445B92BD526EF00D4AF74 /* OnboardingMainActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445B62BD526EF00D4AF74 /* OnboardingMainActor.swift */; };
+		7B6445BA2BD526EF00D4AF74 /* OnboardingMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445B72BD526EF00D4AF74 /* OnboardingMainView.swift */; };
+		7B6445BB2BD526EF00D4AF74 /* OnboardingMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445B82BD526EF00D4AF74 /* OnboardingMainViewModel.swift */; };
+		7B6445BD2BD5272B00D4AF74 /* SemesterYear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445BC2BD5272B00D4AF74 /* SemesterYear.swift */; };
+		7B6445BF2BD5277600D4AF74 /* Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445BE2BD5277600D4AF74 /* Gender.swift */; };
+		7B6445C12BD527CB00D4AF74 /* GenderSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445C02BD527CB00D4AF74 /* GenderSelectionView.swift */; };
+		7B6445C42BD5295A00D4AF74 /* DateSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445C32BD5295A00D4AF74 /* DateSelectionView.swift */; };
+		7B6445C62BD534F500D4AF74 /* SemesterYearSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445C52BD534F400D4AF74 /* SemesterYearSelectionView.swift */; };
+		7B6445C92BD53D1B00D4AF74 /* OnboardingBeginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445C82BD53D1B00D4AF74 /* OnboardingBeginView.swift */; };
 		FB27A2AB2BD2A118007C62D0 /* SearchScholarshipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB27A2A92BD2A118007C62D0 /* SearchScholarshipView.swift */; };
 		FB27A2AC2BD2A118007C62D0 /* SearchScholarshipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB27A2AA2BD2A118007C62D0 /* SearchScholarshipViewModel.swift */; };
 		FB27A2AE2BD2A124007C62D0 /* SearchScholarshipStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB27A2AD2BD2A124007C62D0 /* SearchScholarshipStatus.swift */; };
@@ -50,6 +59,15 @@
 
 /* Begin PBXFileReference section */
 		7B6445A12BCFF89A00D4AF74 /* Chip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chip.swift; sourceTree = "<group>"; };
+		7B6445B62BD526EF00D4AF74 /* OnboardingMainActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingMainActor.swift; sourceTree = "<group>"; };
+		7B6445B72BD526EF00D4AF74 /* OnboardingMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingMainView.swift; sourceTree = "<group>"; };
+		7B6445B82BD526EF00D4AF74 /* OnboardingMainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingMainViewModel.swift; sourceTree = "<group>"; };
+		7B6445BC2BD5272B00D4AF74 /* SemesterYear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemesterYear.swift; sourceTree = "<group>"; };
+		7B6445BE2BD5277600D4AF74 /* Gender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
+		7B6445C02BD527CB00D4AF74 /* GenderSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderSelectionView.swift; sourceTree = "<group>"; };
+		7B6445C32BD5295A00D4AF74 /* DateSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelectionView.swift; sourceTree = "<group>"; };
+		7B6445C52BD534F400D4AF74 /* SemesterYearSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemesterYearSelectionView.swift; sourceTree = "<group>"; };
+		7B6445C82BD53D1B00D4AF74 /* OnboardingBeginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingBeginView.swift; sourceTree = "<group>"; };
 		FB27A2A92BD2A118007C62D0 /* SearchScholarshipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchScholarshipView.swift; sourceTree = "<group>"; };
 		FB27A2AA2BD2A118007C62D0 /* SearchScholarshipViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchScholarshipViewModel.swift; sourceTree = "<group>"; };
 		FB27A2AD2BD2A124007C62D0 /* SearchScholarshipStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchScholarshipStatus.swift; sourceTree = "<group>"; };
@@ -123,6 +141,33 @@
 				7B6445A12BCFF89A00D4AF74 /* Chip.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		7B6445B52BD526DE00D4AF74 /* OnboardingMain */ = {
+			isa = PBXGroup;
+			children = (
+				7B6445B62BD526EF00D4AF74 /* OnboardingMainActor.swift */,
+				7B6445B72BD526EF00D4AF74 /* OnboardingMainView.swift */,
+				7B6445B82BD526EF00D4AF74 /* OnboardingMainViewModel.swift */,
+			);
+			path = OnboardingMain;
+			sourceTree = "<group>";
+		};
+		7B6445C22BD5294A00D4AF74 /* Sheet */ = {
+			isa = PBXGroup;
+			children = (
+				7B6445C32BD5295A00D4AF74 /* DateSelectionView.swift */,
+				7B6445C52BD534F400D4AF74 /* SemesterYearSelectionView.swift */,
+			);
+			path = Sheet;
+			sourceTree = "<group>";
+		};
+		7B6445C72BD53CFD00D4AF74 /* OnboardingBegin */ = {
+			isa = PBXGroup;
+			children = (
+				7B6445C82BD53D1B00D4AF74 /* OnboardingBeginView.swift */,
+			);
+			path = OnboardingBegin;
 			sourceTree = "<group>";
 		};
 		FB27A2A82BD2A0F6007C62D0 /* Recovered References */ = {
@@ -274,6 +319,7 @@
 				FB978CB42BCD8EBC00347D47 /* AllScholarship */,
 				FB978CB52BCD8ECF00347D47 /* MyScholarship */,
 				FB978CB62BCD8ED700347D47 /* MyPage */,
+				7B6445C02BD527CB00D4AF74 /* GenderSelectionView.swift */,
 			);
 			path = Feature;
 			sourceTree = "<group>";
@@ -340,6 +386,9 @@
 		FBEEBBA72BCEC1A6006CE5EA /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				7B6445C72BD53CFD00D4AF74 /* OnboardingBegin */,
+				7B6445C22BD5294A00D4AF74 /* Sheet */,
+				7B6445B52BD526DE00D4AF74 /* OnboardingMain */,
 				FBE769762BCF7698007F8DEF /* GrayLineTextFieldView.swift */,
 				FBE769822BCF8E11007F8DEF /* SlotMachineView.swift */,
 				FBE769782BCF769E007F8DEF /* MainButtonView.swift */,
@@ -352,6 +401,8 @@
 			isa = PBXGroup;
 			children = (
 				FB676A9D2BD50A410077700E /* Onboarding.swift */,
+				7B6445BC2BD5272B00D4AF74 /* SemesterYear.swift */,
+				7B6445BE2BD5277600D4AF74 /* Gender.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -426,6 +477,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B6445BD2BD5272B00D4AF74 /* SemesterYear.swift in Sources */,
 				FB978CA42BCD777000347D47 /* Utils.swift in Sources */,
 				FB978CAA2BCD79F300347D47 /* MyPageView.swift in Sources */,
 				FB27A2AC2BD2A118007C62D0 /* SearchScholarshipViewModel.swift in Sources */,
@@ -435,6 +487,10 @@
 				FBEEBB932BCE9CC6006CE5EA /* DetailScholarship.swift in Sources */,
 				FB978CAF2BCD7FF800347D47 /* extension.swift in Sources */,
 				FBEEBB912BCE9CB2006CE5EA /* DetailScholarshipView.swift in Sources */,
+				7B6445B92BD526EF00D4AF74 /* OnboardingMainActor.swift in Sources */,
+				7B6445BA2BD526EF00D4AF74 /* OnboardingMainView.swift in Sources */,
+				7B6445BF2BD5277600D4AF74 /* Gender.swift in Sources */,
+				7B6445BB2BD526EF00D4AF74 /* OnboardingMainViewModel.swift in Sources */,
 				FB978CB12BCD83CC00347D47 /* IconCategory.swift in Sources */,
 				FBEEBB872BCE97C2006CE5EA /* PublicAnnouncementStatusCategory.swift in Sources */,
 				FB676AA22BD50A5A0077700E /* MyPage.swift in Sources */,
@@ -451,12 +507,16 @@
 				FB978C942BCD770600347D47 /* Item.swift in Sources */,
 				FBEEBBA12BCEAB40006CE5EA /* PathModel.swift in Sources */,
 				FBE7698F2BD002EC007F8DEF /* DeviceInfo.swift in Sources */,
+				7B6445C12BD527CB00D4AF74 /* GenderSelectionView.swift in Sources */,
+				7B6445C92BD53D1B00D4AF74 /* OnboardingBeginView.swift in Sources */,
 				FB978C902BCD770600347D47 /* janghakhereApp.swift in Sources */,
 				FBEEBB8E2BCE9BC1006CE5EA /* AllScholarshipViewModel.swift in Sources */,
+				7B6445C62BD534F500D4AF74 /* SemesterYearSelectionView.swift in Sources */,
 				FBEEBB8A2BCE98DF006CE5EA /* ScholarshipCategory.swift in Sources */,
 				FB978CA82BCD79E900347D47 /* AllScholarshipView.swift in Sources */,
 				FBE769832BCF8E11007F8DEF /* SlotMachineView.swift in Sources */,
 				7B6445A22BCFF89A00D4AF74 /* Chip.swift in Sources */,
+				7B6445C42BD5295A00D4AF74 /* DateSelectionView.swift in Sources */,
 				FB978CA62BCD79CF00347D47 /* MyScholarshipView.swift in Sources */,
 				FBEEBB852BCE972B006CE5EA /* ScholarshipBox.swift in Sources */,
 				FBE7698D2BD00127007F8DEF /* ScholarshipBoxListView.swift in Sources */,
