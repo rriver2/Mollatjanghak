@@ -13,9 +13,7 @@ struct ScholarshipBoxListView: View {
     var scholarshipList: [ScholarshipBox]
     
     var body: some View {
-        //FIXME: 맞춤 <-> 전체 시 제일 위로 스크롤 되도록
         VStack(spacing: 0) {
-//            ScrollViewReader { proxy in
                 ScrollView {
                     // 장학금 박스들
                     ForEach(scholarshipList, id: \.self) { scholarship in
@@ -32,7 +30,6 @@ struct ScholarshipBoxListView: View {
                 .padding(.top, 16)
                 .paddingHorizontal()
                 Spacer()
-//            }
         }
         .frame(maxWidth: .infinity)
         .background(Color.gray50)
