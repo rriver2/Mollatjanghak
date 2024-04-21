@@ -10,22 +10,34 @@ import SwiftUI
 struct GrayLineTextFieldView: View {
     @Binding var text: String
     @FocusState private var isKeyBoardOn: Bool
-    
     let placeHolder: String
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            TextField(text: $text) {
-                Text(placeHolder)
+            HStack {
+                TextField(text: $text) {
+                    Text(placeHolder)
+                        .font(.title_md)
+                }
+                .focused($isKeyBoardOn)
+                
+                if !text.isEmpty {
+                    Button {
+                        text = ""
+                    } label: {
+                        Image(systemName: "x.circle.fill")
+                            .font(.system(size: 19.5))
+                            .foregroundStyle(.gray600)
+                    }
+                }
             }
-            .focused($isKeyBoardOn)
             .accentColor(.black)
             .padding(.leading, 4)
             .onAppear {
                 isKeyBoardOn = true
             }
             Rectangle()
-                .foregroundStyle(.gray300)
+                .foregroundStyle(isKeyBoardOn ? .mainGray  : .gray300)
                 .frame(height: 1)
         }
     }
