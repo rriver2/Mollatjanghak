@@ -56,7 +56,7 @@ extension AllScholarshipView {
                 Button {
                     viewModel.scholarshipCategoryButtonPressed(category)
                     withAnimation {
-                        proxy.scrollTo(viewModel.scholarshipList.first?.id, anchor: .top) // ⬅️ anchor 인자를 바꿔가며 실험해보자!
+                        proxy.scrollTo(viewModel.scholarshipList.first?.id, anchor: .top)
                     }
                 } label: {
                     Text(category.name)
@@ -67,12 +67,13 @@ extension AllScholarshipView {
             }
             
             Spacer()
-            Icon(name: .exempleIcon, size: 28)
+            Icon(name: .magnifyingGlass, size: 28)
                 .padding(.trailing, 12)
                 .onTapGesture {
                     pathModel.paths.append(.searchScholarshipView)
                 }
-            Icon(name: .exempleIcon, size: 28)
+            //FIXME: alarm active <-> default
+            Icon(name: .alarmActive, size: 28)
         }
         .padding(.bottom, 16)
         .padding(.top, 16)
@@ -129,7 +130,7 @@ extension AllScholarshipView {
                     Text("최신순")
                         .font(.semi_title_md)
                         .padding(.trailing, 4)
-                    Icon(name: .exempleIcon, size: 20)
+                    Icon(name: .arrowsUpDown, color: .gray500, size: 20)
                 }
                 .foregroundStyle(.gray500)
             }

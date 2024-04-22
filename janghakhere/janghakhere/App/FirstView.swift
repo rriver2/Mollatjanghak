@@ -9,28 +9,34 @@ import SwiftUI
 
 struct FirstView: View {
     @StateObject private var pathModel = PathModel()
+    @State private var selection = 0
     
     var body: some View {
         NavigationStack(path: $pathModel.paths) {
-            TabView {
+            TabView (selection: $selection) {
                 AllScholarshipView()
                     .tabItem {
-                        // FIXME: Icon 인거 아이콘 나오면 모두 변경해야 함
-                        Icon(name: .exempleIcon, size: 28)
+                        Icon(name: .newspaperClipping, color: selection == 0 ? .black : .gray400, size: 28)
                         Text("전체공고")
+                            .font(.caption)
                     }
+                    .tag(0)
                 MyScholarshipView()
                     .tabItem {
-                        Icon(name: .exempleIcon, size: 28)
+                        Icon(name: .newspaperChecks, color: selection == 1 ? .black : .gray400, size: 28)
                         Text("내공고")
+                            .font(.caption)
                     }
+                    .tag(1)
                 MyPageView()
                     .tabItem {
-                        Icon(name: .exempleIcon, size: 28)
+                        Icon(name: .user, color: selection == 2 ? .black : .gray400, size: 28)
                         Text("마이페이지")
+                            .font(.caption)
                     }
+                    .tag(2)
             }
-            .foregroundStyle(.black)
+            .tint(.black)
             .navigationDestination(for: PathType.self) { pathType  in
                 switch pathType {
                 case .detailScholarshipView(let id):

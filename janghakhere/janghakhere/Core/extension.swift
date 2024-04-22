@@ -15,11 +15,18 @@ extension View {
             .padding(.horizontal, 20)
     }
     
-    func Icon(name: IconCategory, color: Color? = .black, size: CGFloat) -> some View {
-        Image(name.rawValue)
+    func Icon(name: ImageResource, color: Color, size: CGFloat) -> some View {
+        Image(name)
             .renderingMode(.template)
             .resizable()
             .foregroundColor(color)
+            .scaledToFit()
+            .frame(width: size, height: size)
+    }
+    
+    func Icon(name: ImageResource, size: CGFloat) -> some View {
+        Image(name)
+            .resizable()
             .scaledToFit()
             .frame(width: size, height: size)
     }

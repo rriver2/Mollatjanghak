@@ -46,7 +46,7 @@ extension SearchScholarshipView {
     @ViewBuilder
     func navigation() -> some View {
         HStack(spacing: 0) {
-            Icon(name: .exempleIcon, color: .black, size: 28)
+            Icon(name: .arrowLeft, color: .black, size: 28)
                 .padding(.trailing, 10)
                 .onTapGesture {
                     pathModel.paths.removeLast()
@@ -62,13 +62,13 @@ extension SearchScholarshipView {
                     viewModel.searchButtonPressed()
                 }
                 if !viewModel.searchContent.isEmpty {
-                    Icon(name: .exempleIcon, color: .red, size: 24)
+                    Icon(name: .erace, color: .gray500, size: 24)
                         .onTapGesture {
                             viewModel.searchbarXButtonPressed()
                         }
                         .padding(.leading, 8)
                 } else {
-                    Icon(name: .exempleIcon, color: .gray500, size: 24)
+                    Icon(name: .magnifyingGlass, color: .gray500, size: 24)
                 }
             }
             .focused($isKeyBoardOn)
@@ -125,9 +125,9 @@ extension SearchScholarshipView {
         IconAndAlert(icon: .nothing, alertText:"공고를 발견하지 못했어요\n다른 키워드로 검색해 보는 건 어떨까요?")
     }
     @ViewBuilder
-    func IconAndAlert(icon: IconCategory, alertText: String) -> some View {
+    func IconAndAlert(icon: ImageResource, alertText: String) -> some View {
         VStack(spacing: 0) {
-            Icon(name: icon, color: .gray500, size: 120)
+            Icon(name: icon, color: .gray500, size: 122)
                 .padding(.bottom, 8)
                 .padding(.top, HeightRatio)
             Text(alertText)

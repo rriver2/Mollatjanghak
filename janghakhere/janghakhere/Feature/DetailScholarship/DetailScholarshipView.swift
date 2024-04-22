@@ -29,7 +29,7 @@ extension DetailScholarshipView {
     @ViewBuilder
     func navigation() -> some View {
         HStack(spacing: 0) {
-            Icon(name: .exempleIcon, color: .black, size: 28)
+            Icon(name: .arrowLeft, color: .black, size: 28)
                 .padding(.trailing, 10)
                 .onTapGesture {
                     pathModel.paths.removeLast()
@@ -38,7 +38,7 @@ extension DetailScholarshipView {
             Text("상세")
                 .font(.title_xsm)
             Spacer()
-            Icon(name: .exempleIcon, color: .black, size: 28)
+            Icon(name: .share, color: .black, size: 28)
                 .padding(.trailing, 10)
                 .onTapGesture {
                     viewModel.shareButtonPressed()

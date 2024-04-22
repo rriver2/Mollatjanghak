@@ -37,7 +37,7 @@ struct ScholarshipBoxView: View {
                         .foregroundStyle(.destructiveRed)
                         .padding(.trailing, 8)
                     HStack(spacing: 0) {
-                        Icon(name: .exempleIcon, color: .gray700, size: 11)
+                        Icon(name: .currencyKrw, color: .gray700, size: 16)
                             .padding(.trailing, 5)
                         Text(scholarshipBox.prize)
                             .font(.semi_title_sm)
@@ -51,7 +51,7 @@ struct ScholarshipBoxView: View {
             }
             Spacer()
             HStack(spacing: 0) {
-                Icon(name: .exempleIcon, color: scholarshipBox.publicAnnouncementStatus.buttonFontColor, size: 11)
+                Icon(name: scholarshipBox.publicAnnouncementStatus.IconName, color: scholarshipBox.publicAnnouncementStatus.buttonFontColor, size: 16)
                     .padding(.trailing, 4)
                 Text(scholarshipBox.publicAnnouncementStatus.title)
                     .font(.semi_title_sm)
