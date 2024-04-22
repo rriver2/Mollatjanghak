@@ -15,21 +15,32 @@ struct GrayLineTextFieldView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {
-                TextField(text: $text) {
-                    Text(placeHolder)
-                        .font(.title_md)
-                }
-                .focused($isKeyBoardOn)
-                
-                if !text.isEmpty {
-                    Button {
-                        text = ""
-                    } label: {
-                        Image(systemName: "x.circle.fill")
-                            .font(.system(size: 19.5))
-                            .foregroundStyle(.gray600)
+                TextField("", text: $text)
+                    .font(.title_md)
+                    .focused($isKeyBoardOn)
+                    .overlay {
+                        HStack {
+                            if !text.isEmpty {
+                                Text(text)
+                                    .font(.title_md)
+                                    .foregroundColor(.mainGray)
+                            } else {
+                                Text(placeHolder)
+                                    .font(.title_md)
+                                    .foregroundColor(.gray300)
+                            }
+                            Spacer()
+                            if !text.isEmpty {
+                                Button {
+                                    text = ""
+                                } label: {
+                                    Image(systemName: "x.circle.fill")
+                                        .font(.system(size: 19.5))
+                                        .foregroundColor(.gray600)
+                                }
+                            }
+                        }
                     }
-                }
             }
             .accentColor(.black)
             .padding(.leading, 4)
