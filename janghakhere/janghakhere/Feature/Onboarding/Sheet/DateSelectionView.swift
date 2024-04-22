@@ -22,13 +22,21 @@ struct DateSelectionView: View {
                 .labelsHidden()
                 .environment(\.locale, .init(identifier: "ko_KR"))
             Spacer()
-            Button {
-                dismiss()
-            } label: {
-                Text("확인")
-            }
-            .buttonStyle(MainButtonStyle())
+            MainButtonView(
+                title: "확인",
+                action: {
+                    dismiss()
+                },
+                disabled: false
+            )
             .padding(.horizontal, 31)
+//            Button {
+//                dismiss()
+//            } label: {
+//                Text("확인")
+//            }
+//            .buttonStyle(MainButtonStyle())
+//            .padding(.horizontal, 31)
         }
         .presentationDetents([.medium])
     }
