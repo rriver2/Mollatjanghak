@@ -33,7 +33,8 @@ enum SemesterYear: CaseIterable {
         case .doctoral:
             return "박사"
         case .notSelected:
-            return "아직 선택 안 됨"
+            return "1학년"
+            // 구현상의 편리를 위해서 1학년으로 만듬. 나중에 필요가 있으면 "선택 안 됨"으로 수정하시죠!
         }
     }
 }
