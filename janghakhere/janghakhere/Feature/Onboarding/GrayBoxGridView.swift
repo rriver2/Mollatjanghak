@@ -33,28 +33,49 @@ struct GrayBoxGridView: View {
         }
     }
     
-    private let column: ColumnCategory
-    private let titleList: [String]
-    private let clickedButton: (() -> Void)
+     let column: ColumnCategory
+     let titleList: [String]
+     let clickedButton: (() -> Void)
+    @Binding var selectedElement: String
     
-    init(column: ColumnCategory, titleList: [String], clickedButton: @escaping () -> Void) {
-        self.titleList = titleList
-        self.clickedButton = clickedButton
-        self.column = column
-    }
+//    init(
+//        column: ColumnCategory,
+//        titleList: [String],
+//        clickedButton: @escaping () -> Void,
+//        selectedElement: Binding<String>
+//    ) {
+//        self.titleList = titleList
+//        self.clickedButton = clickedButton
+//        self.column = column
+//        self.selectedElement = selectedElement
+//    }
+    
+    
     
     var body: some View {
-        LazyVGrid(columns: column.gridItemList, spacing: column.verticalPadding) {
+        LazyVGrid(
+            columns: column.gridItemList,
+            spacing: column.verticalPadding
+        ) {
             ForEach(titleList, id : \.self){ title in
                 Button {
+                    self.selectedElement = title
                     clickedButton()
                 } label: {
                     Text(title)
                         .font(.title_xsm)
                         .padding(.vertical, 13)
-                        .foregroundStyle(.gray600)
+                        .foregroundStyle(
+                            selectedElement == title
+                            ? .white
+                            : .gray600
+                        )
                         .frame(maxWidth: .infinity)
-                        .background(Color.gray70)
+                        .background(
+                            selectedElement == title
+                            ? .mainGray
+                            : .gray70
+                        )
                         .cornerRadius(4)
                 }
             }
@@ -63,5 +84,19 @@ struct GrayBoxGridView: View {
 }
 
 #Preview {
-    GrayBoxGridView(column: .three, titleList: ["인문", "사회", "교육", "자연", "공학", "의약", "예체능", "기타"], clickedButton: {})
+    struct GrayBoxGridPreviewContainer: View {
+        @State var element: String = ""
+        
+        var body: some View {
+            GrayBoxGridView(column: .three, titleList: [], clickedButton: {}, selectedElement: $element)
+//            GrayBoxGridView(
+//                column: .three,
+//                titleList: ["인문", "사회", "교육", "자연", "공학", "의약", "예체능", "기타"],
+//                clickedButton: {},
+//                selectedElement: $element.wrappedValue
+//            )
+        }
+    }
+    return GrayBoxGridPreviewContainer()
 }
+
