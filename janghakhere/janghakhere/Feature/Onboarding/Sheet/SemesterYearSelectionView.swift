@@ -23,11 +23,11 @@ struct SemesterYearSelectionView: View {
             }
             ForEach(SemesterYear.allCases, id: \.self) { year in
                 if year != .notSelected {
-                    Button(action: {
+                    
+                    Button {
                         self.selectedYear = year // 선택된 학년 업데이트
                         self.year = year
-//                        dismiss()
-                    }) {
+                    } label: {
                         HStack {
                             Text(year.getYearText())
                                 .font(.title_xsm)
@@ -51,12 +51,13 @@ struct SemesterYearSelectionView: View {
                 }
             }
             Spacer()
-            Button {
-                dismiss()
-            } label: {
-                Text("확인")
-            }
-            .buttonStyle(MainButtonStyle())
+            MainButtonView(
+                title: "확인",
+                action: {
+                    dismiss()
+                },
+                disabled: false
+            )
             .padding(.top, 20)
             .padding()
         }

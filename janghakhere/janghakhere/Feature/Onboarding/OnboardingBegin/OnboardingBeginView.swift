@@ -29,7 +29,7 @@ struct OnboardingBeginView: View {
                 Text("입력하고 추천받기")
                     .font(.title_xsm)
             }
-            .buttonStyle(MainButtonStyle())
+            .buttonStyle(MainButtonStyle(disabled: false))
             .padding()
         }
     }

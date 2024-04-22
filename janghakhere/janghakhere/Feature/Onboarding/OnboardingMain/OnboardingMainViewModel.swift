@@ -40,4 +40,11 @@ extension OnboardingMainViewModel {
         tasks.forEach({ $0.cancel()})
         tasks = []
     }
+    
+    func isEmptyDate(_ date: Date) -> Bool {
+        let calendar = Calendar.current
+        let dateComponents = calendar.dateComponents([.year, .month, .day], from: date)
+        let today = calendar.dateComponents([.year, .month, .day], from: Date())
+        return dateComponents.year == today.year && dateComponents.month == today.month && dateComponents.day == today.day
+    }
 }

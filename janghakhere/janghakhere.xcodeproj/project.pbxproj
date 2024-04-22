@@ -319,7 +319,6 @@
 				FB978CB42BCD8EBC00347D47 /* AllScholarship */,
 				FB978CB52BCD8ECF00347D47 /* MyScholarship */,
 				FB978CB62BCD8ED700347D47 /* MyPage */,
-				7B6445C02BD527CB00D4AF74 /* GenderSelectionView.swift */,
 			);
 			path = Feature;
 			sourceTree = "<group>";
@@ -392,6 +391,7 @@
 				FBE769762BCF7698007F8DEF /* GrayLineTextFieldView.swift */,
 				FBE769822BCF8E11007F8DEF /* SlotMachineView.swift */,
 				FBE769782BCF769E007F8DEF /* MainButtonView.swift */,
+				7B6445C02BD527CB00D4AF74 /* GenderSelectionView.swift */,
 				FBE7697A2BCF76A4007F8DEF /* GrayBoxGridView.swift */,
 			);
 			path = Onboarding;

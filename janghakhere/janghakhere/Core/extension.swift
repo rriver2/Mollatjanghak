@@ -69,3 +69,12 @@ extension UserDefaults {
         UserDefaults.standard.removeObject(forKey: key.rawValue)
     }
 }
+
+// MARK: - Date
+extension Date {
+    func customDateFomatter() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy년 MM월 dd일"
+        return formatter.string(from: self)
+    }
+}
