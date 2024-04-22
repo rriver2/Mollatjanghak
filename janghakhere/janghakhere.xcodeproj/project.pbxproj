@@ -16,6 +16,8 @@
 		FB676A9E2BD50A410077700E /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB676A9D2BD50A410077700E /* Onboarding.swift */; };
 		FB676AA02BD50A510077700E /* MyScholarship.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB676A9F2BD50A510077700E /* MyScholarship.swift */; };
 		FB676AA22BD50A5A0077700E /* MyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB676AA12BD50A5A0077700E /* MyPage.swift */; };
+		FB676AA72BD51A8A0077700E /* DetailScholarshipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB676AA62BD51A8A0077700E /* DetailScholarshipViewModel.swift */; };
+		FB676AA92BD51A9C0077700E /* DetailScholarshipActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB676AA82BD51A9C0077700E /* DetailScholarshipActor.swift */; };
 		FB978C902BCD770600347D47 /* janghakhereApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB978C8F2BCD770600347D47 /* janghakhereApp.swift */; };
 		FB978C922BCD770600347D47 /* SwiftDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB978C912BCD770600347D47 /* SwiftDataView.swift */; };
 		FB978C942BCD770600347D47 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB978C932BCD770600347D47 /* Item.swift */; };
@@ -36,6 +38,7 @@
 		FBE769872BCFF36D007F8DEF /* SearchScholarshipActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE769842BCFF36D007F8DEF /* SearchScholarshipActor.swift */; };
 		FBE7698D2BD00127007F8DEF /* ScholarshipBoxListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE7698C2BD00127007F8DEF /* ScholarshipBoxListView.swift */; };
 		FBE7698F2BD002EC007F8DEF /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE7698E2BD002EC007F8DEF /* DeviceInfo.swift */; };
+		FBEC81F42BD55EEE00A9A700 /* ScholarshipBoxManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEC81F32BD55EEE00A9A700 /* ScholarshipBoxManager.swift */; };
 		FBEEBB852BCE972B006CE5EA /* ScholarshipBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEEBB842BCE972B006CE5EA /* ScholarshipBox.swift */; };
 		FBEEBB872BCE97C2006CE5EA /* PublicAnnouncementStatusCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEEBB862BCE97C2006CE5EA /* PublicAnnouncementStatusCategory.swift */; };
 		FBEEBB8A2BCE98DF006CE5EA /* ScholarshipCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEEBB892BCE98DF006CE5EA /* ScholarshipCategory.swift */; };
@@ -58,6 +61,8 @@
 		FB676A9D2BD50A410077700E /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
 		FB676A9F2BD50A510077700E /* MyScholarship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyScholarship.swift; sourceTree = "<group>"; };
 		FB676AA12BD50A5A0077700E /* MyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPage.swift; sourceTree = "<group>"; };
+		FB676AA62BD51A8A0077700E /* DetailScholarshipViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScholarshipViewModel.swift; sourceTree = "<group>"; };
+		FB676AA82BD51A9C0077700E /* DetailScholarshipActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScholarshipActor.swift; sourceTree = "<group>"; };
 		FB978C8C2BCD770600347D47 /* janghakhere.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = janghakhere.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB978C8F2BCD770600347D47 /* janghakhereApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = janghakhereApp.swift; sourceTree = "<group>"; };
 		FB978C912BCD770600347D47 /* SwiftDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataView.swift; sourceTree = "<group>"; };
@@ -83,6 +88,7 @@
 		FBE7698C2BD00127007F8DEF /* ScholarshipBoxListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScholarshipBoxListView.swift; sourceTree = "<group>"; };
 		FBE7698E2BD002EC007F8DEF /* DeviceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInfo.swift; sourceTree = "<group>"; };
 		FBE769902BD00482007F8DEF /* SearchScholarshipStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchScholarshipStatus.swift; sourceTree = "<group>"; };
+		FBEC81F32BD55EEE00A9A700 /* ScholarshipBoxManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScholarshipBoxManager.swift; sourceTree = "<group>"; };
 		FBEEBB842BCE972B006CE5EA /* ScholarshipBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScholarshipBox.swift; sourceTree = "<group>"; };
 		FBEEBB862BCE97C2006CE5EA /* PublicAnnouncementStatusCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicAnnouncementStatusCategory.swift; sourceTree = "<group>"; };
 		FBEEBB892BCE98DF006CE5EA /* ScholarshipCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScholarshipCategory.swift; sourceTree = "<group>"; };
@@ -133,6 +139,15 @@
 				FBE769902BD00482007F8DEF /* SearchScholarshipStatus.swift */,
 			);
 			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		FB676AA52BD51A7C0077700E /* DetailScholarship */ = {
+			isa = PBXGroup;
+			children = (
+				FBEEBB902BCE9CB2006CE5EA /* DetailScholarshipView.swift */,
+				FB676AA62BD51A8A0077700E /* DetailScholarshipViewModel.swift */,
+			);
+			path = DetailScholarship;
 			sourceTree = "<group>";
 		};
 		FB978C832BCD770600347D47 = {
@@ -242,6 +257,7 @@
 			isa = PBXGroup;
 			children = (
 				FBE769842BCFF36D007F8DEF /* SearchScholarshipActor.swift */,
+				FB676AA82BD51A9C0077700E /* DetailScholarshipActor.swift */,
 				FBEEBB8B2BCE9BB0006CE5EA /* AllScholarshipActor.swift */,
 			);
 			path = Actor;
@@ -267,9 +283,10 @@
 		FBEEBB9A2BCEA7C1006CE5EA /* Feature */ = {
 			isa = PBXGroup;
 			children = (
-				FB978CB22BCD8C5700347D47 /* ScholarshipBoxView.swift */,
-				FBEEBB902BCE9CB2006CE5EA /* DetailScholarshipView.swift */,
 				FBE7698C2BD00127007F8DEF /* ScholarshipBoxListView.swift */,
+				FB978CB22BCD8C5700347D47 /* ScholarshipBoxView.swift */,
+				FBEC81F32BD55EEE00A9A700 /* ScholarshipBoxManager.swift */,
+				FB676AA52BD51A7C0077700E /* DetailScholarship */,
 				FBEEBBA72BCEC1A6006CE5EA /* Onboarding */,
 				FB978CB42BCD8EBC00347D47 /* AllScholarship */,
 				FB978CB52BCD8ECF00347D47 /* MyScholarship */,
@@ -428,8 +445,10 @@
 			files = (
 				FB978CA42BCD777000347D47 /* Utils.swift in Sources */,
 				FB978CAA2BCD79F300347D47 /* MyPageView.swift in Sources */,
+				FBEC81F42BD55EEE00A9A700 /* ScholarshipBoxManager.swift in Sources */,
 				FB27A2AC2BD2A118007C62D0 /* SearchScholarshipViewModel.swift in Sources */,
 				FBE769872BCFF36D007F8DEF /* SearchScholarshipActor.swift in Sources */,
+				FB676AA92BD51A9C0077700E /* DetailScholarshipActor.swift in Sources */,
 				FB978CA12BCD773600347D47 /* FirstView.swift in Sources */,
 				FBE769792BCF769E007F8DEF /* MainButtonView.swift in Sources */,
 				FBEEBB932BCE9CC6006CE5EA /* DetailScholarship.swift in Sources */,
@@ -438,6 +457,7 @@
 				FB978CB12BCD83CC00347D47 /* IconCategory.swift in Sources */,
 				FBEEBB872BCE97C2006CE5EA /* PublicAnnouncementStatusCategory.swift in Sources */,
 				FB676AA22BD50A5A0077700E /* MyPage.swift in Sources */,
+				FB676AA72BD51A8A0077700E /* DetailScholarshipViewModel.swift in Sources */,
 				FBEEBB8C2BCE9BB0006CE5EA /* AllScholarshipActor.swift in Sources */,
 				FB676AA02BD50A510077700E /* MyScholarship.swift in Sources */,
 				FBE7697B2BCF76A4007F8DEF /* GrayBoxGridView.swift in Sources */,

@@ -57,7 +57,8 @@ extension SearchScholarshipViewModel {
             do {
                 let scholarshipList = try await managerActor.fetchScholarshipBoxList()
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0) {
-                    self.scholarshipList = scholarshipList
+                    // scholarshipList의 장학금 status 값 확인하기
+                    self.scholarshipList = ScholarshipBoxManager.checkScholarshipBoxListStatus(scholarshipBoxList: scholarshipList)
                     if scholarshipList.isEmpty {
                         self.searchScholarshipStatus = .searchedNoData
                     } else {
@@ -70,6 +71,10 @@ extension SearchScholarshipViewModel {
             }
         }
         tasks.append(task)
+    }
+    
+    private func checkScholarshipStatus() {
+        
     }
     
     private func AddOneOfSearchedScholarshipText(_ content: String) {

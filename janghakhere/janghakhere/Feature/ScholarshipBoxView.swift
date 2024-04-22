@@ -8,9 +8,16 @@
 import SwiftUI
 
 struct ScholarshipBoxView: View {
-    let scholarshipBox: ScholarshipBox
+    @EnvironmentObject private var pathModel: PathModel
     
-    var body: some View {HStack(spacing: 0) {
+    @State var scholarshipBox: ScholarshipBox
+    
+    init(scholarshipBox: ScholarshipBox) {
+        self._scholarshipBox = State(initialValue: scholarshipBox)
+    }
+    
+    var body: some View {
+        HStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
                 Text(scholarshipBox.sponsor)
                     .font(.semi_title_sm)
@@ -19,7 +26,7 @@ struct ScholarshipBoxView: View {
                 Text(scholarshipBox.title)
                     .font(.title_xsm)
                     .foregroundStyle(Color.black)
-                    .padding(.bottom, 25)
+                    .padding(.bottom, 24)
                 HStack(spacing: 0) {
                     Text("D-\(scholarshipBox.DDay)")
                         .font(.semi_title_sm)
@@ -30,42 +37,57 @@ struct ScholarshipBoxView: View {
                         .foregroundStyle(.destructiveRed)
                         .padding(.trailing, 8)
                     HStack(spacing: 0) {
-                        Icon(name: .exempleIcon, color: .subGreen, size: 11)
+                        Icon(name: .exempleIcon, color: .gray700, size: 11)
                             .padding(.trailing, 5)
                         Text(scholarshipBox.prize)
                             .font(.semi_title_sm)
                     }
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 4)
-                        .background(.subGreen.opacity(0.08))
-                        .cornerRadius(50)
-                        .foregroundStyle(.subGreen)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(.gray60)
+                    .cornerRadius(4)
+                    .foregroundStyle(.gray700)
                 }
             }
             Spacer()
             HStack(spacing: 0) {
-                Icon(name: .exempleIcon, color: .gray700, size: 11)
+                Icon(name: .exempleIcon, color: scholarshipBox.publicAnnouncementStatus.buttonFontColor, size: 11)
                     .padding(.trailing, 4)
-                Text("저장")
+                Text(scholarshipBox.publicAnnouncementStatus.title)
                     .font(.semi_title_sm)
             }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .background(.gray70)
-                .cornerRadius(50)
-                .foregroundStyle(.gray700)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
+            .background(scholarshipBox.publicAnnouncementStatus.buttonColor)
+            .cornerRadius(100)
+            .foregroundStyle(scholarshipBox.publicAnnouncementStatus.buttonFontColor)
+            .onTapGesture {
+                // 예시로
+                var status: PublicAnnouncementStatusCategory = .Nothing
+                switch scholarshipBox.publicAnnouncementStatus {
+                case .Nothing:
+                    status = .Storage
+                case .Storage:
+                    status = .ToBeSupported
+                case .ToBeSupported:
+                    status = .SupportCompleted
+                case .SupportCompleted:
+                    status = .Nothing
+                }
+                scholarshipBox.publicAnnouncementStatus = ScholarshipBoxManager.scholarshipStatusButtonPressed(status: publicAnnouncementStatus(id: scholarshipBox.id, status: status))
+            }
         }
+        .animation(.easeIn, value: scholarshipBox)
         .frame(maxWidth: .infinity)
-        .padding(.top, 19)
-        .padding(.bottom, 16)
+        .padding(.top, 20)
+        .padding(.bottom, 26)
         .padding(.horizontal, 20)
         .background(.white)
         .cornerRadius(8)
         .shadow(color: Color(red: 0.51, green: 0.55, blue: 0.58).opacity(0.1), radius: 4, x: 0, y: 0)
         .padding(.bottom, 16)
+        .onTapGesture {
+            pathModel.paths.append(.detailScholarshipView(id: scholarshipBox.id))
+        }
     }
-}
-
-#Preview {
-    ScholarshipBoxView(scholarshipBox: .mockAllData)
 }
