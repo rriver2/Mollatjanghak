@@ -43,6 +43,8 @@ struct FirstView: View {
                     DetailScholarshipView(id: id)
                 case .searchScholarshipView:
                     SearchScholarshipView()
+                case .alarmView:
+                    AlarmView()
                 }
             }
         }

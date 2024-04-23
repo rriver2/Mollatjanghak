@@ -13,7 +13,6 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
     case ToBeSupported
     case SupportCompleted
     
-    //FIXME: IconName 수정해야 힘
     var IconName: ImageResource {
         switch self {
         case .Nothing:

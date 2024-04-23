@@ -44,7 +44,7 @@ extension Font {
     
     static let text_md = Font.system(size: 16, weight: .regular, design: .default)
     static let text_sm = Font.system(size: 14, weight: .regular, design: .default)
-    static let caption = Font.system(size: 12, weight: .regular, design: .default)
+    static let text_caption = Font.system(size: 12, weight: .regular, design: .default)
 }
 
 // MARK: - UserDefault

@@ -74,6 +74,9 @@ extension AllScholarshipView {
                 }
             //FIXME: alarm active <-> default
             Icon(name: .alarmActive, size: 28)
+                .onTapGesture {
+                    pathModel.paths.append(.alarmView)
+                }
         }
         .padding(.bottom, 16)
         .padding(.top, 16)
