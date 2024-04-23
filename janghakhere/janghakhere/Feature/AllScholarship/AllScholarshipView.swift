@@ -27,6 +27,8 @@ struct AllScholarshipView: View {
     @EnvironmentObject private var pathModel: PathModel
     @StateObject private var viewModel = AllScholarshipViewModel()
     
+    @State private var isUserSwipedBanner = false
+    
     var body: some View {
         VStack(spacing: 0) {
             ScrollViewReader { proxy in
@@ -86,14 +88,17 @@ extension AllScholarshipView {
     @ViewBuilder
     func advertisement() -> some View {
         TabView(selection: $viewModel.advertisementSelection) {
-            Rectangle()
-                .fill(Color.red)
+            Image(.banner0)
+                .resizable()
+                .scaledToFit()
                 .tag(0)
-            Rectangle()
-                .fill(Color.green)
+            Image(.banner1)
+                .resizable()
+                .scaledToFit()
                 .tag(1)
-            Rectangle()
-                .fill(Color.yellow)
+            Image(.banner2)
+                .resizable()
+                .scaledToFit()
                 .tag(2)
         }
         .frame(height: 93)
@@ -104,10 +109,10 @@ extension AllScholarshipView {
             ZStack(alignment: .leading) {
                 RoundedRectangle(cornerRadius: 5)
                     .frame(width: 113, height: 2)
-                    .foregroundStyle(.gray200)
+                    .foregroundStyle(.gray800)
                 RoundedRectangle(cornerRadius: 5)
                     .frame(width: viewModel.advertisementSelectionWidth, height: 2)
-                    .foregroundStyle(.gray500)
+                    .foregroundStyle(.gray60)
                     .animation(.linear, value: viewModel.advertisementSelectionWidth)
             }
             .padding(.bottom, 7)
@@ -119,7 +124,13 @@ extension AllScholarshipView {
             UIPageControl.appearance().currentPageIndicatorTintColor = .clear
             UIPageControl.appearance().pageIndicatorTintColor = .clear
         }
+        .onChange(of: viewModel.advertisementSelection, { _, _ in
+            viewModel.timerinit()
+        })
+        .animation(.easeInOut, value: viewModel.advertisementSelection)
+        .transition(.slide)
     }
+    
     @ViewBuilder
     func sortingScholarship() -> some View {
         HStack(spacing: 0) {

@@ -59,7 +59,7 @@ extension AlarmView {
     func alarmInfoCell(_ alarm: Alarm) -> some View {
         VStack(spacing: 0) {
             HStack(alignment: .top, spacing: 0) {
-                Icon(name: alarm.IconName, size: 24)
+                Icon(name: alarm.IconName, size: 28)
                     .padding(.trailing, 8)
                 VStack(alignment: .leading, spacing: 0) {
                     Text(alarm.title)

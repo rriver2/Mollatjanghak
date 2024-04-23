@@ -13,18 +13,18 @@ final class AllScholarshipViewModel: ObservableObject {
     
     @Published private(set) var scholarshipCategory: ScholarshipCategory = .custom
     @Published private(set) var scholarshipList: [ScholarshipBox] = []
-    @Published var advertisementSelection: Int = 0 {
-        didSet {
-            if advertisementSelection == 0 {
-                advertisementSelectionWidth = 113/3
-            } else if advertisementSelection == 1 {
-                advertisementSelectionWidth = 113/3*2
-            } else {
-                advertisementSelectionWidth = 113
-            }
+    @Published var advertisementSelection: Int = 0
+    @Published private var timer: Timer?
+    
+    var advertisementSelectionWidth: CGFloat {
+        if advertisementSelection == 0 {
+           return 113/3
+        } else if advertisementSelection == 1 {
+            return 113/3*2
+        } else {
+            return 113
         }
     }
-    @Published var advertisementSelectionWidth: CGFloat = 113/3
     
     private var tasks: [Task<Void, Never>] = []
     
@@ -42,6 +42,10 @@ final class AllScholarshipViewModel: ObservableObject {
     func scholarship() {
         
     }
+    // 자동 swipe 배너를 위한 타이머 설정
+    func timerinit() {
+        timerRestart()
+    }
 }
 
 // private 함수들
@@ -57,12 +61,25 @@ extension AllScholarshipViewModel {
         }
         tasks.append(task)
     }
+    
+    private func timerRestart() {
+        timer?.invalidate()
+        timer = nil
+        self.timer = Timer.scheduledTimer(withTimeInterval: 4, repeats: false) { timer in
+            if self.advertisementSelection == 2 {
+                self.advertisementSelection = 0
+            } else {
+                self.advertisementSelection += 1
+            }
+        }
+    }
 }
 
 // 기본 함수들
 extension AllScholarshipViewModel {
     func viewOpened() {
         self.getScholarShipList(.custom)
+        self.timerinit()
     }
     
     func cancelTasks() {

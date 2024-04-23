@@ -15,6 +15,21 @@ extension View {
             .padding(.horizontal, 20)
     }
     
+    func font(_ font: UIFont) -> some View {
+        var fontSpacing: CGFloat {
+            if font == .text_sm {
+                return font.lineHeight / 100 * 80 / 4
+            } else {
+                return font.lineHeight / 100 * 50 / 4
+            }
+        }
+        return self
+            .font(Font(font))
+            .padding(.top, fontSpacing)
+            .padding(.bottom, fontSpacing)
+            .lineSpacing(fontSpacing * 2)
+    }
+    
     func Icon(name: ImageResource, color: Color, size: CGFloat) -> some View {
         Image(name)
             .renderingMode(.template)
@@ -32,19 +47,19 @@ extension View {
     }
 }
 
-// MARK: - Font
-extension Font {
-    static let title_lg = Font.system(size: 30, weight: .semibold, design: .default)
-    static let title_md = Font.system(size: 26, weight: .semibold, design: .default)
-    static let title_sm = Font.system(size: 20, weight: .semibold, design: .default)
-    static let title_xsm = Font.system(size: 17, weight: .semibold, design: .default)
+// MARK: - UIFont
+extension UIFont {
+    static let title_lg = UIFont.systemFont(ofSize: 30, weight: .semibold)
+    static let title_md = UIFont.systemFont(ofSize: 26, weight: .semibold)
+    static let title_sm = UIFont.systemFont(ofSize: 20, weight: .semibold)
+    static let title_xsm = UIFont.systemFont(ofSize: 17, weight: .semibold)
     
-    static let semi_title_md = Font.system(size: 15, weight: .semibold, design: .default)
-    static let semi_title_sm = Font.system(size: 12, weight: .semibold, design: .default)
+    static let semi_title_md = UIFont.systemFont(ofSize: 15, weight: .semibold)
+    static let semi_title_sm = UIFont.systemFont(ofSize: 12, weight: .semibold)
     
-    static let text_md = Font.system(size: 16, weight: .regular, design: .default)
-    static let text_sm = Font.system(size: 14, weight: .regular, design: .default)
-    static let text_caption = Font.system(size: 12, weight: .regular, design: .default)
+    static let text_md = UIFont.systemFont(ofSize: 16, weight: .regular)
+    static let text_sm = UIFont.systemFont(ofSize: 14, weight: .regular)
+    static let text_caption = UIFont.systemFont(ofSize: 12, weight: .regular)
 }
 
 // MARK: - UserDefault
