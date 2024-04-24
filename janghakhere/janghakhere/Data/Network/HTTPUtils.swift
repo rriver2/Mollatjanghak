@@ -5,7 +5,7 @@
 //  Created by Gaeun Lee on 4/16/24.
 //
 
-import Foundation
+import SwiftUI
 
 struct HTTPUtils {
     //FIXME: conFig에서 불러오게 코드 수정해야 함
@@ -50,5 +50,9 @@ struct HTTPUtils {
         } catch {
             throw error
         }
+    }
+    // 사용자 정보 ( 디바이스 고유넘버 )
+    static func getDeviceUUID() -> String {
+        return UIDevice.current.identifierForVendor!.uuidString
     }
 }

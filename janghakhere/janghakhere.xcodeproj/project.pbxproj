@@ -47,7 +47,6 @@
 		FBEEBB852BCE972B006CE5EA /* ScholarshipBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEEBB842BCE972B006CE5EA /* ScholarshipBox.swift */; };
 		FBEEBB872BCE97C2006CE5EA /* PublicAnnouncementStatusCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEEBB862BCE97C2006CE5EA /* PublicAnnouncementStatusCategory.swift */; };
 		FBEEBB8A2BCE98DF006CE5EA /* ScholarshipCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEEBB892BCE98DF006CE5EA /* ScholarshipCategory.swift */; };
-		FBEEBB8C2BCE9BB0006CE5EA /* AllScholarshipActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEEBB8B2BCE9BB0006CE5EA /* AllScholarshipActor.swift */; };
 		FBEEBB8E2BCE9BC1006CE5EA /* AllScholarshipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEEBB8D2BCE9BC1006CE5EA /* AllScholarshipViewModel.swift */; };
 		FBEEBB912BCE9CB2006CE5EA /* DetailScholarshipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEEBB902BCE9CB2006CE5EA /* DetailScholarshipView.swift */; };
 		FBEEBB932BCE9CC6006CE5EA /* DetailScholarship.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEEBB922BCE9CC6006CE5EA /* DetailScholarship.swift */; };
@@ -103,7 +102,6 @@
 		FBEEBB842BCE972B006CE5EA /* ScholarshipBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScholarshipBox.swift; sourceTree = "<group>"; };
 		FBEEBB862BCE97C2006CE5EA /* PublicAnnouncementStatusCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicAnnouncementStatusCategory.swift; sourceTree = "<group>"; };
 		FBEEBB892BCE98DF006CE5EA /* ScholarshipCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScholarshipCategory.swift; sourceTree = "<group>"; };
-		FBEEBB8B2BCE9BB0006CE5EA /* AllScholarshipActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllScholarshipActor.swift; sourceTree = "<group>"; };
 		FBEEBB8D2BCE9BC1006CE5EA /* AllScholarshipViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllScholarshipViewModel.swift; sourceTree = "<group>"; };
 		FBEEBB902BCE9CB2006CE5EA /* DetailScholarshipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScholarshipView.swift; sourceTree = "<group>"; };
 		FBEEBB922BCE9CC6006CE5EA /* DetailScholarship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScholarship.swift; sourceTree = "<group>"; };
@@ -290,7 +288,6 @@
 				FBE769842BCFF36D007F8DEF /* ScholarshipBoxListActor.swift */,
 				FBABCEFF2BD636890068178F /* AlarmActor.swift */,
 				FB676AA82BD51A9C0077700E /* DetailScholarshipActor.swift */,
-				FBEEBB8B2BCE9BB0006CE5EA /* AllScholarshipActor.swift */,
 			);
 			path = Actor;
 			sourceTree = "<group>";
@@ -492,7 +489,6 @@
 				FBEEBB872BCE97C2006CE5EA /* PublicAnnouncementStatusCategory.swift in Sources */,
 				FB676AA22BD50A5A0077700E /* MyPage.swift in Sources */,
 				FB676AA72BD51A8A0077700E /* DetailScholarshipViewModel.swift in Sources */,
-				FBEEBB8C2BCE9BB0006CE5EA /* AllScholarshipActor.swift in Sources */,
 				FB676AA02BD50A510077700E /* MyScholarship.swift in Sources */,
 				FBE7697B2BCF76A4007F8DEF /* GrayBoxGridView.swift in Sources */,
 				FB676A9E2BD50A410077700E /* Onboarding.swift in Sources */,

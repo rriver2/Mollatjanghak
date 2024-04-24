@@ -64,7 +64,7 @@ extension SearchScholarshipViewModel {
     private func getScholarshipList() {
         let task = Task {
             do {
-                let (scholarshipList, totalScholarshipCount, currentPageNumber, totalPages) = try await managerActor.fetchScholarshipBoxList(page: nextPageNumber, keyword: searchContent)
+                let (scholarshipList, totalScholarshipCount, currentPageNumber, totalPages) = try await managerActor.fetchSearchScholarshipBoxList(page: nextPageNumber, keyword: searchContent)
                 
                 self.scholarshipList.append(contentsOf: ScholarshipBoxManager.checkScholarshipBoxListStatus(scholarshipBoxList: scholarshipList))
                 self.nextPageNumber = currentPageNumber + 1

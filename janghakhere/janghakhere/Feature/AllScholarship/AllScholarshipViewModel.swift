@@ -9,7 +9,6 @@ import SwiftUI
 
 @MainActor
 final class AllScholarshipViewModel: ObservableObject {
-    let managerActor: AllScholarshipActor = AllScholarshipActor()
     let scholarshipBoxListActor: ScholarshipBoxListActor = ScholarshipBoxListActor()
     
     @Published private(set) var scholarshipCategory: ScholarshipCategory = .custom
@@ -73,8 +72,7 @@ extension AllScholarshipViewModel {
                 case .all:
                     (scholarshipList, totalScholarshipCount, currentPageNumber, totalPages) = try await scholarshipBoxListActor.fetchScholarshipBoxList(page: nextPageNumber)
                 case .custom:
-                    //FIXME: 실제 API로 수정해야 함
-                    scholarshipList = ScholarshipBox.mockDataList(category)
+                    (scholarshipList, totalScholarshipCount, currentPageNumber, totalPages) = try await scholarshipBoxListActor.fetchCustomScholarshipBoxList(page: nextPageNumber)
                 }
                 
                 self.totalScholarshipCount = totalScholarshipCount

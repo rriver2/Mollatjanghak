@@ -34,12 +34,51 @@ actor ScholarshipBoxListActor {
         let pageNumber: Int
     }
     
-    func fetchScholarshipBoxList(page: Int, keyword: String? = nil) async throws -> (ScholarshipBoxList: [ScholarshipBox], totalElements: Int, pageNumber: Int, totalPages: Int) {
+    // 전체 장학금 조회
+    func fetchScholarshipBoxList(page: Int) async throws -> (ScholarshipBoxList: [ScholarshipBox], totalElements: Int, pageNumber: Int, totalPages: Int) {
         
         do {
-            let parameter = "page=\(page)" + (keyword != nil ? "&keyword=\(keyword!)" : "")
+            let parameter = "page=\(page)"
             let (data , response) = try await HTTPUtils.getURL(urlBack: "/api/scholarships?", parameter: parameter)
             
+            return try responseHandling(data, response)
+        } catch {
+            throw error
+        }
+    }
+    
+    // 맞춤 장학금 조회
+    func fetchCustomScholarshipBoxList(page: Int) async throws -> (ScholarshipBoxList: [ScholarshipBox], totalElements: Int, pageNumber: Int, totalPages: Int) {
+        
+        do {
+            let parameter = "page=\(page)"
+            let userId = HTTPUtils.getDeviceUUID()
+            print("userId", userId)
+            let (data , response) = try await HTTPUtils.getURL(urlBack: "/api/scholarships/members/\(userId)?", parameter: parameter)
+            
+            return try responseHandling(data, response)
+        } catch {
+            throw error
+        }
+    }
+    
+    // 검색 장학금 조회
+    func fetchSearchScholarshipBoxList(page: Int, keyword: String) async throws -> (ScholarshipBoxList: [ScholarshipBox], totalElements: Int, pageNumber: Int, totalPages: Int) {
+        
+        do {
+            let parameter = "page=\(page)&keyword=\(keyword)"
+            let (data , response) = try await HTTPUtils.getURL(urlBack: "/api/scholarships?", parameter: parameter)
+            
+            return try responseHandling(data, response)
+        } catch {
+            throw error
+        }
+    }
+}
+
+extension ScholarshipBoxListActor {
+    private func responseHandling(_ data: Data, _ response: HTTPURLResponse) throws  -> (ScholarshipBoxList: [ScholarshipBox], totalElements: Int, pageNumber: Int, totalPages: Int) {
+        do {
             switch response.statusCode {
             case 200:
                 
