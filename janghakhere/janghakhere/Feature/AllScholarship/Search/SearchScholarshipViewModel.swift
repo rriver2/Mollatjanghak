@@ -9,7 +9,7 @@ import SwiftUI
 
 @MainActor
 final class SearchScholarshipViewModel: ObservableObject {
-    let managerActor: SearchScholarshipActor = SearchScholarshipActor()
+    let managerActor: ScholarshipBoxListActor = ScholarshipBoxListActor()
     
     private var tasks: [Task<Void, Never>] = []
     
@@ -17,6 +17,11 @@ final class SearchScholarshipViewModel: ObservableObject {
     @Published private (set)var searchScholarshipStatus: SearchScholarshipStatus = .notSearchedYet
     @Published private (set)var scholarshipList: [ScholarshipBox] = []
     @Published private (set)var chips: [Chip] = []
+    
+    @Published private (set)var totalScholarshipCount: Int = 0 // 장학금 총 수
+    @Published var totalPages: Int = 0 // 전체 페이지 수
+    @Published private (set)var nextPageNumber: Int = 0 // 다음 페이지 num
+    @Published var isGetMoreScholarshipBox = false
     
     /// 검색 내용 지우기 X 버튼 클릭시
     func searchbarXButtonPressed() {
@@ -48,6 +53,10 @@ final class SearchScholarshipViewModel: ObservableObject {
     func clickedChipXButton(_ chip: Chip) {
         removeSearchedScholarshipTextList(chip.title)
     }
+    
+    func bottomPartScrolled() {
+        self.getScholarshipList()
+    }
 }
 
 // MARK: - private 함수들
@@ -55,10 +64,15 @@ extension SearchScholarshipViewModel {
     private func getScholarshipList() {
         let task = Task {
             do {
-                //FIXME: page 넣기
-                let scholarshipList = try await managerActor.fetchScholarshipBoxList(page: 0, keyword: searchContent)
-                // scholarshipList의 장학금 status 값 확인하기
-                self.scholarshipList = ScholarshipBoxManager.checkScholarshipBoxListStatus(scholarshipBoxList: scholarshipList)
+                let (scholarshipList, totalScholarshipCount, currentPageNumber, totalPages) = try await managerActor.fetchScholarshipBoxList(page: nextPageNumber, keyword: searchContent)
+                
+                self.scholarshipList.append(contentsOf: ScholarshipBoxManager.checkScholarshipBoxListStatus(scholarshipBoxList: scholarshipList))
+                self.nextPageNumber = currentPageNumber + 1
+                self.totalScholarshipCount = totalScholarshipCount
+                if !(totalPages < nextPageNumber) {
+                    self.isGetMoreScholarshipBox = false
+                }
+                
                 if scholarshipList.isEmpty {
                     self.searchScholarshipStatus = .searchedNoData
                 } else {

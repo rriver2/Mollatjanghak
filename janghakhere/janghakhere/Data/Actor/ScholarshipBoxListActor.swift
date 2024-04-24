@@ -1,5 +1,5 @@
 //
-//  SearchScholarshipActor.swift
+//  ScholarshipBoxListActor.swift
 //  janghakhere
 //
 //  Created by Gaeun Lee on 4/17/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-actor SearchScholarshipActor {
+actor ScholarshipBoxListActor {
     
     struct ScholarshipAPI: Encodable {
         let page: Int
@@ -18,6 +18,7 @@ actor SearchScholarshipActor {
         let content: [Content]
         let pageable: Pageable
         let last: Bool
+        let totalPages: Int
         let totalElements: Int
     }
     
@@ -33,10 +34,11 @@ actor SearchScholarshipActor {
         let pageNumber: Int
     }
     
-    func fetchScholarshipBoxList(page: Int, keyword: String) async throws -> [ScholarshipBox] {
+    func fetchScholarshipBoxList(page: Int, keyword: String? = nil) async throws -> (ScholarshipBoxList: [ScholarshipBox], totalElements: Int, pageNumber: Int, totalPages: Int) {
         
         do {
-            let (data , response) = try await HTTPUtils.getURL(urlBack: "/api/scholarships?", parameter: "page=\(page)&keyword=\(keyword)")
+            let parameter = "page=\(page)" + (keyword != nil ? "&keyword=\(keyword!)" : "")
+            let (data , response) = try await HTTPUtils.getURL(urlBack: "/api/scholarships?", parameter: parameter)
             
             switch response.statusCode {
             case 200:
@@ -54,7 +56,7 @@ actor SearchScholarshipActor {
                     returnEntity.append(scholarshipBox)
                 }
                 
-                return returnEntity
+                return (returnEntity, entity.totalElements, entity.pageable.pageNumber, entity.totalPages)
             default:
                 throw URLError(.badServerResponse)
             }

@@ -11,6 +11,7 @@ struct SearchScholarshipView: View {
     @EnvironmentObject private var pathModel: PathModel
     @StateObject private var viewModel = SearchScholarshipViewModel()
     @FocusState private var isKeyBoardOn: Bool
+    @State var isGetMoreScholarshipBox = false
     
     let HeightRatio: CGFloat = (DeviceInfo.getDeviceScreenHeight()-332)/3
     
@@ -23,7 +24,10 @@ struct SearchScholarshipView: View {
             case .loading:
                 loading()
             case .searchedWithData:
-                ScholarshipBoxListView(scholarshipList: viewModel.scholarshipList)
+                ScholarshipBoxListView(isGetMoreScholarshipBox: $isGetMoreScholarshipBox, scholarshipList: viewModel.scholarshipList)
+                    .onChange(of: viewModel.isGetMoreScholarshipBox, { _, _ in
+                        userTouchedBottomOfTheScroll()
+                    })
             case .searchedNoData:
                 searchAgain()
             case .failed:
@@ -135,6 +139,15 @@ extension SearchScholarshipView {
                 .foregroundStyle(.gray600)
                 .multilineTextAlignment(.center)
             Spacer()
+        }
+    }
+}
+
+extension SearchScholarshipView {
+    /// 만약 currentCellCount이 5가 되면, 다음 View 불러오기
+    private func userTouchedBottomOfTheScroll() {
+        if viewModel.isGetMoreScholarshipBox {
+            viewModel.bottomPartScrolled()
         }
     }
 }
