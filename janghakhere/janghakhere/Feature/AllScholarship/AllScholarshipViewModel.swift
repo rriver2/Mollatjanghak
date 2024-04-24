@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+enum NetworkStatus {
+    case loading
+    case success
+    case failed
+}
+
 @MainActor
 final class AllScholarshipViewModel: ObservableObject {
     let scholarshipBoxListActor: ScholarshipBoxListActor = ScholarshipBoxListActor()
@@ -15,6 +21,7 @@ final class AllScholarshipViewModel: ObservableObject {
     @Published private(set) var scholarshipList: [ScholarshipBox] = []
     @Published var advertisementSelection: Int = 0
     @Published private var timer: Timer?
+    @Published private(set) var networkStatus: NetworkStatus = .loading
     
     @Published private(set) var totalScholarshipCount: Int = 0 // 장학금 총 수
     @Published var totalPages: Int = 0 // 전체 페이지 수
@@ -61,6 +68,7 @@ final class AllScholarshipViewModel: ObservableObject {
 // private 함수들
 extension AllScholarshipViewModel {
     private func getScholarShipList(_ category : ScholarshipCategory) {
+        self.networkStatus = .loading
         let task = Task {
             do {
                 var scholarshipList: [ScholarshipBox] = []
@@ -83,9 +91,11 @@ extension AllScholarshipViewModel {
                 if !(totalPages < nextPageNumber) {
                     self.isGetMoreScholarshipBox = false
                 }
-                
+                self.networkStatus = .success
             } catch {
                 print(error)
+                self.isGetMoreScholarshipBox = false
+                self.networkStatus = .failed
             }
         }
         tasks.append(task)

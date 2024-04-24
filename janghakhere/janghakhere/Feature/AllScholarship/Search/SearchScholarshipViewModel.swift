@@ -80,6 +80,7 @@ extension SearchScholarshipViewModel {
                 }
             } catch {
                 print(error)
+                self.isGetMoreScholarshipBox = false
                 self.searchScholarshipStatus = .failed
             }
         }

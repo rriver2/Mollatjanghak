@@ -42,7 +42,14 @@ struct AllScholarshipView: View {
                     .onChange(of: viewModel.isGetMoreScholarshipBox, { _, _ in
                         userTouchedBottomOfTheScroll()
                     })
-                    
+                switch viewModel.networkStatus {
+                case .loading:
+                    ProgressView()
+                case .success:
+                    Text("")
+                case .failed:
+                    Text("에러발생~~")
+                }
             }
         }
         .onAppear {
