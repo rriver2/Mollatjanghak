@@ -28,7 +28,6 @@ final class SearchScholarshipViewModel: ObservableObject {
         self.searchContent = ""
         self.scholarshipList = []
         self.searchScholarshipStatus = .notSearchedYet
-        //FIXME: API 끊기게
     }
     
     /// 돋보기 클릭시

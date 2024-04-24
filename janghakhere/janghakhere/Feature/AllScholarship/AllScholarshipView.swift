@@ -95,7 +95,7 @@ extension AllScholarshipView {
         .padding(.top, 16)
     }
     
-    //FIXME: 디자인 자세하게 어떻게 될 지 모르겠어서 아직 반영 안 했습니다.
+    //FIXME: View 이동 시켜야 함
     @ViewBuilder
     func advertisement() -> some View {
         TabView(selection: $viewModel.advertisementSelection) {
