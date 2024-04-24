@@ -55,15 +55,14 @@ extension SearchScholarshipViewModel {
     private func getScholarshipList() {
         let task = Task {
             do {
-                let scholarshipList = try await managerActor.fetchScholarshipBoxList()
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0) {
-                    // scholarshipList의 장학금 status 값 확인하기
-                    self.scholarshipList = ScholarshipBoxManager.checkScholarshipBoxListStatus(scholarshipBoxList: scholarshipList)
-                    if scholarshipList.isEmpty {
-                        self.searchScholarshipStatus = .searchedNoData
-                    } else {
-                        self.searchScholarshipStatus = .searchedWithData
-                    }
+                //FIXME: page 넣기
+                let scholarshipList = try await managerActor.fetchScholarshipBoxList(page: 0, keyword: searchContent)
+                // scholarshipList의 장학금 status 값 확인하기
+                self.scholarshipList = ScholarshipBoxManager.checkScholarshipBoxListStatus(scholarshipBoxList: scholarshipList)
+                if scholarshipList.isEmpty {
+                    self.searchScholarshipStatus = .searchedNoData
+                } else {
+                    self.searchScholarshipStatus = .searchedWithData
                 }
             } catch {
                 print(error)

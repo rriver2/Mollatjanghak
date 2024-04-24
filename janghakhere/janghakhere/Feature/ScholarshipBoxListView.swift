@@ -15,16 +15,17 @@ struct ScholarshipBoxListView: View {
     var body: some View {
         VStack(spacing: 0) {
                 ScrollView {
-                    // 장학금 박스들
-                    ForEach(scholarshipList, id: \.self) { scholarship in
-                        Button {
-                            pathModel.paths.append(.detailScholarshipView(id: scholarship.id))
-                        } label: {
-                            ScholarshipBoxView(scholarshipBox: scholarship)
+                    VStack(spacing: 0) {
+                        // 장학금 박스들
+                        ForEach(scholarshipList, id: \.self) { scholarship in
+                            Button {
+                                pathModel.paths.append(.detailScholarshipView(id: scholarship.id))
+                            } label: {
+                                ScholarshipBoxView(scholarshipBox: scholarship)
+                            }
+                            .id(scholarship.id)
                         }
-                        .id(scholarship.id)
                     }
-
                 }
                 .scrollIndicators(.hidden)
                 .padding(.top, 16)

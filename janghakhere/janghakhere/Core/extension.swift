@@ -91,3 +91,48 @@ extension UserDefaults {
         UserDefaults.standard.removeObject(forKey: key.rawValue)
     }
 }
+
+// MARK: - Date
+extension Date {
+    /// 오늘로부터 endDateString까지 D-Day 도출하는 함수
+    /// - Parameter endDateString: "2024-04-12"
+    /// - Returns: "-4" / "0" / "+6"
+    func calculationDday(endDateString: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        if let language = UserDefaults.standard.array(forKey: "Language")?.first as? String {
+            formatter.locale = Locale(identifier: language)
+        }
+        
+        let startDate = self
+        let startDateString = formatter.string(from: Date())
+        
+        guard let endDate = formatter.date(from: endDateString) else {
+            return "#"
+        }
+        
+        var result = Calendar.current.dateComponents(
+            [.day],
+            from: startDate,
+            to: endDate
+        ).day!
+        
+        let resultHour = Calendar.current.dateComponents(
+            [.hour],
+            from: startDate,
+            to: endDate
+        ).hour!
+        
+        if resultHour > 0 {
+            result += 1
+        }
+        
+        if result == 0 {
+            return "0"
+        } else if result < 0 {
+            return "+\(abs(result))"
+        } else {
+            return "-\(abs(result))"
+        }
+    }
+}
