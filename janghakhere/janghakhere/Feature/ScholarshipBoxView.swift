@@ -28,7 +28,7 @@ struct ScholarshipBoxView: View {
                     .foregroundStyle(Color.black)
                     .padding(.bottom, 24)
                 HStack(spacing: 0) {
-                    Text("D-\(scholarshipBox.DDay)")
+                    Text("D\(scholarshipBox.DDay)")
                         .font(.semi_title_sm)
                         .padding(.horizontal, 8)
                         .padding(.vertical, 4)

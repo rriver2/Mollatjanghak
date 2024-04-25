@@ -38,7 +38,18 @@ struct AllScholarshipView: View {
                     sortingScholarship()
                 }
                 .paddingHorizontal()
-                ScholarshipBoxListView(scholarshipList: viewModel.scholarshipList)
+                ScholarshipBoxListView(isGetMoreScholarshipBox: $viewModel.isGetMoreScholarshipBox, scholarshipList: viewModel.scholarshipList)
+                    .onChange(of: viewModel.isGetMoreScholarshipBox, { _, _ in
+                        userTouchedBottomOfTheScroll()
+                    })
+                switch viewModel.networkStatus {
+                case .loading:
+                    ProgressView()
+                case .success:
+                    Text("")
+                case .failed:
+                    Text("에러발생~~")
+                }
             }
         }
         .onAppear {
@@ -84,7 +95,7 @@ extension AllScholarshipView {
         .padding(.top, 16)
     }
     
-    //FIXME: 디자인 자세하게 어떻게 될 지 모르겠어서 아직 반영 안 했습니다.
+    //FIXME: View 이동 시켜야 함
     @ViewBuilder
     func advertisement() -> some View {
         TabView(selection: $viewModel.advertisementSelection) {
@@ -134,8 +145,14 @@ extension AllScholarshipView {
     @ViewBuilder
     func sortingScholarship() -> some View {
         HStack(spacing: 0) {
-            Text("영서님을 위한 장학금 \(viewModel.scholarshipList.count)개")
-                .font(.semi_title_md)
+            switch viewModel.scholarshipCategory {
+            case .all:
+                Text("전체 장학금 \(viewModel.totalScholarshipCount)개")
+                    .font(.semi_title_md)
+            case .custom:
+                Text("영서님을 위한 장학금 \(viewModel.totalScholarshipCount)개")
+                    .font(.semi_title_md)
+            }
             Spacer()
             Button {
                 
@@ -151,6 +168,16 @@ extension AllScholarshipView {
         }
         .padding(.top, 4)
         .padding(.bottom, 16)
+        .animation(.default, value: viewModel.totalScholarshipCount)
+    }
+}
+
+extension AllScholarshipView {
+    /// 만약 currentCellCount이 5가 되면, 다음 View 불러오기
+    private func userTouchedBottomOfTheScroll() {
+        if viewModel.isGetMoreScholarshipBox {
+            viewModel.bottomPartScrolled()
+        }
     }
 }
 

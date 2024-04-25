@@ -7,14 +7,26 @@
 
 import SwiftUI
 
+enum NetworkStatus {
+    case loading
+    case success
+    case failed
+}
+
 @MainActor
 final class AllScholarshipViewModel: ObservableObject {
-    let managerActor: AllScholarshipActor = AllScholarshipActor()
+    let scholarshipBoxListActor: ScholarshipBoxListActor = ScholarshipBoxListActor()
     
     @Published private(set) var scholarshipCategory: ScholarshipCategory = .custom
     @Published private(set) var scholarshipList: [ScholarshipBox] = []
     @Published var advertisementSelection: Int = 0
     @Published private var timer: Timer?
+    @Published private(set) var networkStatus: NetworkStatus = .loading
+    
+    @Published private(set) var totalScholarshipCount: Int = 0 // 장학금 총 수
+    @Published var totalPages: Int = 0 // 전체 페이지 수
+    @Published private(set) var nextPageNumber: Int = 0 // 다음 페이지 num
+    @Published var isGetMoreScholarshipBox = false
     
     var advertisementSelectionWidth: CGFloat {
         if advertisementSelection == 0 {
@@ -31,6 +43,7 @@ final class AllScholarshipViewModel: ObservableObject {
     /// header의 맞춤, 전체 버튼 클릭
     func scholarshipCategoryButtonPressed(_ category : ScholarshipCategory) {
         self.scholarshipCategory = category
+        self.scholarshipList = []
         self.getScholarShipList(category)
     }
     
@@ -46,17 +59,43 @@ final class AllScholarshipViewModel: ObservableObject {
     func timerinit() {
         timerRestart()
     }
+    
+    func bottomPartScrolled() {
+        self.getScholarShipList(scholarshipCategory)
+    }
 }
 
 // private 함수들
 extension AllScholarshipViewModel {
     private func getScholarShipList(_ category : ScholarshipCategory) {
+        self.networkStatus = .loading
         let task = Task {
             do {
-                let scholarshipList = try await managerActor.fetchScholarshipList(category)
-                self.scholarshipList = ScholarshipBoxManager.checkScholarshipBoxListStatus(scholarshipBoxList: scholarshipList)
+                var scholarshipList: [ScholarshipBox] = []
+                var totalScholarshipCount: Int = 0
+                var currentPageNumber: Int = 0
+                var totalPages: Int = 0
+                
+                switch category {
+                case .all:
+                    (scholarshipList, totalScholarshipCount, currentPageNumber, totalPages) = try await scholarshipBoxListActor.fetchScholarshipBoxList(page: nextPageNumber)
+                case .custom:
+                    (scholarshipList, totalScholarshipCount, currentPageNumber, totalPages) = try await scholarshipBoxListActor.fetchCustomScholarshipBoxList(page: nextPageNumber)
+                }
+                
+                self.totalScholarshipCount = totalScholarshipCount
+                self.nextPageNumber = currentPageNumber + 1
+                self.scholarshipList.append(contentsOf: ScholarshipBoxManager.checkScholarshipBoxListStatus(scholarshipBoxList: scholarshipList))
+                self.totalPages = totalPages
+                
+                if !(totalPages < nextPageNumber) {
+                    self.isGetMoreScholarshipBox = false
+                }
+                self.networkStatus = .success
             } catch {
                 print(error)
+                self.isGetMoreScholarshipBox = false
+                self.networkStatus = .failed
             }
         }
         tasks.append(task)
@@ -78,7 +117,7 @@ extension AllScholarshipViewModel {
 // 기본 함수들
 extension AllScholarshipViewModel {
     func viewOpened() {
-        self.getScholarShipList(.custom)
+        self.getScholarShipList(scholarshipCategory)
         self.timerinit()
     }
     
