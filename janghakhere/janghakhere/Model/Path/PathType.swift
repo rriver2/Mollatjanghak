@@ -11,4 +11,6 @@ enum PathType: Hashable {
     case detailScholarshipView(id: String)
     case searchScholarshipView
     case alarmView
+    case settingWebView(title: String, url: URL)
+    case resetInfoView
 }

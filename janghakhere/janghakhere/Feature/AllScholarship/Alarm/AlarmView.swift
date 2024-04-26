@@ -9,11 +9,12 @@ import SwiftUI
 
 struct AlarmView: View {
     @EnvironmentObject private var pathModel: PathModel
+    @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = AlarmViewModel()
     
     var body: some View {
         VStack(spacing: 0) {
-            navigation()
+            NavigationDefaultView(title: "알림")
             grayLine()
             ScrollView {
                 VStack(spacing: 0) {
@@ -35,26 +36,6 @@ struct AlarmView: View {
 }
 
 extension AlarmView {
-    @ViewBuilder
-    func navigation() -> some View {
-        HStack(spacing: 0) {
-            Icon(name: .arrowLeft, color: .black, size: 28)
-                .onTapGesture {
-                    pathModel.paths.removeLast()
-                }
-            Spacer()
-            Text("알림")
-                .font(.title_xsm)
-            Spacer()
-            Rectangle()
-                .foregroundColor(.clear)
-                .frame(width: 28, height: 28)
-        }
-        .paddingHorizontal()
-        .foregroundStyle(.black)
-        .padding(.vertical, 14)
-        .background(.white)
-    }
     @ViewBuilder
     func alarmInfoCell(_ alarm: Alarm) -> some View {
         VStack(spacing: 0) {

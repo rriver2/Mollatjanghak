@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DetailScholarshipView: View {
     @EnvironmentObject private var pathModel: PathModel
+    @Environment(\.dismiss) private var dismiss
     let id: String
     
     @StateObject private var viewModel = DetailScholarshipViewModel()
@@ -32,7 +33,7 @@ extension DetailScholarshipView {
             Icon(name: .arrowLeft, color: .black, size: 28)
                 .padding(.trailing, 10)
                 .onTapGesture {
-                    pathModel.paths.removeLast()
+                    dismiss()
                 }
             Spacer()
             Text("상세")

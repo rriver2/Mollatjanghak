@@ -12,8 +12,7 @@ struct HTTPUtils {
     
     static func postURL<T: Encodable>(postStruct: T, urlBack: String) async throws -> (data: Data, response: HTTPURLResponse) {
         do {
-            guard let urlFront = urlFront,
-                  let url = URL(string: urlFront + urlBack) else { throw URLError(.badURL)}
+            guard let url = URL(string: urlFront + urlBack) else { throw URLError(.badURL)}
             var request = URLRequest(url: url)
             
             request.httpMethod = "POST"
@@ -36,8 +35,7 @@ struct HTTPUtils {
     
     static func getURL(urlBack: String, parameter: String) async throws -> (data: Data, response: HTTPURLResponse) {
         do {
-            guard let urlFront = urlFront,
-                  let url = URL(string: urlFront + urlBack + parameter) else { throw URLError(.badURL)}
+            guard let url = URL(string: urlFront + urlBack + parameter) else { throw URLError(.badURL)}
             var request = URLRequest(url: url)
             
             request.httpMethod = "GET"
@@ -51,6 +49,24 @@ struct HTTPUtils {
             throw error
         }
     }
+    
+    static func deleteURL(urlBack: String) async throws -> (data: Data, response: HTTPURLResponse) {
+        do {
+            guard let url = URL(string: urlFront + urlBack) else { throw URLError(.badURL)}
+            var request = URLRequest(url: url)
+            
+            request.httpMethod = "DELETE"
+            
+            let (data, response) = try await URLSession.shared.data(for: request)
+            guard let response = response as? HTTPURLResponse else {
+                throw URLError(.unknown)
+            }
+            return (data: data, response: response)
+        } catch {
+            throw error
+        }
+    }
+    
     // 사용자 정보 ( 디바이스 고유넘버 )
     static func getDeviceUUID() -> String {
         return UIDevice.current.identifierForVendor!.uuidString
