@@ -17,6 +17,7 @@ final class ResetInfoViewModel: ObservableObject {
         let task = Task {
             do {
                 try await managerActor.clearUserInfo()
+                //FIXME: 유저 디폴트 값 삭제
             } catch {
                 print(error)
             }
