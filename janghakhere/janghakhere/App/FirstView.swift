@@ -45,6 +45,10 @@ struct FirstView: View {
                     SearchScholarshipView()
                 case .alarmView:
                     AlarmView()
+                case .settingWebView(let title, let url):
+                    SettingWebView(title: title, url: url)
+                case .resetInfoView:
+                    ResetInfoView()
                 }
             }
         }

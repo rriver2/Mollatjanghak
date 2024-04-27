@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SearchScholarshipView: View {
     @EnvironmentObject private var pathModel: PathModel
+    @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = SearchScholarshipViewModel()
     @FocusState private var isKeyBoardOn: Bool
     @State var isGetMoreScholarshipBox = false
@@ -53,7 +54,7 @@ extension SearchScholarshipView {
             Icon(name: .arrowLeft, color: .black, size: 28)
                 .padding(.trailing, 10)
                 .onTapGesture {
-                    pathModel.paths.removeLast()
+                    dismiss()
                 }
             HStack(spacing: 0) {
                 TextField(text: $viewModel.searchContent, label: {
