@@ -141,7 +141,7 @@ extension OnboardingMainView {
             Button {
                 pathModel.paths.removeLast()
             } label: {
-                Image(systemName: "arrow.left")
+                Image("arrowLeft")
                     .foregroundStyle(.mainGray)
                     .font(.system(size: 28))
                     .padding(.leading, 20)
@@ -231,7 +231,7 @@ extension OnboardingMainView {
                         ? .gray300
                         : .mainGray)
                     Spacer()
-                    Image(systemName: "chevron.down")
+                    Image("chevronDown")
                         .font(.system(size: 16))
                         .foregroundStyle(.gray500)
                 }
@@ -374,7 +374,7 @@ extension OnboardingMainView {
                             ? .gray300
                             : .mainGray)
                     Spacer()
-                    Image(systemName: "chevron.down")
+                    Image("chevronDown")
                         .font(.system(size: 20))
                         .foregroundStyle(.gray500)
                 }

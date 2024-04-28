@@ -25,7 +25,7 @@ struct GrayLineTextFieldView: View {
                     Button(action: {
                         text = ""
                     }) {
-                        Image(systemName: "x.circle.fill")
+                        Image("erace")
                             .font(.system(size: 19.5))
                             .foregroundColor(.gray600)
                     }

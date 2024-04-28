@@ -12,7 +12,7 @@ struct OnboardingWaitingView: View {
     
     var body: some View {
         VStack {
-            Image(systemName: "bell")
+            Image("hat")
                 .frame(width: 122, height: 122)
                 .padding(.top, 150)
             Text("환영합니다!")
