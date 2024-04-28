@@ -95,12 +95,12 @@ extension UserDefaults {
 
 // MARK: - Date
 extension Date {
-
     func customDateFomatter() -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy년 MM월 dd일"
         return formatter.string(from: self)
-
+    }
+    
     /// 오늘로부터 endDateString까지 D-Day 도출하는 함수
     /// - Parameter endDateString: "2024-04-12"
     /// - Returns: "-4" / "0" / "+6"
