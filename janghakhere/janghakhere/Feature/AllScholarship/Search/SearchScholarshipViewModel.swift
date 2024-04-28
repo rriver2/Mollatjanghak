@@ -9,7 +9,7 @@ import SwiftUI
 
 @MainActor
 final class SearchScholarshipViewModel: ObservableObject {
-    let managerActor: SearchScholarshipActor = SearchScholarshipActor()
+    let managerActor: ScholarshipBoxListActor = ScholarshipBoxListActor()
     
     private var tasks: [Task<Void, Never>] = []
     
@@ -18,12 +18,16 @@ final class SearchScholarshipViewModel: ObservableObject {
     @Published private (set)var scholarshipList: [ScholarshipBox] = []
     @Published private (set)var chips: [Chip] = []
     
+    @Published private (set)var totalScholarshipCount: Int = 0 // 장학금 총 수
+    @Published var totalPages: Int = 0 // 전체 페이지 수
+    @Published private (set)var nextPageNumber: Int = 0 // 다음 페이지 num
+    @Published var isGetMoreScholarshipBox = false
+    
     /// 검색 내용 지우기 X 버튼 클릭시
     func searchbarXButtonPressed() {
         self.searchContent = ""
         self.scholarshipList = []
         self.searchScholarshipStatus = .notSearchedYet
-        //FIXME: API 끊기게
     }
     
     /// 돋보기 클릭시
@@ -48,6 +52,10 @@ final class SearchScholarshipViewModel: ObservableObject {
     func clickedChipXButton(_ chip: Chip) {
         removeSearchedScholarshipTextList(chip.title)
     }
+    
+    func bottomPartScrolled() {
+        self.getScholarshipList()
+    }
 }
 
 // MARK: - private 함수들
@@ -55,21 +63,31 @@ extension SearchScholarshipViewModel {
     private func getScholarshipList() {
         let task = Task {
             do {
-                let scholarshipList = try await managerActor.fetchScholarshipBoxList()
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0) {
-                    self.scholarshipList = scholarshipList
-                    if scholarshipList.isEmpty {
-                        self.searchScholarshipStatus = .searchedNoData
-                    } else {
-                        self.searchScholarshipStatus = .searchedWithData
-                    }
+                let (scholarshipList, totalScholarshipCount, currentPageNumber, totalPages) = try await managerActor.fetchSearchScholarshipBoxList(page: nextPageNumber, keyword: searchContent)
+                
+                self.scholarshipList.append(contentsOf: ScholarshipBoxManager.checkScholarshipBoxListStatus(scholarshipBoxList: scholarshipList))
+                self.nextPageNumber = currentPageNumber + 1
+                self.totalScholarshipCount = totalScholarshipCount
+                if !(totalPages < nextPageNumber) {
+                    self.isGetMoreScholarshipBox = false
+                }
+                
+                if scholarshipList.isEmpty {
+                    self.searchScholarshipStatus = .searchedNoData
+                } else {
+                    self.searchScholarshipStatus = .searchedWithData
                 }
             } catch {
                 print(error)
+                self.isGetMoreScholarshipBox = false
                 self.searchScholarshipStatus = .failed
             }
         }
         tasks.append(task)
+    }
+    
+    private func checkScholarshipStatus() {
+        
     }
     
     private func AddOneOfSearchedScholarshipText(_ content: String) {

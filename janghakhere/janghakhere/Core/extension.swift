@@ -15,30 +15,52 @@ extension View {
             .padding(.horizontal, 20)
     }
     
-    func Icon(name: IconCategory, color: Color? = .black, size: CGFloat) -> some View {
-        Image(name.rawValue)
+    func font(_ font: UIFont) -> some View {
+        var fontSpacing: CGFloat {
+            if font == .text_sm {
+                return font.lineHeight / 100 * 80 / 4
+            } else {
+                return font.lineHeight / 100 * 50 / 4
+            }
+        }
+        return self
+            .font(Font(font))
+            .padding(.top, fontSpacing)
+            .padding(.bottom, fontSpacing)
+            .lineSpacing(fontSpacing * 2)
+    }
+    
+    func Icon(name: ImageResource, color: Color, size: CGFloat) -> some View {
+        Image(name)
             .renderingMode(.template)
             .resizable()
             .foregroundColor(color)
             .scaledToFit()
             .frame(width: size, height: size)
     }
+    
+    func Icon(name: ImageResource, size: CGFloat) -> some View {
+        Image(name)
+            .resizable()
+            .scaledToFit()
+            .frame(width: size, height: size)
+    }
 }
 
-// MARK: - Font
-extension Font {
-    static let title_lg = Font.system(size: 30, weight: .semibold, design: .default)
-    static let title_md = Font.system(size: 26, weight: .semibold, design: .default)
-    static let title_sm = Font.system(size: 20, weight: .semibold, design: .default)
-    static let title_xsm = Font.system(size: 17, weight: .semibold, design: .default)
-    static let title_xmd = Font.system(size: 24, weight: .semibold, design: .default)
+// MARK: - UIFont
+extension UIFont {
+    static let title_lg = UIFont.systemFont(ofSize: 30, weight: .semibold)
+    static let title_md = UIFont.systemFont(ofSize: 26, weight: .semibold)
+    static let title_sm = UIFont.systemFont(ofSize: 20, weight: .semibold)
+    static let title_xsm = UIFont.systemFont(ofSize: 17, weight: .semibold)
+    static let title_xmd = UIFont.systemFont(ofSize: 24, weight: .semibold) 
     
-    static let semi_title_md = Font.system(size: 15, weight: .semibold, design: .default)
-    static let semi_title_sm = Font.system(size: 12, weight: .semibold, design: .default)
+    static let semi_title_md = UIFont.systemFont(ofSize: 15, weight: .semibold)
+    static let semi_title_sm = UIFont.systemFont(ofSize: 12, weight: .semibold)
     
-    static let text_md = Font.system(size: 16, weight: .regular, design: .default)
-    static let text_sm = Font.system(size: 14, weight: .regular, design: .default)
-    static let caption = Font.system(size: 12, weight: .regular, design: .default)
+    static let text_md = UIFont.systemFont(ofSize: 16, weight: .regular)
+    static let text_sm = UIFont.systemFont(ofSize: 14, weight: .regular)
+    static let text_caption = UIFont.systemFont(ofSize: 12, weight: .regular)
 }
 
 // MARK: - UserDefault
@@ -73,9 +95,51 @@ extension UserDefaults {
 
 // MARK: - Date
 extension Date {
+
     func customDateFomatter() -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy년 MM월 dd일"
         return formatter.string(from: self)
+
+    /// 오늘로부터 endDateString까지 D-Day 도출하는 함수
+    /// - Parameter endDateString: "2024-04-12"
+    /// - Returns: "-4" / "0" / "+6"
+    func calculationDday(endDateString: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        if let language = UserDefaults.standard.array(forKey: "Language")?.first as? String {
+            formatter.locale = Locale(identifier: language)
+        }
+        
+        let startDate = self
+        let startDateString = formatter.string(from: Date())
+        
+        guard let endDate = formatter.date(from: endDateString) else {
+            return "#"
+        }
+        
+        var result = Calendar.current.dateComponents(
+            [.day],
+            from: startDate,
+            to: endDate
+        ).day!
+        
+        let resultHour = Calendar.current.dateComponents(
+            [.hour],
+            from: startDate,
+            to: endDate
+        ).hour!
+        
+        if resultHour > 0 {
+            result += 1
+        }
+        
+        if result == 0 {
+            return "0"
+        } else if result < 0 {
+            return "+\(abs(result))"
+        } else {
+            return "-\(abs(result))"
+        }
     }
 }

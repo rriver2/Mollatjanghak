@@ -13,4 +13,7 @@ enum PathType: Hashable {
     case onboardingBeginView
     case onboardingMainView
     case onboardingWaitingView(name: String)
+    case alarmView
+    case settingWebView(title: String, url: URL)
+    case resetInfoView
 }

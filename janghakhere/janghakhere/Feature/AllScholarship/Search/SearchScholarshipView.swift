@@ -9,8 +9,10 @@ import SwiftUI
 
 struct SearchScholarshipView: View {
     @EnvironmentObject private var pathModel: PathModel
+    @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = SearchScholarshipViewModel()
     @FocusState private var isKeyBoardOn: Bool
+    @State var isGetMoreScholarshipBox = false
     
     let HeightRatio: CGFloat = (DeviceInfo.getDeviceScreenHeight()-332)/3
     
@@ -23,7 +25,10 @@ struct SearchScholarshipView: View {
             case .loading:
                 loading()
             case .searchedWithData:
-                ScholarshipBoxListView(scholarshipList: viewModel.scholarshipList)
+                ScholarshipBoxListView(isGetMoreScholarshipBox: $isGetMoreScholarshipBox, scholarshipList: viewModel.scholarshipList)
+                    .onChange(of: viewModel.isGetMoreScholarshipBox, { _, _ in
+                        userTouchedBottomOfTheScroll()
+                    })
             case .searchedNoData:
                 searchAgain()
             case .failed:
@@ -46,8 +51,11 @@ extension SearchScholarshipView {
     @ViewBuilder
     func navigation() -> some View {
         HStack(spacing: 0) {
-            Icon(name: .exempleIcon, color: .black, size: 28)
+            Icon(name: .arrowLeft, color: .black, size: 28)
                 .padding(.trailing, 10)
+                .onTapGesture {
+                    dismiss()
+                }
             HStack(spacing: 0) {
                 TextField(text: $viewModel.searchContent, label: {
                     Text("어떤 장학금을 찾으시나요?")
@@ -59,13 +67,13 @@ extension SearchScholarshipView {
                     viewModel.searchButtonPressed()
                 }
                 if !viewModel.searchContent.isEmpty {
-                    Icon(name: .exempleIcon, color: .red, size: 24)
+                    Icon(name: .erace, color: .gray500, size: 24)
                         .onTapGesture {
                             viewModel.searchbarXButtonPressed()
                         }
                         .padding(.leading, 8)
                 } else {
-                    Icon(name: .exempleIcon, color: .gray500, size: 24)
+                    Icon(name: .magnifyingGlass, color: .gray500, size: 24)
                 }
             }
             .focused($isKeyBoardOn)
@@ -122,9 +130,9 @@ extension SearchScholarshipView {
         IconAndAlert(icon: .nothing, alertText:"공고를 발견하지 못했어요\n다른 키워드로 검색해 보는 건 어떨까요?")
     }
     @ViewBuilder
-    func IconAndAlert(icon: IconCategory, alertText: String) -> some View {
+    func IconAndAlert(icon: ImageResource, alertText: String) -> some View {
         VStack(spacing: 0) {
-            Icon(name: icon, color: .gray500, size: 120)
+            Icon(name: icon, color: .gray500, size: 122)
                 .padding(.bottom, 8)
                 .padding(.top, HeightRatio)
             Text(alertText)
@@ -132,6 +140,15 @@ extension SearchScholarshipView {
                 .foregroundStyle(.gray600)
                 .multilineTextAlignment(.center)
             Spacer()
+        }
+    }
+}
+
+extension SearchScholarshipView {
+    /// 만약 currentCellCount이 5가 되면, 다음 View 불러오기
+    private func userTouchedBottomOfTheScroll() {
+        if viewModel.isGetMoreScholarshipBox {
+            viewModel.bottomPartScrolled()
         }
     }
 }

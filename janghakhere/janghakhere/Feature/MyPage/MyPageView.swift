@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MyPageView: View {
     var body: some View {
-        OnboardingMainView()
+        SettingView()
     }
 }
 

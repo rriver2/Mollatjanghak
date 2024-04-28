@@ -5,15 +5,14 @@
 //  Created by Gaeun Lee on 4/16/24.
 //
 
-import Foundation
+import SwiftUI
 
 struct HTTPUtils {
-    static let urlFront: String? = Utils.getConfig(key: "urlFront", type: String.self)
+    //FIXME: conFig에서 불러오게 코드 수정해야 함
     
     static func postURL<T: Encodable>(postStruct: T, urlBack: String) async throws -> (data: Data, response: HTTPURLResponse) {
         do {
-            guard let urlFront = urlFront,
-                  let url = URL(string: urlFront + urlBack) else { throw URLError(.badURL)}
+            guard let url = URL(string: urlFront + urlBack) else { throw URLError(.badURL)}
             var request = URLRequest(url: url)
             
             request.httpMethod = "POST"
@@ -34,21 +33,13 @@ struct HTTPUtils {
         }
     }
     
-    static func getURL<T: Encodable>(parameter: T?, urlBack: String, header: (field: String, value: String)?) async throws -> (data: Data, response: HTTPURLResponse) {
+    static func getURL(urlBack: String, parameter: String) async throws -> (data: Data, response: HTTPURLResponse) {
         do {
-            guard let urlFront = urlFront,
-                  let url = URL(string: urlFront + urlBack) else { throw URLError(.badURL)}
+            guard let url = URL(string: urlFront + urlBack + parameter) else { throw URLError(.badURL)}
             var request = URLRequest(url: url)
             
             request.httpMethod = "GET"
-            if let parameter = parameter {
-                let parameterData = try JSONEncoder().encode(parameter)
-                request.httpBody = parameterData
-            }
             
-            if let header = header {
-                request.setValue(header.value, forHTTPHeaderField: header.field)
-            }
             let (data, response) = try await URLSession.shared.data(for: request)
             guard let response = response as? HTTPURLResponse else {
                 throw URLError(.unknown)
@@ -57,5 +48,27 @@ struct HTTPUtils {
         } catch {
             throw error
         }
+    }
+    
+    static func deleteURL(urlBack: String) async throws -> (data: Data, response: HTTPURLResponse) {
+        do {
+            guard let url = URL(string: urlFront + urlBack) else { throw URLError(.badURL)}
+            var request = URLRequest(url: url)
+            
+            request.httpMethod = "DELETE"
+            
+            let (data, response) = try await URLSession.shared.data(for: request)
+            guard let response = response as? HTTPURLResponse else {
+                throw URLError(.unknown)
+            }
+            return (data: data, response: response)
+        } catch {
+            throw error
+        }
+    }
+    
+    // 사용자 정보 ( 디바이스 고유넘버 )
+    static func getDeviceUUID() -> String {
+        return UIDevice.current.identifierForVendor!.uuidString
     }
 }
