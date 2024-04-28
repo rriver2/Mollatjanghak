@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct GrayBoxGridView: View {
+struct GrayBoxGridView<T: Hashable & CustomStringConvertible>: View {
     
     enum ColumnCategory {
-        case two
         case three
+        case two
         
         var verticalPadding: CGFloat{
             switch self {
@@ -33,28 +33,37 @@ struct GrayBoxGridView: View {
         }
     }
     
-    private let column: ColumnCategory
-    private let titleList: [String]
-    private let clickedButton: (() -> Void)
-    
-    init(column: ColumnCategory, titleList: [String], clickedButton: @escaping () -> Void) {
-        self.titleList = titleList
-        self.clickedButton = clickedButton
-        self.column = column
-    }
+    let column: ColumnCategory
+    let titleList: [T]
+    let action: (() -> Void)
+    @Binding var selectedElement: T
     
     var body: some View {
-        LazyVGrid(columns: column.gridItemList, spacing: column.verticalPadding) {
-            ForEach(titleList, id : \.self){ title in
+        LazyVGrid(
+            columns: column.gridItemList,
+            spacing: column.verticalPadding
+        ) {
+            ForEach(
+                titleList.filter { $0.description != "선택 안 됨" },
+                id : \.self){ title in
                 Button {
-                    clickedButton()
+                    selectedElement = title
+                    action()
                 } label: {
-                    Text(title)
+                    Text(title.description)
                         .font(.title_xsm)
                         .padding(.vertical, 13)
-                        .foregroundStyle(.gray600)
+                        .foregroundStyle(
+                            selectedElement == title
+                            ? .white
+                            : .gray600
+                        )
                         .frame(maxWidth: .infinity)
-                        .background(Color.gray70)
+                        .background(
+                            selectedElement == title
+                            ? .mainGray
+                            : .gray70
+                        )
                         .cornerRadius(4)
                 }
             }
@@ -63,5 +72,18 @@ struct GrayBoxGridView: View {
 }
 
 #Preview {
-    GrayBoxGridView(column: .three, titleList: ["인문", "사회", "교육", "자연", "공학", "의약", "예체능", "기타"], clickedButton: {})
+    struct GrayBoxGridPreviewContainer: View {
+        @State var element: EnrollmentStatus = .notSelected
+        
+        var body: some View {
+            GrayBoxGridView<EnrollmentStatus>(
+                column: .three,
+                titleList: EnrollmentStatus.allCases,
+                action: {},
+                selectedElement: $element
+            )
+        }
+    }
+    return GrayBoxGridPreviewContainer()
 }
+

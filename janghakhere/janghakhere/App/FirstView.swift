@@ -43,6 +43,14 @@ struct FirstView: View {
                     DetailScholarshipView(id: id)
                 case .searchScholarshipView:
                     SearchScholarshipView()
+                case .onboardingBeginView:
+                    OnboardingBeginView()
+                case .onboardingMainView:
+                    OnboardingMainView()
+                        .navigationBarBackButtonHidden()
+                case .onboardingWaitingView(let name):
+                      OnboardingWaitingView(name: name)
+                        .navigationBarBackButtonHidden()
                 case .alarmView:
                     AlarmView()
                 case .settingWebView(let title, let url):

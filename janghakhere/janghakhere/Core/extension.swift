@@ -53,6 +53,7 @@ extension UIFont {
     static let title_md = UIFont.systemFont(ofSize: 26, weight: .semibold)
     static let title_sm = UIFont.systemFont(ofSize: 20, weight: .semibold)
     static let title_xsm = UIFont.systemFont(ofSize: 17, weight: .semibold)
+    static let title_xmd = UIFont.systemFont(ofSize: 24, weight: .semibold) 
     
     static let semi_title_md = UIFont.systemFont(ofSize: 15, weight: .semibold)
     static let semi_title_sm = UIFont.systemFont(ofSize: 12, weight: .semibold)
@@ -94,6 +95,12 @@ extension UserDefaults {
 
 // MARK: - Date
 extension Date {
+    func customDateFomatter() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy년 MM월 dd일"
+        return formatter.string(from: self)
+    }
+    
     /// 오늘로부터 endDateString까지 D-Day 도출하는 함수
     /// - Parameter endDateString: "2024-04-12"
     /// - Returns: "-4" / "0" / "+6"

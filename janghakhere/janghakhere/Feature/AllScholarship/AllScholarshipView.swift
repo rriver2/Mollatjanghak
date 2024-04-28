@@ -7,22 +7,6 @@
 
 import SwiftUI
 
-struct MainButtonStyle: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .font(.title3)
-            .foregroundStyle(.white)
-            .padding()
-            .frame(maxWidth: .infinity)
-            .frame(height: 50)
-            .background(
-                RoundedRectangle(cornerRadius: 5)
-                    .fill(.mainGray.opacity(0.8))
-            )
-            .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
-    }
-}
-
 struct AllScholarshipView: View {
     @EnvironmentObject private var pathModel: PathModel
     @StateObject private var viewModel = AllScholarshipViewModel()

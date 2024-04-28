@@ -10,6 +10,9 @@ import Foundation
 enum PathType: Hashable {
     case detailScholarshipView(id: String)
     case searchScholarshipView
+    case onboardingBeginView
+    case onboardingMainView
+    case onboardingWaitingView(name: String)
     case alarmView
     case settingWebView(title: String, url: URL)
     case resetInfoView
