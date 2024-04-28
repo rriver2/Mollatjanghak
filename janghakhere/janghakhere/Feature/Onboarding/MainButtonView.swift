@@ -36,12 +36,12 @@ struct MainButtonStyle: ButtonStyle {
     configuration.label
       .font(.title_xsm)
       .padding(.vertical, 16)
-      .foregroundStyle(disabled ? .black : .white)
+      .foregroundStyle(disabled ? .gray500 : .white)
       .frame(maxWidth: .infinity)
       .frame(height: 58)
       .background(
         Capsule()
-            .fill(disabled ? .gray70 : .mainGray)
+            .fill(disabled ? .gray100 : .mainGray)
       )
       .scaleEffect(
         configuration.isPressed && !disabled
@@ -50,6 +50,53 @@ struct MainButtonStyle: ButtonStyle {
       )
   }
 }
+
+struct NonMaxButton: View {
+    private let title: String
+    private let action: (() -> Void)
+    private var disabled: Bool = false
+    
+    init(title: String, action: @escaping () -> Void, disabled: Bool = false) {
+        self.title = title
+        self.action = action
+        self.disabled = disabled
+    }
+    
+    var body: some View {
+        Button {} label: {
+            Text(title)
+        }
+        .buttonStyle(NonMaxButtonStyle(disabled: disabled))
+        .disabled(disabled)
+    }
+}
+
+struct NonMaxButtonStyle: ButtonStyle {
+    let disabled: Bool
+    
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.title_xsm)
+            .padding(.vertical, 16)
+            .padding(.horizontal, 36)
+            .foregroundStyle(disabled ? .gray500 : .white)
+            .frame(height: 58)
+            .background(
+                Capsule()
+                    .fill(disabled ? .gray100 : .mainGray)
+            )
+            .scaleEffect(
+                configuration.isPressed && !disabled
+                ? 0.95
+                : 1.0
+            )
+    }
+}
+
+
+
+
+
 
 #Preview {
     MainButtonView(title: "다음", action: {})

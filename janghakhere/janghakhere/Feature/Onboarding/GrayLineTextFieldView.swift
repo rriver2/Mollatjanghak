@@ -9,47 +9,44 @@ import SwiftUI
 
 struct GrayLineTextFieldView: View {
     @Binding var text: String
-    @FocusState private var isKeyBoardOn: Bool
     let placeHolder: String
+    var isKeyBoardOn: Bool
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            HStack {
-                TextField("", text: $text)
-                    .font(.title_md)
-                    .focused($isKeyBoardOn)
-                    .overlay {
-                        HStack {
-                            if !text.isEmpty {
-                                Text(text)
-                                    .font(.title_md)
-                                    .foregroundColor(.mainGray)
-                            } else {
-                                Text(placeHolder)
-                                    .font(.title_md)
-                                    .foregroundColor(.gray300)
-                            }
-                            Spacer()
-                            if !text.isEmpty {
-                                Button {
-                                    text = ""
-                                } label: {
-                                    Image(systemName: "x.circle.fill")
-                                        .font(.system(size: 19.5))
-                                        .foregroundColor(.gray600)
-                                }
-                            }
-                        }
+            HStack(spacing: 0) {
+                TextField(placeHolder, text: $text)
+                    .onChange(of: text) { _, value in
+                        limitText(value)
                     }
+                    .font(.title_md)
+                
+                if !text.isEmpty {
+                    Button(action: {
+                        text = ""
+                    }) {
+                        Image(systemName: "x.circle.fill")
+                            .font(.system(size: 19.5))
+                            .foregroundColor(.gray600)
+                    }
+                    .padding(.leading, 8)
+                }
             }
+            .padding(.vertical, 6)
+            .padding(.horizontal, 4)
             .accentColor(.black)
-            .padding(.leading, 4)
-            .onAppear {
-                isKeyBoardOn = true
-            }
-            Rectangle()
-                .foregroundStyle(isKeyBoardOn ? .mainGray  : .gray300)
-                .frame(height: 1)
+            .overlay(
+                Rectangle()
+                    .foregroundColor(isKeyBoardOn ? .mainGray : .gray300)
+                    .frame(height: 1),
+                alignment: .bottom
+            )
+        }
+    }
+    
+    private func limitText(_ value: String) {
+        if text.count > 13 {
+            text = String(text.prefix(13))
         }
     }
 }
@@ -57,9 +54,9 @@ struct GrayLineTextFieldView: View {
 #Preview {
     struct BindingViewExamplePreviewContainer : View {
         @State var text: String = ""
-        
+        @FocusState var isKey: Bool
         var body: some View {
-            GrayLineTextFieldView(text: $text, placeHolder: "이름")
+            GrayLineTextFieldView(text: $text, placeHolder: "이름", isKeyBoardOn: isKey)
         }
     }
     return BindingViewExamplePreviewContainer()

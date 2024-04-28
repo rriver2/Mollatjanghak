@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct GrayBoxGridView: View {
+struct GrayBoxGridView<T: Hashable & CustomStringConvertible>: View {
     
     enum ColumnCategory {
-        case two
         case three
+        case two
         
         var verticalPadding: CGFloat{
             switch self {
@@ -33,36 +33,24 @@ struct GrayBoxGridView: View {
         }
     }
     
-     let column: ColumnCategory
-     let titleList: [String]
-     let clickedButton: (() -> Void)
-    @Binding var selectedElement: String
-    
-//    init(
-//        column: ColumnCategory,
-//        titleList: [String],
-//        clickedButton: @escaping () -> Void,
-//        selectedElement: Binding<String>
-//    ) {
-//        self.titleList = titleList
-//        self.clickedButton = clickedButton
-//        self.column = column
-//        self.selectedElement = selectedElement
-//    }
-    
-    
+    let column: ColumnCategory
+    let titleList: [T]
+    let action: (() -> Void)
+    @Binding var selectedElement: T
     
     var body: some View {
         LazyVGrid(
             columns: column.gridItemList,
             spacing: column.verticalPadding
         ) {
-            ForEach(titleList, id : \.self){ title in
+            ForEach(
+                titleList.filter { $0.description != "선택 안 됨" },
+                id : \.self){ title in
                 Button {
-                    self.selectedElement = title
-                    clickedButton()
+                    selectedElement = title
+                    action()
                 } label: {
-                    Text(title)
+                    Text(title.description)
                         .font(.title_xsm)
                         .padding(.vertical, 13)
                         .foregroundStyle(
@@ -85,16 +73,15 @@ struct GrayBoxGridView: View {
 
 #Preview {
     struct GrayBoxGridPreviewContainer: View {
-        @State var element: String = ""
+        @State var element: EnrollmentStatus = .notSelected
         
         var body: some View {
-            GrayBoxGridView(column: .three, titleList: [], clickedButton: {}, selectedElement: $element)
-//            GrayBoxGridView(
-//                column: .three,
-//                titleList: ["인문", "사회", "교육", "자연", "공학", "의약", "예체능", "기타"],
-//                clickedButton: {},
-//                selectedElement: $element.wrappedValue
-//            )
+            GrayBoxGridView<EnrollmentStatus>(
+                column: .three,
+                titleList: EnrollmentStatus.allCases,
+                action: {},
+                selectedElement: $element
+            )
         }
     }
     return GrayBoxGridPreviewContainer()

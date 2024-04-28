@@ -31,6 +31,7 @@ extension Font {
     static let title_md = Font.system(size: 26, weight: .semibold, design: .default)
     static let title_sm = Font.system(size: 20, weight: .semibold, design: .default)
     static let title_xsm = Font.system(size: 17, weight: .semibold, design: .default)
+    static let title_xmd = Font.system(size: 24, weight: .semibold, design: .default)
     
     static let semi_title_md = Font.system(size: 15, weight: .semibold, design: .default)
     static let semi_title_sm = Font.system(size: 12, weight: .semibold, design: .default)

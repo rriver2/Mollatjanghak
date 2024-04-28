@@ -12,24 +12,25 @@ struct FirstView: View {
     
     var body: some View {
         NavigationStack(path: $pathModel.paths) {
-            TabView {
-                AllScholarshipView()
-                    .tabItem {
-                        // FIXME: Icon 인거 아이콘 나오면 모두 변경해야 함
-                        Icon(name: .exempleIcon, size: 28)
-                        Text("전체공고")
-                    }
-                MyScholarshipView()
-                    .tabItem {
-                        Icon(name: .exempleIcon, size: 28)
-                        Text("내공고")
-                    }
-                MyPageView()
-                    .tabItem {
-                        Icon(name: .exempleIcon, size: 28)
-                        Text("마이페이지")
-                    }
-            }
+//            TabView {
+//                AllScholarshipView()
+//                    .tabItem {
+//                        // FIXME: Icon 인거 아이콘 나오면 모두 변경해야 함
+//                        Icon(name: .exempleIcon, size: 28)
+//                        Text("전체공고")
+//                    }
+//                MyScholarshipView()
+//                    .tabItem {
+//                        Icon(name: .exempleIcon, size: 28)
+//                        Text("내공고")
+//                    }
+//                MyPageView()
+//                    .tabItem {
+//                        Icon(name: .exempleIcon, size: 28)
+//                        Text("마이페이지")
+//                    }
+//            }
+            OnboardingBeginView()
             .foregroundStyle(.black)
             .navigationDestination(for: PathType.self) { pathType  in
                 switch pathType {
@@ -37,6 +38,14 @@ struct FirstView: View {
                     DetailScholarshipView(id: id)
                 case .searchScholarshipView:
                     SearchScholarshipView()
+                case .onboardingBeginView:
+                    OnboardingBeginView()
+                case .onboardingMainView:
+                    OnboardingMainView()
+                        .navigationBarBackButtonHidden()
+                case .onboardingWaitingView(let name):
+                      OnboardingWaitingView(name: name)
+                        .navigationBarBackButtonHidden()
                 }
             }
         }
