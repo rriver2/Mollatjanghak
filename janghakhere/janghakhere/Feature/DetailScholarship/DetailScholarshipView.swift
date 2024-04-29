@@ -25,6 +25,7 @@ struct DetailScholarshipView: View {
                 detailThumbnail()
                 contentHeader()
                     .padding(.vertical, 23)
+                buttons()
                 customDivider()
                     .padding(.vertical, 8)
                 recuirtInfoContent()
@@ -35,7 +36,8 @@ struct DetailScholarshipView: View {
                 customDivider()
                 requirementContent()
                 customDivider()
-                Spacer()
+                    .padding(.bottom, 190)
+                
             }
         }
         .onAppear {
@@ -54,6 +56,95 @@ struct EffortLevelTip: Tip {
 }
 
 extension DetailScholarshipView {
+    
+    @ViewBuilder
+    private func buttons() -> some View {
+        HStack(spacing: 8) {
+            
+            Button {
+                // 시트 콜
+            } label: {
+                HStack(spacing: 8) {
+                    Icon(name: .floppyDisk, color: .mainGray, size: 20)
+                    Text("공고저장")
+                        .font(.title_xsm)
+                }
+                .padding(.vertical, 14)
+                .padding(.horizontal, 24)
+                .foregroundStyle(.mainGray)
+                .background(
+                    Capsule()
+                        .fill(.gray70)
+                )
+            }
+//            Button {
+//                
+//            } label: {
+//                HStack(spacing: 8) {
+//                    Icon(name: .floppyDisk, color: .white, size: 20)
+//                    Text("저장완료")
+//                        .font(.title_xsm)
+//                }
+//                .padding(.vertical, 14)
+//                .padding(.horizontal, 24)
+//                .foregroundStyle(.white)
+//                .background(
+//                    Capsule()
+//                        .fill(.subGreen)
+//                )
+//            }
+//            Button {
+//                
+//            } label: {
+//                HStack(spacing: 8) {
+//                    Icon(name: .fire, color: .white, size: 20)
+//                    Text("지원예정")
+//                        .font(.title_xsm)
+//                }
+//                .padding(.vertical, 14)
+//                .padding(.horizontal, 24)
+//                .foregroundStyle(.white)
+//                .background(
+//                    Capsule()
+//                        .fill(.subPink)
+//                )
+//            }
+//            Button {
+//                // 시트 콜
+//            } label: {
+//                HStack(spacing: 8) {
+//                    Icon(name: .check, color: .white, size: 20)
+//                    Text("지원완료")
+//                        .font(.title_xsm)
+//                }
+//                .padding(.vertical, 14)
+//                .padding(.horizontal, 24)
+//                .foregroundStyle(.white)
+//                .background(
+//                    Capsule()
+//                        .fill(.subPurple)
+//                )
+//            }
+            
+            Button {
+                // 웹뷰 열기
+            } label: {
+                HStack(spacing: 8) {
+                    Icon(name: .handFist, color: .white, size: 20)
+                    Text("지원하기")
+                        .font(.title_xsm)
+                }
+                .padding(.vertical, 14)
+                .padding(.horizontal, 24)
+                .foregroundStyle(.white)
+                .background(
+                    Capsule()
+                        .fill(.mainGray)
+                )
+            }
+        }
+    }
+    
     
     @ViewBuilder
     private func detailThumbnail() -> some View {
@@ -133,15 +224,17 @@ extension DetailScholarshipView {
                                 Spacer()
                             }
                             .padding(.top, 16)
+                            .foregroundStyle(.etcOrange)
                             Text(viewModel.eligibilityRestrictionDetails)
                                 .font(.text_sm)
                                 .padding(.top, 8)
                                 .padding(.bottom, 16)
+                                .foregroundStyle(.etcOrange)
                         }
                         .padding(.horizontal, 16)
                         .background(
                             RoundedRectangle(cornerRadius: 10)
-                                .fill(.orange)
+                                .fill(.etcLightOrange)
                         )
                         .padding(.bottom, 24)
                         
