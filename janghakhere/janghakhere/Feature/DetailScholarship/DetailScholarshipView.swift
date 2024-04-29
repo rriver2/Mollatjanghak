@@ -19,9 +19,10 @@ struct DetailScholarshipView: View {
     @State private var showRequirement: Bool = true
     private let effortLevelTip = EffortLevelTip()
     var body: some View {
-        ScrollView(.vertical) {
-            VStack(alignment: .leading, spacing: 0) {
-                navigation()
+        VStack(alignment: .leading, spacing: 0) {
+            navigation()
+            ScrollView(.vertical) {
+                detailThumbnail()
                 contentHeader()
                     .padding(.vertical, 23)
                 customDivider()
@@ -36,23 +37,29 @@ struct DetailScholarshipView: View {
                 customDivider()
                 Spacer()
             }
-            .onAppear {
-                viewModel.viewOpened(id)
-            }
-            .navigationBarBackButtonHidden()
         }
+        .onAppear {
+            viewModel.viewOpened(id)
+        }
+        .navigationBarBackButtonHidden()
     }
 }
 
 
 struct EffortLevelTip: Tip {
     var title: Text {
-//        Text("장학금을 지원하는 데 들어가는 노력 정도를 알려주는 수치예요")
+        //        Text("장학금을 지원하는 데 들어가는 노력 정도를 알려주는 수치예요")
         Text("수치예요")
     }
 }
 
 extension DetailScholarshipView {
+    
+    @ViewBuilder
+    private func detailThumbnail() -> some View {
+        Image("detailDefaultThumbnail")
+            .resizable()
+    }
     
     @ViewBuilder
     private func requirementContent() -> some View {
@@ -61,7 +68,7 @@ extension DetailScholarshipView {
                 Text("자격요건")
                     .font(.title_xsm)
                     .foregroundStyle(.black)
-                    
+                
                 Spacer()
                 // FIXME: 클릭시 chevron 방향 역전해야함
                 Icon(name: .chevronDown, color: .black, size: 16)
@@ -154,7 +161,7 @@ extension DetailScholarshipView {
                 Text("선발방법")
                     .font(.title_xsm)
                     .foregroundStyle(.black)
-                    
+                
                 Spacer()
                 // FIXME: 클릭시 chevron 방향 역전해야함
                 Icon(name: .chevronDown, color: .black, size: 16)
@@ -202,7 +209,7 @@ extension DetailScholarshipView {
                 Text("지원내역")
                     .font(.title_xsm)
                     .foregroundStyle(.black)
-                    
+                
                 Spacer()
                 // FIXME: 클릭시 chevron 방향 역전해야함
                 Icon(name: .chevronDown, color: .black, size: 16)
@@ -253,7 +260,6 @@ extension DetailScholarshipView {
             }
             .font(.text_sm)
             .foregroundStyle(.gray500)
-            
         }
         .paddingHorizontal()
     }
@@ -265,12 +271,13 @@ extension DetailScholarshipView {
                 Text(viewModel.organization)
                     .font(.semi_title_md)
                 Spacer()
-                Icon(name: .eye, color: .gray400, size: 16)
-                Text(viewModel.viewCount)
-                    .font(.text_caption)
+                HStack(spacing: 4) {
+                    Icon(name: .eye, color: .gray400, size: 16)
+                    Text(viewModel.viewCount)
+                        .font(.text_caption)
+                }
             }
             .foregroundStyle(.gray400)
-            .padding(.top, 20)
             
             HStack {
                 Text(viewModel.productName)
@@ -326,11 +333,9 @@ extension DetailScholarshipView {
                         Text("중")
                     }
                 }
-                
                 Spacer()
             }
         }
-        
         .paddingHorizontal()
     }
     
