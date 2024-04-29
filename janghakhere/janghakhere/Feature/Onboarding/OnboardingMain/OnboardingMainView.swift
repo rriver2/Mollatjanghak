@@ -87,6 +87,7 @@ enum DegreesStatus: String, CaseIterable, CustomStringConvertible {
 
 struct OnboardingMainView: View {
     @EnvironmentObject private var pathModel: PathModel
+    @Environment(\.dismiss) private var dismiss
     @FocusState private var isKeyboardOn: Bool
     @StateObject private var viewModel = OnboardingMainViewModel()
     @State private var currentPage = 0
@@ -138,18 +139,16 @@ extension OnboardingMainView {
     @ViewBuilder
     func customNavigationToolbar() -> some View {
         HStack(spacing: 0) {
-            Button {
-                pathModel.paths.removeLast()
-            } label: {
-                Image("arrowLeft")
-                    .foregroundStyle(.mainGray)
-                    .font(.system(size: 28))
-                    .padding(.leading, 20)
-            }
+            Icon(name: .arrowLeft, color: .black, size: 28)
+                .padding(.trailing, 8)
+                .onTapGesture {
+                    dismiss()
+                }
+            
             ProgressView(value: Double(viewModel.progressValue) * 0.2)
                 .tint(.mainGray)
-                .padding()
         }
+        .paddingHorizontal()
     }
     
     @ViewBuilder
@@ -183,7 +182,7 @@ extension OnboardingMainView {
             )
             .padding(.vertical, 10)
         }
-        .padding(.horizontal, 20)
+        .paddingHorizontal()
     }
     
     @ViewBuilder
@@ -207,7 +206,7 @@ extension OnboardingMainView {
                 disabled: viewModel.sex == .notSelected
             )
         }
-        .padding(.horizontal, 20)
+        .paddingHorizontal()
     }
     
     @ViewBuilder
@@ -267,7 +266,7 @@ extension OnboardingMainView {
                 disabled: viewModel.isEmptyDate($viewModel.date.wrappedValue)
             )
         }
-        .padding(.horizontal, 20)
+        .paddingHorizontal()
     }
     
     @ViewBuilder
@@ -321,7 +320,7 @@ extension OnboardingMainView {
                  disabled: viewModel.degreesStatus == .notSelected || viewModel.enrollmentStatus == .notSelected
              )
          }
-         .padding(.horizontal, 20)
+         .paddingHorizontal()
     }
     
     @ViewBuilder
@@ -460,7 +459,7 @@ extension OnboardingMainView {
                 disabled: viewModel.schoolName == "" || viewModel.semesterYear == .notSelected || viewModel.semesterStatus == .notSelected
             )
         }
-        .padding(.horizontal, 20)
+        .paddingHorizontal()
     }
     
     @ViewBuilder
@@ -491,7 +490,7 @@ extension OnboardingMainView {
                 disabled: false
             )
         }
-        .padding(.horizontal, 20)
+        .paddingHorizontal()
     }
     
     
@@ -530,7 +529,7 @@ extension OnboardingMainView {
                 disabled: viewModel.name == ""
             )
         }
-        .padding(.horizontal, 20)
+        .paddingHorizontal()
     }
     
     @ViewBuilder
@@ -566,7 +565,7 @@ extension OnboardingMainView {
                 disabled: viewModel.militaryStatus == .notSelected
             )
         }
-        .padding(.horizontal, 20)
+        .paddingHorizontal()
     }
     
     @ViewBuilder
@@ -601,7 +600,7 @@ extension OnboardingMainView {
                 disabled: viewModel.siblingStatus == .notSelected
             )
         }
-        .padding(.horizontal, 20)
+        .paddingHorizontal()
     }
     
     @ViewBuilder
@@ -658,7 +657,7 @@ extension OnboardingMainView {
                 disabled: viewModel.incomeDecile == .notSelected
             )
         }
-        .padding(.horizontal, 20)
+        .paddingHorizontal()
     }
     
     
@@ -775,7 +774,7 @@ extension OnboardingMainView {
                 )
             }
         }
-        .padding(.horizontal, 20)
+        .paddingHorizontal()
     }
 }
 
