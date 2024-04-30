@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		7B5C11602BDFEADC0056C2BC /* ScholarshipPostingSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C115F2BDFEADC0056C2BC /* ScholarshipPostingSheet.swift */; };
+		7B5C11632BE12E3F0056C2BC /* MyPageActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C11612BE12E3F0056C2BC /* MyPageActor.swift */; };
+		7B5C11642BE12E3F0056C2BC /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C11622BE12E3F0056C2BC /* MyPageViewModel.swift */; };
 		7B6445A22BCFF89A00D4AF74 /* Chip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445A12BCFF89A00D4AF74 /* Chip.swift */; };
 		7B6445B92BD526EF00D4AF74 /* OnboardingMainActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445B62BD526EF00D4AF74 /* OnboardingMainActor.swift */; };
 		7B6445BA2BD526EF00D4AF74 /* OnboardingMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445B72BD526EF00D4AF74 /* OnboardingMainView.swift */; };
@@ -87,6 +89,8 @@
 
 /* Begin PBXFileReference section */
 		7B5C115F2BDFEADC0056C2BC /* ScholarshipPostingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScholarshipPostingSheet.swift; sourceTree = "<group>"; };
+		7B5C11612BE12E3F0056C2BC /* MyPageActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageActor.swift; sourceTree = "<group>"; };
+		7B5C11622BE12E3F0056C2BC /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		7B6445A12BCFF89A00D4AF74 /* Chip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chip.swift; sourceTree = "<group>"; };
 		7B6445B62BD526EF00D4AF74 /* OnboardingMainActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingMainActor.swift; sourceTree = "<group>"; };
 		7B6445B72BD526EF00D4AF74 /* OnboardingMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingMainView.swift; sourceTree = "<group>"; };
@@ -372,6 +376,8 @@
 			isa = PBXGroup;
 			children = (
 				FB978CA92BCD79F300347D47 /* MyPageView.swift */,
+				7B5C11612BE12E3F0056C2BC /* MyPageActor.swift */,
+				7B5C11622BE12E3F0056C2BC /* MyPageViewModel.swift */,
 				FB2930702BDC0A4B009AB2EF /* Setting */,
 			);
 			path = MyPage;
@@ -694,6 +700,8 @@
 				FBEEBBA62BCEB1AA006CE5EA /* HTTPUtils.swift in Sources */,
 				FBABCF082BD77ED60068178F /* Alarm.swift in Sources */,
 				FB2930742BDC0AB3009AB2EF /* WebTotalView.swift in Sources */,
+				7B5C11632BE12E3F0056C2BC /* MyPageActor.swift in Sources */,
+				7B5C11642BE12E3F0056C2BC /* MyPageViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

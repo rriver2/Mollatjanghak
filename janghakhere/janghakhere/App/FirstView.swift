@@ -57,6 +57,8 @@ struct FirstView: View {
                     SettingWebView(title: title, url: url)
                 case .resetInfoView:
                     ResetInfoView()
+                case .settingView:
+                    SettingView()
                 }
             }
         }
