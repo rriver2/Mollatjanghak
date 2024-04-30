@@ -53,7 +53,6 @@ actor ScholarshipBoxListActor {
         do {
             let parameter = "page=\(page)"
             let userId = HTTPUtils.getDeviceUUID()
-            print("userId", userId)
             let (data , response) = try await HTTPUtils.getURL(urlBack: "/api/scholarships/members/\(userId)?", parameter: parameter)
             
             return try responseHandling(data, response)

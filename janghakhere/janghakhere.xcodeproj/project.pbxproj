@@ -26,6 +26,11 @@
 		7B6445D72BDBF1B500D4AF74 /* OnboardingCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445D62BDBF1B500D4AF74 /* OnboardingCompleteView.swift */; };
 		7B6445D92BDD489F00D4AF74 /* EnrollmentStatusGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445D82BDD489F00D4AF74 /* EnrollmentStatusGrid.swift */; };
 		7B6445DB2BDD5FC400D4AF74 /* VerticalButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445DA2BDD5FC400D4AF74 /* VerticalButtonGroup.swift */; };
+		FB19C91F2BE122B90039205E /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB19C91E2BE122B90039205E /* NotificationManager.swift */; };
+		FB19C9212BE147410039205E /* SupportedCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB19C9202BE147410039205E /* SupportedCategory.swift */; };
+		FB19C9232BE1476E0039205E /* StorageCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB19C9222BE1476E0039205E /* StorageCategory.swift */; };
+		FB19C9252BE147850039205E /* MyScholarshipCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB19C9242BE147850039205E /* MyScholarshipCategory.swift */; };
+		FB19C9272BE147970039205E /* MyScholarshipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB19C9262BE147970039205E /* MyScholarshipViewModel.swift */; };
 		FB27A2AB2BD2A118007C62D0 /* SearchScholarshipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB27A2A92BD2A118007C62D0 /* SearchScholarshipView.swift */; };
 		FB27A2AC2BD2A118007C62D0 /* SearchScholarshipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB27A2AA2BD2A118007C62D0 /* SearchScholarshipViewModel.swift */; };
 		FB27A2AE2BD2A124007C62D0 /* SearchScholarshipStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB27A2AD2BD2A124007C62D0 /* SearchScholarshipStatus.swift */; };
@@ -105,6 +110,11 @@
 		7B6445D62BDBF1B500D4AF74 /* OnboardingCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCompleteView.swift; sourceTree = "<group>"; };
 		7B6445D82BDD489F00D4AF74 /* EnrollmentStatusGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollmentStatusGrid.swift; sourceTree = "<group>"; };
 		7B6445DA2BDD5FC400D4AF74 /* VerticalButtonGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalButtonGroup.swift; sourceTree = "<group>"; };
+		FB19C91E2BE122B90039205E /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		FB19C9202BE147410039205E /* SupportedCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportedCategory.swift; sourceTree = "<group>"; };
+		FB19C9222BE1476E0039205E /* StorageCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageCategory.swift; sourceTree = "<group>"; };
+		FB19C9242BE147850039205E /* MyScholarshipCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyScholarshipCategory.swift; sourceTree = "<group>"; };
+		FB19C9262BE147970039205E /* MyScholarshipViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyScholarshipViewModel.swift; sourceTree = "<group>"; };
 		FB27A2A92BD2A118007C62D0 /* SearchScholarshipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchScholarshipView.swift; sourceTree = "<group>"; };
 		FB27A2AA2BD2A118007C62D0 /* SearchScholarshipViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchScholarshipViewModel.swift; sourceTree = "<group>"; };
 		FB27A2AD2BD2A124007C62D0 /* SearchScholarshipStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchScholarshipStatus.swift; sourceTree = "<group>"; };
@@ -364,6 +374,7 @@
 			isa = PBXGroup;
 			children = (
 				FB978CA52BCD79CF00347D47 /* MyScholarshipView.swift */,
+				FB19C9262BE147970039205E /* MyScholarshipViewModel.swift */,
 			);
 			path = MyScholarship;
 			sourceTree = "<group>";
@@ -380,6 +391,7 @@
 		FBABCF052BD636920068178F /* Alarm */ = {
 			isa = PBXGroup;
 			children = (
+				FB19C91E2BE122B90039205E /* NotificationManager.swift */,
 				FBABCF002BD636890068178F /* AlarmView.swift */,
 				FBABCF012BD636890068178F /* AlarmViewModel.swift */,
 			);
@@ -488,6 +500,9 @@
 			isa = PBXGroup;
 			children = (
 				FB676A9F2BD50A510077700E /* MyScholarship.swift */,
+				FB19C9202BE147410039205E /* SupportedCategory.swift */,
+				FB19C9222BE1476E0039205E /* StorageCategory.swift */,
+				FB19C9242BE147850039205E /* MyScholarshipCategory.swift */,
 			);
 			path = MyScholarship;
 			sourceTree = "<group>";
@@ -630,9 +645,11 @@
 				FB27A2AC2BD2A118007C62D0 /* SearchScholarshipViewModel.swift in Sources */,
 				7B6445D92BDD489F00D4AF74 /* EnrollmentStatusGrid.swift in Sources */,
 				FBE769872BCFF36D007F8DEF /* ScholarshipBoxListActor.swift in Sources */,
+				FB19C9252BE147850039205E /* MyScholarshipCategory.swift in Sources */,
 				FBE769872BCFF36D007F8DEF /* ScholarshipBoxListActor.swift in Sources */,
 				FB676AA92BD51A9C0077700E /* DetailScholarshipActor.swift in Sources */,
 				FB2930692BDC0633009AB2EF /* ResetInfoActor.swift in Sources */,
+				FB19C91F2BE122B90039205E /* NotificationManager.swift in Sources */,
 				FB978CA12BCD773600347D47 /* FirstView.swift in Sources */,
 				FBE769792BCF769E007F8DEF /* MainButtonView.swift in Sources */,
 				FB2930842BDE740E009AB2EF /* TextFieldDynamicWidth.swift in Sources */,
@@ -641,6 +658,8 @@
 				FBEEBB912BCE9CB2006CE5EA /* DetailScholarshipView.swift in Sources */,
 				7B6445B92BD526EF00D4AF74 /* OnboardingMainActor.swift in Sources */,
 				7B6445BA2BD526EF00D4AF74 /* OnboardingMainView.swift in Sources */,
+				FB19C9232BE1476E0039205E /* StorageCategory.swift in Sources */,
+				FB19C9272BE147970039205E /* MyScholarshipViewModel.swift in Sources */,
 				7B6445CF2BD6BAA200D4AF74 /* MaxGradeSheet.swift in Sources */,
 				7B6445BF2BD5277600D4AF74 /* Gender.swift in Sources */,
 				7B6445BB2BD526EF00D4AF74 /* OnboardingMainViewModel.swift in Sources */,
@@ -682,6 +701,7 @@
 				7B6445CB2BD6A2A700D4AF74 /* IncomeConfirmView.swift in Sources */,
 				FBE769832BCF8E11007F8DEF /* SlotMachineView.swift in Sources */,
 				7B6445A22BCFF89A00D4AF74 /* Chip.swift in Sources */,
+				FB19C9212BE147410039205E /* SupportedCategory.swift in Sources */,
 				7B6445C42BD5295A00D4AF74 /* DateSelectionView.swift in Sources */,
 				FBABCF0A2BD77F070068178F /* AlarmCategory.swift in Sources */,
 				FB2930762BDC0AD3009AB2EF /* WebView.swift in Sources */,
@@ -827,7 +847,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"janghakhere/Preview Content\"";
-				DEVELOPMENT_TEAM = 3WVLC7Y373;
+				DEVELOPMENT_TEAM = J7ZP3WYXRW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = janghakhere/Info.plist;
@@ -857,7 +877,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"janghakhere/Preview Content\"";
-				DEVELOPMENT_TEAM = 3WVLC7Y373;
+				DEVELOPMENT_TEAM = J7ZP3WYXRW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = janghakhere/Info.plist;

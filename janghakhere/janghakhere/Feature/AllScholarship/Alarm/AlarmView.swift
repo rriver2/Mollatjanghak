@@ -16,6 +16,19 @@ struct AlarmView: View {
         VStack(spacing: 0) {
             NavigationDefaultView(title: "알림")
             grayLine()
+            Button {
+                NotificationManager.instance.cancelAllNotification()
+                NotificationManager.instance.scheduleNotification(.weeklyAlarm)
+                NotificationManager.instance.scheduleNotification(.DDayAlarm(id: "223311", title: "장학금임둥", date: Calendar.current.date(byAdding: .day, value: +8, to: Date())!))
+            } label: {
+                Text("알림 설정")
+            }
+            
+            Button {
+                NotificationManager.instance.cancelSpecificNotification(id: "223311")
+            } label: {
+                Text("알림 제거")
+            }
             ScrollView {
                 VStack(spacing: 0) {
                     ForEach(Alarm.mockList, id: \.self) { alarm in
@@ -26,6 +39,9 @@ struct AlarmView: View {
             .scrollIndicators(.hidden)
         }
         .navigationBarBackButtonHidden()
+        .onAppear {
+            NotificationManager.instance.deleteBadgeNumber()
+        }
         .task {
             viewModel.createView()
         }

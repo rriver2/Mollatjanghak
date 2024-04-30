@@ -13,6 +13,9 @@ enum UserDefaultKey: String, CaseIterable, Equatable {
     
     // 저장완료, 지원예정, 지원완료한 데이터
     case publicAnnouncementStatusList
+    
+    // 사용자 이름
+    case userName
 }
 
 struct publicAnnouncementStatus: Codable {
