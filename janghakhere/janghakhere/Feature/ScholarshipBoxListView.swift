@@ -14,6 +14,14 @@ struct ScholarshipBoxListView: View {
     
     var scholarshipList: [ScholarshipBox]
     
+    var supportedCategory: SupportedCategory?
+    
+    init(isGetMoreScholarshipBox: Binding<Bool>, scholarshipList: [ScholarshipBox], supportedCategory: SupportedCategory?) {
+        self._isGetMoreScholarshipBox = isGetMoreScholarshipBox
+        self.scholarshipList = scholarshipList
+        self.supportedCategory = supportedCategory
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
                 ScrollView {
@@ -23,7 +31,16 @@ struct ScholarshipBoxListView: View {
                             Button {
                                 pathModel.paths.append(.detailScholarshipView(id: scholarship.id))
                             } label: {
-                                ScholarshipBoxView(scholarshipBox: scholarship)
+                                if let supportedCategory {
+                                    switch supportedCategory {
+                                    case .completedApplication:
+                                        ScholarshipSupportedBoxView(scholarshipBox: scholarship, supportedCategory: supportedCategory)
+                                    case .failed, .passed:
+                                        ScholarshipBoxView(scholarshipBox: scholarship, supportedCategory: supportedCategory)
+                                    }
+                                } else {
+                                    ScholarshipBoxView(scholarshipBox: scholarship)
+                                }
                             }
                             .id(scholarship.id)
                             .onAppear {

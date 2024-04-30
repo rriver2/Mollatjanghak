@@ -12,8 +12,11 @@ struct ScholarshipBoxView: View {
     
     @State var scholarshipBox: ScholarshipBox
     
-    init(scholarshipBox: ScholarshipBox) {
+    let supportedCategory: SupportedCategory?
+    
+    init(scholarshipBox: ScholarshipBox, supportedCategory: SupportedCategory? = nil) {
         self._scholarshipBox = State(initialValue: scholarshipBox)
+        self.supportedCategory = supportedCategory
     }
     
     var body: some View {
@@ -50,31 +53,44 @@ struct ScholarshipBoxView: View {
                 }
             }
             Spacer()
-            HStack(spacing: 0) {
-                Icon(name: scholarshipBox.publicAnnouncementStatus.IconName, color: scholarshipBox.publicAnnouncementStatus.buttonFontColor, size: 16)
-                    .padding(.trailing, 4)
-                Text(scholarshipBox.publicAnnouncementStatus.title)
-                    .font(.semi_title_sm)
-            }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
-            .background(scholarshipBox.publicAnnouncementStatus.buttonColor)
-            .cornerRadius(100)
-            .foregroundStyle(scholarshipBox.publicAnnouncementStatus.buttonFontColor)
-            .onTapGesture {
-                // 예시로
-                var status: PublicAnnouncementStatusCategory = .Nothing
-                switch scholarshipBox.publicAnnouncementStatus {
-                case .Nothing:
-                    status = .Storage
-                case .Storage:
-                    status = .ToBeSupported
-                case .ToBeSupported:
-                    status = .SupportCompleted
-                case .SupportCompleted:
-                    status = .Nothing
+            switch supportedCategory {
+            case .completedApplication, .none:
+                HStack(spacing: 0) {
+                    Icon(name: scholarshipBox.publicAnnouncementStatus.IconName, color: scholarshipBox.publicAnnouncementStatus.buttonFontColor, size: 16)
+                        .padding(.trailing, 4)
+                    Text(scholarshipBox.publicAnnouncementStatus.title)
+                        .font(.semi_title_sm)
                 }
-                scholarshipBox.publicAnnouncementStatus = ScholarshipBoxManager.scholarshipStatusButtonPressed(status: publicAnnouncementStatus(id: scholarshipBox.id, status: status))
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+                .background(scholarshipBox.publicAnnouncementStatus.buttonColor)
+                .cornerRadius(100)
+                .foregroundStyle(scholarshipBox.publicAnnouncementStatus.buttonFontColor)
+                .onTapGesture {
+                    // 예시로
+                    var status: PublicAnnouncementStatusCategory = .Nothing
+                    switch scholarshipBox.publicAnnouncementStatus {
+                    case .Nothing:
+                        status = .Storage
+                    case .Storage:
+                        status = .ToBeSupported
+                    case .ToBeSupported:
+                        status = .SupportCompleted
+                    case .SupportCompleted:
+                        status = .Nothing
+                    }
+                    scholarshipBox.publicAnnouncementStatus = ScholarshipBoxManager.scholarshipStatusButtonPressed(status: publicAnnouncementStatus(id: scholarshipBox.id, status: status))
+                }
+            case .failed, .passed:
+                HStack(spacing: 0) {
+                    Text(supportedCategory!.name)
+                        .font(.semi_title_md)
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 8)
+                .background(supportedCategory!.buttonBackgroundColor)
+                .cornerRadius(100)
+                .foregroundStyle(supportedCategory!.buttonTextColor)
             }
         }
         .animation(.easeIn, value: scholarshipBox)
@@ -83,9 +99,12 @@ struct ScholarshipBoxView: View {
         .padding(.bottom, 26)
         .padding(.horizontal, 20)
         .background(.white)
-        .cornerRadius(8)
-        .shadow(color: Color(red: 0.51, green: 0.55, blue: 0.58).opacity(0.1), radius: 4, x: 0, y: 0)
-        .padding(.bottom, 16)
+        .if(supportedCategory != .completedApplication && supportedCategory != .none) { view in
+            view
+                .cornerRadius(8)
+                .padding(.bottom, 16)
+                .shadow(color: Color(red: 0.51, green: 0.55, blue: 0.58).opacity(0.1), radius: 4, x: 0, y: 0)
+        }
         .onTapGesture {
             pathModel.paths.append(.detailScholarshipView(id: scholarshipBox.id))
         }
