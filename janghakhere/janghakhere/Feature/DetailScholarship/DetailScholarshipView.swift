@@ -21,23 +21,26 @@ struct DetailScholarshipView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             navigation()
-            ScrollView(.vertical) {
-                detailThumbnail()
-                contentHeader()
-                    .padding(.vertical, 23)
+            ZStack(alignment: .bottom) {
+                ScrollView(.vertical) {
+                    VStack(spacing: 0) {
+                        detailThumbnail()
+                        contentHeader()
+                            .padding(.vertical, 23)
+                        customDivider()
+                            .padding(.vertical, 8)
+                        recuirtInfoContent()
+                        customDivider()
+                        applicationDetail()
+                        customDivider()
+                        selectionProccess()
+                        customDivider()
+                        requirementContent()
+                        customDivider()
+                            .padding(.bottom, 190)
+                    }
+                }
                 buttons()
-                customDivider()
-                    .padding(.vertical, 8)
-                recuirtInfoContent()
-                customDivider()
-                applicationDetail()
-                customDivider()
-                selectionProccess()
-                customDivider()
-                requirementContent()
-                customDivider()
-                    .padding(.bottom, 190)
-                
             }
         }
         .onAppear {
@@ -165,13 +168,13 @@ extension DetailScholarshipView {
                 Icon(name: .chevronDown, color: .black, size: 16)
                     .onTapGesture {
                         withAnimation {
-                            showSelection.toggle()
+                            showRequirement.toggle()
                         }
                     }
             }
             .padding(.vertical, 16)
             
-            if showSelection {
+            if showRequirement {
                 withAnimation {
                     VStack(alignment: .leading, spacing: 0) {
                         Text("[제출서류]")
@@ -334,19 +337,25 @@ extension DetailScholarshipView {
     @ViewBuilder
     private func recuirtInfoContent() -> some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text("모집정보")
-                .font(.title_xsm)
-                .foregroundStyle(.black)
-                .padding(.vertical, 16)
+                
+            HStack(spacing: 0) {
+                Text("모집정보")
+                    .font(.title_xsm)
+                    .foregroundStyle(.black)
+                    .padding(.vertical, 16)
+                Spacer()
+            }
             
             VStack(alignment: .leading, spacing: 0) {
                 Text("[모집일자]")
                     .padding(.top, 8)
+                
                 Text("\(viewModel.startDate) ~ \(viewModel.endDate)")
                     .padding(.top, 12)
                 
                 Text("[수혜인원]")
                     .padding(.top, 24)
+                
                 Text(viewModel.selectionCountDetails)
                     .padding(.top, 12)
                     .padding(.bottom, 24)
