@@ -40,6 +40,8 @@
 		FB2930782BDC0C91009AB2EF /* SettingWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2930772BDC0C90009AB2EF /* SettingWebView.swift */; };
 		FB29307A2BDC1066009AB2EF /* ResetInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2930792BDC1066009AB2EF /* ResetInfoView.swift */; };
 		FB29307C2BDC14B1009AB2EF /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB29307B2BDC14B1009AB2EF /* CustomAlertView.swift */; };
+		FB2930822BDE6A1F009AB2EF /* ScholarshipSupportedBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2930812BDE6A1E009AB2EF /* ScholarshipSupportedBoxView.swift */; };
+		FB2930842BDE740E009AB2EF /* TextFieldDynamicWidth.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2930832BDE740E009AB2EF /* TextFieldDynamicWidth.swift */; };
 		FB676A9E2BD50A410077700E /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB676A9D2BD50A410077700E /* Onboarding.swift */; };
 		FB676AA02BD50A510077700E /* MyScholarship.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB676A9F2BD50A510077700E /* MyScholarship.swift */; };
 		FB676AA22BD50A5A0077700E /* MyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB676AA12BD50A5A0077700E /* MyPage.swift */; };
@@ -116,6 +118,8 @@
 		FB2930772BDC0C90009AB2EF /* SettingWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingWebView.swift; sourceTree = "<group>"; };
 		FB2930792BDC1066009AB2EF /* ResetInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetInfoView.swift; sourceTree = "<group>"; };
 		FB29307B2BDC14B1009AB2EF /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
+		FB2930812BDE6A1E009AB2EF /* ScholarshipSupportedBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScholarshipSupportedBoxView.swift; sourceTree = "<group>"; };
+		FB2930832BDE740E009AB2EF /* TextFieldDynamicWidth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldDynamicWidth.swift; sourceTree = "<group>"; };
 		FB66D63A2BD92C1300F2B7B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB676A9D2BD50A410077700E /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
 		FB676A9F2BD50A510077700E /* MyScholarship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyScholarship.swift; sourceTree = "<group>"; };
@@ -329,6 +333,7 @@
 				FBEEBB982BCEA76A006CE5EA /* Helper */,
 				FB978C952BCD770800347D47 /* Assets.xcassets */,
 				FB978CAE2BCD7FF800347D47 /* extension.swift */,
+				FB2930832BDE740E009AB2EF /* TextFieldDynamicWidth.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -429,6 +434,7 @@
 			children = (
 				FBE7698C2BD00127007F8DEF /* ScholarshipBoxListView.swift */,
 				FB978CB22BCD8C5700347D47 /* ScholarshipBoxView.swift */,
+				FB2930812BDE6A1E009AB2EF /* ScholarshipSupportedBoxView.swift */,
 				FBEC81F32BD55EEE00A9A700 /* ScholarshipBoxManager.swift */,
 				FB29306E2BDC09D6009AB2EF /* NavigationDefaultView.swift */,
 				FB29307B2BDC14B1009AB2EF /* CustomAlertView.swift */,
@@ -618,6 +624,7 @@
 				FB2930692BDC0633009AB2EF /* ResetInfoActor.swift in Sources */,
 				FB978CA12BCD773600347D47 /* FirstView.swift in Sources */,
 				FBE769792BCF769E007F8DEF /* MainButtonView.swift in Sources */,
+				FB2930842BDE740E009AB2EF /* TextFieldDynamicWidth.swift in Sources */,
 				FBEEBB932BCE9CC6006CE5EA /* DetailScholarship.swift in Sources */,
 				FB978CAF2BCD7FF800347D47 /* extension.swift in Sources */,
 				FBEEBB912BCE9CB2006CE5EA /* DetailScholarshipView.swift in Sources */,
@@ -648,6 +655,7 @@
 				FB978C942BCD770600347D47 /* Item.swift in Sources */,
 				FB29307C2BDC14B1009AB2EF /* CustomAlertView.swift in Sources */,
 				FB29306A2BDC0633009AB2EF /* SettingView.swift in Sources */,
+				FB2930822BDE6A1F009AB2EF /* ScholarshipSupportedBoxView.swift in Sources */,
 				FB29307A2BDC1066009AB2EF /* ResetInfoView.swift in Sources */,
 				FB29306D2BDC0907009AB2EF /* secret.swift in Sources */,
 				FBABCF022BD636890068178F /* AlarmActor.swift in Sources */,
