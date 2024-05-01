@@ -38,6 +38,7 @@ struct AllScholarshipView: View {
         }
         .onAppear {
             viewModel.viewOpened()
+            NotificationManager.instance.requestAuthorization()
         }
         .onDisappear {
             viewModel.cancelTasks()
