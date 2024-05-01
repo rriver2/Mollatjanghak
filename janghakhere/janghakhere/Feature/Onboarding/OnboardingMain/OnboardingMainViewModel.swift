@@ -15,7 +15,7 @@ final class OnboardingMainViewModel: ObservableObject {
     
     @Published private(set) var defaultDatas: [String] = []
     
-    @Published var progressValue: Int = 0
+    @Published var currentPage: Int = 0
     @Published var name: String = ""
     @Published var sex: Sex = .notSelected
     @Published var date: Date = .now

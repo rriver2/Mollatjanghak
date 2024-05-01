@@ -90,7 +90,6 @@ struct OnboardingMainView: View {
     @Environment(\.dismiss) private var dismiss
     @FocusState private var isKeyboardOn: Bool
     @StateObject private var viewModel = OnboardingMainViewModel()
-    @State private var currentPage = 0
     var filteredSemesterStatuses: [SemesterStatus] {
         switch viewModel.semesterYear {
         case .freshman:
@@ -110,7 +109,7 @@ struct OnboardingMainView: View {
 #endif
         return VStack(spacing: 0) {
             customNavigationToolbar()
-            TabView(selection: $currentPage) {
+            TabView(selection: $viewModel.currentPage) {
                 nameContent()
                     .tag(0)
                 sexContent()
@@ -139,13 +138,27 @@ extension OnboardingMainView {
     @ViewBuilder
     func customNavigationToolbar() -> some View {
         HStack(spacing: 0) {
-            Icon(name: .arrowLeft, color: .black, size: 28)
-                .padding(.trailing, 8)
-                .onTapGesture {
-                    dismiss()
+            Button {
+                switch viewModel.currentPage {
+                case 0:
+                    withAnimation {
+                        dismiss()
+                    }
+                default:
+                    withAnimation {
+                        viewModel.currentPage -= 1
+                    }
                 }
+            } label: {
+                Icon(
+                    name: viewModel.currentPage == 0
+                    ? .exit
+                    : .arrowLeft,
+                    color: .black, size: 28)
+            }
+            .padding(.trailing, 8)
             
-            ProgressView(value: Double(viewModel.progressValue) * 0.2)
+            ProgressView(value: Double(viewModel.currentPage) * 0.2)
                 .tint(.mainGray)
         }
         .paddingHorizontal()
@@ -173,8 +186,7 @@ extension OnboardingMainView {
                     isKeyboardOn = false
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         withAnimation {
-                            currentPage = 1
-                            viewModel.progressValue = 1
+                            viewModel.currentPage = 1
                         }
                     }
                 },
@@ -199,8 +211,7 @@ extension OnboardingMainView {
                 title: "다음",
                 action: {
                     withAnimation {
-                        currentPage = 2
-                        viewModel.progressValue = 2
+                        viewModel.currentPage = 2
                     }
                 },
                 disabled: viewModel.sex == .notSelected
@@ -259,8 +270,7 @@ extension OnboardingMainView {
                 title: "다음",
                 action: {
                     withAnimation {
-                        currentPage = 3
-                        viewModel.progressValue = 3
+                        viewModel.currentPage = 3
                     }
                 },
                 disabled: viewModel.isEmptyDate($viewModel.date.wrappedValue)
@@ -313,8 +323,7 @@ extension OnboardingMainView {
                  title: "다음",
                  action: {
                      withAnimation {
-                         currentPage = 4
-                         viewModel.progressValue = 4
+                         viewModel.currentPage = 4
                      }
                  },
                  disabled: viewModel.degreesStatus == .notSelected || viewModel.enrollmentStatus == .notSelected
@@ -452,8 +461,7 @@ extension OnboardingMainView {
                 title: "다음",
                 action: {
                     withAnimation {
-                        currentPage = 5
-                        viewModel.progressValue = 5
+                        viewModel.currentPage = 5
                     }
                 },
                 disabled: viewModel.schoolName == "" || viewModel.semesterYear == .notSelected || viewModel.semesterStatus == .notSelected
@@ -522,7 +530,7 @@ extension OnboardingMainView {
                     isKeyboardOn = false
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         withAnimation {
-                            currentPage = 1
+                            viewModel.currentPage = 1
                         }
                     }
                 },
