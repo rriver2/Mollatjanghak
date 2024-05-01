@@ -10,7 +10,7 @@ import SwiftUI
 @MainActor
 final class OnboardingExtraViewModel: ObservableObject {
     let managerActor: OnboardingExtraActor = OnboardingExtraActor()
-    @Published var progressValue: Double  = 0
+    @Published var currentPage: Int = 0 
     @Published var previousGrade: Double = 0.0
     @Published var entireGrade: Double = 0.0
     @Published var incomeDecile: IncomeDecile = .notSelected

@@ -11,6 +11,7 @@ struct OnboardingExtraView: View {
     @EnvironmentObject private var pathModel: PathModel
     @StateObject private var viewModel = OnboardingExtraViewModel()
     @Environment(\.dismiss) private var dismiss
+    @State private var currentPage = 0
     var body: some View {
 #if DEBUG
         if #available (iOS 17.1, *) {
@@ -19,12 +20,19 @@ struct OnboardingExtraView: View {
 #endif
         return VStack(spacing: 0) {
             customNavigationToolbar()
-//            academicInfoContent()
-//            incomeDecileContent()
-//            militaryServiceContent()
-//            siblingContent()
-            
-            Spacer()
+            TabView(selection: $viewModel.currentPage) {
+                academicInfoContent()
+                    .tag(0)
+                incomeDecileContent()
+                    .tag(1)
+                militaryServiceContent()
+                    .tag(2)
+                siblingContent()
+                    .tag(3)
+                etcContent()
+                    .tag(4)
+            }
+            .tabViewStyle(.page(indexDisplayMode: .never))
         }
         .task {
             viewModel.createView()
@@ -36,6 +44,26 @@ struct OnboardingExtraView: View {
 }
 
 extension OnboardingExtraView {
+    
+    @ViewBuilder
+    func etcContent() -> some View {
+        VStack(alignment: .leading, spacing: 0) {
+            VStack {
+                
+            }
+            Spacer()
+            MainButtonView(
+                title: "완료",
+                action: {
+                    withAnimation {
+                        pathModel.paths.append(.onboardingExtraCompleteView)
+                    }
+                },
+                disabled: false
+            )
+        }
+        .paddingHorizontal()
+    }
     
     @ViewBuilder
     func siblingContent() -> some View {
@@ -65,7 +93,11 @@ extension OnboardingExtraView {
             Spacer()
             MainButtonView(
                 title: "다음",
-                action: {},
+                action: {
+                    withAnimation {
+                        viewModel.currentPage = 4
+                    }
+                },
                 disabled: viewModel.siblingStatus == .notSelected
             )
         }
@@ -101,7 +133,11 @@ extension OnboardingExtraView {
             Spacer()
             MainButtonView(
                 title: "다음",
-                action: {},
+                action: {
+                    withAnimation {
+                        viewModel.currentPage = 3
+                    }
+                },
                 disabled: viewModel.militaryStatus == .notSelected
             )
         }
@@ -122,7 +158,7 @@ extension OnboardingExtraView {
                         .underline()
                 }
             }
-            .padding(0)
+            .padding(.top, 16)
             
             Text("소득구간을 선택해 주세요")
                 .font(.title_md)
@@ -158,7 +194,11 @@ extension OnboardingExtraView {
             
             MainButtonView(
                 title: "다음",
-                action: {},
+                action: {
+                    withAnimation {
+                        viewModel.currentPage = 2
+                    }
+                },
                 disabled: viewModel.incomeDecile == .notSelected
             )
         }
@@ -179,7 +219,7 @@ extension OnboardingExtraView {
                             .underline()
                     }
                 }
-                .padding(0)
+                .padding(.top, 16)
                 
                 Text("학교 성적을 입력해 주세요")
                     .font(.title_md)
@@ -258,25 +298,17 @@ extension OnboardingExtraView {
                         .foregroundStyle(.black)
                 }
                 .padding(.bottom, 46)
-//                VStack(alignment: .leading, spacing: 0) {
-//                    Text("전공계열")
-//                        .font(.title_xsm)
-//                        .foregroundStyle(.gray600)
-//                        .padding(.vertical, 12)
-//                    
-//                    GrayBoxGridView<MajorField>(
-//                        column: .three,
-//                        titleList: MajorField.allCases,
-//                        action: {},
-//                        selectedElement: $viewModel.majorField
-//                    )
-//                    .padding(.vertical, 8)
-//                }
+                
                 Spacer()
+                
                 MainButtonView(
                     title: "다음",
-                    action: {},
-                    disabled: false
+                    action: {
+                        withAnimation {
+                            viewModel.currentPage = 1
+                        }
+                    },
+                    disabled: viewModel.previousGrade == 0 || viewModel.entireGrade == 0
                 )
             }
             .paddingHorizontal()
@@ -286,18 +318,31 @@ extension OnboardingExtraView {
     @ViewBuilder
     func customNavigationToolbar() -> some View {
         HStack(spacing: 0) {
-            Icon(name: .arrowLeft, color: .black, size: 28)
-                .padding(.trailing, 8)
-                .onTapGesture {
-                    dismiss()
+            Button {
+                switch viewModel.currentPage {
+                case 0:
+                    withAnimation {
+                        dismiss()
+                    }
+                default:
+                    withAnimation {
+                        viewModel.currentPage -= 1
+                    }
                 }
+            } label: {
+                Icon(
+                    name: viewModel.currentPage == 0
+                    ? .exit
+                    : .arrowLeft,
+                    color: .black, size: 28)
+            }
+            .padding(.trailing, 8)
             
-            ProgressView(value: Double(viewModel.progressValue) * 0.2)
+            ProgressView(value: Double(viewModel.currentPage) * 0.25)
                 .tint(.mainGray)
         }
         .paddingHorizontal()
     }
-    
 }
 
 #Preview {
