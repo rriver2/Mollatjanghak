@@ -16,10 +16,7 @@ struct SexSelectionView: View {
                 sex = .male
             } label: {
                 VStack {
-//                    Image(sex == .male 
-//                          ? "maleBlack"
-//                          : "maleGray")
-                    Image("man")
+                    Image("male")
                         .font(.system(size: 60))
                     //                        .frame(width: 54, height: 115)
                     //                        .padding(.horizontal, 58)
@@ -48,10 +45,7 @@ struct SexSelectionView: View {
                 sex = .female
             } label: {
                 VStack {
-//                    Image(sex == .female
-//                          ? "femaleBlack"
-//                          : "femaleGray")
-                    Image("femail")
+                    Image("female")
                         .font(.system(size: 60))
                         .foregroundStyle(
                             sex == .female
