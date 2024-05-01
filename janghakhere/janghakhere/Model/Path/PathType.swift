@@ -18,4 +18,6 @@ enum PathType: Hashable {
     case resetInfoView
     case settingView
     case myInformationView
+    case onboardingExtraView
+    case onboardingExtraCompleteView
 }

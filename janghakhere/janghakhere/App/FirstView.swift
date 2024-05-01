@@ -62,6 +62,12 @@ struct FirstView: View {
                 case .myInformationView:
                     MyInformationView()
                         .navigationBarBackButtonHidden()
+                case .onboardingExtraView:
+                    OnboardingExtraView()
+                        .navigationBarBackButtonHidden()
+                case .onboardingExtraCompleteView:
+                    OnboardingExtraCompleteView()
+                        .navigationBarBackButtonHidden()
                 }
             }
         }
