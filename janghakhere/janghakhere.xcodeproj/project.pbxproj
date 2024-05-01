@@ -13,6 +13,10 @@
 		7B5C11692BE142010056C2BC /* MyInformationActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C11662BE142010056C2BC /* MyInformationActor.swift */; };
 		7B5C116A2BE142010056C2BC /* MyInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C11672BE142010056C2BC /* MyInformationView.swift */; };
 		7B5C116B2BE142010056C2BC /* MyInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C11682BE142010056C2BC /* MyInformationViewModel.swift */; };
+		7B5C11702BE226A10056C2BC /* OnboardingExtraActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C116D2BE226A10056C2BC /* OnboardingExtraActor.swift */; };
+		7B5C11712BE226A10056C2BC /* OnboardingExtraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C116E2BE226A10056C2BC /* OnboardingExtraView.swift */; };
+		7B5C11722BE226A10056C2BC /* OnboardingExtraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C116F2BE226A10056C2BC /* OnboardingExtraViewModel.swift */; };
+		7B5C11742BE22F580056C2BC /* OnboardingExtraCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C11732BE22F580056C2BC /* OnboardingExtraCompleteView.swift */; };
 		7B6445A22BCFF89A00D4AF74 /* Chip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445A12BCFF89A00D4AF74 /* Chip.swift */; };
 		7B6445B92BD526EF00D4AF74 /* OnboardingMainActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445B62BD526EF00D4AF74 /* OnboardingMainActor.swift */; };
 		7B6445BA2BD526EF00D4AF74 /* OnboardingMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445B72BD526EF00D4AF74 /* OnboardingMainView.swift */; };
@@ -102,6 +106,10 @@
 		7B5C11662BE142010056C2BC /* MyInformationActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInformationActor.swift; sourceTree = "<group>"; };
 		7B5C11672BE142010056C2BC /* MyInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInformationView.swift; sourceTree = "<group>"; };
 		7B5C11682BE142010056C2BC /* MyInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInformationViewModel.swift; sourceTree = "<group>"; };
+		7B5C116D2BE226A10056C2BC /* OnboardingExtraActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingExtraActor.swift; sourceTree = "<group>"; };
+		7B5C116E2BE226A10056C2BC /* OnboardingExtraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingExtraView.swift; sourceTree = "<group>"; };
+		7B5C116F2BE226A10056C2BC /* OnboardingExtraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingExtraViewModel.swift; sourceTree = "<group>"; };
+		7B5C11732BE22F580056C2BC /* OnboardingExtraCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingExtraCompleteView.swift; sourceTree = "<group>"; };
 		7B6445A12BCFF89A00D4AF74 /* Chip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chip.swift; sourceTree = "<group>"; };
 		7B6445B62BD526EF00D4AF74 /* OnboardingMainActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingMainActor.swift; sourceTree = "<group>"; };
 		7B6445B72BD526EF00D4AF74 /* OnboardingMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingMainView.swift; sourceTree = "<group>"; };
@@ -217,6 +225,17 @@
 				7B5C11682BE142010056C2BC /* MyInformationViewModel.swift */,
 			);
 			path = MyInfomation;
+			sourceTree = "<group>";
+		};
+		7B5C116C2BE226710056C2BC /* OnboardingExtra */ = {
+			isa = PBXGroup;
+			children = (
+				7B5C116D2BE226A10056C2BC /* OnboardingExtraActor.swift */,
+				7B5C116E2BE226A10056C2BC /* OnboardingExtraView.swift */,
+				7B5C116F2BE226A10056C2BC /* OnboardingExtraViewModel.swift */,
+				7B5C11732BE22F580056C2BC /* OnboardingExtraCompleteView.swift */,
+			);
+			path = OnboardingExtra;
 			sourceTree = "<group>";
 		};
 		7B64459C2BCFF76000D4AF74 /* Search */ = {
@@ -560,6 +579,7 @@
 		FBEEBBA72BCEC1A6006CE5EA /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				7B5C116C2BE226710056C2BC /* OnboardingExtra */,
 				7B6445D32BD80CB400D4AF74 /* OnboardingEndView */,
 				7B6445D02BD7D66000D4AF74 /* OnboardingWaiting */,
 				7B6445C72BD53CFD00D4AF74 /* OnboardingBegin */,
@@ -676,6 +696,7 @@
 				FB978CA12BCD773600347D47 /* FirstView.swift in Sources */,
 				FBE769792BCF769E007F8DEF /* MainButtonView.swift in Sources */,
 				FB2930842BDE740E009AB2EF /* TextFieldDynamicWidth.swift in Sources */,
+				7B5C11742BE22F580056C2BC /* OnboardingExtraCompleteView.swift in Sources */,
 				FBEEBB932BCE9CC6006CE5EA /* DetailScholarship.swift in Sources */,
 				FB978CAF2BCD7FF800347D47 /* extension.swift in Sources */,
 				FBEEBB912BCE9CB2006CE5EA /* DetailScholarshipView.swift in Sources */,
@@ -726,6 +747,9 @@
 				FB978CA82BCD79E900347D47 /* AllScholarshipView.swift in Sources */,
 				7B6445CB2BD6A2A700D4AF74 /* IncomeConfirmView.swift in Sources */,
 				FBE769832BCF8E11007F8DEF /* SlotMachineView.swift in Sources */,
+				7B5C11702BE226A10056C2BC /* OnboardingExtraActor.swift in Sources */,
+				7B5C11712BE226A10056C2BC /* OnboardingExtraView.swift in Sources */,
+				7B5C11722BE226A10056C2BC /* OnboardingExtraViewModel.swift in Sources */,
 				7B6445A22BCFF89A00D4AF74 /* Chip.swift in Sources */,
 				FB19C9212BE147410039205E /* SupportedCategory.swift in Sources */,
 				7B6445C42BD5295A00D4AF74 /* DateSelectionView.swift in Sources */,
@@ -875,7 +899,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"janghakhere/Preview Content\"";
-				DEVELOPMENT_TEAM = J7ZP3WYXRW;
+				DEVELOPMENT_TEAM = 3WVLC7Y373;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = janghakhere/Info.plist;
@@ -905,7 +929,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"janghakhere/Preview Content\"";
-				DEVELOPMENT_TEAM = J7ZP3WYXRW;
+				DEVELOPMENT_TEAM = 3WVLC7Y373;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = janghakhere/Info.plist;
