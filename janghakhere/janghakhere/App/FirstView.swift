@@ -59,6 +59,9 @@ struct FirstView: View {
                     ResetInfoView()
                 case .settingView:
                     SettingView()
+                case .myInformationView:
+                    MyInformationView()
+                        .navigationBarBackButtonHidden()
                 }
             }
         }

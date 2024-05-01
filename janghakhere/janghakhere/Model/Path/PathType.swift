@@ -17,4 +17,5 @@ enum PathType: Hashable {
     case settingWebView(title: String, url: URL)
     case resetInfoView
     case settingView
+    case myInformationView
 }

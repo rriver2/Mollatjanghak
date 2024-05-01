@@ -101,7 +101,9 @@ extension MyPageView {
                 .font(.title_md)
                 .foregroundStyle(.black)
                 .padding(.bottom, 12)
-            Button {} label: {
+            Button {
+                pathModel.paths.append(.myInformationView)
+            } label: {
                 HStack(spacing: 3) {
                     Icon(name: .pencilLine, color: .mainGray, size: 15)
                     Text("내 정보 보기")
