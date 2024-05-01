@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		7B5C11602BDFEADC0056C2BC /* ScholarshipPostingSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C115F2BDFEADC0056C2BC /* ScholarshipPostingSheet.swift */; };
+		7B5C11632BE12E3F0056C2BC /* MyPageActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C11612BE12E3F0056C2BC /* MyPageActor.swift */; };
+		7B5C11642BE12E3F0056C2BC /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C11622BE12E3F0056C2BC /* MyPageViewModel.swift */; };
+		7B5C11692BE142010056C2BC /* MyInformationActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C11662BE142010056C2BC /* MyInformationActor.swift */; };
+		7B5C116A2BE142010056C2BC /* MyInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C11672BE142010056C2BC /* MyInformationView.swift */; };
+		7B5C116B2BE142010056C2BC /* MyInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C11682BE142010056C2BC /* MyInformationViewModel.swift */; };
 		7B6445A22BCFF89A00D4AF74 /* Chip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445A12BCFF89A00D4AF74 /* Chip.swift */; };
 		7B6445B92BD526EF00D4AF74 /* OnboardingMainActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445B62BD526EF00D4AF74 /* OnboardingMainActor.swift */; };
 		7B6445BA2BD526EF00D4AF74 /* OnboardingMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445B72BD526EF00D4AF74 /* OnboardingMainView.swift */; };
@@ -92,6 +97,11 @@
 
 /* Begin PBXFileReference section */
 		7B5C115F2BDFEADC0056C2BC /* ScholarshipPostingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScholarshipPostingSheet.swift; sourceTree = "<group>"; };
+		7B5C11612BE12E3F0056C2BC /* MyPageActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageActor.swift; sourceTree = "<group>"; };
+		7B5C11622BE12E3F0056C2BC /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
+		7B5C11662BE142010056C2BC /* MyInformationActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInformationActor.swift; sourceTree = "<group>"; };
+		7B5C11672BE142010056C2BC /* MyInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInformationView.swift; sourceTree = "<group>"; };
+		7B5C11682BE142010056C2BC /* MyInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInformationViewModel.swift; sourceTree = "<group>"; };
 		7B6445A12BCFF89A00D4AF74 /* Chip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chip.swift; sourceTree = "<group>"; };
 		7B6445B62BD526EF00D4AF74 /* OnboardingMainActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingMainActor.swift; sourceTree = "<group>"; };
 		7B6445B72BD526EF00D4AF74 /* OnboardingMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingMainView.swift; sourceTree = "<group>"; };
@@ -197,6 +207,16 @@
 				7B5C115F2BDFEADC0056C2BC /* ScholarshipPostingSheet.swift */,
 			);
 			path = Sheet;
+			sourceTree = "<group>";
+		};
+		7B5C11652BE141C10056C2BC /* MyInfomation */ = {
+			isa = PBXGroup;
+			children = (
+				7B5C11662BE142010056C2BC /* MyInformationActor.swift */,
+				7B5C11672BE142010056C2BC /* MyInformationView.swift */,
+				7B5C11682BE142010056C2BC /* MyInformationViewModel.swift */,
+			);
+			path = MyInfomation;
 			sourceTree = "<group>";
 		};
 		7B64459C2BCFF76000D4AF74 /* Search */ = {
@@ -382,8 +402,11 @@
 		FB978CB62BCD8ED700347D47 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
-				FB978CA92BCD79F300347D47 /* MyPageView.swift */,
 				FB2930702BDC0A4B009AB2EF /* Setting */,
+				7B5C11652BE141C10056C2BC /* MyInfomation */,
+				FB978CA92BCD79F300347D47 /* MyPageView.swift */,
+				7B5C11612BE12E3F0056C2BC /* MyPageActor.swift */,
+				7B5C11622BE12E3F0056C2BC /* MyPageViewModel.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -694,6 +717,9 @@
 				7B6445C12BD527CB00D4AF74 /* SexSelectionView.swift in Sources */,
 				7B6445C92BD53D1B00D4AF74 /* OnboardingBeginView.swift in Sources */,
 				FB978C902BCD770600347D47 /* janghakhereApp.swift in Sources */,
+				7B5C11692BE142010056C2BC /* MyInformationActor.swift in Sources */,
+				7B5C116A2BE142010056C2BC /* MyInformationView.swift in Sources */,
+				7B5C116B2BE142010056C2BC /* MyInformationViewModel.swift in Sources */,
 				FBEEBB8E2BCE9BC1006CE5EA /* AllScholarshipViewModel.swift in Sources */,
 				7B6445C62BD534F500D4AF74 /* SemesterYearSelectionView.swift in Sources */,
 				FBEEBB8A2BCE98DF006CE5EA /* ScholarshipCategory.swift in Sources */,
@@ -714,6 +740,8 @@
 				FBEEBBA62BCEB1AA006CE5EA /* HTTPUtils.swift in Sources */,
 				FBABCF082BD77ED60068178F /* Alarm.swift in Sources */,
 				FB2930742BDC0AB3009AB2EF /* WebTotalView.swift in Sources */,
+				7B5C11632BE12E3F0056C2BC /* MyPageActor.swift in Sources */,
+				7B5C11642BE12E3F0056C2BC /* MyPageViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
