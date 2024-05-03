@@ -13,7 +13,7 @@ protocol MyscholarshipCategory {
 }
 
 enum SupportedCategory: String, CaseIterable, MyscholarshipCategory {
-    case completedApplication
+    case supportCompleted
     case passed
     case failed
     
@@ -23,12 +23,12 @@ enum SupportedCategory: String, CaseIterable, MyscholarshipCategory {
     
     var name: String {
         switch self {
-        case .completedApplication:
-            "지원완료"
+        case .supportCompleted:
+            PublicAnnouncementStatusCategory.supportCompleted.title
         case .passed:
-            "합격"
+            PublicAnnouncementStatusCategory.passed.title
         case .failed:
-            "불합격"
+            PublicAnnouncementStatusCategory.failed.title
         }
     }
 }

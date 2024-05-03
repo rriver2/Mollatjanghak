@@ -1,5 +1,5 @@
 //
-//  ScholarshipSupportedBoxView.swift
+//  SuccessFailView.swift
 //  janghakhere
 //
 //  Created by Gaeun Lee on 4/28/24.
@@ -8,39 +8,37 @@
 import SwiftUI
 
 struct SuccessFailView: View {
-    @State var scholarshipBox: ScholarshipBox
-    @FocusState private var isKeyboardOn: Bool
+    @Binding var scholarshipBox: ScholarshipBox?
     @Binding var isShowPassModal: Bool
     
     @State var amount: String = ""
     
-    init(scholarshipBox: ScholarshipBox, isShowPassModal: Binding<Bool>) {
-        self._scholarshipBox = State(initialValue: scholarshipBox)
+    init(scholarshipBox: Binding<ScholarshipBox?>, isShowPassModal: Binding<Bool>) {
+        self._scholarshipBox = scholarshipBox
         self._isShowPassModal = isShowPassModal
     }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             navigationView()
-            ScrollView {
-                VStack(alignment: .leading, spacing: 0) {
-                    Text("합격 여부를 알려주세요")
-                        .font(.title_md)
-                        .padding(.top, 28)
-                        .padding(.bottom, 60)
-                    
-                    passButton()
-                    failedButton()
-                    if scholarshipBox.publicAnnouncementStatus == .passed {
-                        passedAmmountTextField()
-                    }
+            VStack(alignment: .leading, spacing: 0) {
+                Text("합격 여부를 알려주세요")
+                    .font(.title_md)
+                    .padding(.top, 28)
+                    .padding(.bottom, 60)
+                
+                passButton()
+                failedButton()
+                if scholarshipBox!.publicAnnouncementStatus == .passed {
+                    passedAmmountTextField()
                     Spacer()
-                    if  scholarshipBox.publicAnnouncementStatus == .failed {
-                        submitButton()
-                    }
+                    submitButton()
+                }
+                Spacer()
+                if  scholarshipBox!.publicAnnouncementStatus == .failed {
+                    submitButton()
                 }
             }
-            .scrollIndicators(.hidden)
         }
         .paddingHorizontal()
     }
@@ -53,7 +51,7 @@ extension SuccessFailView {
             Spacer()
             Icon(name: .exit, color: .black, size: 28)
                 .onTapGesture {
-                    self.isShowPassModal = false
+//                    self.isShowPassModal = false
                 }
         }
         .foregroundStyle(.black)
@@ -63,14 +61,14 @@ extension SuccessFailView {
     @ViewBuilder
     private func passButton() -> some View {
         Button {
-            scholarshipBox.publicAnnouncementStatus = .passed
+            scholarshipBox!.publicAnnouncementStatus = .passed
         } label: {
             Text("합격")
                 .padding(.vertical, 13)
                 .frame(maxWidth: .infinity)
                 .font(.title_xsm)
-                .foregroundStyle( scholarshipBox.publicAnnouncementStatus == .passed ? .white : .gray600)
-                .background( scholarshipBox.publicAnnouncementStatus == .passed ? .subGreen : .gray70)
+                .foregroundStyle( scholarshipBox!.publicAnnouncementStatus == .passed ? .white : .gray600)
+                .background( scholarshipBox!.publicAnnouncementStatus == .passed ? .subGreen : .gray70)
                 .cornerRadius(8)
         }
         .padding(.bottom, 20)
@@ -102,7 +100,7 @@ extension SuccessFailView {
             Text("원")
                 .foregroundStyle(.black)
                 .font(.title_md)
-            if amount == "0" {
+            if amount == "" {
                 Icon(name: .pencilLine, color: .gray300, size: 24)
             }
             Spacer()
@@ -114,14 +112,14 @@ extension SuccessFailView {
     @ViewBuilder
     private func failedButton() -> some View {
         Button {
-            scholarshipBox.publicAnnouncementStatus = .failed
+            scholarshipBox!.publicAnnouncementStatus = .failed
         } label: {
             Text("불합격")
                 .padding(.vertical, 13)
                 .frame(maxWidth: .infinity)
                 .font(.title_xsm)
-                .foregroundStyle( scholarshipBox.publicAnnouncementStatus == .failed ? .white : .gray600)
-                .background( scholarshipBox.publicAnnouncementStatus == .failed ? Color.subRed : .gray70)
+                .foregroundStyle( scholarshipBox!.publicAnnouncementStatus == .failed ? .white : .gray600)
+                .background( scholarshipBox!.publicAnnouncementStatus == .failed ? Color.subRed : .gray70)
                 .cornerRadius(8)
         }
         .padding(.bottom, 60)
@@ -130,7 +128,7 @@ extension SuccessFailView {
     @ViewBuilder
     private func submitButton() -> some View {
         Button {
-            switch  scholarshipBox.publicAnnouncementStatus {
+            switch  scholarshipBox!.publicAnnouncementStatus {
             case .failed:
                 failedFinishedButtonPressed()
             case .passed:
@@ -139,7 +137,7 @@ extension SuccessFailView {
                 break
             }
         } label: {
-            let isSubmitmode =  scholarshipBox.publicAnnouncementStatus == .failed ||  scholarshipBox.publicAnnouncementStatus == .passed
+            let isSubmitmode =  scholarshipBox!.publicAnnouncementStatus == .failed || scholarshipBox!.publicAnnouncementStatus == .passed
             Text("완료")
                 .padding(.vertical, 16)
                 .frame(maxWidth: .infinity)

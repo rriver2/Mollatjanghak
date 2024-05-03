@@ -18,7 +18,7 @@ final class AllScholarshipViewModel: ObservableObject {
     let scholarshipBoxListActor: ScholarshipBoxListActor = ScholarshipBoxListActor()
     
     @Published private(set) var scholarshipCategory: ScholarshipCategory = .custom
-    @Published private(set) var scholarshipList: [ScholarshipBox] = []
+    @Published var scholarshipList: [ScholarshipBox] = []
     @Published var advertisementSelection: Int = 0
     @Published private var timer: Timer?
     @Published private(set) var networkStatus: NetworkStatus = .loading

@@ -41,9 +41,9 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
         case .supportCompleted:
             "지원완료"
         case .failed:
-            "합격"
-        case .passed:
             "불합격"
+        case .passed:
+            "합격"
         }
     }
     

@@ -15,11 +15,9 @@ struct MyScholarshipView: View {
     var body: some View {
         VStack(spacing: 0) {
             ScrollViewReader { proxy in
-                VStack(spacing: 0) {
-                    header(proxy: proxy)
-                    detailHeader(proxy: proxy)
-                    detailScholarshipBoxListView()
-                }
+                header(proxy: proxy)
+                detailHeader(proxy: proxy)
+                detailScholarshipBoxListView()
             }
         }
         .onAppear {
@@ -47,7 +45,7 @@ extension MyScholarshipView {
                     .padding(.trailing, 16)
             }
             Button {
-                viewModel.scholarshipCategoryButtonPressed(.supported(.completedApplication))
+                viewModel.scholarshipCategoryButtonPressed(.supported(.supportCompleted))
                 withAnimation {
                     proxy.scrollTo(viewModel.selectedScholarShipList.first?.id, anchor: .top)
                 }
@@ -120,7 +118,7 @@ extension MyScholarshipView {
     func detailScholarshipBoxListView() -> some View {
         //TODO: TabView
         VStack(spacing: 0) {
-            ScholarshipBoxListView(isGetMoreScholarshipBox: .constant(false), scholarshipList: viewModel.selectedScholarShipList)
+            ScholarshipBoxListView(isGetMoreScholarshipBox: .constant(false), scholarshipList: $viewModel.selectedScholarShipList)
             Spacer()
         }
     }

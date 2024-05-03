@@ -47,7 +47,7 @@ extension ScholarshipBoxView {
                 .foregroundStyle(Color.black)
                 .padding(.bottom, 24)
             HStack(spacing: 0) {
-                Text("D\(scholarshipBox.DDay)")
+                Text( scholarshipBox.DDay == "0" ? "마감" : "D\(scholarshipBox.DDay)")
                     .font(.semi_title_sm)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)

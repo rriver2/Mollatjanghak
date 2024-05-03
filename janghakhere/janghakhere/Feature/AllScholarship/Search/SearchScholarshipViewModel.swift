@@ -15,7 +15,7 @@ final class SearchScholarshipViewModel: ObservableObject {
     
     @Published var searchContent: String = ""
     @Published private (set)var searchScholarshipStatus: SearchScholarshipStatus = .notSearchedYet
-    @Published private (set)var scholarshipList: [ScholarshipBox] = []
+    @Published var scholarshipList: [ScholarshipBox] = []
     @Published private (set)var chips: [Chip] = []
     
     @Published private (set)var totalScholarshipCount: Int = 0 // 장학금 총 수

@@ -11,14 +11,9 @@ struct ScholarshipBoxListView: View {
     @EnvironmentObject private var pathModel: PathModel
     
     @State var isShowPassModal: Bool = false
+    @State var selectedScholarship: ScholarshipBox? = nil
     @Binding var isGetMoreScholarshipBox: Bool
-    
-    var scholarshipList: [ScholarshipBox]
-    
-    init(isGetMoreScholarshipBox: Binding<Bool>, scholarshipList: [ScholarshipBox]) {
-        self._isGetMoreScholarshipBox = isGetMoreScholarshipBox
-        self.scholarshipList = scholarshipList
-    }
+    @Binding var scholarshipList: [ScholarshipBox]
     
     var body: some View {
         VStack(spacing: 0) {
@@ -37,6 +32,7 @@ struct ScholarshipBoxListView: View {
                                         ScholarshipBoxView(scholarshipBox: scholarship)
                                         Button {
                                             self.isShowPassModal = true
+                                            self.selectedScholarship = scholarship
                                         } label: {
                                             Text("합격 여부 입력")
                                                 .padding(.vertical, 13)
@@ -51,9 +47,6 @@ struct ScholarshipBoxListView: View {
                                         }
                                     }
                                     .background(.white)
-                                    .fullScreenCover(isPresented: $isShowPassModal) {
-                                        SuccessFailView(scholarshipBox: scholarship, isShowPassModal: $isShowPassModal)
-                                    }
                                 }
                                 
                             }

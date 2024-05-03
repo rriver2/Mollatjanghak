@@ -22,9 +22,7 @@ final class MyScholarshipViewModel: ObservableObject {
     @Published private(set) var selectedCategoryName: String = MyScholarshipCategory.storedName
     @Published private(set) var selectedCategoryDetailName: String = StorageCategory.allCases.first?.name ?? "에베베"
     
-    @Published var TotalScholarShipList: [ScholarshipBox] = []
-    
-    // selectedCategory 지정 될 시 selectedScholarShipList 수정
+    @Published var totalScholarShipList: [ScholarshipBox] = []
     @Published var selectedScholarShipList: [ScholarshipBox] = []
     
     private var tasks: [Task<Void, Never>] = []
@@ -37,39 +35,50 @@ final class MyScholarshipViewModel: ObservableObject {
         case .stored(let storedCategory):
             changeDetailStorageCategory(storedCategory)
         }
+        storeChangedtScholarShip()
         getScholarShipList(category)
     }
     
     // sorting 최신,
     func sortingButtonPressed() {
-        
+           
     }
 }
 
 // private 함수들
 extension MyScholarshipViewModel {
-    private func getScholarShipList(_ category : MyScholarshipCategory) {
-        switch category {
-        case .supported(let supportedCategory):
-            switch supportedCategory {
-            case .completedApplication:
-                selectedScholarShipList = ScholarshipBox.mockDataList(.supportCompleted)
-            case .failed:
-                selectedScholarShipList = ScholarshipBox.mockDataList(.failed)
-            case .passed:
-                selectedScholarShipList = ScholarshipBox.mockDataList(.passed)
-            }
-        case .stored(let storedCategory):
-            switch storedCategory {
-            case .all:
-                selectedScholarShipList = ScholarshipBox.mockDataList(.storage)
-            case .inProgress:
-                selectedScholarShipList = ScholarshipBox.mockDataList(.nothing)
-            case .closing:
-                selectedScholarShipList = ScholarshipBox.mockDataList(.toBeSupported)
+    private func storeChangedtScholarShip() {
+        for newScholarship in selectedScholarShipList {
+            if let index = totalScholarShipList.firstIndex(where: { $0.id == newScholarship.id }) {
+               totalScholarShipList[index].publicAnnouncementStatus = newScholarship.publicAnnouncementStatus
             }
         }
     }
+    
+    private func getScholarShipList(_ category : MyScholarshipCategory) {
+        switch category {
+        case .supported(let supportedCategory):
+            switch supportedCategory { 
+            case .supportCompleted:
+                selectedScholarShipList = totalScholarShipList.filter({ $0.publicAnnouncementStatus == .supportCompleted })
+            case .failed:
+                selectedScholarShipList = totalScholarShipList.filter({ $0.publicAnnouncementStatus == .failed })
+            case .passed:
+                selectedScholarShipList = totalScholarShipList.filter({ $0.publicAnnouncementStatus == .passed })
+            }
+        case .stored(let storedCategory):
+            let filterScholarShipList = totalScholarShipList.filter({ $0.publicAnnouncementStatus != .failed && $0.publicAnnouncementStatus != .passed })
+            switch storedCategory {
+            case .all:
+                selectedScholarShipList = filterScholarShipList
+            case .inProgress:
+                selectedScholarShipList = filterScholarShipList.filter { $0.DDay.first != "+" }
+            case .closing:
+                selectedScholarShipList = filterScholarShipList.filter { $0.DDay.first == "+" }
+            }
+        }
+    }
+
     private func changeDetailSupportedCategory(_ category : SupportedCategory) {
         selectedCategoryName = MyScholarshipCategory.supportedName
         selectedCategoryDetailName = category.name
@@ -81,11 +90,16 @@ extension MyScholarshipViewModel {
         selectedCategoryDetailName = category.name
         selectedCategory = .stored(category)
     }
+    
+    private func getAllScholarShipList() {
+        totalScholarShipList = ScholarshipBox.mockAllDataList
+    }
 }
 
 // 기본 함수들
 extension MyScholarshipViewModel {
     func viewOpened() {
+        self.getAllScholarShipList()
         self.getScholarShipList(MyScholarshipCategory.stored(.all))
     }
     
