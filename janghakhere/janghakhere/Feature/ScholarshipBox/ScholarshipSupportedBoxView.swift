@@ -12,18 +12,15 @@ struct ScholarshipSupportedBoxView: View {
     @State var scholarshipBox: ScholarshipBox
     @State var isShowPassModal: Bool = false
     
-    @State var supportedCategory: SupportedCategory
-    
     @State var amount: String = "0"
     
-    init(scholarshipBox: ScholarshipBox, supportedCategory: SupportedCategory) {
+    init(scholarshipBox: ScholarshipBox) {
         self._scholarshipBox = State(initialValue: scholarshipBox)
-        self.supportedCategory = supportedCategory
     }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            ScholarshipBoxView(scholarshipBox: scholarshipBox, supportedCategory: supportedCategory)
+            ScholarshipBoxView(scholarshipBox: scholarshipBox)
             Button {
                 self.isShowPassModal = true
             } label: {
@@ -40,9 +37,6 @@ struct ScholarshipSupportedBoxView: View {
             }
         }
         .background(.white)
-        .cornerRadius(8)
-        .shadow(color: Color(red: 0.51, green: 0.55, blue: 0.58).opacity(0.1), radius: 4, x: 0, y: 0)
-        .padding(.bottom, 16)
         .fullScreenCover(isPresented: $isShowPassModal) {
             successFailView()
         }
@@ -94,11 +88,11 @@ extension ScholarshipSupportedBoxView {
                     
                     passButton()
                     failedButton()
-                    if supportedCategory == .passed {
+                    if scholarshipBox.publicAnnouncementStatus == .passed {
                         passedAmmountTextField()
                     }
                     Spacer()
-                    if supportedCategory == .failed {
+                    if  scholarshipBox.publicAnnouncementStatus == .failed {
                         submitButton()
                     }
                 }
@@ -123,14 +117,14 @@ extension ScholarshipSupportedBoxView {
     @ViewBuilder
     private func passButton() -> some View {
         Button {
-            supportedCategory = .passed
+            scholarshipBox.publicAnnouncementStatus = .passed
         } label: {
             Text("합격")
                 .padding(.vertical, 13)
                 .frame(maxWidth: .infinity)
                 .font(.title_xsm)
-                .foregroundStyle(supportedCategory == .passed ? .white : .gray600)
-                .background(supportedCategory == .passed ? .subGreen : .gray70)
+                .foregroundStyle( scholarshipBox.publicAnnouncementStatus == .passed ? .white : .gray600)
+                .background( scholarshipBox.publicAnnouncementStatus == .passed ? .subGreen : .gray70)
                 .cornerRadius(8)
         }
         .padding(.bottom, 20)
@@ -174,14 +168,14 @@ extension ScholarshipSupportedBoxView {
     @ViewBuilder
     private func failedButton() -> some View {
         Button {
-            supportedCategory = .failed
+            scholarshipBox.publicAnnouncementStatus = .failed
         } label: {
             Text("불합격")
                 .padding(.vertical, 13)
                 .frame(maxWidth: .infinity)
                 .font(.title_xsm)
-                .foregroundStyle(supportedCategory == .failed ? .white : .gray600)
-                .background(supportedCategory == .failed ? Color(hex: "FF6464") : .gray70)
+                .foregroundStyle( scholarshipBox.publicAnnouncementStatus == .failed ? .white : .gray600)
+                .background( scholarshipBox.publicAnnouncementStatus == .failed ? Color(hex: "FF6464") : .gray70)
                 .cornerRadius(8)
         }
         .padding(.bottom, 60)
@@ -190,16 +184,16 @@ extension ScholarshipSupportedBoxView {
     @ViewBuilder
     private func submitButton() -> some View {
         Button {
-            switch supportedCategory {
-            case .completedApplication:
-                break
+            switch  scholarshipBox.publicAnnouncementStatus {
             case .failed:
                 failedFinishedButtonPressed()
             case .passed:
                 passedFinishedButtonPressed()
+            default:
+                break
             }
         } label: {
-            let isSubmitmode = supportedCategory == .failed || supportedCategory == .passed
+            let isSubmitmode =  scholarshipBox.publicAnnouncementStatus == .failed ||  scholarshipBox.publicAnnouncementStatus == .passed
             Text("완료")
                 .padding(.vertical, 16)
                 .frame(maxWidth: .infinity)

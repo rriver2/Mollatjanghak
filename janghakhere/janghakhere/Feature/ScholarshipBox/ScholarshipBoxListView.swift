@@ -28,9 +28,17 @@ struct ScholarshipBoxListView: View {
                             Button {
                                 pathModel.paths.append(.detailScholarshipView(id: scholarship.id))
                             } label: {
-                                ScholarshipBoxView(scholarshipBox: scholarship)
-                                //가은 : ScholarshipSupportedBoxView 제거
+                                switch scholarship.publicAnnouncementStatus {
+                                case .supportCompleted:
+                                    ScholarshipSupportedBoxView(scholarshipBox: scholarship)
+                                case  .nothing, .storage, .toBeSupported, .failed, .passed:
+                                    ScholarshipBoxView(scholarshipBox: scholarship)
+                                }
+                                
                             }
+                            .cornerRadius(8)
+                            .padding(.bottom, 16)
+                            .shadow(color: Color(red: 0.51, green: 0.55, blue: 0.58).opacity(0.1), radius: 4, x: 0, y: 0)
                             .id(scholarship.id)
                             .onAppear {
                                 // 현재 보여진 datum의 index 값을 구하기
