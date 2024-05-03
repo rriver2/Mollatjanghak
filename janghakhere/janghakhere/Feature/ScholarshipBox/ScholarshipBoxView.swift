@@ -18,37 +18,9 @@ struct ScholarshipBoxView: View {
     
     var body: some View {
         HStack(spacing: 0) {
-            ScholarshipBoxLeadingView(scholarshipBox)
+            content()
             Spacer()
-            HStack(spacing: 0) {
-                if let iconName = scholarshipBox.publicAnnouncementStatus.IconName {
-                    Icon(name: iconName, color: scholarshipBox.publicAnnouncementStatus.buttonFontColor, size: 16)
-                        .padding(.trailing, 4)
-                }
-                    Text(scholarshipBox.publicAnnouncementStatus.title)
-                //FIXME: 각각에 맞게 수정하기
-                        .font(.semi_title_sm)
-            }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
-            .background(scholarshipBox.publicAnnouncementStatus.buttonColor)
-            .cornerRadius(100)
-            .foregroundStyle(scholarshipBox.publicAnnouncementStatus.buttonFontColor)
-            .onTapGesture {
-                //FIXME: 예시로
-//                    var status: PublicAnnouncementStatusCategory = .Nothing
-//                    switch scholarshipBox.publicAnnouncementStatus {
-//                    case .Nothing:
-//                        status = .Storage
-//                    case .Storage:
-//                        status = .ToBeSupported
-//                    case .ToBeSupported:
-//                        status = .SupportCompleted
-//                    case .SupportCompleted:
-//                        status = .Nothing
-//                    }
-//                    scholarshipBox.publicAnnouncementStatus = ScholarshipBoxManager.scholarshipStatusButtonPressed(status: publicAnnouncementStatus(id: scholarshipBox.id, status: status))
-            }
+            statusRoundRectangle()
         }
         .animation(.easeIn, value: scholarshipBox)
         .frame(maxWidth: .infinity)
@@ -58,6 +30,74 @@ struct ScholarshipBoxView: View {
         .background(.white)
         .onTapGesture {
             pathModel.paths.append(.detailScholarshipView(id: scholarshipBox.id))
+        }
+    }
+}
+
+extension ScholarshipBoxView {
+    @ViewBuilder
+    private func content() -> some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Text(scholarshipBox.sponsor)
+                .font(.semi_title_sm)
+                .foregroundStyle(Color.gray400)
+                .padding(.bottom, 4)
+            Text(scholarshipBox.title)
+                .font(.title_xsm)
+                .foregroundStyle(Color.black)
+                .padding(.bottom, 24)
+            HStack(spacing: 0) {
+                Text("D\(scholarshipBox.DDay)")
+                    .font(.semi_title_sm)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(.destructiveRed.opacity(0.08))
+                    .cornerRadius(4)
+                    .foregroundStyle(.destructiveRed)
+                    .padding(.trailing, 8)
+                HStack(spacing: 0) {
+                    Icon(name: .currencyKrw, color: .gray700, size: 16)
+                        .padding(.trailing, 5)
+                    Text(scholarshipBox.prize)
+                        .font(.semi_title_sm)
+                }
+                .padding(.horizontal, 8)
+                .padding(.vertical, 4)
+                .background(.gray60)
+                .cornerRadius(4)
+                .foregroundStyle(.gray700)
+            }
+        }
+    }
+    @ViewBuilder
+    private func statusRoundRectangle() -> some View {
+        HStack(spacing: 0) {
+            if let iconName = scholarshipBox.publicAnnouncementStatus.IconName {
+                Icon(name: iconName, color: scholarshipBox.publicAnnouncementStatus.buttonFontColor, size: 16)
+                    .padding(.trailing, 4)
+            }
+            Text(scholarshipBox.publicAnnouncementStatus.title)
+                .font(scholarshipBox.publicAnnouncementStatus.fontSize)
+        }
+        .padding(.horizontal, scholarshipBox.publicAnnouncementStatus.horizontalPadding)
+        .padding(.vertical, 8)
+        .background(scholarshipBox.publicAnnouncementStatus.buttonColor)
+        .cornerRadius(100)
+        .foregroundStyle(scholarshipBox.publicAnnouncementStatus.buttonFontColor)
+        .onTapGesture {
+            //FIXME: 예시로
+            //                    var status: PublicAnnouncementStatusCategory = .Nothing
+            //                    switch scholarshipBox.publicAnnouncementStatus {
+            //                    case .Nothing:
+            //                        status = .Storage
+            //                    case .Storage:
+            //                        status = .ToBeSupported
+            //                    case .ToBeSupported:
+            //                        status = .SupportCompleted
+            //                    case .SupportCompleted:
+            //                        status = .Nothing
+            //                    }
+            //                    scholarshipBox.publicAnnouncementStatus = ScholarshipBoxManager.scholarshipStatusButtonPressed(status: publicAnnouncementStatus(id: scholarshipBox.id, status: status))
         }
     }
 }

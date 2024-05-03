@@ -37,32 +37,49 @@ final class MyScholarshipViewModel: ObservableObject {
         case .stored(let storedCategory):
             changeDetailStorageCategory(storedCategory)
         }
+        getScholarShipList(category)
     }
     
     // sorting 최신,
     func sortingButtonPressed() {
         
     }
-    
+}
+
+// private 함수들
+extension MyScholarshipViewModel {
+    private func getScholarShipList(_ category : MyScholarshipCategory) {
+        switch category {
+        case .supported(let supportedCategory):
+            switch supportedCategory {
+            case .completedApplication:
+                selectedScholarShipList = ScholarshipBox.mockDataList(.supportCompleted)
+            case .failed:
+                selectedScholarShipList = ScholarshipBox.mockDataList(.failed)
+            case .passed:
+                selectedScholarShipList = ScholarshipBox.mockDataList(.passed)
+            }
+        case .stored(let storedCategory):
+            switch storedCategory {
+            case .all:
+                selectedScholarShipList = ScholarshipBox.mockDataList(.storage)
+            case .inProgress:
+                selectedScholarShipList = ScholarshipBox.mockDataList(.nothing)
+            case .closing:
+                selectedScholarShipList = ScholarshipBox.mockDataList(.toBeSupported)
+            }
+        }
+    }
     private func changeDetailSupportedCategory(_ category : SupportedCategory) {
         selectedCategoryName = MyScholarshipCategory.supportedName
         selectedCategoryDetailName = category.name
         selectedCategory = .supported(category)
-        print("selectedCategoryDetailNam1e", selectedCategoryDetailName)
     }
     
     private func changeDetailStorageCategory(_ category : StorageCategory) {
         selectedCategoryName = MyScholarshipCategory.storedName
         selectedCategoryDetailName = category.name
         selectedCategory = .stored(category)
-        print("selectedCategoryDetailNam2e", selectedCategoryDetailName)
-    }
-}
-
-// private 함수들
-extension MyScholarshipViewModel {
-    private func getScholarShipList(_ category : MyScholarshipCategory) {
-        selectedScholarShipList = ScholarshipBox.mockDataList(.all)
     }
 }
 

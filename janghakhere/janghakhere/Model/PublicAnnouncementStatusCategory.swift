@@ -58,9 +58,9 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
         case .supportCompleted:
             Color.subPurple
         case .failed:
-            Color(hex: "37C084")?.opacity(0.08) ?? .white
+            Color.subRed.opacity(0.08)
         case .passed:
-            Color(hex: "FF6464")?.opacity(0.08) ?? .white
+            Color.subGreen.opacity(0.08)
         }
     }
     
@@ -71,9 +71,27 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
         case .storage, .toBeSupported, .supportCompleted:
             Color.white
         case .failed:
-            Color(hex: "FF6464") ?? .red
+            Color.subRed
         case .passed:
             Color.subGreen
+        }
+    }
+    
+    var fontSize: UIFont {
+        switch self {
+        case .nothing, .storage, .toBeSupported, .supportCompleted:
+                .semi_title_sm
+        case .failed, .passed:
+                .semi_title_md
+        }
+    }
+    
+    var horizontalPadding: CGFloat {
+        switch self {
+        case .nothing, .storage, .toBeSupported, .supportCompleted:
+                12
+        case .failed, .passed:
+                20
         }
     }
 }

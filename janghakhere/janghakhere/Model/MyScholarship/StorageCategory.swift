@@ -27,26 +27,4 @@ enum StorageCategory: String, CaseIterable, MyscholarshipCategory {
             "마감"
         }
     }
-    
-    var buttonTextColor: Color {
-        return .red
-    }
-    
-    var buttonBackgroundColor: Color {
-        return .blue
-    }
-    
-//    func getCategory(_ id: String) -> StorageCategory {
-//        return StorageCategory.allCases.first { category in
-//            category.id == self.id
-//        }!
-//    }
-    
-    var allCasesId: [String] {
-        return StorageCategory.allCases.map { $0.rawValue }
-    }
-    
-    var allCasesName: [String] {
-        return StorageCategory.allCases.map { $0.name }
-    }
 }

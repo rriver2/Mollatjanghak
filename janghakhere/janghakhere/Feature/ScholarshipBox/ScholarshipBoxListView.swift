@@ -10,6 +10,7 @@ import SwiftUI
 struct ScholarshipBoxListView: View {
     @EnvironmentObject private var pathModel: PathModel
     
+    @State var isShowPassModal: Bool = false
     @Binding var isGetMoreScholarshipBox: Bool
     
     var scholarshipList: [ScholarshipBox]
@@ -29,10 +30,30 @@ struct ScholarshipBoxListView: View {
                                 pathModel.paths.append(.detailScholarshipView(id: scholarship.id))
                             } label: {
                                 switch scholarship.publicAnnouncementStatus {
-                                case .supportCompleted:
-                                    ScholarshipSupportedBoxView(scholarshipBox: scholarship)
                                 case  .nothing, .storage, .toBeSupported, .failed, .passed:
                                     ScholarshipBoxView(scholarshipBox: scholarship)
+                                case .supportCompleted:
+                                    VStack(alignment: .leading, spacing: 0) {
+                                        ScholarshipBoxView(scholarshipBox: scholarship)
+                                        Button {
+                                            self.isShowPassModal = true
+                                        } label: {
+                                            Text("합격 여부 입력")
+                                                .padding(.vertical, 13)
+                                                .frame(maxWidth: .infinity)
+                                                .font(.semi_title_md)
+                                                .foregroundStyle(.gray700)
+                                                .background(.gray70)
+                                                .cornerRadius(8)
+                                                .padding(.top, 16)
+                                                .paddingHorizontal()
+                                                .padding(.bottom, 16)
+                                        }
+                                    }
+                                    .background(.white)
+                                    .fullScreenCover(isPresented: $isShowPassModal) {
+                                        SuccessFailView(scholarshipBox: scholarship, isShowPassModal: $isShowPassModal)
+                                    }
                                 }
                                 
                             }

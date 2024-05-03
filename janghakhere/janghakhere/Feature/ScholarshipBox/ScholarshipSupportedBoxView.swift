@@ -7,76 +7,19 @@
 
 import SwiftUI
 
-struct ScholarshipSupportedBoxView: View {
-    @EnvironmentObject private var pathModel: PathModel
+struct SuccessFailView: View {
     @State var scholarshipBox: ScholarshipBox
-    @State var isShowPassModal: Bool = false
+    @FocusState private var isKeyboardOn: Bool
+    @Binding var isShowPassModal: Bool
     
-    @State var amount: String = "0"
+    @State var amount: String = ""
     
-    init(scholarshipBox: ScholarshipBox) {
+    init(scholarshipBox: ScholarshipBox, isShowPassModal: Binding<Bool>) {
         self._scholarshipBox = State(initialValue: scholarshipBox)
+        self._isShowPassModal = isShowPassModal
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            ScholarshipBoxView(scholarshipBox: scholarshipBox)
-            Button {
-                self.isShowPassModal = true
-            } label: {
-                Text("합격 여부 입력")
-                    .padding(.vertical, 13)
-                    .frame(maxWidth: .infinity)
-                    .font(.semi_title_md)
-                    .foregroundStyle(.gray700)
-                    .background(.gray70)
-                    .cornerRadius(8)
-                    .padding(.top, 16)
-                    .paddingHorizontal()
-                    .padding(.bottom, 16)
-            }
-        }
-        .background(.white)
-        .fullScreenCover(isPresented: $isShowPassModal) {
-            successFailView()
-        }
-    }
-}
-
-extension ScholarshipSupportedBoxView {
-    @ViewBuilder
-    private func statusButton() -> some View {
-        HStack(spacing: 0) {
-            if let iconName = scholarshipBox.publicAnnouncementStatus.IconName {
-                Icon(name: iconName, color: scholarshipBox.publicAnnouncementStatus.buttonFontColor, size: 16)
-                    .padding(.trailing, 4)
-                Text(scholarshipBox.publicAnnouncementStatus.title)
-                    .font(.semi_title_sm)
-            }
-        }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 8)
-        .background(scholarshipBox.publicAnnouncementStatus.buttonColor)
-        .cornerRadius(100)
-        .foregroundStyle(scholarshipBox.publicAnnouncementStatus.buttonFontColor)
-        .onTapGesture {
-            //FIXME: 예시로
-//            var status: PublicAnnouncementStatusCategory = .Nothing
-//            switch scholarshipBox.publicAnnouncementStatus {
-//            case .nothing:
-//                status = .Storage
-//            case .storage:
-//                status = .ToBeSupported
-//            case .toBeSupported:
-//                status = .SupportCompleted
-//            case .supportCompleted:
-//                status = .Nothing
-//            }
-//            scholarshipBox.publicAnnouncementStatus = ScholarshipBoxManager.scholarshipStatusButtonPressed(status: publicAnnouncementStatus(id: scholarshipBox.id, status: status))
-        }
-    }
-    @ViewBuilder
-    private func successFailView() -> some View {
         VStack(alignment: .leading, spacing: 0) {
             navigationView()
             ScrollView {
@@ -101,6 +44,9 @@ extension ScholarshipSupportedBoxView {
         }
         .paddingHorizontal()
     }
+}
+
+extension SuccessFailView {
     @ViewBuilder
     private func navigationView() -> some View {
         HStack(spacing: 0) {
@@ -175,7 +121,7 @@ extension ScholarshipSupportedBoxView {
                 .frame(maxWidth: .infinity)
                 .font(.title_xsm)
                 .foregroundStyle( scholarshipBox.publicAnnouncementStatus == .failed ? .white : .gray600)
-                .background( scholarshipBox.publicAnnouncementStatus == .failed ? Color(hex: "FF6464") : .gray70)
+                .background( scholarshipBox.publicAnnouncementStatus == .failed ? Color.subRed : .gray70)
                 .cornerRadius(8)
         }
         .padding(.bottom, 60)
@@ -205,7 +151,7 @@ extension ScholarshipSupportedBoxView {
     }
 }
 
-extension ScholarshipSupportedBoxView {
+extension SuccessFailView {
     private func passedFinishedButtonPressed() {
         //FIXME: 저장 API
         self.isShowPassModal = false
