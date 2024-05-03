@@ -70,8 +70,7 @@ extension AllScholarshipView {
                 .onTapGesture {
                     pathModel.paths.append(.searchScholarshipView)
                 }
-            //FIXME: alarm active <-> default
-            Icon(name: .alarmActive, size: 28)
+            Icon(name: viewModel.isNewAlarm ? .alarmActive : .alarmDefault, size: 28)
                 .onTapGesture {
                     pathModel.paths.append(.alarmView)
                 }
@@ -134,7 +133,8 @@ extension AllScholarshipView {
                 Text("전체 장학금 \(viewModel.totalScholarshipCount)개")
                     .font(.semi_title_md)
             case .custom:
-                Text("영서님을 위한 장학금 \(viewModel.totalScholarshipCount)개")
+                let name = UserDefaults.getValueFromDevice(key: .userName, String.self) ?? "💖"
+                Text("\(name)님을 위한 장학금 \(viewModel.totalScholarshipCount)개")
                     .font(.semi_title_md)
             }
             Spacer()

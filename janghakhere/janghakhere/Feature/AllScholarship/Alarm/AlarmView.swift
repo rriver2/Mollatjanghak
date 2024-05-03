@@ -16,23 +16,13 @@ struct AlarmView: View {
         VStack(spacing: 0) {
             NavigationDefaultView(title: "알림")
             grayLine()
-            Button {
-                NotificationManager.instance.cancelAllNotification()
-                NotificationManager.instance.scheduleNotification(.weeklyAlarm)
-                NotificationManager.instance.scheduleNotification(.DDayAlarm(id: "223311", title: "장학금임둥", date: Calendar.current.date(byAdding: .day, value: +8, to: Date())!))
-            } label: {
-                Text("알림 설정")
-            }
-            
-            Button {
-                NotificationManager.instance.cancelSpecificNotification(id: "223311")
-            } label: {
-                Text("알림 제거")
-            }
             ScrollView {
                 VStack(spacing: 0) {
-                    ForEach(Alarm.mockList, id: \.self) { alarm in
+                    ForEach(viewModel.alarmList, id: \.self) { alarm in
                         alarmInfoCell(alarm)
+                            .onTapGesture {
+                                dismiss()
+                            }
                     }
                 }
             }
@@ -42,24 +32,24 @@ struct AlarmView: View {
         .onAppear {
             NotificationManager.instance.deleteBadgeNumber()
         }
+        .onDisappear {
+            viewModel.disAppearView()
+        }
         .task {
             viewModel.createView()
-        }
-        .onDisappear {
-            viewModel.cancelTasks()
         }
     }
 }
 
 extension AlarmView {
     @ViewBuilder
-    func alarmInfoCell(_ alarm: Alarm) -> some View {
+    func alarmInfoCell(_ alarm: AlarmScholarship) -> some View {
         VStack(spacing: 0) {
             HStack(alignment: .top, spacing: 0) {
-                Icon(name: alarm.IconName, size: 28)
+                Icon(name: alarm.category.imageName, size: 28)
                     .padding(.trailing, 8)
                 VStack(alignment: .leading, spacing: 0) {
-                    Text(alarm.title)
+                    Text(alarm.category.title)
                         .font(.semi_title_md)
                         .foregroundStyle(.gray700)
                         .padding(.bottom, 6.5)
@@ -78,7 +68,7 @@ extension AlarmView {
             .padding(.trailing, 20)
             grayLine()
         }
-        .background(alarm.isReaded ? .gray50 : .white)
+        .background(getIsNotReaded(date: alarm.DDayDate) ? .white : .gray50)
     }
     @ViewBuilder
     func grayLine() -> some View {
@@ -86,6 +76,15 @@ extension AlarmView {
             .frame(height: 1)
             .frame(maxWidth: .infinity)
             .foregroundStyle(.gray200)
+    }
+    
+    private func getIsNotReaded(date: Date) -> Bool {
+        if let lastAlertCheckedDate = UserDefaults.getValueFromDevice(key: .lastAlertCheckedDate, Date.self),
+           lastAlertCheckedDate >= date {
+            return false
+        } else {
+            return true
+        }
     }
 }
 
