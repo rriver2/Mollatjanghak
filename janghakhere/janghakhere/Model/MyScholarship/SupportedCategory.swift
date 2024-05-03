@@ -7,7 +7,16 @@
 
 import SwiftUI
 
-enum SupportedCategory: String, CaseIterable {
+protocol MyscholarshipCategory {
+    var id: String { get }
+    var name: String { get }
+    var buttonTextColor: Color { get }
+    var buttonBackgroundColor: Color { get }
+    var allCasesId: [String] { get }
+    var allCasesName: [String] { get }
+}
+
+enum SupportedCategory: String, CaseIterable, MyscholarshipCategory {
     case completedApplication
     case passed
     case failed
@@ -49,11 +58,11 @@ enum SupportedCategory: String, CaseIterable {
         }
     }
     
-    func getCategory(_ id: String) -> SupportedCategory {
-        return SupportedCategory.allCases.first { category in
-            category.id == self.id
-        }!
-    }
+//    func getCategory(_ id: String) -> SupportedCategory {
+//        return SupportedCategory.allCases.first { category in
+//            category.id == self.id
+//        }!
+//    }
     
     var allCasesId: [String] {
         return SupportedCategory.allCases.map { $0.rawValue }

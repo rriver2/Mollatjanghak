@@ -1,13 +1,13 @@
 //
-//  ScholarshipBoxListActor.swift
+//  MyScholarshopBoxListActor.swift
 //  janghakhere
 //
-//  Created by Gaeun Lee on 4/17/24.
+//  Created by Gaeun Lee on 5/3/24.
 //
 
 import Foundation
 
-actor ScholarshipBoxListActor {
+actor MyScholarshopBoxListActor {
     
     struct ScholarshipAPI: Encodable {
         let page: Int
@@ -75,7 +75,7 @@ actor ScholarshipBoxListActor {
     }
 }
 
-extension ScholarshipBoxListActor {
+extension MyScholarshopBoxListActor {
     private func responseHandling(_ data: Data, _ response: HTTPURLResponse) throws  -> (ScholarshipBoxList: [ScholarshipBox], totalElements: Int, pageNumber: Int, totalPages: Int) {
         do {
             switch response.statusCode {

@@ -22,7 +22,7 @@ struct AllScholarshipView: View {
                     sortingScholarship()
                 }
                 .paddingHorizontal()
-                ScholarshipBoxListView(isGetMoreScholarshipBox: $viewModel.isGetMoreScholarshipBox, scholarshipList: viewModel.scholarshipList, supportedCategory: nil)
+                ScholarshipBoxListView(isGetMoreScholarshipBox: $viewModel.isGetMoreScholarshipBox, scholarshipList: viewModel.scholarshipList)
                     .onChange(of: viewModel.isGetMoreScholarshipBox, { _, _ in
                         userTouchedBottomOfTheScroll()
                     })
@@ -80,7 +80,6 @@ extension AllScholarshipView {
         .padding(.top, 16)
     }
     
-    //FIXME: View 이동 시켜야 함
     @ViewBuilder
     func advertisement() -> some View {
         TabView(selection: $viewModel.advertisementSelection) {

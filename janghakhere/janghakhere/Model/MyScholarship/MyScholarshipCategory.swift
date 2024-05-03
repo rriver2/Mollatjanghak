@@ -7,16 +7,3 @@
 
 import Foundation
 
-enum MyScholarshipCategory: CaseIterable {
-    case storaged
-    case supported
-    
-    var name: String {
-        switch self {
-        case .storaged:
-            "저장 공고"
-        case .supported:
-            "지원 공고"
-        }
-    }
-}

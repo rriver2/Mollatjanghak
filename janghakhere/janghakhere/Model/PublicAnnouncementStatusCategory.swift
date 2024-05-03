@@ -8,56 +8,72 @@
 import SwiftUI
 
 enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
-    case Nothing
-    case Storage
-    case ToBeSupported
-    case SupportCompleted
+    case nothing // 기본값
+    case storage // 저장완료
+    case toBeSupported // 지원예정
+    case supportCompleted //지원완료
+    case passed // 합격
+    case failed // 불합격
     
-    var IconName: ImageResource {
+    var IconName: ImageResource? {
         switch self {
-        case .Nothing:
+        case .nothing:
                 .floppyDisk
-        case .Storage:
+        case .storage:
                 .floppyDisk
-        case .ToBeSupported:
+        case .toBeSupported:
                 .fire
-        case .SupportCompleted:
+        case .supportCompleted:
                 .check
+        case .failed, .passed:
+            nil
         }
     }
     
     var title: String {
         switch self {
-        case .Nothing:
+        case .nothing:
             "저장"
-        case .Storage:
-            "공고 저장"
-        case .ToBeSupported:
-            "지원 예정"
-        case .SupportCompleted:
-            "지원 완료"
+        case .storage:
+            "공고저장"
+        case .toBeSupported:
+            "지원예정"
+        case .supportCompleted:
+            "지원완료"
+        case .failed:
+            "합격"
+        case .passed:
+            "불합격"
         }
     }
     
     var buttonColor: Color {
         switch self {
-        case .Nothing:
+        case .nothing:
             Color.gray70
-        case .Storage:
+        case .storage:
             Color.subGreen
-        case .ToBeSupported:
+        case .toBeSupported:
             Color.subPink
-        case .SupportCompleted:
+        case .supportCompleted:
             Color.subPurple
+        case .failed:
+            Color(hex: "37C084")?.opacity(0.08) ?? .white
+        case .passed:
+            Color(hex: "FF6464")?.opacity(0.08) ?? .white
         }
     }
     
     var buttonFontColor: Color {
         switch self {
-        case .Nothing:
+        case .nothing:
             Color.gray700
-        case .Storage, .ToBeSupported, .SupportCompleted:
+        case .storage, .toBeSupported, .supportCompleted:
             Color.white
+        case .failed:
+            Color(hex: "FF6464") ?? .red
+        case .passed:
+            Color.subGreen
         }
     }
 }

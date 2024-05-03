@@ -53,10 +53,12 @@ extension ScholarshipSupportedBoxView {
     @ViewBuilder
     private func statusButton() -> some View {
         HStack(spacing: 0) {
-            Icon(name: scholarshipBox.publicAnnouncementStatus.IconName, color: scholarshipBox.publicAnnouncementStatus.buttonFontColor, size: 16)
-                .padding(.trailing, 4)
-            Text(scholarshipBox.publicAnnouncementStatus.title)
-                .font(.semi_title_sm)
+            if let iconName = scholarshipBox.publicAnnouncementStatus.IconName {
+                Icon(name: iconName, color: scholarshipBox.publicAnnouncementStatus.buttonFontColor, size: 16)
+                    .padding(.trailing, 4)
+                Text(scholarshipBox.publicAnnouncementStatus.title)
+                    .font(.semi_title_sm)
+            }
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
@@ -64,19 +66,19 @@ extension ScholarshipSupportedBoxView {
         .cornerRadius(100)
         .foregroundStyle(scholarshipBox.publicAnnouncementStatus.buttonFontColor)
         .onTapGesture {
-            // 예시로
-            var status: PublicAnnouncementStatusCategory = .Nothing
-            switch scholarshipBox.publicAnnouncementStatus {
-            case .Nothing:
-                status = .Storage
-            case .Storage:
-                status = .ToBeSupported
-            case .ToBeSupported:
-                status = .SupportCompleted
-            case .SupportCompleted:
-                status = .Nothing
-            }
-            scholarshipBox.publicAnnouncementStatus = ScholarshipBoxManager.scholarshipStatusButtonPressed(status: publicAnnouncementStatus(id: scholarshipBox.id, status: status))
+            //FIXME: 예시로
+//            var status: PublicAnnouncementStatusCategory = .Nothing
+//            switch scholarshipBox.publicAnnouncementStatus {
+//            case .nothing:
+//                status = .Storage
+//            case .storage:
+//                status = .ToBeSupported
+//            case .toBeSupported:
+//                status = .SupportCompleted
+//            case .supportCompleted:
+//                status = .Nothing
+//            }
+//            scholarshipBox.publicAnnouncementStatus = ScholarshipBoxManager.scholarshipStatusButtonPressed(status: publicAnnouncementStatus(id: scholarshipBox.id, status: status))
         }
     }
     @ViewBuilder

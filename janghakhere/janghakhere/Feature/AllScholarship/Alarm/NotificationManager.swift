@@ -87,7 +87,7 @@ extension NotificationManager {
         }
         content.subtitle = "여깄장학에서 확인하고 지원해보세요"
         content.sound = .default
-        //FIXME: badge 누적되게
+        //TODO: badge 누적되게
         content.badge = 1
         
         var dateComponents = DateComponents()
@@ -112,7 +112,7 @@ extension NotificationManager {
         content.title = "[\(title)] \(DDay)"
         content.subtitle = subTitle
         content.sound = .default
-        //FIXME: badge 누적되게
+        //TODO: badge 누적되게
         content.badge = 1
         
         let (year, month, day) = extractYearMonthDay(from: date)

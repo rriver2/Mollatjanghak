@@ -32,9 +32,11 @@ enum AlarmCategory: Hashable {
     var content: String {
         switch self {
         case .new(let count):
-            //FIXME: 이름 불러와야 함
-            let name = "영서"
-            return "\(name)님이 지원 가능한 장학금 공고가\n\(count)개 올라왔어요!"
+            if let name = UserDefaults.getValueFromDevice(key: .userName, String.self) {
+                return "\(name)님이 지원 가능한 장학금 공고가\n\(count)개 올라왔어요!"
+            } else {
+                return "??님이 지원 가능한 장학금 공고가\n\(count)개 올라왔어요!"
+            }
         case .storage(let scholorshipName, let DDay):
             return "\(scholorshipName)D-\(DDay)\n마감기한이 얼마 남지 않았어요!"
         }
