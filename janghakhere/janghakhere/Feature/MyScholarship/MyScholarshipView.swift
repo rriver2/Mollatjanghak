@@ -20,6 +20,11 @@ struct MyScholarshipView: View {
                 detailScholarshipBoxListView()
             }
         }
+        .onChange(of: viewModel.selectedScholarShipList, { oldValue, newValue in
+            if let category = viewModel.getStoreChangedtScholarShip() {
+                viewModel.scholarshipCategoryButtonPressed(category)
+            }
+        })
         .onAppear {
             viewModel.viewOpened()
         }
@@ -118,7 +123,11 @@ extension MyScholarshipView {
     func detailScholarshipBoxListView() -> some View {
         //TODO: TabView
         VStack(spacing: 0) {
-            ScholarshipBoxListView(isGetMoreScholarshipBox: .constant(false), scholarshipList: $viewModel.selectedScholarShipList)
+            if viewModel.selectedCategoryName == MyScholarshipCategory.storedName {
+                ScholarshipBoxListView(isGetMoreScholarshipBox: .constant(false), scholarshipList: $viewModel.selectedScholarShipList, isShowPassStatus: false)
+            } else {
+                ScholarshipBoxListView(isGetMoreScholarshipBox: .constant(false), scholarshipList: $viewModel.selectedScholarShipList, isShowPassStatus: true)
+            }
             Spacer()
         }
     }

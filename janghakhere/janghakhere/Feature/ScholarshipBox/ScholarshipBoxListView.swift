@@ -15,15 +15,20 @@ struct ScholarshipBoxListView: View {
     @Binding var isGetMoreScholarshipBox: Bool
     @Binding var scholarshipList: [ScholarshipBox]
     
+    let isShowPassStatus: Bool
+    
     var body: some View {
         VStack(spacing: 0) {
-                ScrollView {
-                    LazyVStack (spacing: 0) {
-                        // 장학금 박스들
-                        ForEach(scholarshipList, id: \.self) { scholarship in
-                            Button {
-                                pathModel.paths.append(.detailScholarshipView(id: scholarship.id))
-                            } label: {
+            ScrollView {
+                LazyVStack (spacing: 0) {
+                    // 장학금 박스들
+                    ForEach(scholarshipList, id: \.self) { scholarship in
+                        Button {
+                            pathModel.paths.append(.detailScholarshipView(id: scholarship.id))
+                        } label: {
+                            if !isShowPassStatus {
+                                ScholarshipBoxView(scholarshipBox: scholarship)
+                            } else {
                                 switch scholarship.publicAnnouncementStatus {
                                 case  .nothing, .storage, .toBeSupported, .failed, .passed:
                                     ScholarshipBoxView(scholarshipBox: scholarship)
@@ -48,28 +53,39 @@ struct ScholarshipBoxListView: View {
                                     }
                                     .background(.white)
                                 }
-                                
                             }
-                            .cornerRadius(8)
-                            .padding(.bottom, 16)
-                            .shadow(color: Color(red: 0.51, green: 0.55, blue: 0.58).opacity(0.1), radius: 4, x: 0, y: 0)
-                            .id(scholarship.id)
-                            .onAppear {
-                                // 현재 보여진 datum의 index 값을 구하기
-                                guard let index = scholarshipList.firstIndex(where: { $0.id == scholarship.id }) else { return }
-                                
-                                // 해당 index가 거의 끝으로 왔다면 데이터 추가
-                                if index == scholarshipList.count - 1 {
-                                    isGetMoreScholarshipBox = true
-                                }
+                        }
+                        .cornerRadius(8)
+                        .padding(.bottom, 16)
+                        .shadow(color: Color(red: 0.51, green: 0.55, blue: 0.58).opacity(0.1), radius: 4, x: 0, y: 0)
+                        .id(scholarship.id)
+                        .onAppear {
+                            // 현재 보여진 datum의 index 값을 구하기
+                            guard let index = scholarshipList.firstIndex(where: { $0.id == scholarship.id }) else { return }
+                            
+                            // 해당 index가 거의 끝으로 왔다면 데이터 추가
+                            if index == scholarshipList.count - 1 {
+                                isGetMoreScholarshipBox = true
+                            }
+                        }
+                        .fullScreenCover(isPresented: $isShowPassModal) {
+                            if let selectedScholarship {
+                                SuccessFailView(scholarshipBox: $selectedScholarship, isShowPassModal: $isShowPassModal)
+                                    .onDisappear {
+                                        if let index = scholarshipList.firstIndex(where: { $0.id == selectedScholarship.id }) {
+                                            scholarshipList[index].publicAnnouncementStatus = selectedScholarship.publicAnnouncementStatus
+                                        }
+                                        self.selectedScholarship = nil
+                                    }
                             }
                         }
                     }
                 }
-                .scrollIndicators(.hidden)
-                .padding(.top, 16)
-                .paddingHorizontal()
-                Spacer()
+            }
+            .scrollIndicators(.hidden)
+            .padding(.top, 16)
+            .paddingHorizontal()
+            Spacer()
         }
         .frame(maxWidth: .infinity)
         .background(Color.gray50)

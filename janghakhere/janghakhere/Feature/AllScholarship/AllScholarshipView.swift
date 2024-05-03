@@ -22,7 +22,7 @@ struct AllScholarshipView: View {
                     sortingScholarship()
                 }
                 .paddingHorizontal()
-                ScholarshipBoxListView(isGetMoreScholarshipBox: $viewModel.isGetMoreScholarshipBox, scholarshipList: $viewModel.scholarshipList)
+                ScholarshipBoxListView(isGetMoreScholarshipBox: $viewModel.isGetMoreScholarshipBox, scholarshipList: $viewModel.scholarshipList, isShowPassStatus: false)
                     .onChange(of: viewModel.isGetMoreScholarshipBox, { _, _ in
                         userTouchedBottomOfTheScroll()
                     })

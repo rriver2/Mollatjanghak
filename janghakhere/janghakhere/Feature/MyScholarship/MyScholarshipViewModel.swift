@@ -35,24 +35,41 @@ final class MyScholarshipViewModel: ObservableObject {
         case .stored(let storedCategory):
             changeDetailStorageCategory(storedCategory)
         }
-        storeChangedtScholarShip()
-        getScholarShipList(category)
+        storeChangedtScholarShip(category)
     }
     
     // sorting 최신,
     func sortingButtonPressed() {
            
     }
+    
+    func getStoreChangedtScholarShip() -> MyScholarshipCategory? {
+        for newScholarship in selectedScholarShipList {
+            if let index = totalScholarShipList.firstIndex(where: { $0.id == newScholarship.id }),
+               totalScholarShipList[index].publicAnnouncementStatus != newScholarship.publicAnnouncementStatus {
+                switch newScholarship.publicAnnouncementStatus {
+                case .failed:
+                    return .supported(.failed)
+                case .passed:
+                    return .supported(.passed)
+                default:
+                    return nil
+                }
+            }
+        }
+        return nil
+    }
 }
 
 // private 함수들
 extension MyScholarshipViewModel {
-    private func storeChangedtScholarShip() {
+    private func storeChangedtScholarShip(_ category : MyScholarshipCategory) {
         for newScholarship in selectedScholarShipList {
             if let index = totalScholarShipList.firstIndex(where: { $0.id == newScholarship.id }) {
                totalScholarShipList[index].publicAnnouncementStatus = newScholarship.publicAnnouncementStatus
             }
         }
+        getScholarShipList(category)
     }
     
     private func getScholarShipList(_ category : MyScholarshipCategory) {
@@ -67,7 +84,7 @@ extension MyScholarshipViewModel {
                 selectedScholarShipList = totalScholarShipList.filter({ $0.publicAnnouncementStatus == .passed })
             }
         case .stored(let storedCategory):
-            let filterScholarShipList = totalScholarShipList.filter({ $0.publicAnnouncementStatus != .failed && $0.publicAnnouncementStatus != .passed })
+            let filterScholarShipList = totalScholarShipList.filter({ $0.publicAnnouncementStatus != .failed && $0.publicAnnouncementStatus != .passed && $0.publicAnnouncementStatus != .nothing})
             switch storedCategory {
             case .all:
                 selectedScholarShipList = filterScholarShipList
