@@ -66,68 +66,47 @@ extension DetailScholarshipView {
             
             Button {
                 // 시트 콜
+                viewModel.isStatusSheet = true
             } label: {
                 HStack(spacing: 8) {
-                    Icon(name: .floppyDisk, color: .mainGray, size: 20)
-                    Text("공고저장")
+                    if let name = viewModel.status.IconNameDetailViewButton {
+                        Icon(name: name, color: viewModel.status.DetailViewButtonTextColor, size: 20)
+                    }
+                    
+                    Text(viewModel.status.title)
                         .font(.title_xsm)
                 }
                 .padding(.vertical, 14)
                 .padding(.horizontal, 24)
-                .foregroundStyle(.mainGray)
+                .foregroundStyle(viewModel.status.DetailViewButtonTextColor)
                 .background(
                     Capsule()
-                        .fill(.gray70)
+                        .fill(viewModel.status.DetailViewButtonColor)
                 )
             }
-//            Button {
-//                
-//            } label: {
-//                HStack(spacing: 8) {
-//                    Icon(name: .floppyDisk, color: .white, size: 20)
-//                    Text("저장완료")
-//                        .font(.title_xsm)
-//                }
-//                .padding(.vertical, 14)
-//                .padding(.horizontal, 24)
-//                .foregroundStyle(.white)
-//                .background(
-//                    Capsule()
-//                        .fill(.subGreen)
-//                )
-//            }
-//            Button {
-//                
-//            } label: {
-//                HStack(spacing: 8) {
-//                    Icon(name: .fire, color: .white, size: 20)
-//                    Text("지원예정")
-//                        .font(.title_xsm)
-//                }
-//                .padding(.vertical, 14)
-//                .padding(.horizontal, 24)
-//                .foregroundStyle(.white)
-//                .background(
-//                    Capsule()
-//                        .fill(.subPink)
-//                )
-//            }
-//            Button {
-//                // 시트 콜
-//            } label: {
-//                HStack(spacing: 8) {
-//                    Icon(name: .check, color: .white, size: 20)
-//                    Text("지원완료")
-//                        .font(.title_xsm)
-//                }
-//                .padding(.vertical, 14)
-//                .padding(.horizontal, 24)
-//                .foregroundStyle(.white)
-//                .background(
-//                    Capsule()
-//                        .fill(.subPurple)
-//                )
-//            }
+            .sheet(isPresented: $viewModel.isStatusSheet) {
+                VStack(alignment: .leading, spacing: 0) {
+                    Text("공고 상태")
+                        .font(.title_xsm)
+                        .padding(.vertical, 20)
+                        .frame(maxWidth: .infinity)
+                    statusButton(status: .storage)
+                    statusButton(status: .supportCompleted)
+                    statusButton(status: .toBeSupported)
+                    .padding(.bottom, 53)
+                    Text("저장 취소")
+                        .font(.title_xsm)
+                        .foregroundStyle(.mainGray)
+                        .padding(.vertical, 16)
+                        .frame(maxWidth: .infinity)
+                        .background(.gray70)
+                        .cornerRadius(100)
+                        .padding(.horizontal, 31)
+                        .padding(.bottom, 46)
+                }
+                .foregroundStyle(.black)
+                .presentationDetents([.medium])
+            }
             
             Button {
                 // 웹뷰 열기
@@ -153,6 +132,22 @@ extension DetailScholarshipView {
     private func detailThumbnail() -> some View {
         Image("detailDefaultThumbnail")
             .resizable()
+    }
+    
+    @ViewBuilder
+    private func statusButton(status: PublicAnnouncementStatusCategory) -> some View {
+        HStack(spacing: 16) {
+            if let name = status.IconNameButton {
+                Icon(name: name, size: 42)
+            }
+            Text(status.title)
+                .font(.title_xsm)
+        }
+        .padding(.leading, 28)
+        .padding(.vertical, 14)
+        .onTapGesture {
+            viewModel.statusButtonPressed(status: status, id: viewModel.id)
+        }
     }
     
     @ViewBuilder

@@ -30,6 +30,57 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
         }
     }
     
+    var IconNameDetailViewButton: ImageResource? {
+        switch self {
+        case .storage, .nothing:
+                .floppyDisk
+        case .toBeSupported:
+                .fire
+        case .supportCompleted:
+                .checkFat
+        case .failed, .passed:
+            nil
+        }
+    }
+    
+    var DetailViewButtonColor: Color {
+        switch self {
+        case .nothing:
+                .gray70
+        case .storage:
+                .subGreen
+        case .toBeSupported:
+                .subPink
+        case .supportCompleted:
+                .subPurple
+        case .failed, .passed:
+                .white
+        }
+    }
+    
+    var DetailViewButtonTextColor: Color {
+        switch self {
+        case .nothing:
+                .mainGray
+        case .toBeSupported, .storage, .supportCompleted, .failed, .passed:
+                .white
+        }
+    }
+    
+    
+    var IconNameButton: ImageResource? {
+        switch self {
+        case .storage:
+                .saveScholarship
+        case .toBeSupported:
+                .prepareScholarship
+        case .supportCompleted:
+                .doneScholarship
+        case .nothing, .failed, .passed:
+            nil
+        }
+    }
+    
     var title: String {
         switch self {
         case .nothing:
@@ -89,9 +140,9 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
     var horizontalPadding: CGFloat {
         switch self {
         case .nothing, .storage, .toBeSupported, .supportCompleted:
-                12
+            12
         case .failed, .passed:
-                20
+            20
         }
     }
 }

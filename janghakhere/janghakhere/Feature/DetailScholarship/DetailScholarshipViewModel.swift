@@ -35,6 +35,9 @@ final class DetailScholarshipViewModel: ObservableObject {
     @Published private(set) var localResidencyDetails: String = "해당없음"
     @Published private(set) var recommendationRequiredDetails: String = "해당없음"
     @Published private(set) var eligibilityRestrictionDetails: String = "인문100년 장학금 장핵생 자격 유지자 또는 기준 인문 100년 장학생으로 선발된 후 영구탈락 된 학생"
+    @Published var status: PublicAnnouncementStatusCategory = .nothing
+    
+    @Published var isStatusSheet: Bool = false
     
     private var tasks: [Task<Void, Never>] = []
     
@@ -52,9 +55,12 @@ final class DetailScholarshipViewModel: ObservableObject {
     }
     
     func statusButtonPressed(status: PublicAnnouncementStatusCategory, id: String) {
+        self.status = status
         if let id = Int(id) {
+            // 네트워크 여부와 상관 없이 현재 상태 저장
             self.postScholarshipStatus(id: id, status: status.rawValue)
         }
+        self.isStatusSheet = false
     }
 }
 
