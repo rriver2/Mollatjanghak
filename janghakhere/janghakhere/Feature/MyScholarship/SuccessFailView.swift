@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SuccessFailView: View {
+    @StateObject var viewModel: SuccessFailViewModel = SuccessFailViewModel()
+    
     @Binding var scholarshipBox: ScholarshipBox?
     @Binding var isShowPassModal: Bool
     
@@ -59,22 +61,6 @@ extension SuccessFailView {
     }
     
     @ViewBuilder
-    private func passButton() -> some View {
-        Button {
-            scholarshipBox!.publicAnnouncementStatus = .passed
-        } label: {
-            Text("합격")
-                .padding(.vertical, 13)
-                .frame(maxWidth: .infinity)
-                .font(.title_xsm)
-                .foregroundStyle( scholarshipBox!.publicAnnouncementStatus == .passed ? .white : .gray600)
-                .background( scholarshipBox!.publicAnnouncementStatus == .passed ? .subGreen : .gray70)
-                .cornerRadius(8)
-        }
-        .padding(.bottom, 20)
-    }
-    
-    @ViewBuilder
     private func passedAmmountTextField() -> some View {
         Text("수령 금액")
             .font(.title_xsm)
@@ -107,6 +93,22 @@ extension SuccessFailView {
         }
         .padding(.leading, 4)
         .padding(.bottom, 30)
+    }
+    
+    @ViewBuilder
+    private func passButton() -> some View {
+        Button {
+            scholarshipBox!.publicAnnouncementStatus = .passed
+        } label: {
+            Text("합격")
+                .padding(.vertical, 13)
+                .frame(maxWidth: .infinity)
+                .font(.title_xsm)
+                .foregroundStyle( scholarshipBox!.publicAnnouncementStatus == .passed ? .white : .gray600)
+                .background( scholarshipBox!.publicAnnouncementStatus == .passed ? .subGreen : .gray70)
+                .cornerRadius(8)
+        }
+        .padding(.bottom, 20)
     }
     
     @ViewBuilder
@@ -151,11 +153,15 @@ extension SuccessFailView {
 
 extension SuccessFailView {
     private func passedFinishedButtonPressed() {
-        //FIXME: 저장 API
+        if let scholarshipBox {
+            viewModel.susseccButtonPressed(scholarship: scholarshipBox)
+        }
         self.isShowPassModal = false
     }
     private func failedFinishedButtonPressed() {
-        //FIXME: 저장 API
+        if let scholarshipBox {
+            viewModel.failButtonPressed(scholarship: scholarshipBox)
+        }
         self.isShowPassModal = false
     }
 }

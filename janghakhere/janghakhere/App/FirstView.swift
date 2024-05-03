@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FirstView: View {
     @StateObject private var pathModel = PathModel()
-    @State private var selection = 1
+    @State private var selection = 0
     
     var body: some View {
         NavigationStack(path: $pathModel.paths) {

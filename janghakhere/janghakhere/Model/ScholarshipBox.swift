@@ -11,9 +11,27 @@ struct ScholarshipBox: Identifiable, Hashable {
     let id: String
     let sponsor: String
     let title: String
-    let DDay: String // "-4" / "0" / "+6"
+    let DDay: String
     let prize: String
     var publicAnnouncementStatus: PublicAnnouncementStatusCategory
+    
+    init(id: String, sponsor: String, title: String, DDay: String, prize: String, statusString: String) {
+        self.id = id
+        self.sponsor = sponsor
+        self.title = title
+        self.DDay = DDay
+        self.prize = prize
+        self.publicAnnouncementStatus = PublicAnnouncementStatusCategory.allCases.first { $0.rawValue == statusString} ?? .nothing
+    }
+    
+    init(id: String, sponsor: String, title: String, DDay: String, prize: String, publicAnnouncementStatus: PublicAnnouncementStatusCategory) {
+        self.id = id
+        self.sponsor = sponsor
+        self.title = title
+        self.DDay = DDay
+        self.prize = prize
+        self.publicAnnouncementStatus = publicAnnouncementStatus
+    }
 }
 
 extension ScholarshipBox: CustomStringConvertible {

@@ -7,55 +7,49 @@
 
 import Foundation
 
+enum ScholarshipBoxListFliteringCategory {
+    case deadline
+    case inquiryCount
+}
+
 actor ScholarshipBoxListActor {
-    
-    struct ScholarshipAPI: Encodable {
-        let page: Int
-        let keyword: String
-    }
-    
-    struct ScholarshipBoxEntity: Decodable {
-        let content: [Content]
-        let pageable: Pageable
-        let last: Bool
-        let totalPages: Int
-        let totalElements: Int
-    }
-    
-    struct Content: Decodable {
-        let id: Int
-        let organization: String
-        let productName: String
-        let supportDetails: String
-        let endDate: String
-    }
-    
-    struct Pageable: Decodable {
-        let pageNumber: Int
-    }
+
+    //FIXME
     
     // 전체 장학금 조회
-    func fetchScholarshipBoxList(page: Int) async throws -> (ScholarshipBoxList: [ScholarshipBox], totalElements: Int, pageNumber: Int, totalPages: Int) {
+    func fetchScholarshipBoxList(_ category: ScholarshipBoxListFliteringCategory, page: Int) async throws -> (ScholarshipBoxList: [ScholarshipBox], totalElements: Int, pageNumber: Int, totalPages: Int) {
         
         do {
-            let parameter = "page=\(page)"
+            var parameter = ""
+            switch category {
+            case .deadline:
+                parameter = "page=\(page)&deadline=true"
+            case .inquiryCount:
+                parameter = "page=\(page)"
+            }
             let (data , response) = try await HTTPUtils.getURL(urlBack: "/api/scholarships?", parameter: parameter)
             
-            return try responseHandling(data, response)
+            return try MyScholarshopBoxListManager.responseHandling(data, response)
         } catch {
             throw error
         }
     }
     
     // 맞춤 장학금 조회
-    func fetchCustomScholarshipBoxList(page: Int) async throws -> (ScholarshipBoxList: [ScholarshipBox], totalElements: Int, pageNumber: Int, totalPages: Int) {
+    func fetchCustomScholarshipBoxList(_ category: ScholarshipBoxListFliteringCategory, page: Int) async throws -> (ScholarshipBoxList: [ScholarshipBox], totalElements: Int, pageNumber: Int, totalPages: Int) {
         
         do {
-            let parameter = "page=\(page)"
+            var parameter = ""
+            switch category {
+            case .deadline:
+                parameter = "page=\(page)&deadline=true"
+            case .inquiryCount:
+                parameter = "page=\(page)"
+            }
             let userId = HTTPUtils.getDeviceUUID()
             let (data , response) = try await HTTPUtils.getURL(urlBack: "/api/scholarships/members/\(userId)?", parameter: parameter)
             
-            return try responseHandling(data, response)
+            return try MyScholarshopBoxListManager.responseHandling(data, response)
         } catch {
             throw error
         }
@@ -65,39 +59,10 @@ actor ScholarshipBoxListActor {
     func fetchSearchScholarshipBoxList(page: Int, keyword: String) async throws -> (ScholarshipBoxList: [ScholarshipBox], totalElements: Int, pageNumber: Int, totalPages: Int) {
         
         do {
-            let parameter = "page=\(page)&keyword=\(keyword)"
+            let parameter = "page=\(page)&keyword=\(keyword)&deadline=true"
             let (data , response) = try await HTTPUtils.getURL(urlBack: "/api/scholarships?", parameter: parameter)
             
-            return try responseHandling(data, response)
-        } catch {
-            throw error
-        }
-    }
-}
-
-extension ScholarshipBoxListActor {
-    private func responseHandling(_ data: Data, _ response: HTTPURLResponse) throws  -> (ScholarshipBoxList: [ScholarshipBox], totalElements: Int, pageNumber: Int, totalPages: Int) {
-        do {
-            switch response.statusCode {
-            case 200:
-                
-                guard let entity = try? JSONDecoder().decode(ScholarshipBoxEntity.self, from: data) else { throw URLError(.badServerResponse) }
-                
-                var returnEntity: [ScholarshipBox] = []
-                
-                let entityList = entity.content
-                
-                for entity in entityList {
-                    let DDay = Date().calculationDday(endDateString: entity.endDate)
-                    
-                    let scholarshipBox = ScholarshipBox(id: String(entity.id), sponsor: entity.organization, title: entity.productName, DDay: DDay, prize: entity.supportDetails, publicAnnouncementStatus: .nothing)
-                    returnEntity.append(scholarshipBox)
-                }
-                
-                return (returnEntity, entity.totalElements, entity.pageable.pageNumber, entity.totalPages)
-            default:
-                throw URLError(.badServerResponse)
-            }
+            return try MyScholarshopBoxListManager.responseHandling(data, response)
         } catch {
             throw error
         }

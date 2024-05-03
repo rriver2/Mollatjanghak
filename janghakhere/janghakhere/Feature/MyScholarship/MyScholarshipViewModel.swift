@@ -7,20 +7,20 @@
 
 import SwiftUI
 
-enum MyScholarshipCategory {
-    case supported(SupportedCategory)
-    case stored(StorageCategory)
-    static let supportedName: String = "지원 공고"
-    static let storedName: String = "저장 공고"
+enum MyScholarshipFilteringCategory {
+    case deadline
+    case recent
 }
 
 @MainActor
 final class MyScholarshipViewModel: ObservableObject {
-    let scholarshipBoxListActor: ScholarshipBoxListActor = ScholarshipBoxListActor()
+    let myScholarshopBoxListActor: MyScholarshopBoxListActor = MyScholarshopBoxListActor()
     
     @Published private(set) var selectedCategory: MyScholarshipCategory = .stored(.all)
     @Published private(set) var selectedCategoryName: String = MyScholarshipCategory.storedName
     @Published private(set) var selectedCategoryDetailName: String = StorageCategory.allCases.first?.name ?? "에베베"
+    
+    @Published private(set) var networkStatus: NetworkStatus = .loading
     
     @Published var totalScholarShipList: [ScholarshipBox] = []
     @Published var selectedScholarShipList: [ScholarshipBox] = []
@@ -108,15 +108,26 @@ extension MyScholarshipViewModel {
         selectedCategory = .stored(category)
     }
     
-    private func getAllScholarShipList() {
-        totalScholarShipList = ScholarshipBox.mockAllDataList
+    private func getAllScholarShipList(_ category: MyScholarshipFilteringCategory) {
+        self.networkStatus = .loading
+        let task = Task {
+            do {
+                let scholarshipList = try await myScholarshopBoxListActor.fetchScholarshipBoxList(category)
+                self.totalScholarShipList = scholarshipList
+                self.networkStatus = .success
+            } catch {
+                print(error)
+                totalScholarShipList = ScholarshipBox.mockAllDataList //FIXME: 주석 지우기
+            }
+        }
+        tasks.append(task)
     }
 }
 
 // 기본 함수들
 extension MyScholarshipViewModel {
     func viewOpened() {
-        self.getAllScholarShipList()
+        self.getAllScholarShipList(.deadline)
         self.getScholarShipList(MyScholarshipCategory.stored(.all))
     }
     

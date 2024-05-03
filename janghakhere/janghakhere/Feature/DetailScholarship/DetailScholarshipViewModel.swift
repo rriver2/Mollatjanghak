@@ -11,7 +11,10 @@ import SwiftUI
 final class DetailScholarshipViewModel: ObservableObject {
     let managerActor: DetailScholarshipActor = DetailScholarshipActor()
     
+    let successFailActor: ScholarshipStatusActor = ScholarshipStatusActor()
+    
     @Published private(set) var detailScholarship: DetailScholarship? = nil
+    @Published private(set) var id: String = "123"
     @Published private(set) var organization: String = "(재)한국장학재단"
     @Published private(set) var viewCount: String = "183"
     @Published private(set) var productName: String = "인문100년장학금"
@@ -32,7 +35,7 @@ final class DetailScholarshipViewModel: ObservableObject {
     @Published private(set) var localResidencyDetails: String = "해당없음"
     @Published private(set) var recommendationRequiredDetails: String = "해당없음"
     @Published private(set) var eligibilityRestrictionDetails: String = "인문100년 장학금 장핵생 자격 유지자 또는 기준 인문 100년 장학생으로 선발된 후 영구탈락 된 학생"
-
+    
     private var tasks: [Task<Void, Never>] = []
     
     func shareButtonPressed() {
@@ -47,6 +50,12 @@ final class DetailScholarshipViewModel: ObservableObject {
             }
         }
     }
+    
+    func statusButtonPressed(status: PublicAnnouncementStatusCategory, id: String) {
+        if let id = Int(id) {
+            self.postScholarshipStatus(id: id, status: status.rawValue)
+        }
+    }
 }
 
 // private 함수들
@@ -55,6 +64,17 @@ extension DetailScholarshipViewModel {
         let task = Task {
             do {
                 detailScholarship = try await managerActor.fetchDetailScholarship(id)
+            } catch {
+                print(error)
+            }
+        }
+        tasks.append(task)
+    }
+    
+    private func postScholarshipStatus(id: Int, status: String) {
+        let task = Task {
+            do {
+                _ = try await successFailActor.postScholarshipStatus(id: id, status: status)
             } catch {
                 print(error)
             }

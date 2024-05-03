@@ -31,6 +31,9 @@
 		7B6445D72BDBF1B500D4AF74 /* OnboardingCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445D62BDBF1B500D4AF74 /* OnboardingCompleteView.swift */; };
 		7B6445D92BDD489F00D4AF74 /* EnrollmentStatusGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445D82BDD489F00D4AF74 /* EnrollmentStatusGrid.swift */; };
 		7B6445DB2BDD5FC400D4AF74 /* VerticalButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445DA2BDD5FC400D4AF74 /* VerticalButtonGroup.swift */; };
+		FB01DC192BE4FA290057E37E /* MyScholarshopBoxListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB01DC182BE4FA290057E37E /* MyScholarshopBoxListManager.swift */; };
+		FB01DC1B2BE500360057E37E /* SuccessFailActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB01DC1A2BE500360057E37E /* SuccessFailActor.swift */; };
+		FB01DC1D2BE500B20057E37E /* SuccessFailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB01DC1C2BE500B10057E37E /* SuccessFailViewModel.swift */; };
 		FB19C91F2BE122B90039205E /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB19C91E2BE122B90039205E /* NotificationManager.swift */; };
 		FB19C9212BE147410039205E /* SupportedCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB19C9202BE147410039205E /* SupportedCategory.swift */; };
 		FB19C9232BE1476E0039205E /* StorageCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB19C9222BE1476E0039205E /* StorageCategory.swift */; };
@@ -121,6 +124,9 @@
 		7B6445D62BDBF1B500D4AF74 /* OnboardingCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCompleteView.swift; sourceTree = "<group>"; };
 		7B6445D82BDD489F00D4AF74 /* EnrollmentStatusGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollmentStatusGrid.swift; sourceTree = "<group>"; };
 		7B6445DA2BDD5FC400D4AF74 /* VerticalButtonGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalButtonGroup.swift; sourceTree = "<group>"; };
+		FB01DC182BE4FA290057E37E /* MyScholarshopBoxListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyScholarshopBoxListManager.swift; sourceTree = "<group>"; };
+		FB01DC1A2BE500360057E37E /* SuccessFailActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessFailActor.swift; sourceTree = "<group>"; };
+		FB01DC1C2BE500B10057E37E /* SuccessFailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessFailViewModel.swift; sourceTree = "<group>"; };
 		FB19C91E2BE122B90039205E /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		FB19C9202BE147410039205E /* SupportedCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportedCategory.swift; sourceTree = "<group>"; };
 		FB19C9222BE1476E0039205E /* StorageCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageCategory.swift; sourceTree = "<group>"; };
@@ -405,9 +411,11 @@
 			isa = PBXGroup;
 			children = (
 				FB9785F22BE4A45000F8A281 /* MyScholarshopBoxListActor.swift */,
+				FB19C9262BE147970039205E /* MyScholarshipViewModel.swift */,
 				FB978CA52BCD79CF00347D47 /* MyScholarshipView.swift */,
 				FB2930812BDE6A1E009AB2EF /* SuccessFailView.swift */,
-				FB19C9262BE147970039205E /* MyScholarshipViewModel.swift */,
+				FB01DC1C2BE500B10057E37E /* SuccessFailViewModel.swift */,
+				FB01DC1A2BE500360057E37E /* SuccessFailActor.swift */,
 			);
 			path = MyScholarship;
 			sourceTree = "<group>";
@@ -467,6 +475,7 @@
 				FBABCEFF2BD636890068178F /* AlarmActor.swift */,
 				FB676AA82BD51A9C0077700E /* DetailScholarshipActor.swift */,
 				FB2930662BDC0633009AB2EF /* ResetInfoActor.swift */,
+				FB01DC182BE4FA290057E37E /* MyScholarshopBoxListManager.swift */,
 			);
 			path = Actor;
 			sourceTree = "<group>";
@@ -707,8 +716,10 @@
 				FBE7697B2BCF76A4007F8DEF /* GrayBoxGridView.swift in Sources */,
 				FB676A9E2BD50A410077700E /* Onboarding.swift in Sources */,
 				FBE769772BCF7698007F8DEF /* GrayLineTextFieldView.swift in Sources */,
+				FB01DC1B2BE500360057E37E /* SuccessFailActor.swift in Sources */,
 				FB27A2B32BD2ABAC007C62D0 /* UserDefaultKey.swift in Sources */,
 				FB978CB32BCD8C5700347D47 /* ScholarshipBoxView.swift in Sources */,
+				FB01DC1D2BE500B20057E37E /* SuccessFailViewModel.swift in Sources */,
 				FB27A2B12BD2A933007C62D0 /* ChipsGroupView.swift in Sources */,
 				7B5C11602BDFEADC0056C2BC /* ScholarshipPostingSheet.swift in Sources */,
 				FB2930782BDC0C91009AB2EF /* SettingWebView.swift in Sources */,
@@ -739,6 +750,7 @@
 				7B6445CB2BD6A2A700D4AF74 /* IncomeConfirmView.swift in Sources */,
 				FBE769832BCF8E11007F8DEF /* SlotMachineView.swift in Sources */,
 				7B6445A22BCFF89A00D4AF74 /* Chip.swift in Sources */,
+				FB01DC192BE4FA290057E37E /* MyScholarshopBoxListManager.swift in Sources */,
 				FB19C9212BE147410039205E /* SupportedCategory.swift in Sources */,
 				7B6445C42BD5295A00D4AF74 /* DateSelectionView.swift in Sources */,
 				FBABCF0A2BD77F070068178F /* AlarmCategory.swift in Sources */,

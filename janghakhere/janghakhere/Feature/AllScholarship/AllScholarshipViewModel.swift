@@ -78,9 +78,9 @@ extension AllScholarshipViewModel {
                 
                 switch category {
                 case .all:
-                    (scholarshipList, totalScholarshipCount, currentPageNumber, totalPages) = try await scholarshipBoxListActor.fetchScholarshipBoxList(page: nextPageNumber)
+                    (scholarshipList, totalScholarshipCount, currentPageNumber, totalPages) = try await scholarshipBoxListActor.fetchScholarshipBoxList(.deadline, page: nextPageNumber)
                 case .custom:
-                    (scholarshipList, totalScholarshipCount, currentPageNumber, totalPages) = try await scholarshipBoxListActor.fetchCustomScholarshipBoxList(page: nextPageNumber)
+                    (scholarshipList, totalScholarshipCount, currentPageNumber, totalPages) = try await scholarshipBoxListActor.fetchCustomScholarshipBoxList(.deadline, page: nextPageNumber)
                 }
                 
                 self.totalScholarshipCount = totalScholarshipCount
