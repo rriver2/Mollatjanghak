@@ -103,6 +103,9 @@ extension DetailScholarshipView {
                         .cornerRadius(100)
                         .padding(.horizontal, 31)
                         .padding(.bottom, 46)
+                        .onTapGesture {
+                            viewModel.statusButtonPressed(status: .nothing, id: viewModel.id)
+                        }
                 }
                 .foregroundStyle(.black)
                 .presentationDetents([.medium])

@@ -109,18 +109,20 @@ extension MyScholarshipViewModel {
     }
     
     private func getAllScholarShipList(_ category: MyScholarshipFilteringCategory) {
-        self.networkStatus = .loading
-        let task = Task {
-            do {
-                let scholarshipList = try await myScholarshopBoxListActor.fetchScholarshipBoxList(category)
-                self.totalScholarShipList = scholarshipList
-                self.networkStatus = .success
-            } catch {
-                print(error)
-                totalScholarShipList = ScholarshipBox.mockAllDataList //FIXME: 주석 지우기
-            }
-        }
-        tasks.append(task)
+//        self.networkStatus = .loading
+//        let task = Task {
+//            do {
+//                let scholarshipList = try await myScholarshopBoxListActor.fetchScholarshipBoxList(category)
+//                self.totalScholarShipList = scholarshipList
+//                self.networkStatus = .success
+//            } catch {
+//                self.networkStatus = .failed
+//                self.totalScholarShipList = ScholarshipBox.mockAllDataList //FIXME: 주석 지우기
+//                print(error)
+//            }
+//        }
+        self.totalScholarShipList = ScholarshipBox.mockAllDataList //FIXME: 주석 지우기
+//        tasks.append(task)
     }
 }
 

@@ -20,7 +20,7 @@ final class DetailScholarshipViewModel: ObservableObject {
     @Published private(set) var productName: String = "인문100년장학금"
     @Published private(set) var deadline: String = "D-3"
     @Published private(set) var money: String = "200만원+"
-    @Published private(set) var startDate: String = "2023-04-07"
+    @Published private(set) var startDate: String = "2023-05-06"
     @Published private(set) var endDate: String = "2024-05-10"
     @Published private(set) var selectionCountDetails: String = "학교마다 선발하는 인원이 상이하므로 장학부서에 확인 필수"
     @Published private(set) var supportDetails: String = "신규장학생 어쩌구 저쩌구"

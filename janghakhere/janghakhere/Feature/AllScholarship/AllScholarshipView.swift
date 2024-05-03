@@ -17,22 +17,24 @@ struct AllScholarshipView: View {
         VStack(spacing: 0) {
             ScrollViewReader { proxy in
                 VStack(spacing: 0) {
-                    header(proxy: proxy)
-                    advertisement()
-                    sortingScholarship()
-                }
-                .paddingHorizontal()
-                ScholarshipBoxListView(isGetMoreScholarshipBox: $viewModel.isGetMoreScholarshipBox, scholarshipList: $viewModel.scholarshipList, isShowPassStatus: false)
-                    .onChange(of: viewModel.isGetMoreScholarshipBox, { _, _ in
-                        userTouchedBottomOfTheScroll()
-                    })
-                switch viewModel.networkStatus {
-                case .loading:
-                    ProgressView()
-                case .success:
-                    Text("")
-                case .failed:
-                    Text("에러발생~~")
+                    VStack(spacing: 0) {
+                        header(proxy: proxy)
+                        advertisement()
+                        sortingScholarship()
+                    }
+                    .paddingHorizontal()
+                    ScholarshipBoxListView(isGetMoreScholarshipBox: $viewModel.isGetMoreScholarshipBox, scholarshipList: $viewModel.scholarshipList, isShowPassStatus: false)
+                        .onChange(of: viewModel.isGetMoreScholarshipBox, { _, _ in
+                            userTouchedBottomOfTheScroll()
+                        })
+                    switch viewModel.networkStatus {
+                    case .loading:
+                        ProgressView()
+                    case .success:
+                        Text("")
+                    case .failed:
+                        Text("에러발생~~")
+                    }
                 }
             }
         }

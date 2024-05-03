@@ -15,9 +15,11 @@ struct MyScholarshipView: View {
     var body: some View {
         VStack(spacing: 0) {
             ScrollViewReader { proxy in
-                header(proxy: proxy)
-                detailHeader(proxy: proxy)
-                detailScholarshipBoxListView()
+                VStack(spacing: 0) {
+                    header(proxy: proxy)
+                    detailHeader(proxy: proxy)
+                    detailScholarshipBoxListView()
+                }
             }
         }
         .onChange(of: viewModel.selectedScholarShipList, { oldValue, newValue in
