@@ -7,6 +7,26 @@
 
 import SwiftUI
 
+struct UserMemeber {
+    let id: String
+    let name: String
+    let sex: String
+    let birth: String
+    let schoolName: String
+    let enrolled: String // EnrolledStatus, 입학예정, 재학 등
+    let degree: String // 현재 없음. degreesStatus, 학사, 석사 등
+    let SchoolYear: String // 현재 없음. 1학년, 2학년 등
+    let semester: String // 수정 필요. 1학기, 2학기만 되게
+    let majorCategory: String
+    
+    let lastSemesterGrade: Double?
+    let totalGrade: Double?
+    let incomeRange: String?
+    let militaryService: String?
+    let siblingExists: Bool?
+    let detailedConditions: [String]
+}
+
 @MainActor
 final class OnboardingMainViewModel: ObservableObject {
     let managerActor: OnboardingMainActor = OnboardingMainActor()
@@ -30,6 +50,7 @@ final class OnboardingMainViewModel: ObservableObject {
     @Published var militaryStatus: MilitaryStatus = .notSelected
     @Published var siblingStatus: SiblingStatus = .notSelected
     @Published var degreesStatus: DegreesStatus = .notSelected
+    
     @Published var previousGrade: Double = 0.0
     @Published var entireGrade: Double = 0.0
     
@@ -70,4 +91,17 @@ extension OnboardingMainViewModel {
         let today = calendar.dateComponents([.year, .month, .day], from: Date())
         return dateComponents.year == today.year && dateComponents.month == today.month && dateComponents.day == today.day
     }
+    
+//    func sendUserInformation() {
+//        let task = Task {
+//            do {
+//                self.detailContent = try await managerActor.fetchDetailScholarship(id)
+//                self.networkStatus = .success
+//            } catch {
+//                print(error)
+//                self.networkStatus = .failed
+//            }
+//        }
+//        tasks.append(task)
+//    }
 }

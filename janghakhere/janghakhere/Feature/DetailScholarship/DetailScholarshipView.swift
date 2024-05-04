@@ -23,51 +23,34 @@ struct DetailScholarshipView: View {
         VStack(alignment: .leading, spacing: 0) {
             navigation()
             ZStack(alignment: .bottom) {
-//                if viewModel.networkStatus == .success {
-//                    ScrollView(.vertical) {
-//                        VStack(spacing: 0) {
-//                            detailThumbnail()
-//                            contentHeader()
-//                                .padding(.vertical, 23)
-//                            customDivider()
-//                                .padding(.vertical, 8)
-//                            recuirtInfoContent()
-//                            customDivider()
-//                            applicationDetail()
-//                            customDivider()
-//                            selectionProccess()
-//                            customDivide`r()
-//                            requirementContent()
-//                            customDivider()
-//                                .padding(.bottom, 190)
-//                        }
-//                    }
-//                    buttons()
-//                } else if viewModel.networkStatus == .loading {
-//                    ProgressView()
-//                } else {
-//                    Text("에러 발생")
-//                    Spacer()
-//                }
-                ScrollView(.vertical) {
-                    VStack(spacing: 0) {
-                        detailThumbnail()
-                        contentHeader()
-                            .padding(.vertical, 23)
-                        customDivider()
-                            .padding(.vertical, 8)
-                        recuirtInfoContent()
-                        customDivider()
-                        applicationDetail()
-                        customDivider()
-                        selectionProccess()
-                        customDivider()
-                        requirementContent()
-                        customDivider()
-                            .padding(.bottom, 190)
+                if viewModel.networkStatus == .success {
+                    ScrollView(.vertical) {
+                        VStack(spacing: 0) {
+                            detailThumbnail()
+                            contentHeader()
+                                .padding(.vertical, 23)
+                            customDivider()
+                                .padding(.vertical, 8)
+                            recuirtInfoContent()
+                            customDivider()
+                            applicationDetail()
+                            customDivider()
+                            selectionProccess()
+                            customDivider()
+                            requirementContent()
+                            customDivider()
+                                .padding(.bottom, 190)
+                        }
+                    }
+                    buttons()
+                } else if viewModel.networkStatus == .loading {
+                    ProgressView()
+                } else {
+                    VStack {
+                        Text("에러 발생")
+                        Spacer()
                     }
                 }
-                buttons()
             }
         }
         .onAppear {
@@ -90,7 +73,6 @@ extension DetailScholarshipView {
     @ViewBuilder
     private func buttons() -> some View {
         HStack(spacing: 8) {
-            
             Button {
                 // 시트 콜
             } label: {
@@ -107,6 +89,7 @@ extension DetailScholarshipView {
                         .fill(.gray70)
                 )
             }
+            
 //            Button {
 //                
 //            } label: {
@@ -194,9 +177,7 @@ extension DetailScholarshipView {
                 // FIXME: 클릭시 chevron 방향 역전해야함
                 Icon(name: .chevronDown, color: .black, size: 16)
                     .onTapGesture {
-                        withAnimation {
-                            showRequirement.toggle()
-                        }
+                        showRequirement.toggle()
                     }
             }
             .padding(.vertical, 16)
@@ -256,6 +237,7 @@ extension DetailScholarshipView {
                                 }
                                 .padding(.top, 16)
                                 .foregroundStyle(.etcOrange)
+                                
                                 Text(detailContent.eligibilityRestrictionDetails)
                                     .font(.text_sm)
                                     .padding(.top, 8)
@@ -290,9 +272,7 @@ extension DetailScholarshipView {
                 // FIXME: 클릭시 chevron 방향 역전해야함
                 Icon(name: .chevronDown, color: .black, size: 16)
                     .onTapGesture {
-                        withAnimation {
-                            showSelection.toggle()
-                        }
+                        showSelection.toggle()
                     }
             }
             .padding(.vertical, 16)
@@ -340,9 +320,7 @@ extension DetailScholarshipView {
                 // FIXME: 클릭시 chevron 방향 역전해야함
                 Icon(name: .chevronDown, color: .black, size: 16)
                     .onTapGesture {
-                        withAnimation {
-                            showApplication.toggle()
-                        }
+                        showApplication.toggle()
                     }
             }
             .padding(.vertical, 16)
@@ -448,7 +426,6 @@ extension DetailScholarshipView {
                     VStack(spacing: 12) {
                         Text("지원금액")
                             .foregroundStyle(.black)
-                        
                         Text("100만원 이상")
                     }
                     .font(.semi_title_md)

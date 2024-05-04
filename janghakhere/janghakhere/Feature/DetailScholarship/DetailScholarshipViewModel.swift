@@ -37,7 +37,6 @@ extension DetailScholarshipViewModel {
         let task = Task {
             do {
                 self.detailContent = try await managerActor.fetchDetailScholarship(id)
-//                detailScholarship = try await managerActor.fetchDetailScholarship(id)
                 self.networkStatus = .success
             } catch {
                 print(error)
