@@ -48,8 +48,26 @@ extension OnboardingExtraView {
     @ViewBuilder
     func etcContent() -> some View {
         VStack(alignment: .leading, spacing: 0) {
-            VStack {
-                
+            HStack {
+                Spacer()
+                Button {
+                    // TODO: 다음에 입력
+                } label: {
+                    Text("다음에 입력할래요")
+                        .foregroundStyle(.gray400)
+                        .font(.text_sm)
+                        .underline()
+                }
+            }
+            .padding(.top, 16)
+            Text("해당사항을 모두 선택해주세요")
+                .font(.title_md)
+                .foregroundStyle(.mainGray)
+                .padding(.top, 23)
+                .padding(.bottom, 30)
+            ScrollView(.vertical) {
+                OnboardingChipsGroup(viewModel: viewModel)
+                    .padding(.top, 2)
             }
             Spacer()
             MainButtonView(
