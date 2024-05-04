@@ -29,6 +29,7 @@ struct MyInformationView: View {
                 schoolSection()
                 incomeSection()
                 sibilingSection()
+                etcSection()
             }
             .scrollIndicators(.hidden)
             Spacer()
@@ -420,10 +421,20 @@ extension MyInformationView {
     
     @ViewBuilder
     func etcSection() -> some View {
-        VStack(spacing: 0) {
-            Text("asd")
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(spacing: 0) {
+                Text("기타")
+                    .font(.semi_title_md)
+                    .foregroundStyle(.gray400)
+                    .padding(.leading, 8)
+                    .padding(.bottom, 8)
+                Spacer()
+            }
+            .padding(.bottom, 8)
+            
+            // 칩을 넣기
         }
-        .padding(.bottom, 32)
+        .padding(.bottom, 184)
     }
     
     @ViewBuilder
