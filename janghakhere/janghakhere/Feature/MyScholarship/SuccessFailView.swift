@@ -50,7 +50,7 @@ extension SuccessFailView {
             Spacer()
             Icon(name: .exit, color: .black, size: 28)
                 .onTapGesture {
-//                    self.isShowPassModal = false
+                    self.isShowPassModal = false
                 }
         }
         .foregroundStyle(.black)
