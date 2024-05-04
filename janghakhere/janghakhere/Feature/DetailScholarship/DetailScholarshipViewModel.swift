@@ -11,14 +11,17 @@ import SwiftUI
 final class DetailScholarshipViewModel: ObservableObject {
     let managerActor: DetailScholarshipActor = DetailScholarshipActor()
     
+    let successFailActor: ScholarshipStatusActor = ScholarshipStatusActor()
+    
     @Published private(set) var detailScholarship: DetailScholarship? = nil
+    @Published private(set) var id: String = "123"
     @Published private(set) var organization: String = "(재)한국장학재단"
     @Published private(set) var viewCount: String = "183"
     @Published private(set) var productName: String = "인문100년장학금"
     @Published private(set) var deadline: String = "D-3"
     @Published private(set) var money: String = "200만원+"
-    @Published private(set) var startDate: String = "2023-04-07"
-    @Published private(set) var endDate: String = "2023-04-30"
+    @Published private(set) var startDate: String = "2023-05-06"
+    @Published private(set) var endDate: String = "2024-05-10"
     @Published private(set) var selectionCountDetails: String = "학교마다 선발하는 인원이 상이하므로 장학부서에 확인 필수"
     @Published private(set) var supportDetails: String = "신규장학생 어쩌구 저쩌구"
     @Published private(set) var requiredDocumentDetails: String = "학업계획서 전인적 성장계획서"
@@ -32,7 +35,10 @@ final class DetailScholarshipViewModel: ObservableObject {
     @Published private(set) var localResidencyDetails: String = "해당없음"
     @Published private(set) var recommendationRequiredDetails: String = "해당없음"
     @Published private(set) var eligibilityRestrictionDetails: String = "인문100년 장학금 장핵생 자격 유지자 또는 기준 인문 100년 장학생으로 선발된 후 영구탈락 된 학생"
-
+    @Published var status: PublicAnnouncementStatusCategory = .nothing
+    
+    @Published var isStatusSheet: Bool = false
+    
     private var tasks: [Task<Void, Never>] = []
     
     func shareButtonPressed() {
@@ -47,6 +53,27 @@ final class DetailScholarshipViewModel: ObservableObject {
             }
         }
     }
+    
+    func statusButtonPressed(status: PublicAnnouncementStatusCategory, id: String) {
+        self.status = status
+        if let id = Int(id) {
+            // 네트워크 여부와 상관 없이 현재 상태 저장
+            self.postScholarshipStatus(id: id, status: status.rawValue)
+        }
+        
+        if status == .storage {
+            let dateString = endDate
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            if let date = dateFormatter.date(from: dateString) {
+                NotificationManager.instance.scheduleNotification(.DDayAlarm(id: id, title: productName, date: date))
+            }
+        } else if status == .nothing {
+            NotificationManager.instance.cancelSpecificNotification(id: id)
+        }
+       
+        self.isStatusSheet = false
+    }
 }
 
 // private 함수들
@@ -55,6 +82,17 @@ extension DetailScholarshipViewModel {
         let task = Task {
             do {
                 detailScholarship = try await managerActor.fetchDetailScholarship(id)
+            } catch {
+                print(error)
+            }
+        }
+        tasks.append(task)
+    }
+    
+    private func postScholarshipStatus(id: Int, status: String) {
+        let task = Task {
+            do {
+                _ = try await successFailActor.postScholarshipStatus(id: id, status: status)
             } catch {
                 print(error)
             }

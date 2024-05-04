@@ -25,10 +25,11 @@ struct SearchScholarshipView: View {
             case .loading:
                 loading()
             case .searchedWithData:
-                ScholarshipBoxListView(isGetMoreScholarshipBox: $isGetMoreScholarshipBox, scholarshipList: viewModel.scholarshipList, supportedCategory: nil)
+                ScholarshipBoxListView(isGetMoreScholarshipBox: $isGetMoreScholarshipBox, scholarshipList: $viewModel.scholarshipList, isShowPassStatus: false)
                     .onChange(of: viewModel.isGetMoreScholarshipBox, { _, _ in
                         userTouchedBottomOfTheScroll()
                     })
+                Text("dd")
             case .searchedNoData:
                 searchAgain()
             case .failed:

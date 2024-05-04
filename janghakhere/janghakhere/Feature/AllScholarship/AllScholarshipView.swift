@@ -17,22 +17,24 @@ struct AllScholarshipView: View {
         VStack(spacing: 0) {
             ScrollViewReader { proxy in
                 VStack(spacing: 0) {
-                    header(proxy: proxy)
-                    advertisement()
-                    sortingScholarship()
-                }
-                .paddingHorizontal()
-                ScholarshipBoxListView(isGetMoreScholarshipBox: $viewModel.isGetMoreScholarshipBox, scholarshipList: viewModel.scholarshipList, supportedCategory: nil)
-                    .onChange(of: viewModel.isGetMoreScholarshipBox, { _, _ in
-                        userTouchedBottomOfTheScroll()
-                    })
-                switch viewModel.networkStatus {
-                case .loading:
-                    ProgressView()
-                case .success:
-                    Text("")
-                case .failed:
-                    Text("에러발생~~")
+                    VStack(spacing: 0) {
+                        header(proxy: proxy)
+                        advertisement()
+                        sortingScholarship()
+                    }
+                    .paddingHorizontal()
+                    ScholarshipBoxListView(isGetMoreScholarshipBox: $viewModel.isGetMoreScholarshipBox, scholarshipList: $viewModel.scholarshipList, isShowPassStatus: false)
+                        .onChange(of: viewModel.isGetMoreScholarshipBox, { _, _ in
+                            userTouchedBottomOfTheScroll()
+                        })
+                    switch viewModel.networkStatus {
+                    case .loading:
+                        ProgressView()
+                    case .success:
+                        Text("")
+                    case .failed:
+                        Text("에러발생~~")
+                    }
                 }
             }
         }
@@ -70,8 +72,7 @@ extension AllScholarshipView {
                 .onTapGesture {
                     pathModel.paths.append(.searchScholarshipView)
                 }
-            //FIXME: alarm active <-> default
-            Icon(name: .alarmActive, size: 28)
+            Icon(name: viewModel.isNewAlarm ? .alarmActive : .alarmDefault, size: 28)
                 .onTapGesture {
                     pathModel.paths.append(.alarmView)
                 }
@@ -80,7 +81,6 @@ extension AllScholarshipView {
         .padding(.top, 16)
     }
     
-    //FIXME: View 이동 시켜야 함
     @ViewBuilder
     func advertisement() -> some View {
         TabView(selection: $viewModel.advertisementSelection) {
@@ -135,7 +135,8 @@ extension AllScholarshipView {
                 Text("전체 장학금 \(viewModel.totalScholarshipCount)개")
                     .font(.semi_title_md)
             case .custom:
-                Text("영서님을 위한 장학금 \(viewModel.totalScholarshipCount)개")
+                let name = UserDefaults.getValueFromDevice(key: .userName, String.self) ?? "💖"
+                Text("\(name)님을 위한 장학금 \(viewModel.totalScholarshipCount)개")
                     .font(.semi_title_md)
             }
             Spacer()

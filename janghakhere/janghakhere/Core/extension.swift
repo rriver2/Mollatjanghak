@@ -124,7 +124,6 @@ extension Date {
         }
         
         let startDate = self
-        let startDateString = formatter.string(from: Date())
         
         guard let endDate = formatter.date(from: endDateString) else {
             return "#"

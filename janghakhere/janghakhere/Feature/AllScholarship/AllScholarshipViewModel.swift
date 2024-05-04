@@ -18,7 +18,7 @@ final class AllScholarshipViewModel: ObservableObject {
     let scholarshipBoxListActor: ScholarshipBoxListActor = ScholarshipBoxListActor()
     
     @Published private(set) var scholarshipCategory: ScholarshipCategory = .custom
-    @Published private(set) var scholarshipList: [ScholarshipBox] = []
+    @Published var scholarshipList: [ScholarshipBox] = []
     @Published var advertisementSelection: Int = 0
     @Published private var timer: Timer?
     @Published private(set) var networkStatus: NetworkStatus = .loading
@@ -27,6 +27,8 @@ final class AllScholarshipViewModel: ObservableObject {
     @Published var totalPages: Int = 0 // 전체 페이지 수
     @Published private(set) var nextPageNumber: Int = 0 // 다음 페이지 num
     @Published var isGetMoreScholarshipBox = false
+    
+    @Published private(set) var isNewAlarm: Bool = false
     
     var advertisementSelectionWidth: CGFloat {
         if advertisementSelection == 0 {
@@ -78,9 +80,9 @@ extension AllScholarshipViewModel {
                 
                 switch category {
                 case .all:
-                    (scholarshipList, totalScholarshipCount, currentPageNumber, totalPages) = try await scholarshipBoxListActor.fetchScholarshipBoxList(page: nextPageNumber)
+                    (scholarshipList, totalScholarshipCount, currentPageNumber, totalPages) = try await scholarshipBoxListActor.fetchScholarshipBoxList(.deadline, page: nextPageNumber)
                 case .custom:
-                    (scholarshipList, totalScholarshipCount, currentPageNumber, totalPages) = try await scholarshipBoxListActor.fetchCustomScholarshipBoxList(page: nextPageNumber)
+                    (scholarshipList, totalScholarshipCount, currentPageNumber, totalPages) = try await scholarshipBoxListActor.fetchCustomScholarshipBoxList(.deadline, page: nextPageNumber)
                 }
                 
                 self.totalScholarshipCount = totalScholarshipCount
@@ -112,6 +114,27 @@ extension AllScholarshipViewModel {
             }
         }
     }
+    
+    func getNewAlarmStatus() {
+        let newAlarmList = NotificationManager.instance.getCurrentAlarmScholarshipList().filter({ getIsNotReaded(date: $0.DDayDate) })
+        
+        print("newAlarmList", newAlarmList)
+        
+        if newAlarmList.isEmpty {
+            self.isNewAlarm = false
+        } else {
+            self.isNewAlarm = true
+        }
+    }
+    
+    private func getIsNotReaded(date: Date) -> Bool {
+        if let lastAlertCheckedDate = UserDefaults.getValueFromDevice(key: .lastAlertCheckedDate, Date.self),
+           lastAlertCheckedDate >= date {
+            return false
+        } else {
+            return true
+        }
+    }
 }
 
 // 기본 함수들
@@ -119,6 +142,9 @@ extension AllScholarshipViewModel {
     func viewOpened() {
         self.getScholarShipList(scholarshipCategory)
         self.timerinit()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.getNewAlarmStatus()
+        }
     }
     
     func cancelTasks() {

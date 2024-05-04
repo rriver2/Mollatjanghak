@@ -11,33 +11,24 @@ import SwiftUI
 final class AlarmViewModel: ObservableObject {
     let managerActor: AlarmActor = AlarmActor()
     
-    private var tasks: [Task<Void, Never>] = []
-    
-    @Published private(set) var alarmList: [Alarm] = []
+    @Published private(set) var alarmList: [AlarmScholarship] = []
 }
 
 // MARK: - private 함수들
 extension AlarmViewModel {
-    private func useTemplatePrivateFunction() {
-        let task = Task {
-            do {
-//                defaultDatas = try await managerActor.getData()
-            } catch {
-                print(error)
-            }
-        }
-        tasks.append(task)
+    private func getAlarmList() {
+        var newAlarmList: [AlarmScholarship] = NotificationManager.instance.getCurrentAlarmScholarshipList()
+        alarmList = newAlarmList.sorted(by: { a, b in a.DDayDate > b.DDayDate})
     }
 }
 
 // MARK: - 기본 함수들
 extension AlarmViewModel {
     func createView() {
-        self.useTemplatePrivateFunction()
+        self.getAlarmList()
     }
     
-    func cancelTasks() {
-        tasks.forEach({ $0.cancel()})
-        tasks = []
+    func disAppearView() {
+        UserDefaults.saveValueInDevice(key: .lastAlertCheckedDate, content: Date())
     }
 }
