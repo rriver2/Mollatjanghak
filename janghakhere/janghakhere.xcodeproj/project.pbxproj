@@ -36,6 +36,9 @@
 		7B6445D72BDBF1B500D4AF74 /* OnboardingCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445D62BDBF1B500D4AF74 /* OnboardingCompleteView.swift */; };
 		7B6445D92BDD489F00D4AF74 /* EnrollmentStatusGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445D82BDD489F00D4AF74 /* EnrollmentStatusGrid.swift */; };
 		7B6445DB2BDD5FC400D4AF74 /* VerticalButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445DA2BDD5FC400D4AF74 /* VerticalButtonGroup.swift */; };
+		7BB1E28B2BE6343C001350DE /* OnboardingChipsGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB1E28A2BE6343C001350DE /* OnboardingChipsGroup.swift */; };
+		7BB1E28D2BE6446B001350DE /* OnboardingChipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB1E28C2BE6446B001350DE /* OnboardingChipModel.swift */; };
+		7BB1E2922BE67AEC001350DE /* TapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB1E2912BE67AEC001350DE /* TapView.swift */; };
 		FB19C91F2BE122B90039205E /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB19C91E2BE122B90039205E /* NotificationManager.swift */; };
 		FB19C9212BE147410039205E /* SupportedCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB19C9202BE147410039205E /* SupportedCategory.swift */; };
 		FB19C9232BE1476E0039205E /* StorageCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB19C9222BE1476E0039205E /* StorageCategory.swift */; };
@@ -130,6 +133,9 @@
 		7B6445D62BDBF1B500D4AF74 /* OnboardingCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCompleteView.swift; sourceTree = "<group>"; };
 		7B6445D82BDD489F00D4AF74 /* EnrollmentStatusGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollmentStatusGrid.swift; sourceTree = "<group>"; };
 		7B6445DA2BDD5FC400D4AF74 /* VerticalButtonGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalButtonGroup.swift; sourceTree = "<group>"; };
+		7BB1E28A2BE6343C001350DE /* OnboardingChipsGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingChipsGroup.swift; sourceTree = "<group>"; };
+		7BB1E28C2BE6446B001350DE /* OnboardingChipModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingChipModel.swift; sourceTree = "<group>"; };
+		7BB1E2912BE67AEC001350DE /* TapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapView.swift; sourceTree = "<group>"; };
 		FB19C91E2BE122B90039205E /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		FB19C9202BE147410039205E /* SupportedCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportedCategory.swift; sourceTree = "<group>"; };
 		FB19C9222BE1476E0039205E /* StorageCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageCategory.swift; sourceTree = "<group>"; };
@@ -303,6 +309,14 @@
 				7B6445D42BD80CE600D4AF74 /* OnboardingEndView.swift */,
 			);
 			path = OnboardingEndView;
+			sourceTree = "<group>";
+		};
+		7BB1E28E2BE6781A001350DE /* TapView */ = {
+			isa = PBXGroup;
+			children = (
+				7BB1E2912BE67AEC001350DE /* TapView.swift */,
+			);
+			path = TapView;
 			sourceTree = "<group>";
 		};
 		FB27A2A82BD2A0F6007C62D0 /* Recovered References */ = {
@@ -500,6 +514,7 @@
 		FBEEBB9A2BCEA7C1006CE5EA /* Feature */ = {
 			isa = PBXGroup;
 			children = (
+				7BB1E28E2BE6781A001350DE /* TapView */,
 				FBE7698C2BD00127007F8DEF /* ScholarshipBoxListView.swift */,
 				FB978CB22BCD8C5700347D47 /* ScholarshipBoxView.swift */,
 				FB2930812BDE6A1E009AB2EF /* ScholarshipSupportedBoxView.swift */,
@@ -596,6 +611,7 @@
 				7B6445CC2BD6AC8F00D4AF74 /* GrayLineNumberFieldView.swift */,
 				7B6445D82BDD489F00D4AF74 /* EnrollmentStatusGrid.swift */,
 				7B6445DA2BDD5FC400D4AF74 /* VerticalButtonGroup.swift */,
+				7BB1E28A2BE6343C001350DE /* OnboardingChipsGroup.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -606,6 +622,7 @@
 				FB676A9D2BD50A410077700E /* Onboarding.swift */,
 				7B6445BC2BD5272B00D4AF74 /* SemesterYear.swift */,
 				7B6445BE2BD5277600D4AF74 /* Gender.swift */,
+				7BB1E28C2BE6446B001350DE /* OnboardingChipModel.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -739,6 +756,7 @@
 				FBEEBBA12BCEAB40006CE5EA /* PathModel.swift in Sources */,
 				FBE7698F2BD002EC007F8DEF /* DeviceInfo.swift in Sources */,
 				7B6445C12BD527CB00D4AF74 /* SexSelectionView.swift in Sources */,
+				7BB1E2922BE67AEC001350DE /* TapView.swift in Sources */,
 				7B6445C92BD53D1B00D4AF74 /* OnboardingBeginView.swift in Sources */,
 				FB978C902BCD770600347D47 /* janghakhereApp.swift in Sources */,
 				7B5C11692BE142010056C2BC /* MyInformationActor.swift in Sources */,
@@ -746,6 +764,7 @@
 				7B5C116B2BE142010056C2BC /* MyInformationViewModel.swift in Sources */,
 				FBEEBB8E2BCE9BC1006CE5EA /* AllScholarshipViewModel.swift in Sources */,
 				7B6445C62BD534F500D4AF74 /* SemesterYearSelectionView.swift in Sources */,
+				7BB1E28D2BE6446B001350DE /* OnboardingChipModel.swift in Sources */,
 				FBEEBB8A2BCE98DF006CE5EA /* ScholarshipCategory.swift in Sources */,
 				FB978CA82BCD79E900347D47 /* AllScholarshipView.swift in Sources */,
 				7B6445CB2BD6A2A700D4AF74 /* IncomeConfirmView.swift in Sources */,
@@ -759,6 +778,7 @@
 				FBABCF0A2BD77F070068178F /* AlarmCategory.swift in Sources */,
 				FB2930762BDC0AD3009AB2EF /* WebView.swift in Sources */,
 				FB978CA62BCD79CF00347D47 /* MyScholarshipView.swift in Sources */,
+				7BB1E28B2BE6343C001350DE /* OnboardingChipsGroup.swift in Sources */,
 				7B5C11762BE3CED20056C2BC /* MailView.swift in Sources */,
 				FBEEBB852BCE972B006CE5EA /* ScholarshipBox.swift in Sources */,
 				FBE7698D2BD00127007F8DEF /* ScholarshipBoxListView.swift in Sources */,
