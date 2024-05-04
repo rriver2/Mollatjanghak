@@ -59,7 +59,6 @@ struct EffortLevelTip: Tip {
 }
 
 extension DetailScholarshipView {
-    
     @ViewBuilder
     private func buttons() -> some View {
         HStack(spacing: 8) {
@@ -70,7 +69,7 @@ extension DetailScholarshipView {
             } label: {
                 HStack(spacing: 8) {
                     if let name = viewModel.status.IconNameDetailViewButton {
-                        Icon(name: name, color: viewModel.status.DetailViewButtonTextColor, size: 20)
+                        Icon(name: name, color: viewModel.status.detailViewButtonTextColor, size: 20)
                     }
                     
                     Text(viewModel.status.title)
@@ -78,37 +77,16 @@ extension DetailScholarshipView {
                 }
                 .padding(.vertical, 14)
                 .padding(.horizontal, 24)
-                .foregroundStyle(viewModel.status.DetailViewButtonTextColor)
+                .foregroundStyle(viewModel.status.detailViewButtonTextColor)
                 .background(
                     Capsule()
-                        .fill(viewModel.status.DetailViewButtonColor)
+                        .fill(viewModel.status.detailViewButtonColor)
                 )
             }
             .sheet(isPresented: $viewModel.isStatusSheet) {
-                VStack(alignment: .leading, spacing: 0) {
-                    Text("공고 상태")
-                        .font(.title_xsm)
-                        .padding(.vertical, 20)
-                        .frame(maxWidth: .infinity)
-                    statusButton(status: .storage)
-                    statusButton(status: .supportCompleted)
-                    statusButton(status: .toBeSupported)
-                    .padding(.bottom, 53)
-                    Text("저장 취소")
-                        .font(.title_xsm)
-                        .foregroundStyle(.mainGray)
-                        .padding(.vertical, 16)
-                        .frame(maxWidth: .infinity)
-                        .background(.gray70)
-                        .cornerRadius(100)
-                        .padding(.horizontal, 31)
-                        .padding(.bottom, 46)
-                        .onTapGesture {
-                            viewModel.statusButtonPressed(status: .nothing, id: viewModel.id)
-                        }
+                ScholarshipPostingSheet(category: $viewModel.status) { status in
+                    viewModel.statusButtonPressed(status: status, id: viewModel.id)
                 }
-                .foregroundStyle(.black)
-                .presentationDetents([.medium])
             }
             
             Button {
@@ -135,22 +113,6 @@ extension DetailScholarshipView {
     private func detailThumbnail() -> some View {
         Image("detailDefaultThumbnail")
             .resizable()
-    }
-    
-    @ViewBuilder
-    private func statusButton(status: PublicAnnouncementStatusCategory) -> some View {
-        HStack(spacing: 16) {
-            if let name = status.IconNameButton {
-                Icon(name: name, size: 42)
-            }
-            Text(status.title)
-                .font(.title_xsm)
-        }
-        .padding(.leading, 28)
-        .padding(.vertical, 14)
-        .onTapGesture {
-            viewModel.statusButtonPressed(status: status, id: viewModel.id)
-        }
     }
     
     @ViewBuilder

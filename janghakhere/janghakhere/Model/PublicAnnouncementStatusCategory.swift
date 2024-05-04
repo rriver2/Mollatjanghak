@@ -43,7 +43,7 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
         }
     }
     
-    var DetailViewButtonColor: Color {
+    var detailViewButtonColor: Color {
         switch self {
         case .nothing:
                 .gray70
@@ -58,7 +58,7 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
         }
     }
     
-    var DetailViewButtonTextColor: Color {
+    var detailViewButtonTextColor: Color {
         switch self {
         case .nothing:
                 .mainGray

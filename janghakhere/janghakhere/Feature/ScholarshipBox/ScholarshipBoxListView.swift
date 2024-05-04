@@ -11,6 +11,7 @@ struct ScholarshipBoxListView: View {
     @EnvironmentObject private var pathModel: PathModel
     
     @State var isShowPassModal: Bool = false
+    @State var isStatusSheet: Bool = false
     @State var selectedScholarship: ScholarshipBox? = nil
     @Binding var isGetMoreScholarshipBox: Bool
     @Binding var scholarshipList: [ScholarshipBox]
@@ -32,6 +33,11 @@ struct ScholarshipBoxListView: View {
                                 switch scholarship.publicAnnouncementStatus {
                                 case  .nothing, .storage, .toBeSupported, .failed, .passed:
                                     ScholarshipBoxView(scholarshipBox: scholarship)
+                                        .sheet(isPresented: $isStatusSheet) {
+//                                            ScholarshipPostingSheet(category: $viewModel.status) { status in
+//                                                viewModel.statusButtonPressed(status: status, id: viewModel.id)
+//                                            }
+                                        }
                                 case .supportCompleted:
                                     VStack(alignment: .leading, spacing: 0) {
                                         ScholarshipBoxView(scholarshipBox: scholarship)
