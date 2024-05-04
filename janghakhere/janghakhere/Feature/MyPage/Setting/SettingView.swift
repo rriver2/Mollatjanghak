@@ -12,12 +12,12 @@ struct SettingView: View {
     @EnvironmentObject private var pathModel: PathModel
     @State private var result: Result<MFMailComposeResult, Error>? = nil
     @State private var isShowingMailView = false
-
+    private let deviceInfo = DeviceInfo()
+    @AppStorage("userName") private var userName: String = ""
     
     var body: some View {
         VStack(spacing: 0) {
             NavigationDefaultView(title: "설정")
-            
             VStack(spacing: 0) {
                 settingCell(title: "문의하기")
                     .onTapGesture {
@@ -40,12 +40,16 @@ struct SettingView: View {
             MailView(result: $result) { composer in
                 composer.setSubject("여깄장학 문의")
                 let messageBody = """
-------------------
-- 유저: UserDefaults에 있는 유저 스트링
-- 일시:
-- iOS:
-- 기종:
-------------------
+===============
+해당 내용을 지우지 마세요!
+문의사항 반영에 도움이 됩니다.
+
+Device: \(deviceInfo.deviceModel)
+OS Version: \(deviceInfo.systemVersion)
+App Version: \(deviceInfo.appVersion)
+이름: \(userName)
+===============
+
 
 """
                 composer.setMessageBody(messageBody, isHTML: false)
