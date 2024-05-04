@@ -18,10 +18,37 @@ struct DetailScholarshipView: View {
     @State private var showSelection: Bool = true
     @State private var showRequirement: Bool = true
     private let effortLevelTip = EffortLevelTip()
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             navigation()
             ZStack(alignment: .bottom) {
+//                if viewModel.networkStatus == .success {
+//                    ScrollView(.vertical) {
+//                        VStack(spacing: 0) {
+//                            detailThumbnail()
+//                            contentHeader()
+//                                .padding(.vertical, 23)
+//                            customDivider()
+//                                .padding(.vertical, 8)
+//                            recuirtInfoContent()
+//                            customDivider()
+//                            applicationDetail()
+//                            customDivider()
+//                            selectionProccess()
+//                            customDivide`r()
+//                            requirementContent()
+//                            customDivider()
+//                                .padding(.bottom, 190)
+//                        }
+//                    }
+//                    buttons()
+//                } else if viewModel.networkStatus == .loading {
+//                    ProgressView()
+//                } else {
+//                    Text("에러 발생")
+//                    Spacer()
+//                }
                 ScrollView(.vertical) {
                     VStack(spacing: 0) {
                         detailThumbnail()
@@ -177,73 +204,74 @@ extension DetailScholarshipView {
             if showRequirement {
                 withAnimation {
                     VStack(alignment: .leading, spacing: 0) {
-                        Text("[제출서류]")
-                            .padding(.top, 8)
-                            .padding(.bottom, 12)
-                        Text(viewModel.universityCategory)
-                            .padding(.bottom, 16)
-                        Text("[학년구분]")
-                            .padding(.top, 8)
-                            .padding(.bottom, 12)
-                        Text(viewModel.grade)
-                            .padding(.bottom, 24)
-                        Text("[학과구분]")
-                            .padding(.top, 8)
-                            .padding(.bottom, 12)
-                        Text(viewModel.majorCategory)
-                            .padding(.bottom, 24)
-                        Text("[소득기준]")
-                            .padding(.top, 8)
-                            .padding(.bottom, 12)
-                        Text(viewModel.incomeDetails)
-                            .padding(.bottom, 24)
-                        Text("[특정자격]")
-                            .padding(.top, 8)
-                            .padding(.bottom, 12)
-                        Text(viewModel.specificQualificationDetails)
-                            .padding(.bottom, 24)
-                        Text("[성적기준]")
-                            .padding(.top, 8)
-                            .padding(.bottom, 12)
-                        Text(viewModel.gradeDetails)
-                            .padding(.bottom, 24)
-                        Text("[지역기준여부]")
-                            .padding(.top, 8)
-                            .padding(.bottom, 12)
-                        Text(viewModel.localResidencyDetails)
-                            .padding(.bottom, 24)
-                        Text("[추천필요여부]")
-                            .padding(.top, 8)
-                            .padding(.bottom, 12)
-                        Text(viewModel.recommendationRequiredDetails)
-                            .padding(.bottom, 24)
-                        
-                        VStack(spacing: 0) {
-                            HStack(spacing: 0) {
-                                Icon(name: .siren, color: .orange, size: 20)
-                                Text("자격제한")
-                                    .font(.semi_title_md)
-                                    .padding(.leading, 6)
-                                Spacer()
-                            }
-                            .padding(.top, 16)
-                            .foregroundStyle(.etcOrange)
-                            Text(viewModel.eligibilityRestrictionDetails)
-                                .font(.text_sm)
+                        if let detailContent = viewModel.detailContent {
+                            Text("[제출서류]")
                                 .padding(.top, 8)
+                                .padding(.bottom, 12)
+                            Text(detailContent.universityCategory)
                                 .padding(.bottom, 16)
+                            Text("[학년구분]")
+                                .padding(.top, 8)
+                                .padding(.bottom, 12)
+                            Text(detailContent.grade)
+                                .padding(.bottom, 24)
+                            Text("[학과구분]")
+                                .padding(.top, 8)
+                                .padding(.bottom, 12)
+                            Text(detailContent.majorCategory)
+                                .padding(.bottom, 24)
+                            Text("[소득기준]")
+                                .padding(.top, 8)
+                                .padding(.bottom, 12)
+                            Text(detailContent.incomeDetails)
+                                .padding(.bottom, 24)
+                            Text("[특정자격]")
+                                .padding(.top, 8)
+                                .padding(.bottom, 12)
+                            Text(detailContent.specificQualificationDetails)
+                                .padding(.bottom, 24)
+                            Text("[성적기준]")
+                                .padding(.top, 8)
+                                .padding(.bottom, 12)
+                            Text(detailContent.gradeDetails)
+                                .padding(.bottom, 24)
+                            Text("[지역기준여부]")
+                                .padding(.top, 8)
+                                .padding(.bottom, 12)
+                            Text(detailContent.localResidencyDetails)
+                                .padding(.bottom, 24)
+                            Text("[추천필요여부]")
+                                .padding(.top, 8)
+                                .padding(.bottom, 12)
+                            Text(detailContent.recommendationRequiredDetails)
+                                .padding(.bottom, 24)
+                            
+                            VStack(spacing: 0) {
+                                HStack(spacing: 0) {
+                                    Icon(name: .siren, color: .orange, size: 20)
+                                    Text("자격제한")
+                                        .font(.semi_title_md)
+                                        .padding(.leading, 6)
+                                    Spacer()
+                                }
+                                .padding(.top, 16)
                                 .foregroundStyle(.etcOrange)
+                                Text(detailContent.eligibilityRestrictionDetails)
+                                    .font(.text_sm)
+                                    .padding(.top, 8)
+                                    .padding(.bottom, 16)
+                                    .foregroundStyle(.etcOrange)
+                            }
+                            .padding(.horizontal, 16)
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(.etcLightOrange)
+                            )
+                            .padding(.bottom, 24)
                         }
-                        .padding(.horizontal, 16)
-                        .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(.etcLightOrange)
-                        )
-                        .padding(.bottom, 24)
-                        
                     }
                     .font(.text_sm)
-                    .foregroundStyle(.gray500)
+                    .foregroundStyle(.gray700)
                 }
             }
         }
@@ -270,21 +298,23 @@ extension DetailScholarshipView {
             .padding(.vertical, 16)
             
             if showSelection {
-                withAnimation {
-                    VStack(alignment: .leading, spacing: 0) {
-                        Text("[제출서류]")
-                            .padding(.top, 8)
-                            .padding(.bottom, 12)
-                        Text(viewModel.requiredDocumentDetails)
-                            .padding(.bottom, 16)
-                        Text("[선발방법]")
-                            .padding(.top, 8)
-                            .padding(.bottom, 12)
-                        Text(viewModel.selectionMethodDetails)
-                            .padding(.bottom, 24)
+                if let detailContent = viewModel.detailContent {
+                    withAnimation {
+                        VStack(alignment: .leading, spacing: 0) {
+                            Text("[제출서류]")
+                                .padding(.top, 8)
+                                .padding(.bottom, 12)
+                            Text(detailContent.requiredDocumentDetails)
+                                .padding(.bottom, 16)
+                            Text("[선발방법]")
+                                .padding(.top, 8)
+                                .padding(.bottom, 12)
+                            Text(detailContent.selectionMethodDetails)
+                                .padding(.bottom, 24)
+                        }
+                        .font(.text_sm)
+                        .foregroundStyle(.gray700)
                     }
-                    .font(.text_sm)
-                    .foregroundStyle(.gray500)
                 }
             }
         }
@@ -318,16 +348,18 @@ extension DetailScholarshipView {
             .padding(.vertical, 16)
             
             if showApplication {
-                withAnimation {
-                    VStack(alignment: .leading, spacing: 0) {
-                        Text("[지원종류]")
-                            .padding(.top, 8)
-                            .padding(.bottom, 12)
-                        Text(viewModel.recommendationRequiredDetails)
-                            .padding(.bottom, 24)
+                if let detailContent = viewModel.detailContent {
+                    withAnimation {
+                        VStack(alignment: .leading, spacing: 0) {
+                            Text("[지원종류]")
+                                .padding(.top, 8)
+                                .padding(.bottom, 12)
+                            Text(detailContent.recommendationRequiredDetails)
+                                .padding(.bottom, 24)
+                        }
+                        .font(.text_sm)
+                        .foregroundStyle(.gray700)
                     }
-                    .font(.text_sm)
-                    .foregroundStyle(.gray500)
                 }
             }
         }
@@ -345,107 +377,114 @@ extension DetailScholarshipView {
                     .padding(.vertical, 16)
                 Spacer()
             }
-            
-            VStack(alignment: .leading, spacing: 0) {
-                Text("[모집일자]")
-                    .padding(.top, 8)
-                
-                Text("\(viewModel.startDate) ~ \(viewModel.endDate)")
-                    .padding(.top, 12)
-                
-                Text("[수혜인원]")
-                    .padding(.top, 24)
-                
-                Text(viewModel.selectionCountDetails)
-                    .padding(.top, 12)
-                    .padding(.bottom, 24)
+            if let detailContent = viewModel.detailContent {
+                VStack(alignment: .leading, spacing: 0) {
+                    Text("[모집일자]")
+                        .padding(.top, 8)
+                    
+                    Text("\(detailContent.startDate) ~ \(detailContent.endDate)")
+                        .padding(.top, 12)
+                    
+                    Text("[수혜인원]")
+                        .padding(.top, 24)
+                    
+                    Text(detailContent.selectionCountDetails)
+                        .padding(.top, 12)
+                        .padding(.bottom, 24)
+                }
+                .font(.text_sm)
+                .foregroundStyle(.gray700)
             }
-            .font(.text_sm)
-            .foregroundStyle(.gray500)
         }
         .paddingHorizontal()
     }
     
     @ViewBuilder
     private func contentHeader() -> some View {
-        VStack(spacing: 0) {
-            HStack {
-                Text(viewModel.organization)
-                    .font(.semi_title_md)
-                Spacer()
-                HStack(spacing: 4) {
-                    Icon(name: .eye, color: .gray400, size: 16)
-                    Text(viewModel.viewCount)
-                        .font(.text_caption)
-                }
-            }
-            .foregroundStyle(.gray400)
-            
-            HStack {
-                Text(viewModel.productName)
-                    .font(.title_xmd)
-                    .padding(.top, 8)
-                Spacer()
-            }
-            .foregroundStyle(.black)
-            .padding(.bottom, 32)
-            
-            HStack(spacing: 0) {
-                Spacer()
-                VStack(spacing: 12) {
-                    Text("마감일")
-                        .foregroundStyle(.black)
-                    
-                    Text(viewModel.deadline)
-                        .foregroundStyle(.destructiveRed)
-                }
-                .font(.semi_title_md)
-                
-                Spacer()
-                Rectangle()
-                    .frame(width: 1, height: 50)
-                    .foregroundStyle(.gray100)
-                Spacer()
-                
-                VStack(spacing: 12) {
-                    Text("지원금액")
-                        .foregroundStyle(.black)
-                    
-                    Text(viewModel.money)
-                }
-                .font(.semi_title_md)
-                
-                Spacer()
-                Rectangle()
-                    .frame(width: 1, height: 50)
-                    .foregroundStyle(.gray100)
-                Spacer()
-                
-                VStack(spacing: 12) {
+        if let detailContent = viewModel.detailContent {
+            VStack(spacing: 0) {
+                HStack {
+                    Text(detailContent.organization)
+                        .font(.semi_title_md)
+                    Spacer()
                     HStack(spacing: 4) {
-                        Text("노력지수")
+                        Icon(name: .eye, color: .gray400, size: 16)
+                        Text("\(detailContent.viewCount)")
+                            .font(.text_caption)
+                    }
+                }
+                .foregroundStyle(.gray500)
+                
+                HStack {
+                    Text(detailContent.productName)
+                        .font(.title_xmd)
+                        .padding(.top, 8)
+                    Spacer()
+                }
+                .foregroundStyle(.black)
+                .padding(.bottom, 32)
+                
+                HStack(spacing: 0) {
+                    Spacer()
+                    VStack(spacing: 12) {
+                        Text("마감일")
                             .foregroundStyle(.black)
-                        // TODO: 팝오버 만들기
-                        Icon(name: .question, size: 16)
+                        
+                        Text(
+                            Date()
+                                .calculationDday(endDateString: detailContent.endDate) == "0"
+                            ? "D-Day"
+                            : "D\(Date().calculationDday(endDateString: detailContent.endDate))")
+                            .foregroundStyle(.destructiveRed)
                     }
                     .font(.semi_title_md)
                     
-                    HStack {
-                        // TODO: 노력지수 꾸미기
-                        Text("중")
+                    Spacer()
+                    Rectangle()
+                        .frame(width: 1, height: 50)
+                        .foregroundStyle(.gray100)
+                    Spacer()
+                    
+                    VStack(spacing: 12) {
+                        Text("지원금액")
+                            .foregroundStyle(.black)
+                        
+                        Text("100만원 이상")
                     }
+                    .font(.semi_title_md)
+                    
+                    Spacer()
+                    Rectangle()
+                        .frame(width: 1, height: 50)
+                        .foregroundStyle(.gray100)
+                    Spacer()
+                    
+                    VStack(spacing: 12) {
+                        HStack(spacing: 4) {
+                            Text("노력지수")
+                                .foregroundStyle(.black)
+                            // TODO: 팝오버 만들기
+                            Icon(name: .question, size: 16)
+                        }
+                        .font(.semi_title_md)
+                        
+                        HStack(spacing: 4) {
+                            // TODO: 노력지수 꾸미기
+                            Text("중")
+                            Icon(name: .batteryMedium, size: 28)
+                        }
+                    }
+                    Spacer()
                 }
-                Spacer()
             }
+            .paddingHorizontal()
         }
-        .paddingHorizontal()
     }
     
     @ViewBuilder
     private func navigation() -> some View {
         HStack(spacing: 0) {
             Icon(name: .arrowLeft, color: .black, size: 28)
-                .padding(.trailing, 10)
                 .onTapGesture {
                     dismiss()
                 }
@@ -454,7 +493,6 @@ extension DetailScholarshipView {
                 .font(.title_xsm)
             Spacer()
             Icon(name: .share, color: .black, size: 28)
-                .padding(.trailing, 10)
                 .onTapGesture {
                     viewModel.shareButtonPressed()
                 }
@@ -468,5 +506,6 @@ extension DetailScholarshipView {
 }
 
 #Preview {
-    DetailScholarshipView(id: UUID().uuidString)
+    DetailScholarshipView(id: "22")
+        .environmentObject(PathModel())
 }
