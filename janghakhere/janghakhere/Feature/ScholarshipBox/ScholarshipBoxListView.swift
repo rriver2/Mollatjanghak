@@ -56,7 +56,7 @@ struct ScholarshipBoxListView: View {
                             }
                         }
                         .cornerRadius(8)
-                        .padding(.bottom, 16)
+                        .padding(.top, 16)
                         .shadow(color: Color(red: 0.51, green: 0.55, blue: 0.58).opacity(0.1), radius: 4, x: 0, y: 0)
                         .id(scholarship.id)
                         .onAppear {
@@ -83,7 +83,6 @@ struct ScholarshipBoxListView: View {
                 }
             }
             .scrollIndicators(.hidden)
-            .padding(.top, 16)
             .paddingHorizontal()
             Spacer()
         }

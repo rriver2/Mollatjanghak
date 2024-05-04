@@ -14,7 +14,7 @@ struct FirstView: View {
     var body: some View {
         NavigationStack(path: $pathModel.paths) {
             TabView (selection: $selection) {
-                AllScholarshipView()
+                AllScholarshipView(selection: $selection)
                     .tabItem {
                         Icon(name: .newspaperClipping, color: selection == 0 ? .black : .gray400, size: 28)
                         Text("전체공고")
@@ -53,8 +53,6 @@ struct FirstView: View {
                         .navigationBarBackButtonHidden()
                 case .alarmView:
                     AlarmView()
-                case .settingWebView(let title, let url):
-                    SettingWebView(title: title, url: url)
                 case .resetInfoView:
                     ResetInfoView()
                 case .settingView:
@@ -62,6 +60,8 @@ struct FirstView: View {
                 case .myInformationView:
                     MyInformationView()
                         .navigationBarBackButtonHidden()
+                case .webView(let title, let url):
+                    SettingWebView(title: title, url: url)
                 }
             }
         }

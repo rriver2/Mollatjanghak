@@ -118,8 +118,6 @@ extension AllScholarshipViewModel {
     func getNewAlarmStatus() {
         let newAlarmList = NotificationManager.instance.getCurrentAlarmScholarshipList().filter({ getIsNotReaded(date: $0.DDayDate) })
         
-        print("newAlarmList", newAlarmList)
-        
         if newAlarmList.isEmpty {
             self.isNewAlarm = false
         } else {

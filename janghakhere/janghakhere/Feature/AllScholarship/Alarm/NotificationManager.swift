@@ -195,8 +195,6 @@ extension NotificationManager {
             content: content,
             trigger: trigger)
         
-        print("저장", date)
-        
         UNUserNotificationCenter.current().add(request)
     }
 }

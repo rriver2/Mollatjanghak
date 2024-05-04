@@ -16,10 +16,14 @@ struct TextFieldDynamicWidth: View {
     
     var body: some View {
         ZStack {
-            Text(text == "" ? title : text).background(GlobalGeometryGetter(rect: $textRect)).layoutPriority(1).opacity(0)
+            Text(text == "" ? title : text)
+                .background(GlobalGeometryGetter(rect: $textRect)).layoutPriority(1).opacity(0)
             HStack {
-                TextField(title, text: $text)
-                    .focused($isKeyBoardOn)
+                TextField(text: $text) {
+                    Text(title)
+                        .foregroundStyle(.gray300)
+                }
+                .focused($isKeyBoardOn)
                 .frame(width: textRect.width)
             }
         }

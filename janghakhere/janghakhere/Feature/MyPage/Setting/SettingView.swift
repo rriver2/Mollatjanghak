@@ -17,11 +17,11 @@ struct SettingView: View {
             VStack(spacing: 0) {
                 settingCell(title: "문의하기")
                     .onTapGesture {
-                        pathModel.paths.append(.settingWebView(title: "문의하기", url: inquiryURL))
+                        pathModel.paths.append(.webView(title: "문의하기", url: inquiryURL))
                     }
                 settingCell(title: "오픈소스 라이선스")
                     .onTapGesture {
-                        pathModel.paths.append(.settingWebView(title: "오픈소스 라이선스", url: opensourceURL))
+                        pathModel.paths.append(.webView(title: "오픈소스 라이선스", url: opensourceURL))
                     }
                 settingCell(title: "정보 초기화")
                     .onTapGesture {

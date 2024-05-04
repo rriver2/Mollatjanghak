@@ -62,13 +62,13 @@ private struct ChipView: View {
             Button {
                 viewModel.clickedChipXButton(chip)
             } label: {
-                Image(systemName: "xmark")
+                Icon(name: .x, color: .gray500, size: 16)
             }
         }
         .font(.text_md)
         .foregroundStyle(.gray500)
         .padding(.horizontal, 12)
-        .padding(.vertical, 8)
+        .padding(.vertical, 6)
         .background(
             Capsule(style: .circular)
                 .stroke(.gray200, lineWidth: 1)

@@ -60,22 +60,25 @@ extension SearchScholarshipView {
             HStack(spacing: 0) {
                 TextField(text: $viewModel.searchContent, label: {
                     Text("어떤 장학금을 찾으시나요?")
+                        .font(.text_md)
+                        .foregroundStyle(.gray500)
                 })
                 .font(.text_md)
                 .foregroundStyle(.black)
                 .submitLabel(.done)
+                .frame(height: 24)
                 .onSubmit {
                     viewModel.searchButtonPressed()
                 }
-                if !viewModel.searchContent.isEmpty {
-                    Icon(name: .erace, color: .gray500, size: 24)
-                        .onTapGesture {
+                
+                let isEmpty = viewModel.searchContent.isEmpty
+                Icon(name: isEmpty ? .magnifyingGlass : .erace, color: .gray500, size: 24)
+                    .onTapGesture {
+                        if !isEmpty {
                             viewModel.searchbarXButtonPressed()
                         }
-                        .padding(.leading, 8)
-                } else {
-                    Icon(name: .magnifyingGlass, color: .gray500, size: 24)
-                }
+                    }
+                    .padding(.leading, 8)
             }
             .focused($isKeyBoardOn)
             .accentColor(.black)
@@ -108,7 +111,7 @@ extension SearchScholarshipView {
                             .foregroundStyle(.gray500)
                     }
                 }
-                .padding(.bottom, 19)
+                .padding(.bottom, 14)
                 ChipsGroupView(viewModel: viewModel)
                 
                 Spacer()
@@ -133,7 +136,7 @@ extension SearchScholarshipView {
     @ViewBuilder
     func IconAndAlert(icon: ImageResource, alertText: String) -> some View {
         VStack(spacing: 0) {
-            Icon(name: icon, color: .gray500, size: 122)
+            Icon(name: icon, color: .gray400, size: 122)
                 .padding(.bottom, 8)
                 .padding(.top, HeightRatio)
             Text(alertText)

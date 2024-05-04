@@ -26,20 +26,17 @@ struct SuccessFailView: View {
             VStack(alignment: .leading, spacing: 0) {
                 Text("합격 여부를 알려주세요")
                     .font(.title_md)
-                    .padding(.top, 28)
+                    .padding(.top, 14)
                     .padding(.bottom, 60)
                 
                 passButton()
                 failedButton()
+                    .padding(.bottom, 60)
                 if scholarshipBox!.publicAnnouncementStatus == .passed {
                     passedAmmountTextField()
-                    Spacer()
-                    submitButton()
                 }
                 Spacer()
-                if  scholarshipBox!.publicAnnouncementStatus == .failed {
-                    submitButton()
-                }
+                submitButton()
             }
         }
         .paddingHorizontal()
@@ -101,12 +98,14 @@ extension SuccessFailView {
             scholarshipBox!.publicAnnouncementStatus = .passed
         } label: {
             Text("합격")
-                .padding(.vertical, 13)
-                .frame(maxWidth: .infinity)
+                .multilineTextAlignment(.leading)
+                .padding(.vertical, 20)
+                .padding(.leading, 24)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.title_xsm)
                 .foregroundStyle( scholarshipBox!.publicAnnouncementStatus == .passed ? .white : .gray600)
                 .background( scholarshipBox!.publicAnnouncementStatus == .passed ? .subGreen : .gray70)
-                .cornerRadius(8)
+                .cornerRadius(4)
         }
         .padding(.bottom, 20)
     }
@@ -117,14 +116,14 @@ extension SuccessFailView {
             scholarshipBox!.publicAnnouncementStatus = .failed
         } label: {
             Text("불합격")
-                .padding(.vertical, 13)
-                .frame(maxWidth: .infinity)
+                .padding(.vertical, 20)
+                .padding(.leading, 24)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.title_xsm)
                 .foregroundStyle( scholarshipBox!.publicAnnouncementStatus == .failed ? .white : .gray600)
                 .background( scholarshipBox!.publicAnnouncementStatus == .failed ? Color.subRed : .gray70)
-                .cornerRadius(8)
+                .cornerRadius(4)
         }
-        .padding(.bottom, 60)
     }
     
     @ViewBuilder
@@ -139,7 +138,7 @@ extension SuccessFailView {
                 break
             }
         } label: {
-            let isSubmitmode =  scholarshipBox!.publicAnnouncementStatus == .failed || scholarshipBox!.publicAnnouncementStatus == .passed
+            let isSubmitmode = scholarshipBox!.publicAnnouncementStatus == .failed || (scholarshipBox!.publicAnnouncementStatus == .passed && !amount.isEmpty)
             Text("완료")
                 .padding(.vertical, 16)
                 .frame(maxWidth: .infinity)
@@ -147,6 +146,7 @@ extension SuccessFailView {
                 .foregroundStyle(isSubmitmode ? .white :.gray500)
                 .background( isSubmitmode ? .mainGray : .gray100)
                 .cornerRadius(100)
+                .padding(.bottom, 40)
         }
     }
 }
