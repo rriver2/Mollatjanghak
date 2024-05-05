@@ -19,10 +19,6 @@ struct SettingView: View {
                     .onTapGesture {
                         pathModel.paths.append(.webView(title: "문의하기", url: inquiryURL))
                     }
-                settingCell(title: "오픈소스 라이선스")
-                    .onTapGesture {
-                        pathModel.paths.append(.webView(title: "오픈소스 라이선스", url: opensourceURL))
-                    }
                 settingCell(title: "정보 초기화")
                     .onTapGesture {
                         pathModel.paths.append(.resetInfoView)

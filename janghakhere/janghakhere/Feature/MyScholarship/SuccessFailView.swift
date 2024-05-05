@@ -80,6 +80,15 @@ extension SuccessFailView {
                 Icon(name: .pencilLine, color: .gray300, size: 24)
             }
             Spacer()
+            if !amount.isEmpty {
+                Text("완료")
+                    .font(.title_xsm)
+                    .foregroundStyle(.gray600)
+                    .padding(.trailing, 16)
+                    .onTapGesture {
+                        passedFinishedButtonPressed()
+                    }
+            }
         }
         .padding(.leading, 4)
         .padding(.bottom, 30)
@@ -167,11 +176,11 @@ extension SuccessFailView {
                 .foregroundStyle(.black)
                 .keyboardType(.numberPad)
                 .frame(width: textRect.width)
+                .onAppear {
+                    isKeyBoardOn = true
+                }
             }
         }
-        .onChange(of: isKeyBoardOn, { oldValue, newValue in
-            print("$isKeyBoardOn", isKeyBoardOn)
-        })
         .onChange(of: amount) { oldValue, newValue in
             let filtered = newValue.filter { "0123456789".contains($0) }
             if filtered != newValue {
