@@ -13,6 +13,8 @@ struct AllScholarshipView: View {
     
     @State private var isUserSwipedBanner = false
     
+    @Binding var selection: Int
+    
     var body: some View {
         VStack(spacing: 0) {
             ScrollViewReader { proxy in
@@ -87,6 +89,10 @@ extension AllScholarshipView {
             Image(.banner0)
                 .resizable()
                 .scaledToFit()
+                .onTapGesture {
+                    selection = 2
+                    pathModel.paths.append(.myInformationView)
+                }
                 .tag(0)
             Image(.banner1)
                 .resizable()
@@ -95,6 +101,9 @@ extension AllScholarshipView {
             Image(.banner2)
                 .resizable()
                 .scaledToFit()
+                .onTapGesture {
+                    pathModel.paths.append(.webView(title: "복지로 청년월세 ", url: bockjiroURL))
+                }
                 .tag(2)
         }
         .frame(height: 93)
@@ -165,8 +174,4 @@ extension AllScholarshipView {
             viewModel.bottomPartScrolled()
         }
     }
-}
-
-#Preview {
-    AllScholarshipView()
 }

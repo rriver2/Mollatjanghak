@@ -7,86 +7,58 @@
 
 import SwiftUI
 
-enum ScholarshipApplicationStatus: String, CaseIterable, CustomStringConvertible {
-    case saved = "공고 저장"
-    case prepare = "지원 예정"
-    case complete = "지원 완료"
-    case notSelected = "선택 안 됨"
-    
-    var description: String {
-        self.rawValue
-    }
-}
-
 struct ScholarshipPostingSheet: View {
-    //    @Binding var date: Date
-    //    @Environment(\.dismiss) var dismiss
+    @Binding var category: PublicAnnouncementStatusCategory
+    var statusButtonPressed: ((_ status: PublicAnnouncementStatusCategory) -> Void)
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 0) {
             Text("공고 상태")
                 .font(.title_xsm)
-                .foregroundStyle(.black)
-                .padding()
-            Spacer()
-            Button {
-                
-            } label: {
-                HStack(spacing: 0) {
-                    Icon(name: .saveScholarship, size: 42)
-                        .padding(.trailing, 16)
-                        .padding(.vertical, 14)
-                    Text("공고 저장")
-                        .font(.title_xsm)
-                        .foregroundStyle(.black)
-                    Spacer()
+                .padding(.bottom, 20)
+                .frame(maxWidth: .infinity)
+            statusButton(status: .storage)
+            statusButton(status: .supportCompleted)
+            statusButton(status: .toBeSupported)
+            .padding(.bottom, 53)
+            Text("저장 취소")
+                .font(.title_xsm)
+                .foregroundStyle(.mainGray)
+                .padding(.vertical, 16)
+                .frame(maxWidth: .infinity)
+                .background(.gray70)
+                .cornerRadius(100)
+                .padding(.horizontal, 31)
+                .padding(.bottom, 14)
+                .onTapGesture {
+                    statusButtonPressed(.nothing)
                 }
-            }
-            .padding(.horizontal, 28)
-            
-            Button {
-                
-            } label: {
-                HStack(spacing: 0) {
-                    Icon(name: .prepareScholarship, size: 42)
-                        .padding(.trailing, 16)
-                        .padding(.vertical, 14)
-                    Text("공고 저장")
-                        .font(.title_xsm)
-                        .foregroundStyle(.black)
-                    Spacer()
-                }
-            }
-            .padding(.horizontal, 28)
-            
-            Button {
-                
-            } label: {
-                HStack(spacing: 0) {
-                    Icon(name: .doneScholarship, size: 42)
-                        .padding(.trailing, 16)
-                        .padding(.vertical, 14)
-                    Text("공고 저장")
-                        .font(.title_xsm)
-                        .foregroundStyle(.black)
-                }
-                Spacer()
-            }
-            .padding(.horizontal, 28)
-            
-            MainButtonView(
-                title: "저장 취소",
-                action: {
-                    //                    dismiss()
-                },
-                disabled: false
-            )
-            
         }
+        .foregroundStyle(.black)
         .presentationDetents([.medium])
+        .onAppear {
+            if category == .nothing {
+                category = .storage
+            }
+        }
     }
 }
 
-#Preview {
-    ScholarshipPostingSheet()
+extension ScholarshipPostingSheet {
+    @ViewBuilder
+    private func statusButton(status: PublicAnnouncementStatusCategory) -> some View {
+        HStack(spacing: 16) {
+            if let name = status.IconNameButton {
+                Icon(name: name, size: 42)
+            }
+            Text(status.title)
+                .foregroundStyle(category == status ? status.detailViewButtonColor : .black)
+                .font(.title_xsm)
+        }
+        .padding(.leading, 28)
+        .padding(.vertical, 14)
+        .onTapGesture {
+            statusButtonPressed(status)
+        }
+    }
 }

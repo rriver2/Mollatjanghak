@@ -47,7 +47,7 @@ extension ScholarshipBoxView {
                 .foregroundStyle(Color.black)
                 .padding(.bottom, 24)
             HStack(spacing: 0) {
-                Text( scholarshipBox.DDay == "0" ? "오늘 마감" : "D\(scholarshipBox.DDay)")
+                Text(getDDayString())
                     .font(.semi_title_sm)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)
@@ -60,6 +60,7 @@ extension ScholarshipBoxView {
                         .padding(.trailing, 5)
                     Text(scholarshipBox.prize)
                         .font(.semi_title_sm)
+                        .lineLimit(1)
                 }
                 .padding(.horizontal, 8)
                 .padding(.vertical, 4)
@@ -98,6 +99,18 @@ extension ScholarshipBoxView {
             //                        status = .Nothing
             //                    }
             //                    scholarshipBox.publicAnnouncementStatus = ScholarshipBoxManager.scholarshipStatusButtonPressed(status: publicAnnouncementStatus(id: scholarshipBox.id, status: status))
+        }
+    }
+}
+
+extension ScholarshipBoxView {
+    private func getDDayString() -> String {
+        if scholarshipBox.DDay == "0" {
+            return "오늘 마감"
+        } else if scholarshipBox.DDay.first == "+" {
+            return "마감"
+        } else {
+            return "D\(scholarshipBox.DDay)"
         }
     }
 }

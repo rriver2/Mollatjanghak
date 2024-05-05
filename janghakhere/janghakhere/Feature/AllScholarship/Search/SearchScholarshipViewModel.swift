@@ -25,21 +25,26 @@ final class SearchScholarshipViewModel: ObservableObject {
     
     /// 검색 내용 지우기 X 버튼 클릭시
     func searchbarXButtonPressed() {
-        self.searchContent = ""
+        self.searchContent.removeAll()
         self.scholarshipList = []
         self.searchScholarshipStatus = .notSearchedYet
     }
     
     /// 돋보기 클릭시
     func searchButtonPressed() {
-        self.searchScholarshipStatus = .loading
-        getScholarshipList()
-        AddOneOfSearchedScholarshipText(searchContent)
+        if searchContent.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            searchContent.removeAll()
+        } else {
+            self.searchScholarshipStatus = .loading
+            getScholarshipList()
+            AddOneOfSearchedScholarshipText(searchContent)
+        }
     }
     
     /// 검색 장학금 전체 삭제 버튼 클릭시
     func removeAllSearchedScholarshipTextHistory() {
         UserDefaults.removeSomething(key: .searchedScholarshipTextList)
+        chips = []
     }
     
     /// Chip 버튼 클릭

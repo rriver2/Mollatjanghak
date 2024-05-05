@@ -14,6 +14,11 @@ struct SuccessFailView: View {
     @Binding var isShowPassModal: Bool
     
     @State var amount: String = ""
+    @State private var textRect = CGRect()
+    
+    @FocusState private var isKeyBoardOn: Bool
+    
+    let placeHolder: String = "0"
     
     init(scholarshipBox: Binding<ScholarshipBox?>, isShowPassModal: Binding<Bool>) {
         self._scholarshipBox = scholarshipBox
@@ -26,18 +31,17 @@ struct SuccessFailView: View {
             VStack(alignment: .leading, spacing: 0) {
                 Text("합격 여부를 알려주세요")
                     .font(.title_md)
-                    .padding(.top, 28)
+                    .padding(.top, 14)
                     .padding(.bottom, 60)
                 
                 passButton()
                 failedButton()
+                    .padding(.bottom, 60)
                 if scholarshipBox!.publicAnnouncementStatus == .passed {
                     passedAmmountTextField()
-                    Spacer()
-                    submitButton()
                 }
                 Spacer()
-                if  scholarshipBox!.publicAnnouncementStatus == .failed {
+                if !isKeyBoardOn {
                     submitButton()
                 }
             }
@@ -53,7 +57,7 @@ extension SuccessFailView {
             Spacer()
             Icon(name: .exit, color: .black, size: 28)
                 .onTapGesture {
-//                    self.isShowPassModal = false
+                    self.isShowPassModal = false
                 }
         }
         .foregroundStyle(.black)
@@ -67,29 +71,24 @@ extension SuccessFailView {
             .foregroundStyle(.gray600)
             .padding(.bottom, 12)
         HStack(spacing: 0) {
-            TextFieldDynamicWidth(title: "0", text: $amount)
-                .toolbar {
-                    ToolbarItemGroup(placement: .keyboard) {
-                        Spacer()
-                        Button {
-                            passedFinishedButtonPressed()
-                        } label: {
-                            Text("완료")
-                                .font(UIFont.systemFont(ofSize: 17, weight: .semibold))
-                                .foregroundStyle(Color(hex: "3478F6") ?? .blue)
-                        }
-                    }
-                }
-                .foregroundStyle(.black)
-                .keyboardType(.numberPad)
+            TextFieldDynamicWidth()
                 .font(.title_md)
             Text("원")
                 .foregroundStyle(.black)
                 .font(.title_md)
-            if amount == "" {
+            if !isKeyBoardOn {
                 Icon(name: .pencilLine, color: .gray300, size: 24)
             }
             Spacer()
+            if !amount.isEmpty {
+                Text("완료")
+                    .font(.title_xsm)
+                    .foregroundStyle(.gray600)
+                    .padding(.trailing, 16)
+                    .onTapGesture {
+                        passedFinishedButtonPressed()
+                    }
+            }
         }
         .padding(.leading, 4)
         .padding(.bottom, 30)
@@ -101,12 +100,14 @@ extension SuccessFailView {
             scholarshipBox!.publicAnnouncementStatus = .passed
         } label: {
             Text("합격")
-                .padding(.vertical, 13)
-                .frame(maxWidth: .infinity)
+                .multilineTextAlignment(.leading)
+                .padding(.vertical, 20)
+                .padding(.leading, 24)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.title_xsm)
                 .foregroundStyle( scholarshipBox!.publicAnnouncementStatus == .passed ? .white : .gray600)
                 .background( scholarshipBox!.publicAnnouncementStatus == .passed ? .subGreen : .gray70)
-                .cornerRadius(8)
+                .cornerRadius(4)
         }
         .padding(.bottom, 20)
     }
@@ -117,14 +118,14 @@ extension SuccessFailView {
             scholarshipBox!.publicAnnouncementStatus = .failed
         } label: {
             Text("불합격")
-                .padding(.vertical, 13)
-                .frame(maxWidth: .infinity)
+                .padding(.vertical, 20)
+                .padding(.leading, 24)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.title_xsm)
                 .foregroundStyle( scholarshipBox!.publicAnnouncementStatus == .failed ? .white : .gray600)
-                .background( scholarshipBox!.publicAnnouncementStatus == .failed ? Color.subRed : .gray70)
-                .cornerRadius(8)
+                .background( scholarshipBox!.publicAnnouncementStatus == .failed ? Color.ectRed : .gray70)
+                .cornerRadius(4)
         }
-        .padding(.bottom, 60)
     }
     
     @ViewBuilder
@@ -139,7 +140,7 @@ extension SuccessFailView {
                 break
             }
         } label: {
-            let isSubmitmode =  scholarshipBox!.publicAnnouncementStatus == .failed || scholarshipBox!.publicAnnouncementStatus == .passed
+            let isSubmitmode = scholarshipBox!.publicAnnouncementStatus == .failed || (scholarshipBox!.publicAnnouncementStatus == .passed && !amount.isEmpty)
             Text("완료")
                 .padding(.vertical, 16)
                 .frame(maxWidth: .infinity)
@@ -147,6 +148,55 @@ extension SuccessFailView {
                 .foregroundStyle(isSubmitmode ? .white :.gray500)
                 .background( isSubmitmode ? .mainGray : .gray100)
                 .cornerRadius(100)
+                .padding(.bottom, 18)
+        }
+    }
+    @ViewBuilder
+    private func TextFieldDynamicWidth() -> some View {
+        ZStack {
+            Text(amount == "" ? placeHolder : amount).background(GlobalGeometryGetter(rect: $textRect)).layoutPriority(1).opacity(0)
+            HStack {
+                TextField(text: $amount) {
+                    Text(placeHolder)
+                        .foregroundStyle(.gray300)
+                }
+                .toolbar {
+                    ToolbarItem(placement: .keyboard) {
+                        Spacer()
+                        Button {
+                            passedFinishedButtonPressed()
+                        } label: {
+                            Text("완료")
+                                .font(UIFont.systemFont(ofSize: 17, weight: .semibold))
+                                .foregroundStyle(Color(hex: "3478F6") ?? .blue)
+                        }
+                    }
+                }
+                .focused($isKeyBoardOn)
+                .foregroundStyle(.black)
+                .keyboardType(.numberPad)
+                .frame(width: textRect.width)
+                .onAppear {
+                    isKeyBoardOn = true
+                }
+            }
+        }
+        .onChange(of: amount) { oldValue, newValue in
+            let filtered = newValue.filter { "0123456789".contains($0) }
+            if filtered != newValue {
+                self.amount = filtered
+            }
+            formatNumber()
+        }
+    }
+    
+    private func formatNumber() {
+        if let number = Int(amount) {
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            if let formatted = formatter.string(from: NSNumber(value: number)) {
+                amount = formatted
+            }
         }
     }
 }

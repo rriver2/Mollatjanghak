@@ -106,7 +106,7 @@ extension AllScholarshipViewModel {
     private func timerRestart() {
         timer?.invalidate()
         timer = nil
-        self.timer = Timer.scheduledTimer(withTimeInterval: 4, repeats: false) { timer in
+        self.timer = Timer.scheduledTimer(withTimeInterval: 7, repeats: false) { timer in
             if self.advertisementSelection == 2 {
                 self.advertisementSelection = 0
             } else {
@@ -117,8 +117,6 @@ extension AllScholarshipViewModel {
     
     func getNewAlarmStatus() {
         let newAlarmList = NotificationManager.instance.getCurrentAlarmScholarshipList().filter({ getIsNotReaded(date: $0.DDayDate) })
-        
-        print("newAlarmList", newAlarmList)
         
         if newAlarmList.isEmpty {
             self.isNewAlarm = false

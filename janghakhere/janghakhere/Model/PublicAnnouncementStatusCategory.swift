@@ -43,7 +43,7 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
         }
     }
     
-    var DetailViewButtonColor: Color {
+    var detailViewButtonColor: Color {
         switch self {
         case .nothing:
                 .gray70
@@ -58,7 +58,7 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
         }
     }
     
-    var DetailViewButtonTextColor: Color {
+    var detailViewButtonTextColor: Color {
         switch self {
         case .nothing:
                 .mainGray
@@ -109,7 +109,7 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
         case .supportCompleted:
             Color.subPurple
         case .failed:
-            Color.subRed.opacity(0.08)
+            Color.ectRed.opacity(0.08)
         case .passed:
             Color.subGreen.opacity(0.08)
         }
@@ -122,7 +122,7 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
         case .storage, .toBeSupported, .supportCompleted:
             Color.white
         case .failed:
-            Color.subRed
+            Color.ectRed
         case .passed:
             Color.subGreen
         }
