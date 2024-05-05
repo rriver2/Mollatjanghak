@@ -62,6 +62,7 @@
 		FB676AA22BD50A5A0077700E /* MyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB676AA12BD50A5A0077700E /* MyPage.swift */; };
 		FB676AA72BD51A8A0077700E /* DetailScholarshipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB676AA62BD51A8A0077700E /* DetailScholarshipViewModel.swift */; };
 		FB676AA92BD51A9C0077700E /* DetailScholarshipActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB676AA82BD51A9C0077700E /* DetailScholarshipActor.swift */; };
+		FB7F97032BE7F4760082F6F4 /* ErrorToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7F97022BE7F4760082F6F4 /* ErrorToastView.swift */; };
 		FB9785F32BE4A45000F8A281 /* MyScholarshopBoxListActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9785F22BE4A45000F8A281 /* MyScholarshopBoxListActor.swift */; };
 		FB978C902BCD770600347D47 /* janghakhereApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB978C8F2BCD770600347D47 /* janghakhereApp.swift */; };
 		FB978C922BCD770600347D47 /* SwiftDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB978C912BCD770600347D47 /* SwiftDataView.swift */; };
@@ -155,6 +156,7 @@
 		FB676AA12BD50A5A0077700E /* MyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPage.swift; sourceTree = "<group>"; };
 		FB676AA62BD51A8A0077700E /* DetailScholarshipViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScholarshipViewModel.swift; sourceTree = "<group>"; };
 		FB676AA82BD51A9C0077700E /* DetailScholarshipActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScholarshipActor.swift; sourceTree = "<group>"; };
+		FB7F97022BE7F4760082F6F4 /* ErrorToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorToastView.swift; sourceTree = "<group>"; };
 		FB9785F22BE4A45000F8A281 /* MyScholarshopBoxListActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyScholarshopBoxListActor.swift; sourceTree = "<group>"; };
 		FB978C8C2BCD770600347D47 /* janghakhere.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = janghakhere.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB978C8F2BCD770600347D47 /* janghakhereApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = janghakhereApp.swift; sourceTree = "<group>"; };
@@ -499,6 +501,7 @@
 			children = (
 				FB9785F82BE4BDC600F8A281 /* ScholarshipBox */,
 				FBEC81F32BD55EEE00A9A700 /* ScholarshipBoxManager.swift */,
+				FB7F97022BE7F4760082F6F4 /* ErrorToastView.swift */,
 				FB29306E2BDC09D6009AB2EF /* NavigationDefaultView.swift */,
 				FB29307B2BDC14B1009AB2EF /* CustomAlertView.swift */,
 				FB676AA52BD51A7C0077700E /* DetailScholarship */,
@@ -719,6 +722,7 @@
 				FB01DC1D2BE500B20057E37E /* SuccessFailViewModel.swift in Sources */,
 				FB27A2B12BD2A933007C62D0 /* ChipsGroupView.swift in Sources */,
 				7B5C11602BDFEADC0056C2BC /* ScholarshipPostingSheet.swift in Sources */,
+				FB7F97032BE7F4760082F6F4 /* ErrorToastView.swift in Sources */,
 				FB2930782BDC0C91009AB2EF /* SettingWebView.swift in Sources */,
 				FB27A2AE2BD2A124007C62D0 /* SearchScholarshipStatus.swift in Sources */,
 				FB978C922BCD770600347D47 /* SwiftDataView.swift in Sources */,

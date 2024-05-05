@@ -17,6 +17,7 @@ struct FirstView: View {
                 AllScholarshipView(selection: $selection)
                     .tabItem {
                         Icon(name: .newspaperClipping, color: selection == 0 ? .black : .gray400, size: 28)
+                            .padding(.top, 6)
                         Text("전체공고")
                             .font(.caption)
                     }
@@ -24,6 +25,7 @@ struct FirstView: View {
                 MyScholarshipView()
                     .tabItem {
                         Icon(name: .newspaperChecks, color: selection == 1 ? .black : .gray400, size: 28)
+                            .padding(.top, 6)
                         Text("내공고")
                             .font(.caption)
                     }
@@ -31,6 +33,7 @@ struct FirstView: View {
                 MyPageView()
                     .tabItem {
                         Icon(name: .user, color: selection == 2 ? .black : .gray400, size: 28)
+                            .padding(.top, 6)
                         Text("마이페이지")
                             .font(.caption)
                     }
@@ -49,7 +52,7 @@ struct FirstView: View {
                     OnboardingMainView()
                         .navigationBarBackButtonHidden()
                 case .onboardingWaitingView(let name):
-                      OnboardingWaitingView(name: name)
+                    OnboardingWaitingView(name: name)
                         .navigationBarBackButtonHidden()
                 case .alarmView:
                     AlarmView()
@@ -66,6 +69,9 @@ struct FirstView: View {
             }
         }
         .environmentObject(pathModel)
+        .onAppear {
+            UITabBar.appearance().backgroundColor = UIColor.white
+        }
     }
 }
 
