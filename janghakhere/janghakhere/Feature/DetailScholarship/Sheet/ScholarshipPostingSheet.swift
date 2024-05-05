@@ -36,6 +36,11 @@ struct ScholarshipPostingSheet: View {
         }
         .foregroundStyle(.black)
         .presentationDetents([.medium])
+        .onAppear {
+            if category == .nothing {
+                category = .storage
+            }
+        }
     }
 }
 

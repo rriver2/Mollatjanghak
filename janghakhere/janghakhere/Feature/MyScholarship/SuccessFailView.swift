@@ -123,7 +123,7 @@ extension SuccessFailView {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.title_xsm)
                 .foregroundStyle( scholarshipBox!.publicAnnouncementStatus == .failed ? .white : .gray600)
-                .background( scholarshipBox!.publicAnnouncementStatus == .failed ? Color.subRed : .gray70)
+                .background( scholarshipBox!.publicAnnouncementStatus == .failed ? Color.ectRed : .gray70)
                 .cornerRadius(4)
         }
     }

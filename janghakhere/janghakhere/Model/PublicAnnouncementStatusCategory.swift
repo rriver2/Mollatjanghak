@@ -109,7 +109,7 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
         case .supportCompleted:
             Color.subPurple
         case .failed:
-            Color.subRed.opacity(0.08)
+            Color.ectRed.opacity(0.08)
         case .passed:
             Color.subGreen.opacity(0.08)
         }
@@ -122,7 +122,7 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
         case .storage, .toBeSupported, .supportCompleted:
             Color.white
         case .failed:
-            Color.subRed
+            Color.ectRed
         case .passed:
             Color.subGreen
         }
