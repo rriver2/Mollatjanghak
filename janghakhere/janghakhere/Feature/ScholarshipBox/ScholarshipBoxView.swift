@@ -85,6 +85,9 @@ extension ScholarshipBoxView {
         .background(scholarshipBox.publicAnnouncementStatus.buttonColor)
         .cornerRadius(100)
         .foregroundStyle(scholarshipBox.publicAnnouncementStatus.buttonFontColor)
+        .onTapGesture {
+//            statusButtonPressed(.saved)
+        }
     }
 }
 
