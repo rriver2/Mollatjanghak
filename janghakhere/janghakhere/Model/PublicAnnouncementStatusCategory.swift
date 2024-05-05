@@ -9,7 +9,7 @@ import SwiftUI
 
 enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
     case nothing // 기본값
-    case storage // 저장완료
+    case saved // 저장완료
     case planned // 지원예정
     case applied // 지원완료
     case passed // 합격
@@ -19,7 +19,7 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
         switch self {
         case .nothing:
                 .floppyDisk
-        case .storage:
+        case .saved:
                 .floppyDisk
         case .planned:
                 .fire
@@ -32,7 +32,7 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
     
     var IconNameDetailViewButton: ImageResource? {
         switch self {
-        case .storage, .nothing:
+        case .saved, .nothing:
                 .floppyDisk
         case .planned:
                 .fire
@@ -47,7 +47,7 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
         switch self {
         case .nothing:
                 .gray70
-        case .storage:
+        case .saved:
                 .subGreen
         case .planned:
                 .subPink
@@ -62,7 +62,7 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
         switch self {
         case .nothing:
                 .mainGray
-        case .planned, .storage, .applied, .non_passed, .passed:
+        case .planned, .saved, .applied, .non_passed, .passed:
                 .white
         }
     }
@@ -70,7 +70,7 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
     
     var IconNameButton: ImageResource? {
         switch self {
-        case .storage:
+        case .saved:
                 .saveScholarship
         case .planned:
                 .prepareScholarship
@@ -85,7 +85,7 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
         switch self {
         case .nothing:
             "저장"
-        case .storage:
+        case .saved:
             "공고저장"
         case .planned:
             "지원예정"
@@ -102,7 +102,7 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
         switch self {
         case .nothing:
             Color.gray70
-        case .storage:
+        case .saved:
             Color.subGreen
         case .planned:
             Color.subPink
@@ -119,7 +119,7 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
         switch self {
         case .nothing:
             Color.gray700
-        case .storage, .planned, .applied:
+        case .saved, .planned, .applied:
             Color.white
         case .non_passed:
             Color.ectRed
@@ -130,7 +130,7 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
     
     var fontSize: UIFont {
         switch self {
-        case .nothing, .storage, .planned, .applied:
+        case .nothing, .saved, .planned, .applied:
                 .semi_title_sm
         case .non_passed, .passed:
                 .semi_title_md
@@ -139,7 +139,7 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
     
     var horizontalPadding: CGFloat {
         switch self {
-        case .nothing, .storage, .planned, .applied:
+        case .nothing, .saved, .planned, .applied:
             12
         case .non_passed, .passed:
             20

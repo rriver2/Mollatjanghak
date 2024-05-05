@@ -17,7 +17,7 @@ struct ScholarshipPostingSheet: View {
                 .font(.title_xsm)
                 .padding(.bottom, 20)
                 .frame(maxWidth: .infinity)
-            statusButton(status: .storage)
+            statusButton(status: .saved)
             statusButton(status: .applied)
             statusButton(status: .planned)
             .padding(.bottom, 53)
@@ -38,7 +38,7 @@ struct ScholarshipPostingSheet: View {
         .presentationDetents([.medium])
         .onAppear {
             if category == .nothing {
-                category = .storage
+                category = .saved
             }
         }
     }

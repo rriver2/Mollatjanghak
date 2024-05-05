@@ -31,7 +31,7 @@ struct ScholarshipBoxListView: View {
                                 ScholarshipBoxView(scholarshipBox: scholarship)
                             } else {
                                 switch scholarship.publicAnnouncementStatus {
-                                case  .nothing, .storage, .planned, .non_passed, .passed:
+                                case  .nothing, .saved, .planned, .non_passed, .passed:
                                     ScholarshipBoxView(scholarshipBox: scholarship)
                                 case .applied:
                                     VStack(alignment: .leading, spacing: 0) {

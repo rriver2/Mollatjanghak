@@ -64,7 +64,7 @@ extension ScholarshipBox {
          ScholarshipBox(id: "2", sponsor: "2청양사랑인재육성장학회", title: "(전체)인문100년장학금", DDay: "+3", prize: "200만원+", publicAnnouncementStatus: .non_passed),
          ScholarshipBox(id: "3", sponsor: "3청양사랑인재육성장학회", title: "(전체)인문100년장학금", DDay: "-3", prize: "200만원+", publicAnnouncementStatus: .nothing),
          ScholarshipBox(id: "4", sponsor: "4청양사랑인재육성장학회", title: "(전체)인문100년장학금", DDay: "-3", prize: "200만원+", publicAnnouncementStatus: .passed),
-         ScholarshipBox(id: "5", sponsor: "5청양사랑인재육성장학회", title: "(전체)인문100년장학금", DDay: "0", prize: "200만원+", publicAnnouncementStatus: .storage),
+         ScholarshipBox(id: "5", sponsor: "5청양사랑인재육성장학회", title: "(전체)인문100년장학금", DDay: "0", prize: "200만원+", publicAnnouncementStatus: .saved),
          ScholarshipBox(id: "6", sponsor: "6청양사랑인재육성장학회", title: "(전체)인문100년장학금", DDay: "-123", prize: "200만원+", publicAnnouncementStatus: .nothing),
          ScholarshipBox(id: "7", sponsor: "7청양사랑인재육성장학회", title: "(전체)인문100년장학금", DDay: "-223", prize: "200만원+", publicAnnouncementStatus: .applied),
          ScholarshipBox(id: "8", sponsor: "8청양사랑인재육성장학회", title: "(전체)인문100년장학금", DDay: "0", prize: "200만원+", publicAnnouncementStatus: .planned),
@@ -73,7 +73,7 @@ extension ScholarshipBox {
          ScholarshipBox(id: "11", sponsor: "11청양사랑인재육성장학회", title: "(전체)인문100년장학금", DDay: "+3", prize: "200만원+", publicAnnouncementStatus: .passed),
          ScholarshipBox(id: "12", sponsor: "12청양사랑인재육성장학회", title: "(전체)인문100년장학금", DDay: "0", prize: "200만원+", publicAnnouncementStatus: .applied),
          ScholarshipBox(id: "13", sponsor: "13청양사랑인재육성장학회", title: "(전체)인문100년장학금", DDay: "0", prize: "200만원+", publicAnnouncementStatus: .applied),
-         ScholarshipBox(id: "14", sponsor: "14청양사랑인재육성장학회", title: "(전체)인문100년장학금", DDay: "+22", prize: "200만원+", publicAnnouncementStatus: .storage)]
+         ScholarshipBox(id: "14", sponsor: "14청양사랑인재육성장학회", title: "(전체)인문100년장학금", DDay: "+22", prize: "200만원+", publicAnnouncementStatus: .saved)]
     }
     
     static func mockDataList(_ category : ScholarshipCategory) -> [ScholarshipBox] {
@@ -99,12 +99,12 @@ extension ScholarshipBox {
                     ScholarshipBox(id: "1001", sponsor: "(재)한국장학재단", title: "(전체)인문100년장학금", DDay: "3", prize: "200만원+", publicAnnouncementStatus: .nothing),
                     ScholarshipBox(id: "1002", sponsor: "(재)한국장학재단", title: "(전체)인문100년장학금", DDay: "3", prize: "200만원+", publicAnnouncementStatus: .nothing),
                     ScholarshipBox(id: "1003", sponsor: "(재)한국장학재단", title: "(전체)인문100년장학금", DDay: "3", prize: "200만원+", publicAnnouncementStatus: .nothing)]
-        case .storage:
-            [ScholarshipBox(id: "10001", sponsor: "(재)한국장학재단", title: "(전체)인문100년장학금", DDay: "3", prize: "200만원+", publicAnnouncementStatus: .storage),
-                    ScholarshipBox(id: "10002", sponsor: "(재)한국장학재단", title: "(전체)인문100년장학금", DDay: "3", prize: "200만원+", publicAnnouncementStatus: .storage),
-                    ScholarshipBox(id: "10003", sponsor: "(재)한국장학재단", title: "(전체)인문100년장학금", DDay: "3", prize: "200만원+", publicAnnouncementStatus: .storage),
-                    ScholarshipBox(id: "10004", sponsor: "(재)한국장학재단", title: "(전체)인문100년장학금", DDay: "3", prize: "200만원+", publicAnnouncementStatus: .storage),
-                    ScholarshipBox(id: "10005", sponsor: "(재)한국장학재단", title: "(전체)인문100년장학금", DDay: "3", prize: "200만원+", publicAnnouncementStatus: .storage)]
+        case .saved:
+            [ScholarshipBox(id: "10001", sponsor: "(재)한국장학재단", title: "(전체)인문100년장학금", DDay: "3", prize: "200만원+", publicAnnouncementStatus: .saved),
+                    ScholarshipBox(id: "10002", sponsor: "(재)한국장학재단", title: "(전체)인문100년장학금", DDay: "3", prize: "200만원+", publicAnnouncementStatus: .saved),
+                    ScholarshipBox(id: "10003", sponsor: "(재)한국장학재단", title: "(전체)인문100년장학금", DDay: "3", prize: "200만원+", publicAnnouncementStatus: .saved),
+                    ScholarshipBox(id: "10004", sponsor: "(재)한국장학재단", title: "(전체)인문100년장학금", DDay: "3", prize: "200만원+", publicAnnouncementStatus: .saved),
+                    ScholarshipBox(id: "10005", sponsor: "(재)한국장학재단", title: "(전체)인문100년장학금", DDay: "3", prize: "200만원+", publicAnnouncementStatus: .saved)]
         case .planned:
             [ScholarshipBox(id: "10006", sponsor: "(재)한국장학재단", title: "(전체)인문100년장학금", DDay: "3", prize: "200만원+", publicAnnouncementStatus: .planned),
                     ScholarshipBox(id: "10007", sponsor: "(재)한국장학재단", title: "(전체)인문100년장학금", DDay: "3", prize: "200만원+", publicAnnouncementStatus: .planned),

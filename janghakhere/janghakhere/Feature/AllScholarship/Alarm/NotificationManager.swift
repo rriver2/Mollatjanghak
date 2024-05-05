@@ -47,14 +47,14 @@ class NotificationManager {
             
             if !isPassed(baseDate) {
                 scheduleNotification_0_3_7_before(id: id, title: title, subTitle: "오늘까지 지원할 수 있어요.", date: baseDate, hour: 12, DDay: "D-Day")
-                alarmScholarshipList.append(AlarmScholarship(id: id, content: "\(title) D-Day\n마감기한이 얼마 남지 않았어요!", DDayDate: baseDate, category: .storage))            }
+                alarmScholarshipList.append(AlarmScholarship(id: id, content: "\(title) D-Day\n마감기한이 얼마 남지 않았어요!", DDayDate: baseDate, category: .saved))            }
             if !isPassed(threeDaysAgo) {
                 scheduleNotification_0_3_7_before(id: id, title: title, subTitle: "마감 기한이 얼마 남지 않았어요.", date: threeDaysAgo, hour: 18, DDay: "D-3")
-                alarmScholarshipList.append(AlarmScholarship(id: id, content: "\(title) D-3\n마감기한이 얼마 남지 않았어요!", DDayDate: threeDaysAgo, category: .storage))
+                alarmScholarshipList.append(AlarmScholarship(id: id, content: "\(title) D-3\n마감기한이 얼마 남지 않았어요!", DDayDate: threeDaysAgo, category: .saved))
             }
             if !isPassed(sevenDaysAgo) {
                 scheduleNotification_0_3_7_before(id: id, title: title, subTitle: "마감 기한이 일주일 남았어요.", date: sevenDaysAgo, hour: 18, DDay: "D-7")
-                    alarmScholarshipList.append(AlarmScholarship(id: id, content: "\(title) D-7\n마감기한이 얼마 남지 않았어요!", DDayDate: sevenDaysAgo, category: .storage))
+                    alarmScholarshipList.append(AlarmScholarship(id: id, content: "\(title) D-7\n마감기한이 얼마 남지 않았어요!", DDayDate: sevenDaysAgo, category: .saved))
             }
 
             var alarmList = UserDefaults.getObjectFromDevice(key: .alertInfoList, [AlarmScholarship].self) ?? []

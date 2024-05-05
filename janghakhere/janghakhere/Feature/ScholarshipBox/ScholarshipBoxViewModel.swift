@@ -11,15 +11,13 @@ import SwiftUI
 final class ScholarshipBoxViewModel: ObservableObject {
     let sholarshipStatusActor: ScholarshipStatusActor = ScholarshipStatusActor()
     
-    private var tasks: [Task<Void, Never>] = []
-    
     /// 맞춤, 전체 공고에 있는 저장 버튼 클릭시
-    func mainViewStorageButtonPressed(id: Int) {
-        postScholarshipStatus(id: id, status: PublicAnnouncementStatusCategory.storage.rawValue)
+    func mainStorageButtonPressed(id: Int) {
+        postScholarshipStatus(id: id, status: PublicAnnouncementStatusCategory.saved.rawValue)
     }
     
     /// 시트에서  공고 status 변경 버튼을 클릭 시
-    func failButtonPressed(id: Int, status: String) {
+    func sheetStorageButtonPressed(id: Int, status: String) {
         postScholarshipStatus(id: id, status: status)
     }
 }
@@ -27,13 +25,13 @@ final class ScholarshipBoxViewModel: ObservableObject {
 // private 함수들
 extension ScholarshipBoxViewModel {
     private func postScholarshipStatus(id: Int, status: String) {
-        let task = Task {
+        Task {
             do {
-                _ = try await sholarshipStatusActor.postScholarshipStatus(id: id, status: status)
+                let successStatus = try await sholarshipStatusActor.postScholarshipStatus(id: id, status: status)
+                
             } catch {
                 print(error)
             }
         }
-        tasks.append(task)
     }
 }
