@@ -97,6 +97,7 @@
 		FBEEBBA12BCEAB40006CE5EA /* PathModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEEBBA02BCEAB40006CE5EA /* PathModel.swift */; };
 		FBEEBBA42BCEAB56006CE5EA /* PathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEEBBA32BCEAB56006CE5EA /* PathType.swift */; };
 		FBEEBBA62BCEB1AA006CE5EA /* HTTPUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEEBBA52BCEB1AA006CE5EA /* HTTPUtils.swift */; };
+		FBEF1CFC2BE7FC7600DCAA0E /* ScholarshipBoxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEF1CFB2BE7FC7600DCAA0E /* ScholarshipBoxViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -196,6 +197,7 @@
 		FBEEBBA02BCEAB40006CE5EA /* PathModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathModel.swift; sourceTree = "<group>"; };
 		FBEEBBA32BCEAB56006CE5EA /* PathType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathType.swift; sourceTree = "<group>"; };
 		FBEEBBA52BCEB1AA006CE5EA /* HTTPUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPUtils.swift; sourceTree = "<group>"; };
+		FBEF1CFB2BE7FC7600DCAA0E /* ScholarshipBoxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScholarshipBoxViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -330,6 +332,7 @@
 			children = (
 				FBE7698C2BD00127007F8DEF /* ScholarshipBoxListView.swift */,
 				FB978CB22BCD8C5700347D47 /* ScholarshipBoxView.swift */,
+				FBEF1CFB2BE7FC7600DCAA0E /* ScholarshipBoxViewModel.swift */,
 			);
 			path = ScholarshipBox;
 			sourceTree = "<group>";
@@ -718,6 +721,7 @@
 				FBE769772BCF7698007F8DEF /* GrayLineTextFieldView.swift in Sources */,
 				FB01DC1B2BE500360057E37E /* SuccessFailActor.swift in Sources */,
 				FB27A2B32BD2ABAC007C62D0 /* UserDefaultKey.swift in Sources */,
+				FBEF1CFC2BE7FC7600DCAA0E /* ScholarshipBoxViewModel.swift in Sources */,
 				FB978CB32BCD8C5700347D47 /* ScholarshipBoxView.swift in Sources */,
 				FB01DC1D2BE500B20057E37E /* SuccessFailViewModel.swift in Sources */,
 				FB27A2B12BD2A933007C62D0 /* ChipsGroupView.swift in Sources */,

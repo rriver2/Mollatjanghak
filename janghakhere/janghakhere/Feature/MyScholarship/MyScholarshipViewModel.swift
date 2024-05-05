@@ -48,8 +48,8 @@ final class MyScholarshipViewModel: ObservableObject {
             if let index = totalScholarShipList.firstIndex(where: { $0.id == newScholarship.id }),
                totalScholarShipList[index].publicAnnouncementStatus != newScholarship.publicAnnouncementStatus {
                 switch newScholarship.publicAnnouncementStatus {
-                case .failed:
-                    return .supported(.failed)
+                case .non_passed:
+                    return .supported(.non_passed)
                 case .passed:
                     return .supported(.passed)
                 default:
@@ -76,15 +76,15 @@ extension MyScholarshipViewModel {
         switch category {
         case .supported(let supportedCategory):
             switch supportedCategory { 
-            case .supportCompleted:
-                selectedScholarShipList = totalScholarShipList.filter({ $0.publicAnnouncementStatus == .supportCompleted })
-            case .failed:
-                selectedScholarShipList = totalScholarShipList.filter({ $0.publicAnnouncementStatus == .failed })
+            case .applied:
+                selectedScholarShipList = totalScholarShipList.filter({ $0.publicAnnouncementStatus == .applied })
+            case .non_passed:
+                selectedScholarShipList = totalScholarShipList.filter({ $0.publicAnnouncementStatus == .non_passed })
             case .passed:
                 selectedScholarShipList = totalScholarShipList.filter({ $0.publicAnnouncementStatus == .passed })
             }
         case .stored(let storedCategory):
-            let filterScholarShipList = totalScholarShipList.filter({ $0.publicAnnouncementStatus != .failed && $0.publicAnnouncementStatus != .passed && $0.publicAnnouncementStatus != .nothing})
+            let filterScholarShipList = totalScholarShipList.filter({ $0.publicAnnouncementStatus != .non_passed && $0.publicAnnouncementStatus != .passed && $0.publicAnnouncementStatus != .nothing})
             switch storedCategory {
             case .all:
                 selectedScholarShipList = filterScholarShipList

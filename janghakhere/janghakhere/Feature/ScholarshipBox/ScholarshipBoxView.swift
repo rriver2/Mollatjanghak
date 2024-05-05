@@ -85,21 +85,6 @@ extension ScholarshipBoxView {
         .background(scholarshipBox.publicAnnouncementStatus.buttonColor)
         .cornerRadius(100)
         .foregroundStyle(scholarshipBox.publicAnnouncementStatus.buttonFontColor)
-        .onTapGesture {
-            //FIXME: 예시로
-            //                    var status: PublicAnnouncementStatusCategory = .Nothing
-            //                    switch scholarshipBox.publicAnnouncementStatus {
-            //                    case .Nothing:
-            //                        status = .Storage
-            //                    case .Storage:
-            //                        status = .ToBeSupported
-            //                    case .ToBeSupported:
-            //                        status = .SupportCompleted
-            //                    case .SupportCompleted:
-            //                        status = .Nothing
-            //                    }
-            //                    scholarshipBox.publicAnnouncementStatus = ScholarshipBoxManager.scholarshipStatusButtonPressed(status: publicAnnouncementStatus(id: scholarshipBox.id, status: status))
-        }
     }
 }
 

@@ -31,14 +31,9 @@ struct ScholarshipBoxListView: View {
                                 ScholarshipBoxView(scholarshipBox: scholarship)
                             } else {
                                 switch scholarship.publicAnnouncementStatus {
-                                case  .nothing, .storage, .toBeSupported, .failed, .passed:
+                                case  .nothing, .storage, .planned, .non_passed, .passed:
                                     ScholarshipBoxView(scholarshipBox: scholarship)
-                                        .sheet(isPresented: $isStatusSheet) {
-//                                            ScholarshipPostingSheet(category: $viewModel.status) { status in
-//                                                viewModel.statusButtonPressed(status: status, id: viewModel.id)
-//                                            }
-                                        }
-                                case .supportCompleted:
+                                case .applied:
                                     VStack(alignment: .leading, spacing: 0) {
                                         ScholarshipBoxView(scholarshipBox: scholarship)
                                         Button {

@@ -52,7 +52,7 @@ extension MyScholarshipView {
                     .padding(.trailing, 16)
             }
             Button {
-                viewModel.scholarshipCategoryButtonPressed(.supported(.supportCompleted))
+                viewModel.scholarshipCategoryButtonPressed(.supported(.applied))
                 withAnimation {
                     proxy.scrollTo(viewModel.selectedScholarShipList.first?.id, anchor: .top)
                 }
