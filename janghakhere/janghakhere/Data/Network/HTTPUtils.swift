@@ -19,14 +19,11 @@ struct HTTPUtils {
             
             let postData = try JSONEncoder().encode(postStruct)
             request.httpBody = postData
-            
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            
             let (data, response) = try await URLSession.shared.data(for: request)
             guard let response = response as? HTTPURLResponse else {
                 throw URLError(.unknown)
             }
-            
             return (data: data, response: response)
         } catch {
             throw error

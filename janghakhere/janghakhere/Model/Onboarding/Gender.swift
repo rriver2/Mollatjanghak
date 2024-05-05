@@ -11,7 +11,7 @@ enum Sex {
     case notSelected
     case female
     case male
-    func getYearText() -> String {
+    func getText() -> String {
         switch self {
         case .female:
             return "여"
