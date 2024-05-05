@@ -11,11 +11,11 @@ struct ScholarshipBox: Identifiable, Hashable {
     let id: String
     let sponsor: String
     let title: String
-    let DDay: String
+    let DDay: String?
     let prize: String
     var publicAnnouncementStatus: PublicAnnouncementStatusCategory
     
-    init(id: String, sponsor: String, title: String, DDay: String, prize: String, statusString: String) {
+    init(id: String, sponsor: String, title: String, DDay: String?, prize: String, statusString: String) {
         self.id = id
         self.sponsor = sponsor
         self.title = title
@@ -24,7 +24,7 @@ struct ScholarshipBox: Identifiable, Hashable {
         self.publicAnnouncementStatus = PublicAnnouncementStatusCategory.allCases.first { $0.rawValue == statusString} ?? .nothing
     }
     
-    init(id: String, sponsor: String, title: String, DDay: String, prize: String, publicAnnouncementStatus: PublicAnnouncementStatusCategory) {
+    init(id: String, sponsor: String, title: String, DDay: String?, prize: String, publicAnnouncementStatus: PublicAnnouncementStatusCategory) {
         self.id = id
         self.sponsor = sponsor
         self.title = title

@@ -89,9 +89,9 @@ extension MyScholarshipViewModel {
             case .all:
                 selectedScholarShipList = filterScholarShipList
             case .inProgress:
-                selectedScholarShipList = filterScholarShipList.filter { $0.DDay.first != "+" }
+                selectedScholarShipList = filterScholarShipList.filter { $0.DDay?.first != "+" }
             case .closing:
-                selectedScholarShipList = filterScholarShipList.filter { $0.DDay.first == "+" }
+                selectedScholarShipList = filterScholarShipList.filter { $0.DDay?.first == "+" }
             }
         }
     }

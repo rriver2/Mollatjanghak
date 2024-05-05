@@ -13,6 +13,7 @@ enum ScholarshipBoxListFliteringCategory {
 }
 
 actor ScholarshipBoxListActor {
+    
 
     //FIXME
     
@@ -27,7 +28,9 @@ actor ScholarshipBoxListActor {
             case .inquiryCount:
                 parameter = "page=\(page)"
             }
-            let (data , response) = try await HTTPUtils.getURL(urlBack: "/api/scholarships?", parameter: parameter)
+//            guard let userID = getUserID() else { throw URLError(.unknown) }
+            
+            let (data , response) = try await HTTPUtils.getURL(urlBack: "/api/scholarships?memberId=testId&", parameter: parameter)
             
             return try MyScholarshopBoxListManager.responseHandling(data, response)
         } catch {
@@ -46,8 +49,9 @@ actor ScholarshipBoxListActor {
             case .inquiryCount:
                 parameter = "page=\(page)"
             }
-            let userId = HTTPUtils.getDeviceUUID()
-            let (data , response) = try await HTTPUtils.getURL(urlBack: "/api/scholarships/members/\(userId)?", parameter: parameter)
+            guard let userID = getUserID() else { throw URLError(.unknown) }
+            
+            let (data , response) = try await HTTPUtils.getURL(urlBack: "/api/scholarships/members/\(userID)?", parameter: parameter)
             
             return try MyScholarshopBoxListManager.responseHandling(data, response)
         } catch {
@@ -60,11 +64,21 @@ actor ScholarshipBoxListActor {
         
         do {
             let parameter = "page=\(page)&keyword=\(keyword)&deadline=true"
-            let (data , response) = try await HTTPUtils.getURL(urlBack: "/api/scholarships?", parameter: parameter)
+            
+            guard let userID = getUserID() else { throw URLError(.unknown) }
+            
+            let (data , response) = try await HTTPUtils.getURL(urlBack: "/api/scholarships?memberId=\(userID)&", parameter: parameter)
             
             return try MyScholarshopBoxListManager.responseHandling(data, response)
         } catch {
             throw error
         }
+    }
+}
+
+extension ScholarshipBoxListActor {
+    private func getUserID() -> String? {
+        //FIXME: "testId" 삭제하기
+        return UserDefaults.getValueFromDevice(key: .userName, String.self) ?? "testId"
     }
 }

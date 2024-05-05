@@ -26,29 +26,12 @@ struct Content: Decodable {
     let organization: String
     let productName: String
     let supportDetails: String
-    let endDate: String
-    let status: String
+    let endDate: String?
+    let applyingStatus: String
 }
 
 struct Pageable: Decodable {
     let pageNumber: Int
-}
-
-//FIXME: TEMP 삭제하기
-struct ScholarshipBoxEntity_Temp: Decodable {
-    let content: [Content_Temp]
-    let pageable: Pageable
-    let last: Bool
-    let totalPages: Int
-    let totalElements: Int
-}
-
-struct Content_Temp: Decodable {
-    let id: Int
-    let organization: String
-    let productName: String
-    let supportDetails: String
-    let endDate: String
 }
 
 //MARK: - 핸들링
@@ -57,15 +40,15 @@ class MyScholarshopBoxListManager {
         do {
             switch response.statusCode {
             case 200:
-                
-                guard let entity = try? JSONDecoder().decode(ScholarshipBoxEntity_Temp.self, from: data) else { throw URLError(.badServerResponse) }
+                guard let entity = try? JSONDecoder().decode(ScholarshipBoxEntity.self, from: data) else {
+                    throw URLError(.unknown) }
                 
                 var returnEntity: [ScholarshipBox] = []
                 
                 let entityList = entity.content
                 
                 for entity in entityList {
-                    let DDay = Date().calculationDday(endDateString: entity.endDate)
+                    let DDay = entity.endDate == nil ? nil : Date().calculationDday(endDateString: entity.endDate!)
                     
                     let scholarshipBox = ScholarshipBox(id: String(entity.id), sponsor: entity.organization, title: entity.productName, DDay: DDay, prize: entity.supportDetails, publicAnnouncementStatus: .nothing)
                     returnEntity.append(scholarshipBox)

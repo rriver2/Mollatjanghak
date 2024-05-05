@@ -105,12 +105,16 @@ extension ScholarshipBoxView {
 
 extension ScholarshipBoxView {
     private func getDDayString() -> String {
-        if scholarshipBox.DDay == "0" {
-            return "오늘 마감"
-        } else if scholarshipBox.DDay.first == "+" {
-            return "마감"
+        if let dday = scholarshipBox.DDay {
+            if dday == "0" {
+                return "오늘 마감"
+            } else if dday.first == "+" {
+                return "마감"
+            } else {
+                return "D\(dday)"
+            }
         } else {
-            return "D\(scholarshipBox.DDay)"
+            return "미정"
         }
     }
 }
