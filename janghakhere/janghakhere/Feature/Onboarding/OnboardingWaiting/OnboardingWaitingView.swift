@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct OnboardingWaitingView: View {
-    var name: String
+    var userData: UserDataMinimum
+    
+    @StateObject var viewModel: OnboardingWaitingViewModel = OnboardingWaitingViewModel()
+    @EnvironmentObject private var pathModel: PathModel
     
     var body: some View {
         VStack {
@@ -19,15 +22,26 @@ struct OnboardingWaitingView: View {
                 .font(.title_lg)
                 .foregroundStyle(.black)
                 .padding(.vertical, 20)
-            Text("\(name)님에게 맞는\n장학금 정보를 찾고 있어요...")
+            Text("\(userData.name)님에게 맞는\n장학금 정보를 찾고 있어요...")
                 .font(.title_sm)
                 .foregroundStyle(.gray600)
                 .multilineTextAlignment(.center)
             Spacer()
         }
+        .onAppear {
+            viewModel.beginSignIn(userData: userData)
+            viewModel.createView(userData: userData)
+        }
+        .onDisappear {
+            viewModel.cancelTasks()
+        }
+        .onChange(of: viewModel.matchedScholarships) {
+            print(userData.id)
+            pathModel.paths.append(.onboardingCompleteView(count: viewModel.matchedScholarships))
+        }
     }
 }
 
 #Preview {
-    OnboardingWaitingView(name: "윤영서")
+    OnboardingWaitingView(userData: UserDataMinimum(id: "1", name: "123", sex: "123", birth: "123", schoolName: "123", enrolled: "!23", semester: "123", majorCategory: "!23"))
 }

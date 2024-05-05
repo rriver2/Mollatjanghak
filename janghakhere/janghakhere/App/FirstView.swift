@@ -17,8 +17,7 @@ struct FirstView: View {
                 if isRegisterd {
                     TapView()
                 } else {
-//                    OnboardingBeginView()
-                    TapView()
+                    OnboardingBeginView()
                 }
             }
             .tint(.black)
@@ -33,8 +32,11 @@ struct FirstView: View {
                 case .onboardingMainView:
                     OnboardingMainView()
                         .navigationBarBackButtonHidden()
-                case .onboardingWaitingView(let name):
-                      OnboardingWaitingView(name: name)
+                case .onboardingWaitingView(let userData):
+                    OnboardingWaitingView(userData: userData)
+                        .navigationBarBackButtonHidden()
+                case .onboardingCompleteView(let count):
+                    OnboardingCompleteView(count: count)
                         .navigationBarBackButtonHidden()
                 case .alarmView:
                     AlarmView()
@@ -52,6 +54,9 @@ struct FirstView: View {
                         .navigationBarBackButtonHidden()
                 case .onboardingExtraCompleteView:
                     OnboardingExtraCompleteView()
+                        .navigationBarBackButtonHidden()
+                case .tapView:
+                    TapView()
                         .navigationBarBackButtonHidden()
                 }
             }

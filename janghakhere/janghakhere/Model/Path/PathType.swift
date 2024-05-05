@@ -12,7 +12,8 @@ enum PathType: Hashable {
     case searchScholarshipView
     case onboardingBeginView
     case onboardingMainView
-    case onboardingWaitingView(name: String)
+    case onboardingWaitingView(userData: UserDataMinimum)
+    case onboardingCompleteView(count: Int)
     case alarmView
     case settingWebView(title: String, url: URL)
     case resetInfoView
@@ -20,4 +21,5 @@ enum PathType: Hashable {
     case myInformationView
     case onboardingExtraView
     case onboardingExtraCompleteView
+    case tapView
 }

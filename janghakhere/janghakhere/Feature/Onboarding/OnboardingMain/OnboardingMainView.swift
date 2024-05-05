@@ -88,8 +88,10 @@ enum DegreesStatus: String, CaseIterable, CustomStringConvertible {
 struct OnboardingMainView: View {
     @EnvironmentObject private var pathModel: PathModel
     @Environment(\.dismiss) private var dismiss
-    @FocusState private var isKeyboardOn: Bool
     @StateObject private var viewModel = OnboardingMainViewModel()
+    @FocusState private var isKeyboardOn: Bool
+    @AppStorage("userName") private var userName: String = ""
+    
     var filteredSemesterStatuses: [SemesterStatus] {
         switch viewModel.semesterYear {
         case .freshman:
@@ -230,13 +232,13 @@ extension OnboardingMainView {
                 .padding(.bottom, 64)
             VStack(spacing: 4) {
                 HStack {
-                    Text( viewModel.isEmptyDate(viewModel.date)
+                    Text(viewModel.isEmptyDate(viewModel.birthDate)
                           ? "생년월일"
-                          :  viewModel.date.customDateFomatter())
+                         :  viewModel.birthDate.customDateFomatter())
                     .font(.title_md)
                     .foregroundStyle(
                         viewModel.isEmptyDate(
-                            viewModel.date
+                            viewModel.birthDate
                         )
                         ? .gray300
                         : .mainGray)
@@ -254,12 +256,12 @@ extension OnboardingMainView {
                     $viewModel.isShowBirthdaySheet.wrappedValue = true
                 }
                 .sheet(isPresented: $viewModel.isShowBirthdaySheet) {
-                    DateSelectionView(date: $viewModel.date)
+                    DateSelectionView(date: $viewModel.birthDate)
                 }
                 Rectangle()
                     .foregroundStyle(
                         viewModel.isEmptyDate(
-                            $viewModel.date.wrappedValue
+                            $viewModel.birthDate.wrappedValue
                         )
                         ? .gray300
                         : .mainGray)
@@ -273,7 +275,9 @@ extension OnboardingMainView {
                         viewModel.currentPage = 3
                     }
                 },
-                disabled: viewModel.isEmptyDate($viewModel.date.wrappedValue)
+                disabled: viewModel.isEmptyDate(
+                    $viewModel.birthDate.wrappedValue
+                )
             )
         }
         .paddingHorizontal()
@@ -492,7 +496,10 @@ extension OnboardingMainView {
                 title: "다음",
                 action: {
                     withAnimation {
-                        pathModel.paths.append(.onboardingWaitingView(name: viewModel.name))
+                        pathModel.paths.append(.onboardingWaitingView(
+                            userData: viewModel.makeUserData()
+                        )
+                        )
                     }
                 },
                 disabled: false

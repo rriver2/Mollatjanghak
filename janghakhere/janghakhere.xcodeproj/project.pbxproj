@@ -40,6 +40,8 @@
 		7BB1E28D2BE6446B001350DE /* OnboardingChipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB1E28C2BE6446B001350DE /* OnboardingChipModel.swift */; };
 		7BB1E2922BE67AEC001350DE /* TapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB1E2912BE67AEC001350DE /* TapView.swift */; };
 		7BB1E2942BE69246001350DE /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 7BB1E2932BE69246001350DE /* PrivacyInfo.xcprivacy */; };
+		7BB1E2972BE7B463001350DE /* OnboardingWaitingActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB1E2952BE7B463001350DE /* OnboardingWaitingActor.swift */; };
+		7BB1E2982BE7B463001350DE /* OnboardingWaitingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB1E2962BE7B463001350DE /* OnboardingWaitingViewModel.swift */; };
 		FB19C91F2BE122B90039205E /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB19C91E2BE122B90039205E /* NotificationManager.swift */; };
 		FB19C9212BE147410039205E /* SupportedCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB19C9202BE147410039205E /* SupportedCategory.swift */; };
 		FB19C9232BE1476E0039205E /* StorageCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB19C9222BE1476E0039205E /* StorageCategory.swift */; };
@@ -138,6 +140,8 @@
 		7BB1E28C2BE6446B001350DE /* OnboardingChipModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingChipModel.swift; sourceTree = "<group>"; };
 		7BB1E2912BE67AEC001350DE /* TapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapView.swift; sourceTree = "<group>"; };
 		7BB1E2932BE69246001350DE /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		7BB1E2952BE7B463001350DE /* OnboardingWaitingActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingWaitingActor.swift; sourceTree = "<group>"; };
+		7BB1E2962BE7B463001350DE /* OnboardingWaitingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingWaitingViewModel.swift; sourceTree = "<group>"; };
 		FB19C91E2BE122B90039205E /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		FB19C9202BE147410039205E /* SupportedCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportedCategory.swift; sourceTree = "<group>"; };
 		FB19C9222BE1476E0039205E /* StorageCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageCategory.swift; sourceTree = "<group>"; };
@@ -300,6 +304,8 @@
 			isa = PBXGroup;
 			children = (
 				7B6445D12BD7D67B00D4AF74 /* OnboardingWaitingView.swift */,
+				7BB1E2952BE7B463001350DE /* OnboardingWaitingActor.swift */,
+				7BB1E2962BE7B463001350DE /* OnboardingWaitingViewModel.swift */,
 			);
 			path = OnboardingWaiting;
 			sourceTree = "<group>";
@@ -757,6 +763,8 @@
 				FB29307A2BDC1066009AB2EF /* ResetInfoView.swift in Sources */,
 				FB29306D2BDC0907009AB2EF /* secret.swift in Sources */,
 				FBABCF022BD636890068178F /* AlarmActor.swift in Sources */,
+				7BB1E2972BE7B463001350DE /* OnboardingWaitingActor.swift in Sources */,
+				7BB1E2982BE7B463001350DE /* OnboardingWaitingViewModel.swift in Sources */,
 				FBEEBBA12BCEAB40006CE5EA /* PathModel.swift in Sources */,
 				FBE7698F2BD002EC007F8DEF /* DeviceInfo.swift in Sources */,
 				7B6445C12BD527CB00D4AF74 /* SexSelectionView.swift in Sources */,
