@@ -29,6 +29,7 @@ struct MyInformationView: View {
                 schoolSection()
                 incomeSection()
                 sibilingSection()
+                etcSection()
             }
             .scrollIndicators(.hidden)
             Spacer()
@@ -69,7 +70,7 @@ extension MyInformationView {
                     in: RoundedRectangle(cornerRadius: 10)
                 )
         }
-        .padding(.bottom, 24)
+        .padding(.bottom, 16)
     }
     
     @ViewBuilder
@@ -88,6 +89,7 @@ extension MyInformationView {
                     viewModel.sex = .male
                 } label: {
                     Text("남자")
+                        .font(.text_md)
                         .foregroundStyle(viewModel.sex == .male ? .white : .black)
                         .padding(.vertical, 16)
                         .frame(maxWidth: .infinity)
@@ -96,10 +98,12 @@ extension MyInformationView {
                             in: RoundedRectangle(cornerRadius: 10)
                         )
                 }
+                
                 Button {
                     viewModel.sex = .female
                 } label: {
                     Text("여자")
+                        .font(.text_md)
                         .foregroundStyle(viewModel.sex == .female ? .white : .black)
                         .padding(.vertical, 16)
                         .frame(maxWidth: .infinity)
@@ -110,7 +114,8 @@ extension MyInformationView {
                 }
             }
         }
-        .padding(.bottom, 32)
+//        .padding(.bottom, 32)
+        .padding(.bottom, 24)
     }
     
     @ViewBuilder
@@ -130,6 +135,7 @@ extension MyInformationView {
                     viewModel.militaryStatus = .served
                 } label: {
                     Text("군필")
+                        .font(.text_md)
                         .foregroundStyle(viewModel.militaryStatus == .served ? .white : .black)
                         .padding(.vertical, 16)
                         .frame(maxWidth: .infinity)
@@ -142,6 +148,7 @@ extension MyInformationView {
                     viewModel.militaryStatus = .notServed
                 } label: {
                     Text("미필")
+                        .font(.text_md)
                         .foregroundStyle(viewModel.militaryStatus == .notServed ? .white : .black)
                         .padding(.vertical, 16)
                         .frame(maxWidth: .infinity)
@@ -154,6 +161,7 @@ extension MyInformationView {
                     viewModel.militaryStatus = .exempt
                 } label: {
                     Text("면제자")
+                        .font(.text_md)
                         .foregroundStyle(viewModel.militaryStatus == .exempt ? .white : .black)
                         .padding(.vertical, 16)
                         .frame(maxWidth: .infinity)
@@ -164,7 +172,7 @@ extension MyInformationView {
                 }
             }
         }
-        .padding(.bottom, 32)
+        .padding(.bottom, 24)
     }
     
     @ViewBuilder
@@ -182,13 +190,13 @@ extension MyInformationView {
                 // TODO: 생년월일
             } label: {
                 HStack(spacing: 0) {
-                    Text("ㅁㄴㅇㄹ")
+                    Text(String(viewModel.birth))
                     Spacer()
                     Icon(name: .chevronRight, color: .black, size: 16)
                 }
                 .font(.text_md)
                 .foregroundStyle(.black)
-                .padding(.vertical, 20)
+                .padding(.vertical, 16)
                 .padding(.horizontal, 16)
                 .background(
                     .gray50,
@@ -196,7 +204,7 @@ extension MyInformationView {
                 )
             }
         }
-        .padding(.bottom, 32)
+        .padding(.bottom, 24)
     }
     
     @ViewBuilder
@@ -218,15 +226,33 @@ extension MyInformationView {
                 Spacer()
             }
             VStack(spacing:16) {
-                HStack(spacing: 0) {
-                    Text("학교")
-                        .font(.semi_title_md)
-                        .foregroundStyle(.gray600)
-                    Spacer()
-                    Button {
-                        // 학교 호출
-                    } label: {
-                        Text(viewModel.sibilingStatus.description)
+                
+                Button {
+                    // 학교 호출
+                } label: {
+                    HStack(spacing: 0) {
+                        Text("학교")
+                            .font(.semi_title_md)
+                            .foregroundStyle(.gray600)
+                        Spacer()
+                        Text(viewModel.schoolName.description)
+                            .font(.text_md)
+                            .foregroundStyle(.black)
+                            .padding(.trailing, 16)
+                        Icon(name: .chevronRight, color: .black, size: 16)
+                    }
+                }
+                horizontalDivider()
+                
+                Button {
+                    // 학년 교정 시트
+                } label: {
+                    HStack(spacing: 0) {
+                        Text("학년")
+                            .font(.semi_title_md)
+                            .foregroundStyle(.gray600)
+                        Spacer()
+                        Text(viewModel.schoolYear.description)
                             .font(.text_md)
                             .foregroundStyle(.black)
                             .padding(.trailing, 16)
@@ -234,34 +260,16 @@ extension MyInformationView {
                     }
                 }
                 
-                horizontalDivider()
-                
-                HStack(spacing: 0) {
-                    Text("학년")
-                        .font(.semi_title_md)
-                        .foregroundStyle(.gray600)
-                    Spacer()
-                    Button {
-                        // 학교 호출
-                    } label: {
-                        Text(viewModel.semesterYear.getYearText())
-                            .font(.text_md)
-                            .foregroundStyle(.black)
-                            .padding(.trailing, 16)
-                        Icon(name: .chevronRight, color: .black, size: 16)
-                    }
-                }
                 
                 horizontalDivider()
-                
-                HStack(spacing: 0) {
-                    Text("전공계열")
-                        .font(.semi_title_md)
-                        .foregroundStyle(.gray600)
-                    Spacer()
-                    Button {
-                        // 학교 호출
-                    } label: {
+                Button {
+                    // 학교 호출
+                } label: {
+                    HStack(spacing: 0) {
+                        Text("전공계열")
+                            .font(.semi_title_md)
+                            .foregroundStyle(.gray600)
+                        Spacer()
                         Text(viewModel.majorField.description)
                             .font(.text_md)
                             .foregroundStyle(.black)
@@ -270,17 +278,18 @@ extension MyInformationView {
                     }
                 }
                 
+                
                 horizontalDivider()
                 
                 VStack(spacing: 0) {
-                    HStack(spacing: 0) {
-                        Text("학점기준")
-                            .font(.semi_title_md)
-                            .foregroundStyle(.gray600)
-                        Spacer()
-                        Button {
-                            // 학점 기준
-                        } label: {
+                    Button {
+                        // 학점 기준
+                    } label: {
+                        HStack(spacing: 0) {
+                            Text("학점기준")
+                                .font(.semi_title_md)
+                                .foregroundStyle(.gray600)
+                            Spacer()
                             Icon(name: .chevronRight, color: .black, size: 16)
                         }
                     }
@@ -293,7 +302,7 @@ extension MyInformationView {
                         
                         Spacer()
                         
-                        Text("4.25")
+                        Text(viewModel.lastSemesterGrade)
                             .font(.text_md)
                             .foregroundStyle(.gray700)
                     }
@@ -313,7 +322,7 @@ extension MyInformationView {
                         
                         Spacer()
                         
-                        Text("4.05")
+                        Text(viewModel.totalGrade)
                             .font(.text_md)
                             .foregroundStyle(.gray700)
                     }
@@ -327,16 +336,15 @@ extension MyInformationView {
                 }
                 
                 horizontalDivider()
-                
-                HStack(spacing: 0) {
-                    Text("총 학점")
-                        .font(.semi_title_md)
-                        .foregroundStyle(.gray600)
-                    Spacer()
-                    Button {
-                        // 학교 호출
-                    } label: {
-                        Text(viewModel.totalScore)
+                Button {
+                    // 학교 호출
+                } label: {
+                    HStack(spacing: 0) {
+                        Text("총 학점")
+                            .font(.semi_title_md)
+                            .foregroundStyle(.gray600)
+                        Spacer()
+                        Text(viewModel.totalGrade)
                             .font(.text_md)
                             .foregroundStyle(.black)
                             .padding(.trailing, 16)
@@ -349,7 +357,6 @@ extension MyInformationView {
                 .gray50,
                 in: RoundedRectangle(cornerRadius: 10)
             )
-            
         }
         .padding(.bottom, 32)
     }
@@ -401,7 +408,7 @@ extension MyInformationView {
                 // TODO: 생년월일
             } label: {
                 HStack(spacing: 0) {
-                    Text(viewModel.sibilingStatus.description)
+                    Text(viewModel.siblingStatus.description)
                     Spacer()
                     Icon(name: .chevronRight, color: .black, size: 16)
                 }
@@ -420,17 +427,30 @@ extension MyInformationView {
     
     @ViewBuilder
     func etcSection() -> some View {
-        VStack(spacing: 0) {
-            Text("asd")
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(spacing: 0) {
+                Text("기타")
+                    .font(.semi_title_md)
+                    .foregroundStyle(.gray400)
+                    .padding(.leading, 8)
+                    .padding(.bottom, 8)
+                Spacer()
+            }
+            .padding(.bottom, 8)
+            
+            // 칩을 넣기
         }
-        .padding(.bottom, 32)
+        .padding(.bottom, 184)
     }
     
     @ViewBuilder
     func announceScholarshipCriteria() -> some View {
         VStack(spacing: 0) {
             HStack(spacing: 0) {
-                Icon(name: .megaphone, color: Color(hex: "D19204") ?? .etcOrange, size: 20)
+                Icon(
+                    name: .megaphone,
+                    color: Color(hex: "D19204") ?? .etcOrange,
+                    size: 20)
                 Text("장학금 안내 기준")
                     .font(.semi_title_md)
                     .padding(.leading, 6)
@@ -438,7 +458,8 @@ extension MyInformationView {
             }
             .padding(.top, 16)
             .foregroundStyle(Color(hex: "D19204") ?? .etcOrange)
-            Text("여깄장학은 입력된 정보를 바탕으로 \(viewModel.name)님에게 적절한\n장학금을 선별해서 추천해드려요.")
+            Text("여깄장학은 입력된 정보를 바탕으로 \(viewModel.name)님에게 적절한 장학금을 선별해서 추천해 드려요.")
+                .lineSpacing(/*@START_MENU_TOKEN@*/10.0/*@END_MENU_TOKEN@*/)
                 .font(.text_sm)
                 .padding(.top, 8)
                 .padding(.bottom, 16)
@@ -450,19 +471,19 @@ extension MyInformationView {
             in: RoundedRectangle(cornerRadius: 10)
         )
         .padding(.top, 16)
-        .padding(.bottom, 24)
+        .padding(.bottom, 16)
     }
     
     @ViewBuilder
     private func navigation() -> some View {
         HStack(spacing: 0) {
             Icon(name: .arrowLeft, color: .black, size: 28)
+                .padding(.vertical, 14)
                 .onTapGesture{ dismiss() }
             Spacer()
             Text("내 정보")
                 .font(.title_xsm)
                 .foregroundStyle(.black)
-            
             Spacer()
             Button {
                 // TODO: 저장 기능

@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct DeviceInfo {
+    let deviceModel = UIDevice.current.modelName
+    let systemVersion = UIDevice.current.systemVersion
+    let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+    
     static func getDeviceScreenHeight() -> CGFloat {
         let screenSize = UIScreen.main.bounds
         return screenSize.height

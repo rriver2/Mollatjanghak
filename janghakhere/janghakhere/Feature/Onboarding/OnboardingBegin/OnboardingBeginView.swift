@@ -9,6 +9,7 @@ import SwiftUI
 
 struct OnboardingBeginView: View {
     @EnvironmentObject var pathModel: PathModel
+    @State private var showSheet: Bool = false
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
             Spacer()
@@ -47,13 +48,16 @@ struct OnboardingBeginView: View {
             MainButtonView(
                 title: "입력하고 추천받기",
                 action: {
-                    pathModel.paths.append(.onboardingMainView)
+                    showSheet.toggle()
                 },
                 disabled: false
             )
             .padding(.horizontal, 11)
         }
         .padding()
+        .sheet(isPresented: $showSheet) {
+            ServiceAgreementView()
+        }
     }
 }
 
