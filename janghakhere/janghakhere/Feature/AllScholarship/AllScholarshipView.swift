@@ -146,21 +146,47 @@ extension AllScholarshipView {
                     .font(.semi_title_md)
             }
             Spacer()
-//            Button {
-//                
-//            } label: {
-//                HStack(spacing: 0) {
-//                    Text("최신순")
-//                        .font(.semi_title_md)
-//                        .padding(.trailing, 4)
-//                    Icon(name: .arrowsUpDown, color: .gray500, size: 20)
-//                }
-//                .foregroundStyle(.gray500)
-//            }
+            Button {
+                viewModel.isShowFilteringSheet = true
+            } label: {
+                HStack(spacing: 0) {
+                    Text(viewModel.filteringcategory.title)
+                        .font(.semi_title_md)
+                        .padding(.trailing, 4)
+                    Icon(name: .arrowsUpDown, color: .gray500, size: 20)
+                }
+                .foregroundStyle(.gray500)
+            }
         }
         .padding(.top, 4)
         .padding(.bottom, 16)
         .animation(.default, value: viewModel.totalScholarshipCount)
+        .sheet(isPresented: $viewModel.isShowFilteringSheet) {
+            VStack(alignment: .leading, spacing: 0) {
+                Text("정렬")
+                    .font(.title_xsm)
+                    .padding(.top, 20)
+                    .frame(maxWidth: .infinity)
+                ForEach(ScholarshipBoxListFliteringCategory.allCases, id: \.self) { category in
+                    filteringButton(category: category)
+                }
+                Spacer()
+                Text("닫기")
+                    .font(.title_xsm)
+                    .foregroundStyle(.white)
+                    .padding(.vertical, 16)
+                    .frame(maxWidth: .infinity)
+                    .background(.mainGray)
+                    .cornerRadius(100)
+                    .padding(.bottom, 14)
+                    .onTapGesture {
+                        viewModel.isShowFilteringSheet = false
+                    }
+            }
+            .padding(.horizontal, 28)
+            .foregroundStyle(.black)
+            .presentationDetents([.medium])
+        }
     }
     
     @ViewBuilder
@@ -208,6 +234,24 @@ extension AllScholarshipView {
         .frame(maxWidth: .infinity)
         .background(Color.gray50)
     }
+        @ViewBuilder
+        private func filteringButton(category: ScholarshipBoxListFliteringCategory) -> some View {
+            HStack(spacing: 16) {
+                Text(category.title)
+                    .foregroundStyle(category == viewModel.filteringcategory ? .subGreen : .gray700)
+                    .font(.title_xsm)
+                Spacer()
+                if category == viewModel.filteringcategory {
+                    Icon(name: .checkFat, color: .subGreen, size: 16)
+                }
+            }
+            .padding(.vertical, 18)
+            .contentShape(Rectangle())
+            .onTapGesture {
+                viewModel.sortingButtonPressed(viewModel.scholarshipCategory, category)
+                viewModel.isShowFilteringSheet = false
+            }
+        }
 }
 
 extension AllScholarshipView {

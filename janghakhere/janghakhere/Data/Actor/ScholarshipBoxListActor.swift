@@ -7,9 +7,21 @@
 
 import SwiftUI
 
-enum ScholarshipBoxListFliteringCategory {
+enum ScholarshipBoxListFliteringCategory: CaseIterable {
+    case recent
+    case inquiry
     case deadline
-    case inquiryCount
+    
+    var title: String {
+        switch self {
+        case .recent:
+            return "최신순"
+        case .inquiry:
+            return "조회순"
+        case .deadline:
+            return "마감순"
+        }
+    }
 }
 
 actor ScholarshipBoxListActor {
@@ -21,10 +33,12 @@ actor ScholarshipBoxListActor {
         do {
             var parameter = ""
             switch category {
+            case .recent:
+                parameter = "page=\(page)"
+            case .inquiry:
+                parameter = "page=\(page)&viewCount=true"
             case .deadline:
                 parameter = "page=\(page)&deadline=true"
-            case .inquiryCount:
-                parameter = "page=\(page)"
             }
             guard let userID = getUserID() else { throw URLError(.unknown) }
             
@@ -42,12 +56,13 @@ actor ScholarshipBoxListActor {
         do {
             var parameter = ""
             switch category {
+            case .recent:
+                parameter = "page=\(page)"
+            case .inquiry:
+                parameter = "page=\(page)&viewCount=true"
             case .deadline:
                 parameter = "page=\(page)&deadline=true"
-            case .inquiryCount:
-                parameter = "page=\(page)"
             }
-            print("0")
             guard let userID = getUserID() else { throw URLError(.unknown) }
             let (data , response) = try await HTTPUtils.getURL(urlBack: "/api/scholarships/members/\(userID)?", parameter: parameter)
             

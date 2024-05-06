@@ -15,7 +15,7 @@ struct ScholarshipPostingSheet: View {
         VStack(alignment: .leading, spacing: 0) {
             Text("공고 상태")
                 .font(.title_xsm)
-                .padding(.bottom, 20)
+                .padding(.vertical, 20)
                 .frame(maxWidth: .infinity)
             statusButton(status: .saved)
             statusButton(status: .applied)
@@ -57,6 +57,7 @@ extension ScholarshipPostingSheet {
         }
         .padding(.leading, 28)
         .padding(.vertical, 14)
+        .contentShape(Rectangle())
         .onTapGesture {
             statusButtonPressed(status)
         }

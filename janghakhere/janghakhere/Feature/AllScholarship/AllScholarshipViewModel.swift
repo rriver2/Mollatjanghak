@@ -27,6 +27,8 @@ final class AllScholarshipViewModel: ObservableObject {
     @Published var totalPages: Int = 0 // 전체 페이지 수
     @Published private(set) var nextPageNumber: Int = 0 // 다음 페이지 num
     @Published var isGetMoreScholarshipBox = false
+    @Published var filteringcategory: ScholarshipBoxListFliteringCategory = .allCases.first!
+    @Published var isShowFilteringSheet = false
     @Published var name: String = ""
     
     @Published private(set) var isNewAlarm: Bool = false
@@ -46,14 +48,20 @@ final class AllScholarshipViewModel: ObservableObject {
     
     /// header의 맞춤, 전체 버튼 클릭
     func scholarshipCategoryButtonPressed(_ category : ScholarshipCategory) {
+        self.filteringcategory = ScholarshipBoxListFliteringCategory.allCases.first!
         self.scholarshipCategory = category
         self.scholarshipList = []
+        self.nextPageNumber = 0
         self.getScholarShipList(category)
     }
     
-    // sorting 최신,
-    func sortingButtonPressed() {
-        
+    // sorting 마감, 최신 버튼
+    func sortingButtonPressed(_ category : ScholarshipCategory, _ filteringCategory: ScholarshipBoxListFliteringCategory) {
+        self.filteringcategory = filteringCategory
+        self.scholarshipCategory = category
+        self.nextPageNumber = 0
+        self.scholarshipList = []
+        self.getScholarShipList(category)
     }
     
     func scholarship() {
@@ -82,9 +90,9 @@ extension AllScholarshipViewModel {
                 
                 switch category {
                 case .all:
-                    (scholarshipList, totalScholarshipCount, currentPageNumber, totalPages) = try await scholarshipBoxListActor.fetchScholarshipBoxList(.deadline, page: nextPageNumber)
+                    (scholarshipList, totalScholarshipCount, currentPageNumber, totalPages) = try await scholarshipBoxListActor.fetchScholarshipBoxList(filteringcategory, page: nextPageNumber)
                 case .custom:
-                    (scholarshipList, totalScholarshipCount, currentPageNumber, totalPages) = try await scholarshipBoxListActor.fetchCustomScholarshipBoxList(.deadline, page: nextPageNumber)
+                    (scholarshipList, totalScholarshipCount, currentPageNumber, totalPages) = try await scholarshipBoxListActor.fetchCustomScholarshipBoxList(filteringcategory, page: nextPageNumber)
                 }
                 
                 self.totalScholarshipCount = totalScholarshipCount
