@@ -142,8 +142,7 @@ extension AllScholarshipView {
                 Text("전체 장학금 \(viewModel.totalScholarshipCount)개")
                     .font(.semi_title_md)
             case .custom:
-                let name = UserDefaults.getValueFromDevice(key: .userName, String.self) ?? "💖"
-                Text("\(name)님을 위한 장학금 \(viewModel.totalScholarshipCount)개")
+                Text("\(viewModel.name)님을 위한 장학금 \(viewModel.totalScholarshipCount)개")
                     .font(.semi_title_md)
             }
             Spacer()

@@ -27,12 +27,14 @@ final class AllScholarshipViewModel: ObservableObject {
     @Published var totalPages: Int = 0 // 전체 페이지 수
     @Published private(set) var nextPageNumber: Int = 0 // 다음 페이지 num
     @Published var isGetMoreScholarshipBox = false
+    @Published var name: String = ""
     
     @Published private(set) var isNewAlarm: Bool = false
+    @AppStorage("userData") private var userData: Data?
     
     var advertisementSelectionWidth: CGFloat {
         if advertisementSelection == 0 {
-           return 113/3
+            return 113/3
         } else if advertisementSelection == 1 {
             return 113/3*2
         } else {
@@ -133,6 +135,19 @@ extension AllScholarshipViewModel {
             return true
         }
     }
+    
+    private func initializeUserData() {
+        if let data = userData {
+            do {
+                let decoder = JSONDecoder()
+                let loadedUserData = try decoder.decode(UserData.self, from: data)
+                
+                self.name = loadedUserData.name
+            } catch {
+                print("Failed to decode user data: \(error)")
+            }
+        }
+    }
 }
 
 // 기본 함수들
@@ -140,6 +155,7 @@ extension AllScholarshipViewModel {
     func viewOpened() {
         self.getScholarShipList(scholarshipCategory)
         self.timerinit()
+        self.initializeUserData()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.getNewAlarmStatus()
         }
