@@ -11,6 +11,7 @@ struct ResetInfoView: View {
     @EnvironmentObject private var pathModel: PathModel
     @State private var isShowResetAlert = false
     @StateObject private var viewModel: ResetInfoViewModel = ResetInfoViewModel()
+    @AppStorage("isRegistered") private var isRegisterd: Bool = false
     
     var body: some View {
         ZStack {

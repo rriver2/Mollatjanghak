@@ -16,17 +16,28 @@ struct AlarmView: View {
         VStack(spacing: 0) {
             NavigationDefaultView(title: "알림")
             grayLine()
-            ScrollView {
-                VStack(spacing: 0) {
-                    ForEach(viewModel.alarmList, id: \.self) { alarm in
-                        alarmInfoCell(alarm)
-                            .onTapGesture {
-                                dismiss()
-                            }
+            if viewModel.alarmList.isEmpty {
+                VStack(spacing: 8) {
+                    Spacer()
+                    Icon(name: .graduation, size: 122)
+                    Text("알림이 아직 없어요")
+                        .font(.title_xsm)
+                        .foregroundStyle(.gray600)
+                    Spacer()
+                }
+            } else {
+                ScrollView {
+                    VStack(spacing: 0) {
+                        ForEach(viewModel.alarmList, id: \.self) { alarm in
+                            alarmInfoCell(alarm)
+                                .onTapGesture {
+                                    dismiss()
+                                }
+                        }
                     }
                 }
+                .scrollIndicators(.hidden)
             }
-            .scrollIndicators(.hidden)
         }
         .navigationBarBackButtonHidden()
         .onAppear {
