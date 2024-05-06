@@ -9,32 +9,16 @@ import SwiftUI
 
 struct FirstView: View {
     @StateObject private var pathModel = PathModel()
-    @State private var selection = 0
+    @AppStorage("isRegistered") private var isRegisterd: Bool = false
     
     var body: some View {
         NavigationStack(path: $pathModel.paths) {
-            TabView (selection: $selection) {
-                AllScholarshipView(selection: $selection)
-                    .tabItem {
-                        Icon(name: .newspaperClipping, color: selection == 0 ? .black : .gray400, size: 28)
-                        Text("전체공고")
-                            .font(.caption)
-                    }
-                    .tag(0)
-                MyScholarshipView()
-                    .tabItem {
-                        Icon(name: .newspaperChecks, color: selection == 1 ? .black : .gray400, size: 28)
-                        Text("내공고")
-                            .font(.caption)
-                    }
-                    .tag(1)
-                MyPageView()
-                    .tabItem {
-                        Icon(name: .user, color: selection == 2 ? .black : .gray400, size: 28)
-                        Text("마이페이지")
-                            .font(.caption)
-                    }
-                    .tag(2)
+            Group {
+                if isRegisterd {
+                    TapView()
+                } else {
+                    OnboardingBeginView()
+                }
             }
             .tint(.black)
             .navigationDestination(for: PathType.self) { pathType  in
@@ -48,8 +32,11 @@ struct FirstView: View {
                 case .onboardingMainView:
                     OnboardingMainView()
                         .navigationBarBackButtonHidden()
-                case .onboardingWaitingView(let name):
-                      OnboardingWaitingView(name: name)
+                case .onboardingWaitingView(let userData):
+                    OnboardingWaitingView(userData: userData)
+                        .navigationBarBackButtonHidden()
+                case .onboardingCompleteView(let count):
+                    OnboardingCompleteView(count: count)
                         .navigationBarBackButtonHidden()
                 case .alarmView:
                     AlarmView()
@@ -59,6 +46,15 @@ struct FirstView: View {
                     SettingView()
                 case .myInformationView:
                     MyInformationView()
+                        .navigationBarBackButtonHidden()
+                case .onboardingExtraView:
+                    OnboardingExtraView()
+                        .navigationBarBackButtonHidden()
+                case .onboardingExtraCompleteView:
+                    OnboardingExtraCompleteView()
+                        .navigationBarBackButtonHidden()
+                case .tapView:
+                    TapView()
                         .navigationBarBackButtonHidden()
                 case .webView(let title, let url):
                     SettingWebView(title: title, url: url)

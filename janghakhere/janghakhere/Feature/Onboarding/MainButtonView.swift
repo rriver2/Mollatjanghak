@@ -63,7 +63,9 @@ struct NonMaxButton: View {
     }
     
     var body: some View {
-        Button {} label: {
+        Button {
+            action()
+        } label: {
             Text(title)
         }
         .buttonStyle(NonMaxButtonStyle(disabled: disabled))
@@ -92,11 +94,6 @@ struct NonMaxButtonStyle: ButtonStyle {
             )
     }
 }
-
-
-
-
-
 
 #Preview {
     MainButtonView(title: "다음", action: {})
