@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HTTPUtils {
-    //FIXME: conFig에서 불러오게 코드 수정해야 함
+    //TODO: conFig에서 불러오게 코드 수정해야 함
     
     static func postURL<T: Encodable>(postStruct: T, urlBack: String) async throws -> (data: Data, response: HTTPURLResponse) {
         do {

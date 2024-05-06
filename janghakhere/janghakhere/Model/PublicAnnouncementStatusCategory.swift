@@ -8,56 +8,141 @@
 import SwiftUI
 
 enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
-    case Nothing
-    case Storage
-    case ToBeSupported
-    case SupportCompleted
+    case nothing // 기본값
+    case storage // 저장완료
+    case toBeSupported // 지원예정
+    case supportCompleted //지원완료
+    case passed // 합격
+    case failed // 불합격
     
-    var IconName: ImageResource {
+    var IconName: ImageResource? {
         switch self {
-        case .Nothing:
+        case .nothing:
                 .floppyDisk
-        case .Storage:
+        case .storage:
                 .floppyDisk
-        case .ToBeSupported:
+        case .toBeSupported:
                 .fire
-        case .SupportCompleted:
+        case .supportCompleted:
                 .check
+        case .failed, .passed:
+            nil
+        }
+    }
+    
+    var IconNameDetailViewButton: ImageResource? {
+        switch self {
+        case .storage, .nothing:
+                .floppyDisk
+        case .toBeSupported:
+                .fire
+        case .supportCompleted:
+                .checkFat
+        case .failed, .passed:
+            nil
+        }
+    }
+    
+    var detailViewButtonColor: Color {
+        switch self {
+        case .nothing:
+                .gray70
+        case .storage:
+                .subGreen
+        case .toBeSupported:
+                .subPink
+        case .supportCompleted:
+                .subPurple
+        case .failed, .passed:
+                .white
+        }
+    }
+    
+    var detailViewButtonTextColor: Color {
+        switch self {
+        case .nothing:
+                .mainGray
+        case .toBeSupported, .storage, .supportCompleted, .failed, .passed:
+                .white
+        }
+    }
+    
+    
+    var IconNameButton: ImageResource? {
+        switch self {
+        case .storage:
+                .saveScholarship
+        case .toBeSupported:
+                .prepareScholarship
+        case .supportCompleted:
+                .doneScholarship
+        case .nothing, .failed, .passed:
+            nil
         }
     }
     
     var title: String {
         switch self {
-        case .Nothing:
+        case .nothing:
             "저장"
-        case .Storage:
-            "공고 저장"
-        case .ToBeSupported:
-            "지원 예정"
-        case .SupportCompleted:
-            "지원 완료"
+        case .storage:
+            "공고저장"
+        case .toBeSupported:
+            "지원예정"
+        case .supportCompleted:
+            "지원완료"
+        case .failed:
+            "불합격"
+        case .passed:
+            "합격"
         }
     }
     
     var buttonColor: Color {
         switch self {
-        case .Nothing:
+        case .nothing:
             Color.gray70
-        case .Storage:
+        case .storage:
             Color.subGreen
-        case .ToBeSupported:
+        case .toBeSupported:
             Color.subPink
-        case .SupportCompleted:
+        case .supportCompleted:
             Color.subPurple
+        case .failed:
+            Color.ectRed.opacity(0.08)
+        case .passed:
+            Color.subGreen.opacity(0.08)
         }
     }
     
     var buttonFontColor: Color {
         switch self {
-        case .Nothing:
+        case .nothing:
             Color.gray700
-        case .Storage, .ToBeSupported, .SupportCompleted:
+        case .storage, .toBeSupported, .supportCompleted:
             Color.white
+        case .failed:
+            Color.ectRed
+        case .passed:
+            Color.subGreen
+        }
+    }
+    
+    var fontSize: UIFont {
+        switch self {
+        case .nothing, .storage, .toBeSupported, .supportCompleted:
+                .semi_title_sm
+        case .failed, .passed:
+                .semi_title_md
+        }
+    }
+    
+    var horizontalPadding: CGFloat {
+        switch self {
+        case .nothing, .storage, .toBeSupported, .supportCompleted:
+            12
+        case .failed, .passed:
+            20
         }
     }
 }

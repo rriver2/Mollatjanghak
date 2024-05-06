@@ -43,14 +43,29 @@ class NotificationManager {
             // DDay, 3일, 7일 전 알림
             let (baseDate, threeDaysAgo, sevenDaysAgo) = calculateDates(from: date)
             
-            if isPassed(baseDate) { break }
-            scheduleNotification_0_3_7_before(id: id, title: title, subTitle: "오늘까지 지원할 수 있어요.", date: baseDate, hour: 12, DDay: "D-Day")
+            var alarmScholarshipList: [AlarmScholarship] = []
             
-            if isPassed(threeDaysAgo) { break }
-            scheduleNotification_0_3_7_before(id: id, title: title, subTitle: "마감 기한이 얼마 남지 않았어요.", date: threeDaysAgo, hour: 18, DDay: "D-3")
+            if !isPassed(baseDate) {
+                scheduleNotification_0_3_7_before(id: id, title: title, subTitle: "오늘까지 지원할 수 있어요.", date: baseDate, hour: 12, DDay: "D-Day")
+                alarmScholarshipList.append(AlarmScholarship(id: id, content: "\(title) D-Day\n마감기한이 얼마 남지 않았어요!", DDayDate: baseDate, category: .storage))            }
+            if !isPassed(threeDaysAgo) {
+                scheduleNotification_0_3_7_before(id: id, title: title, subTitle: "마감 기한이 얼마 남지 않았어요.", date: threeDaysAgo, hour: 18, DDay: "D-3")
+                alarmScholarshipList.append(AlarmScholarship(id: id, content: "\(title) D-3\n마감기한이 얼마 남지 않았어요!", DDayDate: threeDaysAgo, category: .storage))
+            }
+            if !isPassed(sevenDaysAgo) {
+                scheduleNotification_0_3_7_before(id: id, title: title, subTitle: "마감 기한이 일주일 남았어요.", date: sevenDaysAgo, hour: 18, DDay: "D-7")
+                    alarmScholarshipList.append(AlarmScholarship(id: id, content: "\(title) D-7\n마감기한이 얼마 남지 않았어요!", DDayDate: sevenDaysAgo, category: .storage))
+            }
+
+            var alarmList = UserDefaults.getObjectFromDevice(key: .alertInfoList, [AlarmScholarship].self) ?? []
             
-            if isPassed(sevenDaysAgo) { break }
-            scheduleNotification_0_3_7_before(id: id, title: title, subTitle: "마감 기한이 일주일 남았어요.", date: sevenDaysAgo, hour: 18, DDay: "D-7")
+            for alarm in alarmScholarshipList {
+                if !alarmList.contains(where: { $0.id == alarm.id && $0.DDayDate == alarm.DDayDate }) {
+                    alarmList.append(alarm)
+                }
+            }
+            
+            UserDefaults.saveObjectInDevice(key: .alertInfoList, content: alarmList)
         }
     }
     
@@ -66,6 +81,32 @@ class NotificationManager {
     func cancelSpecificNotification(id: String) {
         UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [id])
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [id])
+        
+        if let alarmScholarshipList = UserDefaults.getObjectFromDevice(key: .alertInfoList, [AlarmScholarship].self) {
+            let newAlarmScholarshipList = alarmScholarshipList.filter { $0.id != id }
+            UserDefaults.saveObjectInDevice(key: .alertInfoList, content: newAlarmScholarshipList)
+        }
+    }
+    
+    /// 현재 존재하는 알림들 불러오기
+    func getCurrentAlarmScholarshipList() -> [AlarmScholarship] {
+        
+        // 저장공고 알림
+        var newAlarmList = UserDefaults.getObjectFromDevice(key: .alertInfoList, [AlarmScholarship].self) ?? []
+
+        // 새공고 알림
+        if let startDate = UserDefaults.getValueFromDevice(key: .alertFirstDate, Date.self) {
+            let dateList = getFridaysFrom(startDate: startDate)
+            let dateFormatterResult = DateFormatter()
+            dateFormatterResult.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            for date in dateList {
+                let ranNum = Int.random(in: 1...10)
+                let name = UserDefaults.getValueFromDevice(key: .userName, String.self) ?? "💖"
+                newAlarmList.append(AlarmScholarship(id: UUID().uuidString, content: "\(name)님이 지원 가능한 장학금 공고가 \(ranNum)개 올라왔어요!", DDayDate: date, category: .new))
+            }
+        }
+        
+        return newAlarmList.filter { $0.DDayDate <= Date() }
     }
     
     /// badge 삭제하기
@@ -76,18 +117,39 @@ class NotificationManager {
 
 // private 함수 모음
 extension NotificationManager {
+    /// startDate 기준으로 현재까지의 모든 금요일 6시 일자 list 추출하기
+    private func getFridaysFrom(startDate: Date) -> [Date] {
+        var currentDate = startDate
+        var dateList = [Date]()
+
+        let calendar = Calendar.current
+
+        // 시작일 이후의 첫 번째 금요일로 이동
+        while calendar.component(.weekday, from: currentDate) != 6 {
+            currentDate = calendar.date(byAdding: .day, value: 1, to: currentDate)!
+        }
+
+        // 현재 날짜까지의 모든 금요일을 찾아가면서 추가
+        while currentDate <= Date() {
+            // 오후 6시로 설정
+            let fridaySixPM = calendar.date(bySettingHour: 18, minute: 0, second: 0, of: currentDate)!
+            dateList.append(fridaySixPM)
+            // 다음 주 금요일로 이동
+            currentDate = calendar.date(byAdding: .day, value: 7, to: currentDate)!
+        }
+
+        return dateList
+    }
+    
     /// 매주 금요일 오후 6시에 알림
     private func scheduleNotificationEveryFriday() {
         let content = UNMutableNotificationContent()
         let ranNum = Int.random(in: 1...10)
-        if let name = UserDefaults.getValueFromDevice(key: .userName, String.self) {
-            content.title = "\(name)님이 지원 가능한 공고가 \(ranNum)개 올라왔어요"
-        } else {
-            content.title = "지원 가능한 공고가 \(ranNum)개 올라왔어요"
-        }
+        let name = UserDefaults.getValueFromDevice(key: .userName, String.self) ?? "💖"
+        content.title = "\(name)님이 지원 가능한 공고가 \(ranNum)개 올라왔어요"
         content.subtitle = "여깄장학에서 확인하고 지원해보세요"
         content.sound = .default
-        //FIXME: badge 누적되게
+        //TODO: badge 누적되게
         content.badge = 1
         
         var dateComponents = DateComponents()
@@ -104,6 +166,8 @@ extension NotificationManager {
             trigger: trigger)
         
         UNUserNotificationCenter.current().add(request)
+        
+        UserDefaults.saveValueInDevice(key: .alertFirstDate, content: Date())
     }
     
     /// 지정한 일자에 알림
@@ -112,7 +176,7 @@ extension NotificationManager {
         content.title = "[\(title)] \(DDay)"
         content.subtitle = subTitle
         content.sound = .default
-        //FIXME: badge 누적되게
+        //TODO: badge 누적되게
         content.badge = 1
         
         let (year, month, day) = extractYearMonthDay(from: date)
@@ -172,6 +236,6 @@ extension NotificationManager {
     private func isPassed(_ date: Date) -> Bool {
         let currentDate = Date()
         
-        return date < currentDate
+        return date > currentDate
     }
 }

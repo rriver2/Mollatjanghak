@@ -40,8 +40,6 @@ struct FirstView: View {
                         .navigationBarBackButtonHidden()
                 case .alarmView:
                     AlarmView()
-                case .settingWebView(let title, let url):
-                    SettingWebView(title: title, url: url)
                 case .resetInfoView:
                     ResetInfoView()
                 case .settingView:
@@ -58,6 +56,8 @@ struct FirstView: View {
                 case .tapView:
                     TapView()
                         .navigationBarBackButtonHidden()
+                case .webView(let title, let url):
+                    SettingWebView(title: title, url: url)
                 }
             }
         }

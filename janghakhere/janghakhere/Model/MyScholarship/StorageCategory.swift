@@ -5,9 +5,10 @@
 //  Created by Gaeun Lee on 5/1/24.
 //
 
-import Foundation
+import SwiftUI
 
-enum StorageCategory: String, CaseIterable {
+enum StorageCategory: String, CaseIterable, MyscholarshipCategory {
+    
     case all
     case inProgress
     case closing
@@ -25,19 +26,5 @@ enum StorageCategory: String, CaseIterable {
         case .closing:
             "마감"
         }
-    }
-    
-    func getCategory(_ id: String) -> StorageCategory {
-        return StorageCategory.allCases.first { category in
-            category.id == self.id
-        }!
-    }
-    
-    var allCasesId: [String] {
-        return StorageCategory.allCases.map { $0.rawValue }
-    }
-    
-    var allCasesName: [String] {
-        return StorageCategory.allCases.map { $0.name }
     }
 }

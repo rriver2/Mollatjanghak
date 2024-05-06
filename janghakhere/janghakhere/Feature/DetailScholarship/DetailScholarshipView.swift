@@ -69,24 +69,27 @@ struct EffortLevelTip: Tip {
 }
 
 extension DetailScholarshipView {
-    
     @ViewBuilder
     private func buttons() -> some View {
         HStack(spacing: 8) {
             Button {
                 // 시트 콜
+                viewModel.isStatusSheet = true
             } label: {
                 HStack(spacing: 8) {
-                    Icon(name: .floppyDisk, color: .mainGray, size: 20)
-                    Text("공고저장")
+                    if let name = viewModel.status.IconNameDetailViewButton {
+                        Icon(name: name, color: viewModel.status.detailViewButtonTextColor, size: 20)
+                    }
+                    
+                    Text(viewModel.status.title)
                         .font(.title_xsm)
                 }
                 .padding(.vertical, 14)
                 .padding(.horizontal, 24)
-                .foregroundStyle(.mainGray)
+                .foregroundStyle(viewModel.status.detailViewButtonTextColor)
                 .background(
                     Capsule()
-                        .fill(.gray70)
+                        .fill(viewModel.status.detailViewButtonColor)
                 )
             }
             
@@ -138,6 +141,11 @@ extension DetailScholarshipView {
 //                        .fill(.subPurple)
 //                )
 //            }
+            .sheet(isPresented: $viewModel.isStatusSheet) {
+                ScholarshipPostingSheet(category: $viewModel.status) { status in
+                    viewModel.statusButtonPressed(status: status, id: viewModel.id)
+                }
+            }
             
             Button {
                 // 웹뷰 열기

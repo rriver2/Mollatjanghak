@@ -7,65 +7,130 @@
 
 import SwiftUI
 
+enum MyScholarshipFilteringCategory {
+    case deadline
+    case recent
+}
+
 @MainActor
 final class MyScholarshipViewModel: ObservableObject {
-    let scholarshipBoxListActor: ScholarshipBoxListActor = ScholarshipBoxListActor()
+    let myScholarshopBoxListActor: MyScholarshopBoxListActor = MyScholarshopBoxListActor()
     
-    @Published private(set) var scholarshipCategory: MyScholarshipCategory = .storaged
-    // 임의의 수 넣어줘야 함
-    @Published var detailCategoryDictionaryData: [categoryData] = categoryData.mockData1
-    @Published var selectedDetailCategoryName: String = "전체"
+    @Published private(set) var selectedCategory: MyScholarshipCategory = .stored(.all)
+    @Published private(set) var selectedCategoryName: String = MyScholarshipCategory.storedName
+    @Published private(set) var selectedCategoryDetailName: String = StorageCategory.allCases.first?.name ?? "에베베"
     
-    struct categoryData: Hashable {
-        let name: String
-        let scholarshipBoxList: [ScholarshipBox]
-        
-        static let mockData1 = [
-            categoryData(name: "전체", scholarshipBoxList: [ScholarshipBox.mockAllData, ScholarshipBox.mockAllData, ScholarshipBox.mockAllData, ScholarshipBox.mockAllData, ScholarshipBox.mockAllData, ScholarshipBox.mockAllData]),
-            categoryData(name: "진행중", scholarshipBoxList: [ScholarshipBox.mockCustomData, ScholarshipBox.mockCustomData, ScholarshipBox.mockCustomData, ScholarshipBox.mockCustomData, ScholarshipBox.mockCustomData, ScholarshipBox.mockCustomData]),
-            categoryData(name: "마감", scholarshipBoxList: [ScholarshipBox.mockAllData, ScholarshipBox.mockAllData, ScholarshipBox.mockAllData, ScholarshipBox.mockAllData, ScholarshipBox.mockAllData, ScholarshipBox.mockAllData])
-        ]
-        
-        static let mockData2 = [
-            categoryData(name: "지원완료", scholarshipBoxList: [ScholarshipBox.mockAllData, ScholarshipBox.mockAllData, ScholarshipBox.mockAllData, ScholarshipBox.mockAllData, ScholarshipBox.mockAllData, ScholarshipBox.mockAllData]),
-            categoryData(name: "합격", scholarshipBoxList: [ScholarshipBox.mockCustomData, ScholarshipBox.mockCustomData, ScholarshipBox.mockCustomData, ScholarshipBox.mockCustomData, ScholarshipBox.mockCustomData, ScholarshipBox.mockCustomData]),
-            categoryData(name: "불합격", scholarshipBoxList: [ScholarshipBox.mockAllData, ScholarshipBox.mockAllData, ScholarshipBox.mockAllData, ScholarshipBox.mockAllData, ScholarshipBox.mockAllData, ScholarshipBox.mockAllData])
-        ]
-    }
+    @Published private(set) var networkStatus: NetworkStatus = .loading
+    
+    @Published var totalScholarShipList: [ScholarshipBox] = []
+    @Published var selectedScholarShipList: [ScholarshipBox] = []
     
     private var tasks: [Task<Void, Never>] = []
     
-    /// header의 저장, 지원 공고 버튼 클릭
+    /// header의 저장, 지원 공고 버튼 클릭 or header의 저장, 지원 Detail 종류 버튼 클릭
     func scholarshipCategoryButtonPressed(_ category : MyScholarshipCategory) {
-        // detailCategoryDictionaryData 값 변경 시키기
         switch category {
-        case .storaged:
-            self.detailCategoryDictionaryData = categoryData.mockData1
-        case .supported:
-            self.detailCategoryDictionaryData = categoryData.mockData2
+        case .supported(let supportedCategory):
+            changeDetailSupportedCategory(supportedCategory)
+        case .stored(let storedCategory):
+            changeDetailStorageCategory(storedCategory)
         }
-        self.scholarshipCategory = category
-        self.selectedDetailCategoryName = detailCategoryDictionaryData.first?.name ?? "지원완료"
+        storeChangedtScholarShip(category)
     }
     
     // sorting 최신,
     func sortingButtonPressed() {
-        
+           
+    }
+    
+    func getStoreChangedtScholarShip() -> MyScholarshipCategory? {
+        for newScholarship in selectedScholarShipList {
+            if let index = totalScholarShipList.firstIndex(where: { $0.id == newScholarship.id }),
+               totalScholarShipList[index].publicAnnouncementStatus != newScholarship.publicAnnouncementStatus {
+                switch newScholarship.publicAnnouncementStatus {
+                case .failed:
+                    return .supported(.failed)
+                case .passed:
+                    return .supported(.passed)
+                default:
+                    return nil
+                }
+            }
+        }
+        return nil
     }
 }
 
 // private 함수들
 extension MyScholarshipViewModel {
+    private func storeChangedtScholarShip(_ category : MyScholarshipCategory) {
+        for newScholarship in selectedScholarShipList {
+            if let index = totalScholarShipList.firstIndex(where: { $0.id == newScholarship.id }) {
+               totalScholarShipList[index].publicAnnouncementStatus = newScholarship.publicAnnouncementStatus
+            }
+        }
+        getScholarShipList(category)
+    }
+    
     private func getScholarShipList(_ category : MyScholarshipCategory) {
-        
-        
+        switch category {
+        case .supported(let supportedCategory):
+            switch supportedCategory { 
+            case .supportCompleted:
+                selectedScholarShipList = totalScholarShipList.filter({ $0.publicAnnouncementStatus == .supportCompleted })
+            case .failed:
+                selectedScholarShipList = totalScholarShipList.filter({ $0.publicAnnouncementStatus == .failed })
+            case .passed:
+                selectedScholarShipList = totalScholarShipList.filter({ $0.publicAnnouncementStatus == .passed })
+            }
+        case .stored(let storedCategory):
+            let filterScholarShipList = totalScholarShipList.filter({ $0.publicAnnouncementStatus != .failed && $0.publicAnnouncementStatus != .passed && $0.publicAnnouncementStatus != .nothing})
+            switch storedCategory {
+            case .all:
+                selectedScholarShipList = filterScholarShipList
+            case .inProgress:
+                selectedScholarShipList = filterScholarShipList.filter { $0.DDay.first != "+" }
+            case .closing:
+                selectedScholarShipList = filterScholarShipList.filter { $0.DDay.first == "+" }
+            }
+        }
+    }
+
+    private func changeDetailSupportedCategory(_ category : SupportedCategory) {
+        selectedCategoryName = MyScholarshipCategory.supportedName
+        selectedCategoryDetailName = category.name
+        selectedCategory = .supported(category)
+    }
+    
+    private func changeDetailStorageCategory(_ category : StorageCategory) {
+        selectedCategoryName = MyScholarshipCategory.storedName
+        selectedCategoryDetailName = category.name
+        selectedCategory = .stored(category)
+    }
+    
+    private func getAllScholarShipList(_ category: MyScholarshipFilteringCategory) {
+//        self.networkStatus = .loading
+//        let task = Task {
+//            do {
+//                let scholarshipList = try await myScholarshopBoxListActor.fetchScholarshipBoxList(category)
+//                self.totalScholarShipList = scholarshipList
+//                self.networkStatus = .success
+//            } catch {
+//                self.networkStatus = .failed
+//                self.totalScholarShipList = ScholarshipBox.mockAllDataList //FIXME: 주석 지우기
+//                print(error)
+//            }
+//        }
+        self.totalScholarShipList = ScholarshipBox.mockAllDataList //FIXME: 주석 지우기
+//        tasks.append(task)
     }
 }
 
 // 기본 함수들
 extension MyScholarshipViewModel {
     func viewOpened() {
-        self.getScholarShipList(scholarshipCategory)
+        self.getAllScholarShipList(.deadline)
+        self.getScholarShipList(MyScholarshipCategory.stored(.all))
     }
     
     func cancelTasks() {

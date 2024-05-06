@@ -16,6 +16,11 @@ enum UserDefaultKey: String, CaseIterable, Equatable {
     
     // 사용자 이름
     case userName
+    
+    // 알림 공고
+    case alertInfoList // 저장공고
+    case alertFirstDate // 새공고
+    case lastAlertCheckedDate // 알림 읽어본 날
 }
 
 struct publicAnnouncementStatus: Codable {

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//FIXME: 제거하기
 struct ScholarshipBoxManager {
     ///버튼 클릭 시 저장 저장완료 지원예정 지원완료 변경하기
     static func scholarshipStatusButtonPressed(status: publicAnnouncementStatus) -> PublicAnnouncementStatusCategory {
