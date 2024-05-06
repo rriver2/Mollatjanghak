@@ -10,7 +10,7 @@ import SwiftUI
 @MainActor
 final class OnboardingWaitingViewModel: ObservableObject {
     let managerActor: OnboardingWaitingActor = OnboardingWaitingActor()
-    @Published var matchedScholarships: Int = -1
+    @Published var matchedScholarships: Int = 123
     @Published private var timer: Timer?
     @AppStorage("isRegistered") private var isRegisterd: Bool = false
     private var tasks: [Task<Void, Never>] = []

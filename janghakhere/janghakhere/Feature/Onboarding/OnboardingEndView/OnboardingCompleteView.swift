@@ -43,7 +43,7 @@ struct OnboardingCompleteView: View {
                 .foregroundStyle(.gray600)
                 .padding(.bottom, 12)
             HStack(alignment: .top, spacing: 8) {
-                SlotMachineView(finalNumberList: separateDigits(count))
+//                SlotMachineView(finalNumberList: separateDigits(count))
                 Text("개")
                     .font(.title_sm)
                     .padding(.top, 6)
