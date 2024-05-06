@@ -12,6 +12,7 @@ struct SettingView: View {
     @EnvironmentObject private var pathModel: PathModel
     @State private var result: Result<MFMailComposeResult, Error>? = nil
     @State private var isShowingMailView = false
+    @State private var showEmailAlert = false
     private let deviceInfo = DeviceInfo()
     @AppStorage("userName") private var userName: String = ""
     
@@ -21,7 +22,7 @@ struct SettingView: View {
             VStack(spacing: 0) {
                 settingCell(title: "문의하기")
                     .onTapGesture {
-                        isShowingMailView.toggle()
+                        tapAskButton()
                     }
                 settingCell(title: "정보 초기화")
                     .onTapGesture {
@@ -53,6 +54,13 @@ App Version: \(deviceInfo.appVersion)
                 composer.setToRecipients(["janghakhere@gmail.com"])
             }
         }
+        .alert(isPresented: $showEmailAlert) {
+            Alert(
+                title: Text("이메일 설정 필요"),
+                message: Text("문의를 하기 위해서는 기기에 이메일 계정을 설정해야 합니다."),
+                dismissButton: .default(Text("확인"))
+            )
+        }
         .navigationBarBackButtonHidden()
     }
 }
@@ -74,7 +82,7 @@ extension SettingView {
         if MFMailComposeViewController.canSendMail() {
             isShowingMailView.toggle()
         } else {
-            // TODO: 사용자의 이메일이 등록되어 있지 않는 경우 아무런 상호작용 발생하지 않음. 팝업? 어떤 식으로 알려주는 과정이 필요
+            showEmailAlert.toggle()
         }
     }
 }
