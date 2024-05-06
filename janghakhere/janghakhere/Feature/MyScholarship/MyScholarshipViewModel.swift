@@ -38,7 +38,12 @@ final class MyScholarshipViewModel: ObservableObject {
     // sorting 최신,
     func sortingButtonPressed(_ category: MyScholarshipFilteringCategory) {
         self.totalScholarShipList = []
+        self.filteringCategory = category
         self.getAllScholarShipList(category)
+    }
+    
+    func reloadButtonPressed() {
+        self.getAllScholarShipList(filteringCategory)
     }
     
     //FIXME: 이게 뭐지
@@ -130,7 +135,6 @@ extension MyScholarshipViewModel {
 extension MyScholarshipViewModel {
     func viewOpened() {
         self.getAllScholarShipList(MyScholarshipFilteringCategory.allCases.first!)
-        self.getScholarShipList(MyScholarshipCategory.stored(.all))
     }
     
     func cancelTasks() {

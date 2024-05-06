@@ -19,7 +19,7 @@ struct AlarmView: View {
             if viewModel.alarmList.isEmpty {
                 VStack(spacing: 8) {
                     Spacer()
-                    Icon(name: .graduation, size: 122)
+                    Icon(name: .nothing, size: 122)
                     Text("알림이 아직 없어요")
                         .font(.title_xsm)
                         .foregroundStyle(.gray600)
