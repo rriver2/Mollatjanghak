@@ -18,13 +18,13 @@ struct AlarmScholarship: Hashable, Codable {
     
     enum Category: Codable {
         case new
-        case storage
+        case saved
         
         var title: String {
             switch self {
             case .new:
                 "새 공고"
-            case .storage:
+            case .saved:
                 "저장 공고"
             }
         }
@@ -33,7 +33,7 @@ struct AlarmScholarship: Hashable, Codable {
             switch self {
             case .new:
                     .new
-            case .storage:
+            case .saved:
                     .saved
             }
         }

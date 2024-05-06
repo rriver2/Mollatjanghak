@@ -13,9 +13,9 @@ protocol MyscholarshipCategory {
 }
 
 enum SupportedCategory: String, CaseIterable, MyscholarshipCategory {
-    case supportCompleted
+    case applied
     case passed
-    case failed
+    case non_passed
     
     var id: String {
         self.rawValue
@@ -23,12 +23,12 @@ enum SupportedCategory: String, CaseIterable, MyscholarshipCategory {
     
     var name: String {
         switch self {
-        case .supportCompleted:
-            PublicAnnouncementStatusCategory.supportCompleted.title
+        case .applied:
+            PublicAnnouncementStatusCategory.applied.title
         case .passed:
             PublicAnnouncementStatusCategory.passed.title
-        case .failed:
-            PublicAnnouncementStatusCategory.failed.title
+        case .non_passed:
+            PublicAnnouncementStatusCategory.non_passed.title
         }
     }
 }

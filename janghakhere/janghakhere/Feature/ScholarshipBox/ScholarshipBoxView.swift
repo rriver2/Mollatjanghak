@@ -86,31 +86,23 @@ extension ScholarshipBoxView {
         .cornerRadius(100)
         .foregroundStyle(scholarshipBox.publicAnnouncementStatus.buttonFontColor)
         .onTapGesture {
-            //FIXME: 예시로
-            //                    var status: PublicAnnouncementStatusCategory = .Nothing
-            //                    switch scholarshipBox.publicAnnouncementStatus {
-            //                    case .Nothing:
-            //                        status = .Storage
-            //                    case .Storage:
-            //                        status = .ToBeSupported
-            //                    case .ToBeSupported:
-            //                        status = .SupportCompleted
-            //                    case .SupportCompleted:
-            //                        status = .Nothing
-            //                    }
-            //                    scholarshipBox.publicAnnouncementStatus = ScholarshipBoxManager.scholarshipStatusButtonPressed(status: publicAnnouncementStatus(id: scholarshipBox.id, status: status))
+//            statusButtonPressed(.saved)
         }
     }
 }
 
 extension ScholarshipBoxView {
     private func getDDayString() -> String {
-        if scholarshipBox.DDay == "0" {
-            return "오늘 마감"
-        } else if scholarshipBox.DDay.first == "+" {
-            return "마감"
+        if let dday = scholarshipBox.DDay {
+            if dday == "0" {
+                return "오늘 마감"
+            } else if dday.first == "+" {
+                return "마감"
+            } else {
+                return "D\(dday)"
+            }
         } else {
-            return "D\(scholarshipBox.DDay)"
+            return "미정"
         }
     }
 }
