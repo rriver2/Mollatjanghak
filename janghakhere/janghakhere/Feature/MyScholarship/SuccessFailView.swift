@@ -115,15 +115,15 @@ extension SuccessFailView {
     @ViewBuilder
     private func failedButton() -> some View {
         Button {
-            scholarshipBox!.publicAnnouncementStatus = .failed
+            scholarshipBox!.publicAnnouncementStatus = .non_passed
         } label: {
             Text("불합격")
                 .padding(.vertical, 20)
                 .padding(.leading, 24)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.title_xsm)
-                .foregroundStyle( scholarshipBox!.publicAnnouncementStatus == .failed ? .white : .gray600)
-                .background( scholarshipBox!.publicAnnouncementStatus == .failed ? Color.ectRed : .gray70)
+                .foregroundStyle( scholarshipBox!.publicAnnouncementStatus == .non_passed ? .white : .gray600)
+                .background( scholarshipBox!.publicAnnouncementStatus == .non_passed ? Color.ectRed : .gray70)
                 .cornerRadius(4)
         }
     }
@@ -132,7 +132,7 @@ extension SuccessFailView {
     private func submitButton() -> some View {
         Button {
             switch  scholarshipBox!.publicAnnouncementStatus {
-            case .failed:
+            case .non_passed:
                 failedFinishedButtonPressed()
             case .passed:
                 passedFinishedButtonPressed()
@@ -140,7 +140,7 @@ extension SuccessFailView {
                 break
             }
         } label: {
-            let isSubmitmode = scholarshipBox!.publicAnnouncementStatus == .failed || (scholarshipBox!.publicAnnouncementStatus == .passed && !amount.isEmpty)
+            let isSubmitmode = scholarshipBox!.publicAnnouncementStatus == .non_passed || (scholarshipBox!.publicAnnouncementStatus == .passed && !amount.isEmpty)
             Text("완료")
                 .padding(.vertical, 16)
                 .frame(maxWidth: .infinity)

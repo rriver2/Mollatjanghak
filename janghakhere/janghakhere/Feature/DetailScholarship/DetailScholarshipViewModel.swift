@@ -44,7 +44,7 @@ final class DetailScholarshipViewModel: ObservableObject {
             self.postScholarshipStatus(id: id, status: status.rawValue)
         }
         if let detailContent = detailContent {
-            if status == .storage {
+            if status == .saved {
                 let dateString = detailContent.endDate
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd"

@@ -24,17 +24,16 @@ struct AllScholarshipView: View {
                         sortingScholarship()
                     }
                     .paddingHorizontal()
-                    ScholarshipBoxListView(isGetMoreScholarshipBox: $viewModel.isGetMoreScholarshipBox, scholarshipList: $viewModel.scholarshipList, isShowPassStatus: false)
-                        .onChange(of: viewModel.isGetMoreScholarshipBox, { _, _ in
-                            userTouchedBottomOfTheScroll()
-                        })
                     switch viewModel.networkStatus {
                     case .loading:
-                        ProgressView()
+                        loading()
                     case .success:
-                        Text("")
+                        ScholarshipBoxListView(isGetMoreScholarshipBox: $viewModel.isGetMoreScholarshipBox, scholarshipList: $viewModel.scholarshipList, isShowPassStatus: false)
+                            .onChange(of: viewModel.isGetMoreScholarshipBox, { _, _ in
+                                userTouchedBottomOfTheScroll()
+                            })
                     case .failed:
-                        Text("에러발생~~")
+                        error()
                     }
                 }
             }
@@ -163,6 +162,52 @@ extension AllScholarshipView {
         .padding(.top, 4)
         .padding(.bottom, 16)
         .animation(.default, value: viewModel.totalScholarshipCount)
+    }
+    
+    @ViewBuilder
+    func loading() -> some View {
+        VStack(spacing: 0) {
+            Spacer()
+            ProgressView()
+            Spacer()
+        }
+        .frame(maxWidth: .infinity)
+        .background(Color.gray50)
+    }
+    
+    @ViewBuilder
+    func error() -> some View {
+        ZStack(alignment: .bottom) {
+            VStack(spacing: 0) {
+                Spacer()
+                Button {
+                    viewModel.scholarshipCategoryButtonPressed(viewModel.scholarshipCategory)
+                } label: {
+                    VStack(spacing: 0) {
+                        Icon(name: .graduation, size: 122)
+                            .padding(.bottom, 8)
+                        Text("잠시 후에 다시 시도해주세요")
+                            .font(.title_xsm)
+                            .padding(.bottom, 16)
+                            .foregroundStyle(.gray600)
+                        HStack {
+                            Icon(name: .reload, color: .mainGray, size: 22)
+                                .padding(.leading, 8)
+                            Text("새로 고침")
+                                .foregroundStyle(.mainGray)
+                        }
+                        .padding(.vertical, 14)
+                        .padding(.horizontal, 24)
+                        .background(.gray70)
+                        .cornerRadius(130)
+                    }
+                }
+                Spacer()
+            }
+            ErrorToastView(.network)
+        }
+        .frame(maxWidth: .infinity)
+        .background(Color.gray50)
     }
 }
 

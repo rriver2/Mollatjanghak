@@ -15,7 +15,7 @@ final class MyInformationViewModel: ObservableObject {
     
     @Published var name: String = "미입력"
     @Published var sex: Sex = .notSelected
-    @Published var birth: Date = now()
+    @Published var birth: Date = Date()
     @Published var militaryStatus: MilitaryStatus = .notSelected
     @Published var incomeStatus: IncomeDecile = .notSelected
     @Published var siblingStatus: SiblingStatus = .notSelected
@@ -41,7 +41,7 @@ extension MyInformationViewModel {
                 self.sex = loadedUserData.sex
                 self.birth = loadedUserData.birth
                 
-                if let lastGrade = loadedUserData.lastSemesterGrade != nil {
+                if let lastGrade = loadedUserData.lastSemesterGrade {
                     self.lastSemesterGrade = String(lastGrade)
                 } else {
                     self.lastSemesterGrade = "미입력"

@@ -29,11 +29,10 @@ struct SearchScholarshipView: View {
                     .onChange(of: viewModel.isGetMoreScholarshipBox, { _, _ in
                         userTouchedBottomOfTheScroll()
                     })
-                Text("dd")
             case .searchedNoData:
                 searchAgain()
             case .failed:
-                Text("알 수 없는 에러가 발생했습니다.")
+                error()
             }
         }
         .background(.gray50)
@@ -143,6 +142,22 @@ extension SearchScholarshipView {
                 .font(.text_md)
                 .foregroundStyle(.gray600)
                 .multilineTextAlignment(.center)
+            Spacer()
+        }
+    }
+    @ViewBuilder
+    func error() -> some View {
+        VStack(spacing: 0) {
+            Spacer()
+            Icon(name: .graduation, size: 122)
+                .padding(.bottom, 8)
+            Text("정보를 불러오지 못하고 있어요")
+                .font(.title_xsm)
+                .padding(.bottom, 8)
+                .foregroundStyle(.gray600)
+            Text("인터넷 접속이 원활하지 않아요\n잠시 후에 다시 시도해 주세요")
+                .font(.text_sm)
+                .foregroundStyle(.gray600)
             Spacer()
         }
     }

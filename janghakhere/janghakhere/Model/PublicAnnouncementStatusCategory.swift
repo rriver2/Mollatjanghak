@@ -9,36 +9,36 @@ import SwiftUI
 
 enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
     case nothing // 기본값
-    case storage // 저장완료
-    case toBeSupported // 지원예정
-    case supportCompleted //지원완료
+    case saved // 저장완료
+    case planned // 지원예정
+    case applied // 지원완료
     case passed // 합격
-    case failed // 불합격
+    case non_passed // 불합격
     
     var IconName: ImageResource? {
         switch self {
         case .nothing:
                 .floppyDisk
-        case .storage:
+        case .saved:
                 .floppyDisk
-        case .toBeSupported:
+        case .planned:
                 .fire
-        case .supportCompleted:
+        case .applied:
                 .check
-        case .failed, .passed:
+        case .non_passed, .passed:
             nil
         }
     }
     
     var IconNameDetailViewButton: ImageResource? {
         switch self {
-        case .storage, .nothing:
+        case .saved, .nothing:
                 .floppyDisk
-        case .toBeSupported:
+        case .planned:
                 .fire
-        case .supportCompleted:
+        case .applied:
                 .checkFat
-        case .failed, .passed:
+        case .non_passed, .passed:
             nil
         }
     }
@@ -47,13 +47,13 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
         switch self {
         case .nothing:
                 .gray70
-        case .storage:
+        case .saved:
                 .subGreen
-        case .toBeSupported:
+        case .planned:
                 .subPink
-        case .supportCompleted:
+        case .applied:
                 .subPurple
-        case .failed, .passed:
+        case .non_passed, .passed:
                 .white
         }
     }
@@ -62,7 +62,7 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
         switch self {
         case .nothing:
                 .mainGray
-        case .toBeSupported, .storage, .supportCompleted, .failed, .passed:
+        case .planned, .saved, .applied, .non_passed, .passed:
                 .white
         }
     }
@@ -70,13 +70,13 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
     
     var IconNameButton: ImageResource? {
         switch self {
-        case .storage:
+        case .saved:
                 .saveScholarship
-        case .toBeSupported:
+        case .planned:
                 .prepareScholarship
-        case .supportCompleted:
+        case .applied:
                 .doneScholarship
-        case .nothing, .failed, .passed:
+        case .nothing, .non_passed, .passed:
             nil
         }
     }
@@ -85,13 +85,13 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
         switch self {
         case .nothing:
             "저장"
-        case .storage:
+        case .saved:
             "공고저장"
-        case .toBeSupported:
+        case .planned:
             "지원예정"
-        case .supportCompleted:
+        case .applied:
             "지원완료"
-        case .failed:
+        case .non_passed:
             "불합격"
         case .passed:
             "합격"
@@ -102,13 +102,13 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
         switch self {
         case .nothing:
             Color.gray70
-        case .storage:
+        case .saved:
             Color.subGreen
-        case .toBeSupported:
+        case .planned:
             Color.subPink
-        case .supportCompleted:
+        case .applied:
             Color.subPurple
-        case .failed:
+        case .non_passed:
             Color.ectRed.opacity(0.08)
         case .passed:
             Color.subGreen.opacity(0.08)
@@ -119,9 +119,9 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
         switch self {
         case .nothing:
             Color.gray700
-        case .storage, .toBeSupported, .supportCompleted:
+        case .saved, .planned, .applied:
             Color.white
-        case .failed:
+        case .non_passed:
             Color.ectRed
         case .passed:
             Color.subGreen
@@ -130,18 +130,18 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
     
     var fontSize: UIFont {
         switch self {
-        case .nothing, .storage, .toBeSupported, .supportCompleted:
+        case .nothing, .saved, .planned, .applied:
                 .semi_title_sm
-        case .failed, .passed:
+        case .non_passed, .passed:
                 .semi_title_md
         }
     }
     
     var horizontalPadding: CGFloat {
         switch self {
-        case .nothing, .storage, .toBeSupported, .supportCompleted:
+        case .nothing, .saved, .planned, .applied:
             12
-        case .failed, .passed:
+        case .non_passed, .passed:
             20
         }
     }

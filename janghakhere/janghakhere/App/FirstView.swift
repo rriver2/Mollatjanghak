@@ -62,6 +62,9 @@ struct FirstView: View {
             }
         }
         .environmentObject(pathModel)
+        .onAppear {
+            UITabBar.appearance().backgroundColor = UIColor.white
+        }
     }
 }
 
