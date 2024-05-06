@@ -33,6 +33,7 @@ struct HTTPUtils {
     static func getURL(urlBack: String, parameter: String) async throws -> (data: Data, response: HTTPURLResponse) {
         do {
             guard let url = URL(string: urlFront + urlBack + parameter) else { throw URLError(.badURL)}
+            print("url", url)
             var request = URLRequest(url: url)
             
             request.httpMethod = "GET"

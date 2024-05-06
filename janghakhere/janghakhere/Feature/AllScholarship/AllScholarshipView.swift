@@ -146,17 +146,17 @@ extension AllScholarshipView {
                     .font(.semi_title_md)
             }
             Spacer()
-            Button {
-                
-            } label: {
-                HStack(spacing: 0) {
-                    Text("최신순")
-                        .font(.semi_title_md)
-                        .padding(.trailing, 4)
-                    Icon(name: .arrowsUpDown, color: .gray500, size: 20)
-                }
-                .foregroundStyle(.gray500)
-            }
+//            Button {
+//                
+//            } label: {
+//                HStack(spacing: 0) {
+//                    Text("최신순")
+//                        .font(.semi_title_md)
+//                        .padding(.trailing, 4)
+//                    Icon(name: .arrowsUpDown, color: .gray500, size: 20)
+//                }
+//                .foregroundStyle(.gray500)
+//            }
         }
         .padding(.top, 4)
         .padding(.bottom, 16)

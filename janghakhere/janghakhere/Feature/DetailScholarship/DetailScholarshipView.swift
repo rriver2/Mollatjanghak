@@ -42,7 +42,7 @@ struct DetailScholarshipView: View {
                                 .padding(.bottom, 190)
                         }
                     }
-                    buttons()
+//                    buttons()
                 } else if viewModel.networkStatus == .loading {
                     ProgressView()
                 } else {
@@ -479,10 +479,10 @@ extension DetailScholarshipView {
             Text("상세")
                 .font(.title_xsm)
             Spacer()
-            Icon(name: .share, color: .black, size: 28)
-                .onTapGesture {
-                    viewModel.shareButtonPressed()
-                }
+//            Icon(name: .share, color: .black, size: 28)
+//                .onTapGesture {
+//                    viewModel.shareButtonPressed()
+//                }
         }
         .paddingHorizontal()
         .foregroundStyle(.black)

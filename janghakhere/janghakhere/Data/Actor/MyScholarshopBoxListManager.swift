@@ -40,6 +40,7 @@ class MyScholarshopBoxListManager {
         do {
             switch response.statusCode {
             case 200:
+                
                 guard let entity = try? JSONDecoder().decode(ScholarshipBoxEntity.self, from: data) else {
                     throw URLError(.unknown) }
                 

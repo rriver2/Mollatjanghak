@@ -20,7 +20,7 @@ struct ScholarshipBoxView: View {
         HStack(spacing: 0) {
             content()
             Spacer()
-            statusRoundRectangle()
+//            statusRoundRectangle()
         }
         .animation(.easeIn, value: scholarshipBox)
         .frame(maxWidth: .infinity)

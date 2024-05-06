@@ -26,7 +26,7 @@ struct OnboardingWaitingView: View {
                         .font(.title_lg)
                         .foregroundStyle(.black)
                         .padding(.vertical, 20)
-                    Text( isStopped ? "윤영서님에게 맞는 장학금" : "장학금을 찾고 있어요...")
+                    Text( isStopped ? "\(userData.name)님에게 맞는 장학금" : "장학금을 찾고 있어요...")
                         .font(.title_sm)
                         .foregroundStyle(.gray600)
                 }
