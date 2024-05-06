@@ -12,21 +12,48 @@ struct OnboardingWaitingView: View {
     
     @StateObject var viewModel: OnboardingWaitingViewModel = OnboardingWaitingViewModel()
     @EnvironmentObject private var pathModel: PathModel
+    @State var isCompleted = false
+    @State var isStopped = false
+    @State var finalNumberList: [Int] = [1,2,3]
     
     var body: some View {
-        VStack {
-            Image("hat")
-                .frame(width: 122, height: 122)
+        VStack(spacing: 0) {
+            Icon(name: isStopped ? .hooray: .hat, size: 122)
                 .padding(.top, 150)
-            Text("환영합니다!")
-                .font(.title_lg)
-                .foregroundStyle(.black)
-                .padding(.vertical, 20)
-            Text("\(userData.name)님에게 맞는\n장학금 정보를 찾고 있어요...")
-                .font(.title_sm)
-                .foregroundStyle(.gray600)
-                .multilineTextAlignment(.center)
+                .padding(.bottom, 16)
+                VStack(spacing: 0) {
+                    Text("환영합니다!")
+                        .font(.title_lg)
+                        .foregroundStyle(.black)
+                        .padding(.vertical, 20)
+                    Text( isStopped ? "\(userData.name)님에게 맞는 장학금" : "장학금을 찾고 있어요...")
+                        .font(.title_sm)
+                        .foregroundStyle(.gray600)
+                }
+                .animation(.linear(duration: 0.3), value: isStopped)
+                .frame(height: 132)
+                .padding(.bottom, 16)
+            
+            HStack(alignment: .center, spacing: 0) {
+                SlotMachineView(finalNumberList: $finalNumberList, isFinished: $isCompleted, isStopped: $isStopped)
+                Text("개")
+                    .foregroundStyle(.gray600)
+                    .font(.title_sm)
+                    .padding(.leading, 8)
+            }
+            
             Spacer()
+            if isStopped {
+                NonMaxButton(
+                    title: "공고 보러가기",
+                    action: {
+                        withAnimation {
+                            pathModel.paths.append(.tapView)
+                        }
+                    }
+                )
+                .padding(.bottom, 83)
+            }
         }
         .onAppear {
             viewModel.beginSignIn(userData: userData)
@@ -37,8 +64,16 @@ struct OnboardingWaitingView: View {
         }
         .onChange(of: viewModel.matchedScholarships) {
             print(userData.id)
-            pathModel.paths.append(.onboardingCompleteView(count: viewModel.matchedScholarships))
+            self.finalNumberList = separateDigits(viewModel.matchedScholarships)
+            self.isCompleted = true
+            print("finalNumberList", finalNumberList)
+            //FIXME: 켄 밑에 줄이랑 onboardingCompleteView는 삭제해도 될 거 같아요!
+//            pathModel.paths.append(.onboardingCompleteView(count: viewModel.matchedScholarships))
         }
+    }
+    
+    private func separateDigits(_ number: Int) -> [Int] {
+        return String(number).compactMap { Int(String($0)) }
     }
 }
 

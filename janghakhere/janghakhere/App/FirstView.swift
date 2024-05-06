@@ -29,6 +29,7 @@ struct FirstView: View {
                     SearchScholarshipView()
                 case .onboardingBeginView:
                     OnboardingBeginView()
+                        .navigationBarBackButtonHidden()
                 case .onboardingMainView:
                     OnboardingMainView()
                         .navigationBarBackButtonHidden()
@@ -62,6 +63,9 @@ struct FirstView: View {
             }
         }
         .environmentObject(pathModel)
+        .onAppear {
+            UITabBar.appearance().backgroundColor = UIColor.white
+        }
     }
 }
 

@@ -56,5 +56,8 @@ struct CustomAlertView: View {
 }
 
 #Preview {
-    CustomAlertView(mainButtonPressed: {}, subButtonPressed: {})
+    CustomAlertView(
+        mainButtonPressed: {},
+        subButtonPressed: {}
+    )
 }

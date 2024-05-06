@@ -1,22 +1,21 @@
 //
-//  MyPageViewModel.swift
+//  SettingViewModel.swift
 //  janghakhere
 //
-//  Created by Taehwan Kim on 4/30/24.
+//  Created by Taehwan Kim on 5/6/24.
 //
 
 import SwiftUI
 
 @MainActor
-final class MyPageViewModel: ObservableObject {
-    let managerActor: MyPageActor = MyPageActor()
+final class SettingViewModel: ObservableObject {
     @AppStorage("userData") private var userData: Data?
     @Published private(set) var decodedData: UserData?
-    private var tasks: [Task<Void, Never>] = []
+    
 }
 
 // MARK: - private 함수들
-extension MyPageViewModel {
+extension SettingViewModel {
     private func initializeUserData() {
         if let data = userData {
             do {
@@ -31,13 +30,8 @@ extension MyPageViewModel {
 }
 
 // MARK: - 기본 함수들
-extension MyPageViewModel {
+extension SettingViewModel {
     func createView() {
         self.initializeUserData()
-    }
-    
-    func cancelTasks() {
-        tasks.forEach({ $0.cancel()})
-        tasks = []
     }
 }

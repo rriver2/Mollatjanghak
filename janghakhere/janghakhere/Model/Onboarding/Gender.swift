@@ -6,19 +6,13 @@
 //
 
 import Foundation
-
-enum Sex {
-    case notSelected
-    case female
-    case male
-    func getText() -> String {
-        switch self {
-        case .female:
-            return "여"
-        case .male:
-            return "남"
-        case .notSelected:
-            return "선택 안 됨"
-        }
+//String, CaseIterable, CustomStringConvertible
+enum Sex: String, CaseIterable, CustomStringConvertible, Codable {
+    case notSelected = "선택 안 됨"
+    case female = "여"
+    case male = "남"
+    
+    var description: String {
+        self.rawValue
     }
 }

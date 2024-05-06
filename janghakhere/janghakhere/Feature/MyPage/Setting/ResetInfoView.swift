@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ResetInfoView: View {
+    @EnvironmentObject private var pathModel: PathModel
     @State private var isShowResetAlert = false
     @StateObject private var viewModel: ResetInfoViewModel = ResetInfoViewModel()
     
@@ -56,6 +57,7 @@ struct ResetInfoView: View {
                 CustomAlertView(mainButtonPressed: {
                     viewModel.resetButtonPressed()
                     isShowResetAlert = false
+                    pathModel.paths.append(.onboardingBeginView)
                 }, subButtonPressed: {
                     isShowResetAlert = false
                 })

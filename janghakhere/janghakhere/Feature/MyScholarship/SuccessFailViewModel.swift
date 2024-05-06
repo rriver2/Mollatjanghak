@@ -18,7 +18,7 @@ final class SuccessFailViewModel: ObservableObject {
     }
     
     func failButtonPressed(scholarship: ScholarshipBox) {
-        self.postScholarshipStatus(id: Int(scholarship.id) ?? 0, status: PublicAnnouncementStatusCategory.failed.rawValue)
+        self.postScholarshipStatus(id: Int(scholarship.id) ?? 0, status: PublicAnnouncementStatusCategory.non_passed.rawValue)
     }
 }
 

@@ -12,20 +12,20 @@ struct TapView: View {
     
     var body: some View {
         TabView (selection: $selection) {
-            AllScholarshipView()
+            AllScholarshipView(selection: $selection)
                 .tabItem {
                     Icon(name: .newspaperClipping, color: selection == 0 ? .black : .gray400, size: 28)
                     Text("전체공고")
                         .font(.caption)
                 }
                 .tag(0)
-            MyScholarshipView()
-                .tabItem {
-                    Icon(name: .newspaperChecks, color: selection == 1 ? .black : .gray400, size: 28)
-                    Text("내공고")
-                        .font(.caption)
-                }
-                .tag(1)
+//            MyScholarshipView()
+//                .tabItem {
+//                    Icon(name: .newspaperChecks, color: selection == 1 ? .black : .gray400, size: 28)
+//                    Text("내공고")
+//                        .font(.caption)
+//                }
+//                .tag(1)
             MyPageView()
                 .tabItem {
                     Icon(name: .user, color: selection == 2 ? .black : .gray400, size: 28)

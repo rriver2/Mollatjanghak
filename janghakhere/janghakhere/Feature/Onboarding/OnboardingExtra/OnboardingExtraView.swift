@@ -7,6 +7,45 @@
 
 import SwiftUI
 
+enum IncomeDecile: String, CaseIterable, CustomStringConvertible, Codable {
+    case first = "1분위"
+    case second = "2분위"
+    case third = "3분위"
+    case fourth = "4분위"
+    case fifth = "5분위"
+    case sixth = "6분위"
+    case seventh = "7분위"
+    case eighth = "8분위"
+    case ninth = "9분위"
+    case tenth = "10분위"
+    case notSelected = "선택 안 됨"
+    
+    var description: String {
+        self.rawValue
+    }
+}
+
+enum MilitaryStatus: String, CaseIterable, CustomStringConvertible, Codable {
+    case served = "군필"
+    case notServed = "미필"
+    case exempt = "면제자"
+    case notSelected = "선택 안 됨"
+    
+    var description: String {
+        self.rawValue
+    }
+}
+
+enum SiblingStatus: String, CaseIterable, CustomStringConvertible, Codable {
+    case exist = "있음"
+    case notExist = "없음"
+    case notSelected = "선택 안 됨"
+    
+    var description: String {
+        self.rawValue
+    }
+}
+
 struct OnboardingExtraView: View {
     @EnvironmentObject private var pathModel: PathModel
     @StateObject private var viewModel = OnboardingExtraViewModel()

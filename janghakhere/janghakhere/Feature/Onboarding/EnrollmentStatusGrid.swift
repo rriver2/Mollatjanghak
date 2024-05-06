@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum EnrollmentStatus: String, CaseIterable, CustomStringConvertible {
+enum EnrollmentStatus: String, CaseIterable, CustomStringConvertible, Codable {
     case incomming = "입학예정"
     case enrolled = "재학"
     case deferred = "유예"

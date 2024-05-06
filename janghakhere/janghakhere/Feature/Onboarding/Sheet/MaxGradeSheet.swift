@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum MaxGradeStatus: String, CaseIterable, CustomStringConvertible {
+enum MaxGradeStatus: String, CaseIterable, CustomStringConvertible, Codable {
     case four = "4.0"
     case fourDotThree = "4.3"
     case fourDotFive = "4.5"
@@ -18,7 +18,6 @@ enum MaxGradeStatus: String, CaseIterable, CustomStringConvertible {
         self.rawValue
     }
 }
-
 
 struct MaxGradeSheet: View {
     @Environment(\.dismiss) var dismiss

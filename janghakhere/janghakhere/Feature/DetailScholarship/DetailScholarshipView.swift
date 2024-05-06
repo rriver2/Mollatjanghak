@@ -23,7 +23,10 @@ struct DetailScholarshipView: View {
         VStack(alignment: .leading, spacing: 0) {
             navigation()
             ZStack(alignment: .bottom) {
-                if viewModel.networkStatus == .success {
+                switch viewModel.networkStatus {
+                case .loading:
+                    ProgressView()
+                case .success:
                     ScrollView(.vertical) {
                         VStack(spacing: 0) {
                             detailThumbnail()
@@ -42,10 +45,8 @@ struct DetailScholarshipView: View {
                                 .padding(.bottom, 190)
                         }
                     }
-                    buttons()
-                } else if viewModel.networkStatus == .loading {
-                    ProgressView()
-                } else {
+//                    buttons()
+                case .failed:
                     VStack {
                         Text("에러 발생")
                         Spacer()
@@ -143,26 +144,28 @@ extension DetailScholarshipView {
 //            }
             .sheet(isPresented: $viewModel.isStatusSheet) {
                 ScholarshipPostingSheet(category: $viewModel.status) { status in
-                    viewModel.statusButtonPressed(status: status, id: viewModel.id)
+                    if let detailContent = viewModel.detailContent {
+                        viewModel.statusButtonPressed(status: status, id: String(detailContent.id))
+                    }
                 }
             }
             
-            Button {
-                // 웹뷰 열기
-            } label: {
-                HStack(spacing: 8) {
-                    Icon(name: .handFist, color: .white, size: 20)
-                    Text("지원하기")
-                        .font(.title_xsm)
-                }
-                .padding(.vertical, 14)
-                .padding(.horizontal, 24)
-                .foregroundStyle(.white)
-                .background(
-                    Capsule()
-                        .fill(.mainGray)
-                )
-            }
+//            Button {
+//                // 웹뷰 열기
+//            } label: {
+//                HStack(spacing: 8) {
+//                    Icon(name: .handFist, color: .white, size: 20)
+//                    Text("지원하기")
+//                        .font(.title_xsm)
+//                }
+//                .padding(.vertical, 14)
+//                .padding(.horizontal, 24)
+//                .foregroundStyle(.white)
+//                .background(
+//                    Capsule()
+//                        .fill(.mainGray)
+//                )
+//            }
         }
     }
     
@@ -197,42 +200,43 @@ extension DetailScholarshipView {
                             Text("[제출서류]")
                                 .padding(.top, 8)
                                 .padding(.bottom, 12)
-                            Text(detailContent.universityCategory)
+                            
+                            Text(detailContent.universityCategory ?? "데이터 없음")
                                 .padding(.bottom, 16)
                             Text("[학년구분]")
                                 .padding(.top, 8)
                                 .padding(.bottom, 12)
-                            Text(detailContent.grade)
+                            Text(detailContent.grade ?? "데이터 없음")
                                 .padding(.bottom, 24)
                             Text("[학과구분]")
                                 .padding(.top, 8)
                                 .padding(.bottom, 12)
-                            Text(detailContent.majorCategory)
+                            Text(detailContent.majorCategory ?? "데이터 없음")
                                 .padding(.bottom, 24)
                             Text("[소득기준]")
                                 .padding(.top, 8)
                                 .padding(.bottom, 12)
-                            Text(detailContent.incomeDetails)
+                            Text(detailContent.incomeDetails ?? "데이터 없음")
                                 .padding(.bottom, 24)
                             Text("[특정자격]")
                                 .padding(.top, 8)
                                 .padding(.bottom, 12)
-                            Text(detailContent.specificQualificationDetails)
+                            Text(detailContent.specificQualificationDetails ?? "데이터 없음")
                                 .padding(.bottom, 24)
                             Text("[성적기준]")
                                 .padding(.top, 8)
                                 .padding(.bottom, 12)
-                            Text(detailContent.gradeDetails)
+                            Text(detailContent.gradeDetails ?? "데이터 없음")
                                 .padding(.bottom, 24)
                             Text("[지역기준여부]")
                                 .padding(.top, 8)
                                 .padding(.bottom, 12)
-                            Text(detailContent.localResidencyDetails)
+                            Text(detailContent.localResidencyDetails ?? "데이터 없음")
                                 .padding(.bottom, 24)
                             Text("[추천필요여부]")
                                 .padding(.top, 8)
                                 .padding(.bottom, 12)
-                            Text(detailContent.recommendationRequiredDetails)
+                            Text(detailContent.recommendationRequiredDetails ?? "데이터 없음")
                                 .padding(.bottom, 24)
                             
                             VStack(spacing: 0) {
@@ -246,7 +250,7 @@ extension DetailScholarshipView {
                                 .padding(.top, 16)
                                 .foregroundStyle(.etcOrange)
                                 
-                                Text(detailContent.eligibilityRestrictionDetails)
+                                Text(detailContent.eligibilityRestrictionDetails ?? "데이터 없음")
                                     .font(.text_sm)
                                     .padding(.top, 8)
                                     .padding(.bottom, 16)
@@ -292,12 +296,12 @@ extension DetailScholarshipView {
                             Text("[제출서류]")
                                 .padding(.top, 8)
                                 .padding(.bottom, 12)
-                            Text(detailContent.requiredDocumentDetails)
+                            Text(detailContent.requiredDocumentDetails ?? "데이터 없음")
                                 .padding(.bottom, 16)
                             Text("[선발방법]")
                                 .padding(.top, 8)
                                 .padding(.bottom, 12)
-                            Text(detailContent.selectionMethodDetails)
+                            Text(detailContent.selectionMethodDetails ?? "데이터 없음")
                                 .padding(.bottom, 24)
                         }
                         .font(.text_sm)
@@ -340,7 +344,7 @@ extension DetailScholarshipView {
                             Text("[지원종류]")
                                 .padding(.top, 8)
                                 .padding(.bottom, 12)
-                            Text(detailContent.recommendationRequiredDetails)
+                            Text(detailContent.recommendationRequiredDetails ?? "데이터 없음")
                                 .padding(.bottom, 24)
                         }
                         .font(.text_sm)
@@ -368,13 +372,13 @@ extension DetailScholarshipView {
                     Text("[모집일자]")
                         .padding(.top, 8)
                     
-                    Text("\(detailContent.startDate) ~ \(detailContent.endDate)")
+                    Text("\(detailContent.startDate ?? "미정") ~ \(detailContent.endDate ?? "미정")")
                         .padding(.top, 12)
                     
                     Text("[수혜인원]")
                         .padding(.top, 24)
                     
-                    Text(detailContent.selectionCountDetails)
+                    Text(detailContent.selectionCountDetails ?? "데이터 없음")
                         .padding(.top, 12)
                         .padding(.bottom, 24)
                 }
@@ -390,19 +394,19 @@ extension DetailScholarshipView {
         if let detailContent = viewModel.detailContent {
             VStack(spacing: 0) {
                 HStack {
-                    Text(detailContent.organization)
+                    Text(detailContent.organization ?? "데이터 없음")
                         .font(.semi_title_md)
                     Spacer()
                     HStack(spacing: 4) {
                         Icon(name: .eye, color: .gray400, size: 16)
-                        Text("\(detailContent.viewCount)")
+                        Text("\(detailContent.viewCount ?? 0)")
                             .font(.text_caption)
                     }
                 }
                 .foregroundStyle(.gray500)
                 
                 HStack {
-                    Text(detailContent.productName)
+                    Text(detailContent.productName ?? "데이터 없음")
                         .font(.title_xmd)
                         .padding(.top, 8)
                     Spacer()
@@ -416,12 +420,14 @@ extension DetailScholarshipView {
                         Text("마감일")
                             .foregroundStyle(.black)
                         
-                        Text(
-                            Date()
-                                .calculationDday(endDateString: detailContent.endDate) == "0"
-                            ? "D-Day"
-                            : "D\(Date().calculationDday(endDateString: detailContent.endDate))")
-                            .foregroundStyle(.destructiveRed)
+                        if detailContent.endDate != nil {
+                            Text(
+                                Date()
+                                    .calculationDday(endDateString: detailContent.endDate!) == "0"
+                                ? "D-Day"
+                                : "D\(Date().calculationDday(endDateString: detailContent.endDate!))")
+                                .foregroundStyle(.destructiveRed)
+                        }
                     }
                     .font(.semi_title_md)
                     
@@ -477,10 +483,10 @@ extension DetailScholarshipView {
             Text("상세")
                 .font(.title_xsm)
             Spacer()
-            Icon(name: .share, color: .black, size: 28)
-                .onTapGesture {
-                    viewModel.shareButtonPressed()
-                }
+//            Icon(name: .share, color: .black, size: 28)
+//                .onTapGesture {
+//                    viewModel.shareButtonPressed()
+//                }
         }
         .paddingHorizontal()
         .foregroundStyle(.black)
