@@ -10,6 +10,7 @@ import SwiftUI
 struct MyPageView: View {
     @EnvironmentObject var pathModel: PathModel
     @StateObject var viewModel = MyPageViewModel()
+    
     var body: some View {
         ZStack {
             Color.gray50

@@ -42,6 +42,10 @@
 		7BB1E2942BE69246001350DE /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 7BB1E2932BE69246001350DE /* PrivacyInfo.xcprivacy */; };
 		7BB1E2972BE7B463001350DE /* OnboardingWaitingActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB1E2952BE7B463001350DE /* OnboardingWaitingActor.swift */; };
 		7BB1E2982BE7B463001350DE /* OnboardingWaitingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB1E2962BE7B463001350DE /* OnboardingWaitingViewModel.swift */; };
+		7BB1E29A2BE7FD74001350DE /* ServiceAgreementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB1E2992BE7FD74001350DE /* ServiceAgreementView.swift */; };
+		7BB1E29C2BE87F58001350DE /* PDFKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB1E29B2BE87F58001350DE /* PDFKitView.swift */; };
+		7BB1E29F2BE881CE001350DE /* ServiceAgreement.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7BB1E29D2BE881CE001350DE /* ServiceAgreement.pdf */; };
+		7BB1E2A02BE881CE001350DE /* PrivacyAgreement.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7BB1E29E2BE881CE001350DE /* PrivacyAgreement.pdf */; };
 		FB19C91F2BE122B90039205E /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB19C91E2BE122B90039205E /* NotificationManager.swift */; };
 		FB19C9212BE147410039205E /* SupportedCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB19C9202BE147410039205E /* SupportedCategory.swift */; };
 		FB19C9232BE1476E0039205E /* StorageCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB19C9222BE1476E0039205E /* StorageCategory.swift */; };
@@ -142,6 +146,10 @@
 		7BB1E2932BE69246001350DE /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		7BB1E2952BE7B463001350DE /* OnboardingWaitingActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingWaitingActor.swift; sourceTree = "<group>"; };
 		7BB1E2962BE7B463001350DE /* OnboardingWaitingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingWaitingViewModel.swift; sourceTree = "<group>"; };
+		7BB1E2992BE7FD74001350DE /* ServiceAgreementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceAgreementView.swift; sourceTree = "<group>"; };
+		7BB1E29B2BE87F58001350DE /* PDFKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFKitView.swift; sourceTree = "<group>"; };
+		7BB1E29D2BE881CE001350DE /* ServiceAgreement.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = ServiceAgreement.pdf; sourceTree = "<group>"; };
+		7BB1E29E2BE881CE001350DE /* PrivacyAgreement.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = PrivacyAgreement.pdf; sourceTree = "<group>"; };
 		FB19C91E2BE122B90039205E /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		FB19C9202BE147410039205E /* SupportedCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportedCategory.swift; sourceTree = "<group>"; };
 		FB19C9222BE1476E0039205E /* StorageCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageCategory.swift; sourceTree = "<group>"; };
@@ -288,6 +296,7 @@
 				7B6445C52BD534F400D4AF74 /* SemesterYearSelectionView.swift */,
 				7B6445CA2BD6A2A700D4AF74 /* IncomeConfirmView.swift */,
 				7B6445CE2BD6BAA200D4AF74 /* MaxGradeSheet.swift */,
+				7BB1E2992BE7FD74001350DE /* ServiceAgreementView.swift */,
 			);
 			path = Sheet;
 			sourceTree = "<group>";
@@ -414,6 +423,8 @@
 		FB978CAB2BCD7F3800347D47 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				7BB1E29E2BE881CE001350DE /* PrivacyAgreement.pdf */,
+				7BB1E29D2BE881CE001350DE /* ServiceAgreement.pdf */,
 				FBEEBB982BCEA76A006CE5EA /* Helper */,
 				FB978C952BCD770800347D47 /* Assets.xcassets */,
 				FB978CAE2BCD7FF800347D47 /* extension.swift */,
@@ -515,6 +526,7 @@
 				FB978CA32BCD777000347D47 /* Utils.swift */,
 				FBE7698E2BD002EC007F8DEF /* DeviceInfo.swift */,
 				7B5C11752BE3CED20056C2BC /* MailView.swift */,
+				7BB1E29B2BE87F58001350DE /* PDFKitView.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -695,6 +707,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BB1E2942BE69246001350DE /* PrivacyInfo.xcprivacy in Resources */,
+				7BB1E29F2BE881CE001350DE /* ServiceAgreement.pdf in Resources */,
+				7BB1E2A02BE881CE001350DE /* PrivacyAgreement.pdf in Resources */,
 				FB978C992BCD770800347D47 /* Preview Assets.xcassets in Resources */,
 				FB978C962BCD770800347D47 /* Assets.xcassets in Resources */,
 			);
@@ -709,6 +723,7 @@
 			files = (
 				7B6445BD2BD5272B00D4AF74 /* SemesterYear.swift in Sources */,
 				7B6445DB2BDD5FC400D4AF74 /* VerticalButtonGroup.swift in Sources */,
+				7BB1E29C2BE87F58001350DE /* PDFKitView.swift in Sources */,
 				FBABCF042BD636890068178F /* AlarmViewModel.swift in Sources */,
 				FB29306F2BDC09D6009AB2EF /* NavigationDefaultView.swift in Sources */,
 				FB978CA42BCD777000347D47 /* Utils.swift in Sources */,
@@ -764,6 +779,7 @@
 				FB29306D2BDC0907009AB2EF /* secret.swift in Sources */,
 				FBABCF022BD636890068178F /* AlarmActor.swift in Sources */,
 				7BB1E2972BE7B463001350DE /* OnboardingWaitingActor.swift in Sources */,
+				7BB1E29A2BE7FD74001350DE /* ServiceAgreementView.swift in Sources */,
 				7BB1E2982BE7B463001350DE /* OnboardingWaitingViewModel.swift in Sources */,
 				FBEEBBA12BCEAB40006CE5EA /* PathModel.swift in Sources */,
 				FBE7698F2BD002EC007F8DEF /* DeviceInfo.swift in Sources */,
