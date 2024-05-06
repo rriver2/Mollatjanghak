@@ -9,24 +9,25 @@ import SwiftUI
 
 struct UserData: Codable {
     let id: String
-    let name: String
-    let sex: Sex
-    let birth: Date
-    let schoolName: String
-    let enrolled: EnrollmentStatus // EnrolledStatus, 입학예정, 재학 등
-    let degree: DegreesStatus // 현재 없음. degreesStatus, 학사, 석사 등
-    let schoolYear: SemesterYear // 현재 없음. 1학년, 2학년 등
-    let semester: SemesterStatus // 수정 필요. 1학기, 2학기만 되게
-    let majorCategory: MajorField
-    let lastSemesterGrade: Double?
-    let totalGrade: Double?
-    let incomeRange: IncomeDecile?
-    let militaryService: MilitaryStatus?
-    let siblingExists: SiblingStatus?
-    let detailedConditions: [String]
-    let totalScholarshipMoney: Int
-    let applyCount: Int
-    let successScholarshipCount: Int
+    var name: String
+    var sex: Sex
+    var birth: Date
+    var schoolName: String
+    var enrolled: EnrollmentStatus // EnrolledStatus, 입학예정, 재학 등
+    var degree: DegreesStatus // 현재 없음. degreesStatus, 학사, 석사 등
+    var schoolYear: SemesterYear // 현재 없음. 1학년, 2학년 등
+    var semester: SemesterStatus // 수정 필요. 1학기, 2학기만 되게
+    var majorCategory: MajorField
+    var lastSemesterGrade: Double?
+    var totalGrade: Double?
+    var maximumGrade: MaxGradeStatus?
+    var incomeRange: IncomeDecile?
+    var militaryService: MilitaryStatus?
+    var siblingStatus: SiblingStatus?
+    var detailedConditions: [String]
+    var totalScholarshipMoney: Int
+    var applyCount: Int
+    var successScholarshipCount: Int
 }
 
 @MainActor
@@ -172,9 +173,10 @@ extension OnboardingMainViewModel {
             majorCategory: majorField,
             lastSemesterGrade: nil,
             totalGrade: nil,
+            maximumGrade: nil,
             incomeRange: nil,
             militaryService: nil,
-            siblingExists: nil,
+            siblingStatus: nil,
             detailedConditions: [],
             totalScholarshipMoney: 0,
             applyCount: 0,

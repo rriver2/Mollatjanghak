@@ -13,8 +13,6 @@ final class MyPageViewModel: ObservableObject {
     @AppStorage("userData") private var userData: Data?
     @Published private(set) var decodedData: UserData?
     private var tasks: [Task<Void, Never>] = []
-    
-    @Published private(set) var defaultDatas: [String] = []
 }
 
 // MARK: - private 함수들

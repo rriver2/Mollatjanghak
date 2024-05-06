@@ -190,7 +190,7 @@ extension MyInformationView {
                 // TODO: 생년월일
             } label: {
                 HStack(spacing: 0) {
-                    Text("ㅁㄴㅇㄹ")
+                    Text(String(viewModel.birth))
                     Spacer()
                     Icon(name: .chevronRight, color: .black, size: 16)
                 }
@@ -242,7 +242,6 @@ extension MyInformationView {
                         Icon(name: .chevronRight, color: .black, size: 16)
                     }
                 }
-
                 horizontalDivider()
                 
                 Button {
@@ -253,7 +252,7 @@ extension MyInformationView {
                             .font(.semi_title_md)
                             .foregroundStyle(.gray600)
                         Spacer()
-                        Text(viewModel.semesterYear.description)
+                        Text(viewModel.schoolYear.description)
                             .font(.text_md)
                             .foregroundStyle(.black)
                             .padding(.trailing, 16)
@@ -303,7 +302,7 @@ extension MyInformationView {
                         
                         Spacer()
                         
-                        Text("4.25")
+                        Text(viewModel.lastSemesterGrade)
                             .font(.text_md)
                             .foregroundStyle(.gray700)
                     }
@@ -323,7 +322,7 @@ extension MyInformationView {
                         
                         Spacer()
                         
-                        Text("4.05")
+                        Text(viewModel.totalGrade)
                             .font(.text_md)
                             .foregroundStyle(.gray700)
                     }
@@ -345,7 +344,7 @@ extension MyInformationView {
                             .font(.semi_title_md)
                             .foregroundStyle(.gray600)
                         Spacer()
-                        Text(viewModel.totalScore)
+                        Text(viewModel.totalGrade)
                             .font(.text_md)
                             .foregroundStyle(.black)
                             .padding(.trailing, 16)
@@ -409,7 +408,7 @@ extension MyInformationView {
                 // TODO: 생년월일
             } label: {
                 HStack(spacing: 0) {
-                    Text(viewModel.sibilingStatus.description)
+                    Text(viewModel.siblingStatus.description)
                     Spacer()
                     Icon(name: .chevronRight, color: .black, size: 16)
                 }
