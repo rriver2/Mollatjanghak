@@ -20,22 +20,22 @@ final class DetailScholarshipViewModel: ObservableObject {
       @Published var isStatusSheet: Bool = false
     private var tasks: [Task<Void, Never>] = []
     
-    func shareButtonPressed() {
-        if let detailContent = detailContent {
-            let date = convertToKoreanDate(detailContent.endDate) ?? detailContent.endDate
-            let DDay = Date().calculationDday(endDateString: detailContent.endDate)
-            let DDayString = DDay == "0" ? "오늘 마감" : "D\(DDay)"
-            //FIXME: 켄 \(노력지수) 이거 상 중 하 로 넣으면 됩니다.
-            let text = "\(detailContent.productName)\n(\(detailContent.organization))\n\n✅ 마감일: \(date) (\(DDayString))\n✅ 지원 금액: \(detailContent.supportDetails)\n✅ 노력 지수: 노력지수\n\n나에게 꼭 맞는 장학금 여깄장학이 다 찾아드릴게요"
-            let activityVC = UIActivityViewController(activityItems: [ detailContent.homePageUrl, text], applicationActivities: nil)
-            let allScenes = UIApplication.shared.connectedScenes
-            let scene = allScenes.first { $0.activationState == .foregroundActive }
-            
-            if let windowScene = scene as? UIWindowScene {
-                windowScene.windows.first?.rootViewController?.present(activityVC, animated: true, completion: nil)
-            }
-        }
-    }
+//    func shareButtonPressed() {
+//        if let detailContent = detailContent {
+//            let date = convertToKoreanDate(detailContent.endDate) ?? detailContent.endDate
+//            let DDay = Date().calculationDday(endDateString: detailContent.endDate)
+//            let DDayString = DDay == "0" ? "오늘 마감" : "D\(DDay)"
+//            //FIXME: 켄 \(노력지수) 이거 상 중 하 로 넣으면 됩니다.
+//            let text = "\(detailContent.productName)\n(\(detailContent.organization))\n\n✅ 마감일: \(date) (\(DDayString))\n✅ 지원 금액: \(detailContent.supportDetails)\n✅ 노력 지수: 노력지수\n\n나에게 꼭 맞는 장학금 여깄장학이 다 찾아드릴게요"
+//            let activityVC = UIActivityViewController(activityItems: [ detailContent.homePageUrl, text], applicationActivities: nil)
+//            let allScenes = UIApplication.shared.connectedScenes
+//            let scene = allScenes.first { $0.activationState == .foregroundActive }
+//            
+//            if let windowScene = scene as? UIWindowScene {
+//                windowScene.windows.first?.rootViewController?.present(activityVC, animated: true, completion: nil)
+//            }
+//        }
+//    }
     
     func statusButtonPressed(status: PublicAnnouncementStatusCategory, id: String) {
         self.status = status
@@ -44,16 +44,16 @@ final class DetailScholarshipViewModel: ObservableObject {
             self.postScholarshipStatus(id: id, status: status.rawValue)
         }
         if let detailContent = detailContent {
-            if status == .saved {
-                let dateString = detailContent.endDate
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd"
-                if let date = dateFormatter.date(from: dateString) {
-                    NotificationManager.instance.scheduleNotification(.DDayAlarm(id: String(detailContent.id), title: detailContent.productName, date: date))
-                }
-            } else if status == .nothing {
-                NotificationManager.instance.cancelSpecificNotification(id: id)
-            }
+//            if status == .saved {
+//                let dateString = detailContent.endDate
+//                let dateFormatter = DateFormatter()
+//                dateFormatter.dateFormat = "yyyy-MM-dd"
+//                if let date = dateFormatter.date(from: dateString) {
+//                    NotificationManager.instance.scheduleNotification(.DDayAlarm(id: String(detailContent.id), title: detailContent.productName, date: date))
+//                }
+//            } else if status == .nothing {
+//                NotificationManager.instance.cancelSpecificNotification(id: id)
+//            }
            
             self.isStatusSheet = false
         }

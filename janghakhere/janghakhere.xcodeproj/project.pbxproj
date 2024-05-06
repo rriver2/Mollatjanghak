@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B593AD92BE9192F00BD2F74 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B593AD82BE9192F00BD2F74 /* SettingViewModel.swift */; };
 		7B5C11602BDFEADC0056C2BC /* ScholarshipPostingSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C115F2BDFEADC0056C2BC /* ScholarshipPostingSheet.swift */; };
 		7B5C11632BE12E3F0056C2BC /* MyPageActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C11612BE12E3F0056C2BC /* MyPageActor.swift */; };
 		7B5C11642BE12E3F0056C2BC /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C11622BE12E3F0056C2BC /* MyPageViewModel.swift */; };
@@ -117,6 +118,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7B593AD82BE9192F00BD2F74 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		7B5C115F2BDFEADC0056C2BC /* ScholarshipPostingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScholarshipPostingSheet.swift; sourceTree = "<group>"; };
 		7B5C11612BE12E3F0056C2BC /* MyPageActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageActor.swift; sourceTree = "<group>"; };
 		7B5C11622BE12E3F0056C2BC /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
@@ -371,6 +373,7 @@
 				FB2930682BDC0633009AB2EF /* ResetInfoViewModel.swift */,
 				FB2930732BDC0AB3009AB2EF /* WebTotalView.swift */,
 				FB2930752BDC0AD3009AB2EF /* WebView.swift */,
+				7B593AD82BE9192F00BD2F74 /* SettingViewModel.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -754,6 +757,7 @@
 				7B6445BD2BD5272B00D4AF74 /* SemesterYear.swift in Sources */,
 				7B6445DB2BDD5FC400D4AF74 /* VerticalButtonGroup.swift in Sources */,
 				7BB1E29C2BE87F58001350DE /* PDFKitView.swift in Sources */,
+				7B593AD92BE9192F00BD2F74 /* SettingViewModel.swift in Sources */,
 				FBABCF042BD636890068178F /* AlarmViewModel.swift in Sources */,
 				FB29306F2BDC09D6009AB2EF /* NavigationDefaultView.swift in Sources */,
 				FB9785F32BE4A45000F8A281 /* MyScholarshopBoxListActor.swift in Sources */,
@@ -984,10 +988,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"janghakhere/Preview Content\"";
-				DEVELOPMENT_TEAM = J7ZP3WYXRW;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J7ZP3WYXRW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = janghakhere/Info.plist;
@@ -1008,6 +1015,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dhsmssfdmsdlfWlrwkftndlTrlfmf.janghakhere;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Janghak;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1023,10 +1032,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"janghakhere/Preview Content\"";
-				DEVELOPMENT_TEAM = J7ZP3WYXRW;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J7ZP3WYXRW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = janghakhere/Info.plist;
@@ -1047,6 +1059,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dhsmssfdmsdlfWlrwkftndlTrlfmf.janghakhere;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Janghak;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

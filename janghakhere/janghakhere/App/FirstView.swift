@@ -29,6 +29,7 @@ struct FirstView: View {
                     SearchScholarshipView()
                 case .onboardingBeginView:
                     OnboardingBeginView()
+                        .navigationBarBackButtonHidden()
                 case .onboardingMainView:
                     OnboardingMainView()
                         .navigationBarBackButtonHidden()
