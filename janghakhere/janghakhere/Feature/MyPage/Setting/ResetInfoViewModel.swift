@@ -10,7 +10,7 @@ import SwiftUI
 @MainActor
 final class ResetInfoViewModel: ObservableObject {
     let managerActor: ResetInfoActor = ResetInfoActor()
-    
+    @AppStorage("isRegistered") private var isRegisterd: Bool = false
     private var tasks: [Task<Void, Never>] = []
     
     func resetButtonPressed() {
@@ -18,6 +18,8 @@ final class ResetInfoViewModel: ObservableObject {
             do {
                 try await managerActor.clearUserInfo()
                 //FIXME: 유저 디폴트 값 삭제
+                
+                isRegisterd = false
             } catch {
                 print(error)
             }

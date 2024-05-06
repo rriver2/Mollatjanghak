@@ -10,7 +10,6 @@ import SwiftUI
 struct AllScholarshipView: View {
     @EnvironmentObject private var pathModel: PathModel
     @StateObject private var viewModel = AllScholarshipViewModel()
-    
     @State private var isUserSwipedBanner = false
     
     @Binding var selection: Int

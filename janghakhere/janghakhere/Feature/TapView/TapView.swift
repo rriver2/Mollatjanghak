@@ -12,7 +12,7 @@ struct TapView: View {
     
     var body: some View {
         TabView (selection: $selection) {
-            AllScholarshipView()
+            AllScholarshipView(selection: $selection)
                 .tabItem {
                     Icon(name: .newspaperClipping, color: selection == 0 ? .black : .gray400, size: 28)
                     Text("전체공고")

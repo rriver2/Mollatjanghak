@@ -12,7 +12,7 @@ actor ResetInfoActor {
     func clearUserInfo() async throws {
         do {
             let userId = HTTPUtils.getDeviceUUID()
-            let (data , response) = try await HTTPUtils.deleteURL(urlBack: "/api/members/\(userId)")
+            let (_ , response) = try await HTTPUtils.deleteURL(urlBack: "/api/members/\(userId)")
             
             switch response.statusCode {
             case 204:

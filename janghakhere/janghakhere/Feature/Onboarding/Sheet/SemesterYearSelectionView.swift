@@ -23,13 +23,12 @@ struct SemesterYearSelectionView: View {
             }
             ForEach(SemesterYear.allCases, id: \.self) { year in
                 if year != .notSelected {
-                    
                     Button {
                         self.selectedYear = year // 선택된 학년 업데이트
                         self.year = year
                     } label: {
                         HStack {
-                            Text(year.getYearText())
+                            Text(year.description)
                                 .font(.title_xsm)
                                 .foregroundColor(selectedYear == year ? .subGreen : .gray700)
                                 .padding(.horizontal, 28)

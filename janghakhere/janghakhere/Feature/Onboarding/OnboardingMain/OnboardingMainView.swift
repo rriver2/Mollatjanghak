@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum SemesterStatus: String, CaseIterable, CustomStringConvertible {
+enum SemesterStatus: String, CaseIterable, CustomStringConvertible, Codable {
     case first = "1학기"
     case second = "2학기"
     case extraSemester = "초과학기"
@@ -19,7 +19,7 @@ enum SemesterStatus: String, CaseIterable, CustomStringConvertible {
     }
 }
 
-enum MajorField: String, CaseIterable, CustomStringConvertible {
+enum MajorField: String, CaseIterable, CustomStringConvertible, Codable {
     case humanities = "인문"
     case socialsciences = "사회"
     case naturalSciences = "자연"
@@ -35,46 +35,7 @@ enum MajorField: String, CaseIterable, CustomStringConvertible {
     }
 }
 
-enum IncomeDecile: String, CaseIterable, CustomStringConvertible {
-    case first = "1분위"
-    case second = "2분위"
-    case third = "3분위"
-    case fourth = "4분위"
-    case fifth = "5분위"
-    case sixth = "6분위"
-    case seventh = "7분위"
-    case eighth = "8분위"
-    case ninth = "9분위"
-    case tenth = "10분위"
-    case notSelected = "선택 안 됨"
-    
-    var description: String {
-        self.rawValue
-    }
-}
-
-enum MilitaryStatus: String, CaseIterable, CustomStringConvertible {
-    case served = "군필"
-    case notServed = "미필"
-    case exempt = "면제자"
-    case notSelected = "선택 안 됨"
-    
-    var description: String {
-        self.rawValue
-    }
-}
-
-enum SiblingStatus: String, CaseIterable, CustomStringConvertible {
-    case exist = "있음"
-    case notExist = "없음"
-    case notSelected = "선택 안 됨"
-    
-    var description: String {
-        self.rawValue
-    }
-}
-
-enum DegreesStatus: String, CaseIterable, CustomStringConvertible {
+enum DegreesStatus: String, CaseIterable, CustomStringConvertible, Codable {
     case bachelor = "학사"
     case master = "석사"
     case doctor = "박사"
@@ -379,7 +340,7 @@ extension OnboardingMainView {
                     }
                     .padding(.horizontal, 6)
                 HStack {
-                    Text($viewModel.semesterYear.wrappedValue.getYearText())
+                    Text(viewModel.semesterYear.description)
                         .font(.title_md)
                         .foregroundStyle(
                             $viewModel.semesterYear.wrappedValue == .notSelected
@@ -495,6 +456,7 @@ extension OnboardingMainView {
             MainButtonView(
                 title: "다음",
                 action: {
+                    viewModel.saveUserData()
                     withAnimation {
                         pathModel.paths.append(.onboardingWaitingView(
                             userData: viewModel.makeUserData()

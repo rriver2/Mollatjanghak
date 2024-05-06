@@ -46,6 +46,7 @@ App Version: \(deviceInfo.appVersion)
 이름: \(userName)
 ===============
 
+앱에 대한 문의 내용을 입력해주세요.
 
 """
                 composer.setMessageBody(messageBody, isHTML: false)

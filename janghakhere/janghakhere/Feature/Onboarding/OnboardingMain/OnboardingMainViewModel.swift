@@ -7,22 +7,22 @@
 
 import SwiftUI
 
-struct UserData {
+struct UserData: Codable {
     let id: String
     let name: String
-    let sex: String
-    let birth: String
+    let sex: Sex
+    let birth: Date
     let schoolName: String
-    let enrolled: String // EnrolledStatus, 입학예정, 재학 등
-    let degree: String // 현재 없음. degreesStatus, 학사, 석사 등
-    let SchoolYear: String // 현재 없음. 1학년, 2학년 등
-    let semester: String // 수정 필요. 1학기, 2학기만 되게
-    let majorCategory: String
+    let enrolled: EnrollmentStatus // EnrolledStatus, 입학예정, 재학 등
+    let degree: DegreesStatus // 현재 없음. degreesStatus, 학사, 석사 등
+    let schoolYear: SemesterYear // 현재 없음. 1학년, 2학년 등
+    let semester: SemesterStatus // 수정 필요. 1학기, 2학기만 되게
+    let majorCategory: MajorField
     let lastSemesterGrade: Double?
     let totalGrade: Double?
-    let incomeRange: String?
-    let militaryService: String?
-    let siblingExists: Bool?
+    let incomeRange: IncomeDecile?
+    let militaryService: MilitaryStatus?
+    let siblingExists: SiblingStatus?
     let detailedConditions: [String]
 }
 
@@ -30,7 +30,9 @@ struct UserData {
 final class OnboardingMainViewModel: ObservableObject {
     let managerActor: OnboardingMainActor = OnboardingMainActor()
     @Published var networkStatus: NetworkStatus = .loading
+    
     private var tasks: [Task<Void, Never>] = []
+    @AppStorage("userData") private var userData: Data?
     @Published var userId = HTTPUtils.getDeviceUUID()
     
     @Published private(set) var defaultDatas: [String] = []
@@ -49,8 +51,6 @@ final class OnboardingMainViewModel: ObservableObject {
     
     @Published var isShowBirthdaySheet = false
     @Published var isShowSemesterSheet = false
-//    @Published var isShowGradeSheet = false
-//    @Published var isShowIncomeSheet = false
 }
 
 // MARK: - private 함수들
@@ -145,7 +145,7 @@ extension OnboardingMainViewModel {
         let userData = UserDataMinimum(
             id: userId,
             name: name,
-            sex: sex.getText(),
+            sex: sex.description,
             birth: birthDate.DateDayFomatter(),
             schoolName: schoolName,
             enrolled: enrollmentStatus.description,
@@ -154,31 +154,34 @@ extension OnboardingMainViewModel {
         )
         return userData
     }
-
     
-//    func beginSignIn() {
-//        let task = Task {
-//            do {
-//                let refineSemesterInfo = refineSemester(degree: degreesStatus, semesterYear: semesterYear, semester: semesterStatus)
-//                let userData = UserDataMinimum(
-//                    id: userId,
-//                    name: name,
-//                    sex: sex.getText(), 
-//                    birth: birthDate.description, 
-//                    schoolName: schoolName, 
-//                    enrolled: enrollmentStatus.description, 
-//                    semester: refineSemesterInfo,
-//                    majorCategory: majorField.description
-//                )
-//                try await self.managerActor.signInWithMinumumData(userData: userData)
-//                self.networkStatus = .success
-//            } catch {
-//                print(error)
-//                self.networkStatus = .failed
-//            }
-//        }
-//        tasks.append(task)
-//    }
+    func saveUserData() {
+        let userData = UserData(
+            id: userId,
+            name: name,
+            sex: sex,
+            birth: birthDate,
+            schoolName: schoolName,
+            enrolled: enrollmentStatus,
+            degree: degreesStatus,
+            schoolYear: semesterYear,
+            semester: semesterStatus,
+            majorCategory: majorField,
+            lastSemesterGrade: nil,
+            totalGrade: nil,
+            incomeRange: nil,
+            militaryService: nil,
+            siblingExists: nil,
+            detailedConditions: []
+        )
+        do {
+            let encoder = JSONEncoder()
+            let data = try encoder.encode(userData)
+            self.userData = data
+        } catch {
+            print("Failed to encode user data: \(error)")
+        }
+    }
 }
 
 

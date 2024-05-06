@@ -143,26 +143,28 @@ extension DetailScholarshipView {
 //            }
             .sheet(isPresented: $viewModel.isStatusSheet) {
                 ScholarshipPostingSheet(category: $viewModel.status) { status in
-                    viewModel.statusButtonPressed(status: status, id: viewModel.id)
+                    if let detailContent = viewModel.detailContent {
+                        viewModel.statusButtonPressed(status: status, id: String(detailContent.id))
+                    }
                 }
             }
             
-            Button {
-                // 웹뷰 열기
-            } label: {
-                HStack(spacing: 8) {
-                    Icon(name: .handFist, color: .white, size: 20)
-                    Text("지원하기")
-                        .font(.title_xsm)
-                }
-                .padding(.vertical, 14)
-                .padding(.horizontal, 24)
-                .foregroundStyle(.white)
-                .background(
-                    Capsule()
-                        .fill(.mainGray)
-                )
-            }
+//            Button {
+//                // 웹뷰 열기
+//            } label: {
+//                HStack(spacing: 8) {
+//                    Icon(name: .handFist, color: .white, size: 20)
+//                    Text("지원하기")
+//                        .font(.title_xsm)
+//                }
+//                .padding(.vertical, 14)
+//                .padding(.horizontal, 24)
+//                .foregroundStyle(.white)
+//                .background(
+//                    Capsule()
+//                        .fill(.mainGray)
+//                )
+//            }
         }
     }
     

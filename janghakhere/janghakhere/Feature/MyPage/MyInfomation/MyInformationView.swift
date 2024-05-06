@@ -242,9 +242,7 @@ extension MyInformationView {
                         Icon(name: .chevronRight, color: .black, size: 16)
                     }
                 }
-                
-                
-                
+
                 horizontalDivider()
                 
                 Button {
@@ -255,7 +253,7 @@ extension MyInformationView {
                             .font(.semi_title_md)
                             .foregroundStyle(.gray600)
                         Spacer()
-                        Text(viewModel.semesterYear.getYearText())
+                        Text(viewModel.semesterYear.description)
                             .font(.text_md)
                             .foregroundStyle(.black)
                             .padding(.trailing, 16)

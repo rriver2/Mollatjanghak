@@ -60,6 +60,7 @@ extension OnboardingWaitingViewModel {
         let task = Task {
             do {
                 try await self.managerActor.signInWithMinumumData(userData: userData)
+                
             } catch {
                 print(error)
             }
