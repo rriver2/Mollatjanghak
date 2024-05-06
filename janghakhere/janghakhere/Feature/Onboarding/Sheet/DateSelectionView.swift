@@ -30,17 +30,8 @@ struct DateSelectionView: View {
                 disabled: false
             )
             .padding(.horizontal, 31)
-//            Button {
-//                dismiss()
-//            } label: {
-//                Text("확인")
-//            }
-//            .buttonStyle(MainButtonStyle())
-//            .padding(.horizontal, 31)
         }
         .presentationDetents([.medium])
     }
 }
-//#Preview {
-//    DateSelectionView()
-//}
+
