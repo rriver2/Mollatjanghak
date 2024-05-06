@@ -19,7 +19,6 @@ enum MaxGradeStatus: String, CaseIterable, CustomStringConvertible, Codable {
     }
 }
 
-
 struct MaxGradeSheet: View {
     @Environment(\.dismiss) var dismiss
     @Binding var maxGrade: MaxGradeStatus

@@ -29,7 +29,8 @@ struct MyInformationView: View {
                 schoolSection()
                 incomeSection()
                 sibilingSection()
-                etcSection()
+                // FIXME: - etc 정보 입력
+//                etcSection()
             }
             .scrollIndicators(.hidden)
             Spacer()
@@ -190,7 +191,7 @@ extension MyInformationView {
                 // TODO: 생년월일
             } label: {
                 HStack(spacing: 0) {
-                    Text(String(viewModel.birth))
+                    Text(viewModel.birth.MyInfoDateFomatter())
                     Spacer()
                     Icon(name: .chevronRight, color: .black, size: 16)
                 }

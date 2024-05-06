@@ -63,9 +63,8 @@ extension MyPageView {
                         .foregroundColor(.gray600)
                         .padding(.bottom, 12)
                     Text(
-                        decodedData.applyCount > 0 ?
-                        "\(String(format: "%.0f", (Double(decodedData.successScholarshipCount) / Double(decodedData.applyCount) * 100).isNaN ? 0 : Double(decodedData.successScholarshipCount) / Double(decodedData.applyCount) * 100))%" :
-                            "0%"
+                        decodedData.applyCount == 0 ? "0%" :
+                            String(format: "%.0f%%", Double(decodedData.successScholarshipCount) / Double(decodedData.applyCount) * 100)
                     )
                     .font(.title_xsm)
                     .foregroundStyle(.black)
