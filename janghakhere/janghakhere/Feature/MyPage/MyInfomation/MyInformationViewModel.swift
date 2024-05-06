@@ -47,8 +47,8 @@ extension MyInformationViewModel {
                     self.lastSemesterGrade = "미입력"
                 }
                 
-                if loadedUserData.militaryService != nil {
-                    self.militaryStatus = loadedUserData.militaryService!
+                if let military = loadedUserData.militaryService {
+                    self.militaryStatus = military
                 } else {
                     self.militaryStatus = MilitaryStatus.notSelected
                 }
@@ -91,5 +91,13 @@ extension MyInformationViewModel {
     func cancelTasks() {
         tasks.forEach({ $0.cancel()})
         tasks = []
+    }
+}
+
+extension Date {
+    func MyInfoDateFomatter() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy년 MM월 dd일"
+        return formatter.string(from: self)
     }
 }
