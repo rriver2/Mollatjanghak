@@ -9,17 +9,20 @@ import SwiftUI
 
 struct SlotMachineView: View {
     
-    @State private var finalNumberList: [Int]
     @State private var rolledMachineCount: Int = 0
     @State private var timer: Timer?
     
-    @State private var isFinished: Bool = false
+    @Binding var finalNumberList: [Int]
+    @Binding var isFinished: Bool
+    @Binding var isStopped: Bool
     
     /// 슬롯머신을 자동으로 돌릴 횟수
-    private let lastRolledMachineCount = 4
+    @State private var lastRolledMachineCount = 4
     
-    init(finalNumberList: [Int]) {
-        self.finalNumberList = finalNumberList
+    init(finalNumberList: Binding<[Int]>, isFinished: Binding<Bool>, isStopped: Binding<Bool>) {
+        self._finalNumberList = finalNumberList
+        self._isFinished = isFinished
+        self._isStopped = isStopped
     }
     
     var body: some View {
@@ -31,16 +34,16 @@ struct SlotMachineView: View {
                             ForEach(0..<10) { index in
                                 Text(index.description)
                                     .frame(width: 31, height: 31)
-                                    .background(isFinished ? .subGreen : .gray700)
+                                    .background(isStopped ? .gray800 : .gray600)
                                     .foregroundStyle(.white)
                                     .cornerRadius(4)
-                                    .padding(.horizontal, 2)
+                                    .padding(.horizontal, 1)
                                     .padding(.vertical, 4)
                                     .id(index)
                             }
                             .onChange(of: rolledMachineCount, { _, newValue in
                                 withAnimation(.spring()) {
-                                    if isFinished {
+                                    if isStopped {
                                         timer?.invalidate()
                                         proxy.scrollTo(finalNumberList[index], anchor: .center)
                                     } else {
@@ -53,19 +56,17 @@ struct SlotMachineView: View {
                     .frame(height: 40)
                 }
             }
-            .padding(.bottom, 100)
             .onAppear {
                 self.timer = Timer.scheduledTimer(withTimeInterval: 0.7, repeats: true) { timer in
                     rolledMachineCount += 1
-                    if rolledMachineCount == lastRolledMachineCount {
-                        isFinished = true
+                    if !isFinished {
+                        lastRolledMachineCount += 2
+                    } else if rolledMachineCount == lastRolledMachineCount {
+                        isStopped = true
+                        HapticManager.instance.notification(type: .error)
                     }
                 }
             }
         }
     }
-}
-
-#Preview {
-    SlotMachineView(finalNumberList: [3,4,5])
 }

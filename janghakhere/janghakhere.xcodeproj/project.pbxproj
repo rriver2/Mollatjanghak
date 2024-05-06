@@ -113,6 +113,7 @@
 		FBEF1CFC2BE7FC7600DCAA0E /* ScholarshipBoxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEF1CFB2BE7FC7600DCAA0E /* ScholarshipBoxViewModel.swift */; };
 		FBEF1CFF2BE8F7A600DCAA0E /* ScholarshipBoxListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEF1CFD2BE8F7A600DCAA0E /* ScholarshipBoxListView.swift */; };
 		FBEF1D002BE8F7A600DCAA0E /* ScholarshipBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEF1CFE2BE8F7A600DCAA0E /* ScholarshipBoxView.swift */; };
+		FBEF1D022BE90F7900DCAA0E /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEF1D012BE90F7800DCAA0E /* HapticManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -230,6 +231,7 @@
 		FBEF1CFB2BE7FC7600DCAA0E /* ScholarshipBoxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScholarshipBoxViewModel.swift; sourceTree = "<group>"; };
 		FBEF1CFD2BE8F7A600DCAA0E /* ScholarshipBoxListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScholarshipBoxListView.swift; sourceTree = "<group>"; };
 		FBEF1CFE2BE8F7A600DCAA0E /* ScholarshipBoxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScholarshipBoxView.swift; sourceTree = "<group>"; };
+		FBEF1D012BE90F7800DCAA0E /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -452,6 +454,7 @@
 				FBEEBB982BCEA76A006CE5EA /* Helper */,
 				FB978C952BCD770800347D47 /* Assets.xcassets */,
 				FB978CAE2BCD7FF800347D47 /* extension.swift */,
+				FBEF1D012BE90F7800DCAA0E /* HapticManager.swift */,
 				FB2930832BDE740E009AB2EF /* TextFieldDynamicWidth.swift */,
 			);
 			path = Core;
@@ -829,6 +832,7 @@
 				7B6445CB2BD6A2A700D4AF74 /* IncomeConfirmView.swift in Sources */,
 				FBE769832BCF8E11007F8DEF /* SlotMachineView.swift in Sources */,
 				7B5C11702BE226A10056C2BC /* OnboardingExtraActor.swift in Sources */,
+				FBEF1D022BE90F7900DCAA0E /* HapticManager.swift in Sources */,
 				7B5C11712BE226A10056C2BC /* OnboardingExtraView.swift in Sources */,
 				7B5C11722BE226A10056C2BC /* OnboardingExtraViewModel.swift in Sources */,
 				7B6445A22BCFF89A00D4AF74 /* Chip.swift in Sources */,
