@@ -7,23 +7,6 @@
 
 import SwiftUI
 
-enum ScholarshipBoxListFliteringCategory: CaseIterable {
-    case recent
-    case inquiry
-    case deadline
-    
-    var title: String {
-        switch self {
-        case .recent:
-            return "최신순"
-        case .inquiry:
-            return "조회순"
-        case .deadline:
-            return "마감순"
-        }
-    }
-}
-
 actor ScholarshipBoxListActor {
     @AppStorage("userData") private var userData: Data?
     
@@ -44,7 +27,7 @@ actor ScholarshipBoxListActor {
             
             let (data , response) = try await HTTPUtils.getURL(urlBack: "/api/scholarships?memberId=\(userID)&", parameter: parameter)
             
-            return try MyScholarshopBoxListManager.responseHandling(data, response)
+            return try MyScholarshipBoxListManager.responseHandling(data, response)
         } catch {
             throw error
         }
@@ -66,7 +49,7 @@ actor ScholarshipBoxListActor {
             guard let userID = getUserID() else { throw URLError(.unknown) }
             let (data , response) = try await HTTPUtils.getURL(urlBack: "/api/scholarships/members/\(userID)?", parameter: parameter)
             
-            return try MyScholarshopBoxListManager.responseHandling(data, response)
+            return try MyScholarshipBoxListManager.responseHandling(data, response)
         } catch {
             throw error
         }
@@ -81,7 +64,7 @@ actor ScholarshipBoxListActor {
             
             let (data , response) = try await HTTPUtils.getURL(urlBack: "/api/scholarships?memberId=\(userID)&", parameter: parameter)
             
-            return try MyScholarshopBoxListManager.responseHandling(data, response)
+            return try MyScholarshipBoxListManager.responseHandling(data, response)
         } catch {
             throw error
         }

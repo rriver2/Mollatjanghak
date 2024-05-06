@@ -35,7 +35,7 @@ struct Pageable: Decodable {
 }
 
 //MARK: - 핸들링
-class MyScholarshopBoxListManager {
+class MyScholarshipBoxListManager {
     static func responseHandling(_ data: Data, _ response: HTTPURLResponse) throws  -> (ScholarshipBoxList: [ScholarshipBox], totalElements: Int, pageNumber: Int, totalPages: Int) {
         do {
             switch response.statusCode {

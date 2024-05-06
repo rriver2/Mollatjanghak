@@ -76,9 +76,9 @@ extension MyScholarshipView {
                 .frame(height: 2)
                 .frame(maxWidth: .infinity)
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(alignment: .top, spacing: 0) {
-                    switch viewModel.selectedCategory {
-                    case .supported(_):
+                switch viewModel.selectedCategory {
+                case .supported(_):
+                    HStack(alignment: .top, spacing: 0) {
                         ForEach(SupportedCategory.allCases, id: \.self) { category in
                             Button(action: {
                                 viewModel.scholarshipCategoryButtonPressed(.supported(category))
@@ -89,7 +89,9 @@ extension MyScholarshipView {
                                 detailHeaderButton(name: category.name, proxy: proxy)
                             }
                         }
-                    case .stored(_):
+                    }
+                case .stored(_):
+                    HStack(alignment: .top, spacing: 0) {
                         ForEach(StorageCategory.allCases, id: \.self) { category in
                             Button(action: {
                                 viewModel.scholarshipCategoryButtonPressed(.stored(category))
@@ -99,6 +101,44 @@ extension MyScholarshipView {
                             }) {
                                 detailHeaderButton(name: category.name, proxy: proxy)
                             }
+                        }
+                        Spacer()
+                        Button {
+                            viewModel.isShowFilteringSheet = true
+                        } label: {
+                            HStack(spacing: 0) {
+                                Text(viewModel.filteringCategory.title)
+                                    .font(.semi_title_md)
+                                    .padding(.trailing, 4)
+                                Icon(name: .arrowsUpDown, color: .gray500, size: 20)
+                            }
+                            .foregroundStyle(.gray500)
+                        }
+                        .sheet(isPresented: $viewModel.isShowFilteringSheet) {
+                            VStack(alignment: .leading, spacing: 0) {
+                                Text("정렬")
+                                    .font(.title_xsm)
+                                    .padding(.top, 20)
+                                    .frame(maxWidth: .infinity)
+                                ForEach(MyScholarshipFilteringCategory.allCases, id: \.self) { category in
+                                    filteringButton(category: category)
+                                }
+                                Spacer()
+                                Text("닫기")
+                                    .font(.title_xsm)
+                                    .foregroundStyle(.white)
+                                    .padding(.vertical, 16)
+                                    .frame(maxWidth: .infinity)
+                                    .background(.mainGray)
+                                    .cornerRadius(100)
+                                    .padding(.bottom, 14)
+                                    .onTapGesture {
+                                        viewModel.isShowFilteringSheet = false
+                                    }
+                            }
+                            .padding(.horizontal, 28)
+                            .foregroundStyle(.black)
+                            .presentationDetents([.medium])
                         }
                     }
                 }
@@ -131,6 +171,24 @@ extension MyScholarshipView {
                 ScholarshipBoxListView(isGetMoreScholarshipBox: .constant(false), scholarshipList: $viewModel.selectedScholarShipList, isShowPassStatus: true)
             }
             Spacer()
+        }
+    }
+    @ViewBuilder
+    private func filteringButton(category: MyScholarshipFilteringCategory) -> some View {
+        HStack(spacing: 16) {
+            Text(category.title)
+                .foregroundStyle(category == viewModel.filteringCategory ? .subGreen : .gray700)
+                .font(.title_xsm)
+            Spacer()
+            if category == viewModel.filteringCategory {
+                Icon(name: .checkFat, color: .subGreen, size: 16)
+            }
+        }
+        .padding(.vertical, 18)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            viewModel.sortingButtonPressed(category)
+            viewModel.isShowFilteringSheet = false
         }
     }
 }
