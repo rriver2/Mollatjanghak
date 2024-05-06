@@ -10,10 +10,8 @@ import SwiftUI
 @MainActor
 final class MyPageViewModel: ObservableObject {
     let managerActor: MyPageActor = MyPageActor()
-    @State private(set) var name: String = "윤영서"
-    @State private(set) var totalScholarshipMoney: Int = 4400000
-    @State private(set) var applyCount: Int = 3
-    @State private(set) var successRatio: Int = 70
+    @AppStorage("userData") private var userData: Data?
+    @Published private(set) var decodedData: UserData?
     private var tasks: [Task<Void, Never>] = []
     
     @Published private(set) var defaultDatas: [String] = []
@@ -21,22 +19,23 @@ final class MyPageViewModel: ObservableObject {
 
 // MARK: - private 함수들
 extension MyPageViewModel {
-    private func useTemplatePrivateFunction() {
-        let task = Task {
+    private func initializeUserData() {
+        if let data = userData {
             do {
-                defaultDatas = try await managerActor.getData()
+                let decoder = JSONDecoder()
+                let loadedUserData = try decoder.decode(UserData.self, from: data)
+                self.decodedData = loadedUserData
             } catch {
-                print(error)
+                print("Failed to decode user data: \(error)")
             }
         }
-        tasks.append(task)
     }
 }
 
 // MARK: - 기본 함수들
 extension MyPageViewModel {
     func createView() {
-        self.useTemplatePrivateFunction()
+        self.initializeUserData()
     }
     
     func cancelTasks() {

@@ -24,6 +24,9 @@ struct UserData: Codable {
     let militaryService: MilitaryStatus?
     let siblingExists: SiblingStatus?
     let detailedConditions: [String]
+    let totalScholarshipMoney: Int
+    let applyCount: Int
+    let successScholarshipCount: Int
 }
 
 @MainActor
@@ -172,7 +175,10 @@ extension OnboardingMainViewModel {
             incomeRange: nil,
             militaryService: nil,
             siblingExists: nil,
-            detailedConditions: []
+            detailedConditions: [],
+            totalScholarshipMoney: 0,
+            applyCount: 0,
+            successScholarshipCount: 0
         )
         do {
             let encoder = JSONEncoder()

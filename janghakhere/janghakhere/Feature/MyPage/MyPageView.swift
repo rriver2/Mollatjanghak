@@ -24,6 +24,9 @@ struct MyPageView: View {
             .paddingHorizontal()
         }
         .ignoresSafeArea()
+        .onAppear {
+            viewModel.createView()
+        }
     }
 }
 
@@ -31,95 +34,104 @@ extension MyPageView {
     
     @ViewBuilder
     private func myScholarshipStatisticsContent() -> some View {
-        
-        HStack() {
-            Spacer()
-            VStack(alignment: .center, spacing: 0) {
-                Icon(name: .stack, color: .mainGray, size: 28)
-                    .padding(.bottom, 16)
-                Text("지원한 공고 수")
-                    .font(.semi_title_md)
-                    .foregroundColor(.gray600)
-                    .padding(.bottom, 12)
-                Text("\(viewModel.applyCount)개")
+        if let decodedData = viewModel.decodedData {
+            HStack() {
+                Spacer()
+                VStack(alignment: .center, spacing: 0) {
+                    Icon(name: .stack, color: .mainGray, size: 28)
+                        .padding(.bottom, 16)
+                    Text("지원한 공고 수")
+                        .font(.semi_title_md)
+                        .foregroundColor(.gray600)
+                        .padding(.bottom, 12)
+                    Text("\(decodedData.applyCount)개")
+                        .font(.title_xsm)
+                        .foregroundStyle(.black)
+                        .padding(.bottom, 10)
+                }
+                .frame(maxWidth: .infinity)
+                Spacer()
+                Rectangle()
+                    .frame(width: 1)
+                    .foregroundColor(.gray200)
+                Spacer()
+                VStack(alignment: .center, spacing: 0) {
+                    Icon(name: .chartDonut, color: .mainGray, size: 28)
+                        .padding(.bottom, 16)
+                    Text("합격비율")
+                        .font(.semi_title_md)
+                        .foregroundColor(.gray600)
+                        .padding(.bottom, 12)
+                    Text(
+                        decodedData.applyCount > 0 ?
+                        "\(String(format: "%.0f", (Double(decodedData.successScholarshipCount) / Double(decodedData.applyCount) * 100).isNaN ? 0 : Double(decodedData.successScholarshipCount) / Double(decodedData.applyCount) * 100))%" :
+                            "0%"
+                    )
                     .font(.title_xsm)
                     .foregroundStyle(.black)
                     .padding(.bottom, 10)
+                }
+                .frame(maxWidth: .infinity)
+                Spacer()
             }
-            .frame(maxWidth: .infinity)
-            Spacer()
-            Rectangle()
-                .frame(width: 1)
-                .foregroundColor(.gray200)
-            Spacer()
-            VStack(alignment: .center, spacing: 0) {
-                Icon(name: .chartDonut, color: .mainGray, size: 28)
-                    .padding(.bottom, 16)
-                Text("합격비율")
-                    .font(.semi_title_md)
-                    .foregroundColor(.gray600)
-                    .padding(.bottom, 12)
-                Text("\(viewModel.successRatio)%")
-                    .font(.title_xsm)
-                    .foregroundStyle(.black)
-                    .padding(.bottom, 10)
-            }
-            .frame(maxWidth: .infinity)
-            Spacer()
+            .padding(.vertical, 28)
+            .background(
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(.white)
+            )
+            .fixedSize(horizontal: false, vertical: true)
         }
-        .padding(.vertical, 28)
-        .background(
-            RoundedRectangle(cornerRadius: 10)
-                .fill(.white)
-        )
-        .fixedSize(horizontal: false, vertical: true)
     }
     
     @ViewBuilder
     private func totalScholarshipMoneyContent() -> some View {
-        HStack(spacing: 0) {
-            Icon(name: .currencyKrw, color: .subGreen, size: 28)
-                .padding(.trailing, 8)
-            Text("총 수혜 금액")
-            Spacer()
-            Text("\(viewModel.totalScholarshipMoney)원")
+        if let decodedData = viewModel.decodedData {
+            HStack(spacing: 0) {
+                Icon(name: .currencyKrw, color: .subGreen, size: 28)
+                    .padding(.trailing, 8)
+                Text("총 수혜 금액")
+                Spacer()
+                Text("\(decodedData.totalScholarshipMoney)원")
+            }
+            .font(.title_xsm)
+            .foregroundStyle(.black)
+            .padding(.vertical, 24)
+            .padding(.horizontal, 24)
+            .background(
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(.white)
+            )
+            .padding(.bottom, 16)
         }
-        .font(.title_xsm)
-        .foregroundStyle(.black)
-        .padding(.vertical, 24)
-        .padding(.horizontal, 24)
-        .background(
-            RoundedRectangle(cornerRadius: 10)
-                .fill(.white)
-        )
-        .padding(.bottom, 16)
     }
     
     @ViewBuilder
     private func nameContent() -> some View {
-        VStack(alignment: .center, spacing: 0) {
-            Text("\(viewModel.name)님")
-                .font(.title_md)
-                .foregroundStyle(.black)
-                .padding(.bottom, 12)
-            Button {
-                pathModel.paths.append(.myInformationView)
-            } label: {
-                HStack(spacing: 3) {
-                    Icon(name: .pencilLine, color: .mainGray, size: 15)
-                    Text("내 정보 보기")
-                        .font(.semi_title_md)
+        if let decodedData = viewModel.decodedData {
+            VStack(alignment: .center, spacing: 0) {
+                Text("\(decodedData.name)님")
+                    .font(.title_md)
+                    .foregroundStyle(.black)
+                    .padding(.bottom, 12)
+                Button {
+                    pathModel.paths.append(.myInformationView)
+                } label: {
+                    HStack(spacing: 3) {
+                        Icon(name: .pencilLine, color: .mainGray, size: 15)
+                        Text("내 정보 보기")
+                            .font(.semi_title_md)
+                    }
+                    .padding(.vertical, 4)
+                    .padding(.horizontal, 12)
+                    .foregroundStyle(.mainGray)
+                    .background(
+                        Capsule()
+                            .fill(.gray100)
+                    )
                 }
-                .padding(.vertical, 4)
-                .padding(.horizontal, 12)
-                .foregroundStyle(.mainGray)
-                .background(
-                    Capsule()
-                        .fill(.gray100)
-                )
             }
+            .padding(.bottom, 48)
         }
-        .padding(.bottom, 48)
     }
     
     
