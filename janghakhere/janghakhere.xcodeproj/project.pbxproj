@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B593AD92BE9192F00BD2F74 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B593AD82BE9192F00BD2F74 /* SettingViewModel.swift */; };
 		7B5C11602BDFEADC0056C2BC /* ScholarshipPostingSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C115F2BDFEADC0056C2BC /* ScholarshipPostingSheet.swift */; };
 		7B5C11632BE12E3F0056C2BC /* MyPageActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C11612BE12E3F0056C2BC /* MyPageActor.swift */; };
 		7B5C11642BE12E3F0056C2BC /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C11622BE12E3F0056C2BC /* MyPageViewModel.swift */; };
@@ -117,6 +118,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7B593AD82BE9192F00BD2F74 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		7B5C115F2BDFEADC0056C2BC /* ScholarshipPostingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScholarshipPostingSheet.swift; sourceTree = "<group>"; };
 		7B5C11612BE12E3F0056C2BC /* MyPageActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageActor.swift; sourceTree = "<group>"; };
 		7B5C11622BE12E3F0056C2BC /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
@@ -371,6 +373,7 @@
 				FB2930682BDC0633009AB2EF /* ResetInfoViewModel.swift */,
 				FB2930732BDC0AB3009AB2EF /* WebTotalView.swift */,
 				FB2930752BDC0AD3009AB2EF /* WebView.swift */,
+				7B593AD82BE9192F00BD2F74 /* SettingViewModel.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -754,6 +757,7 @@
 				7B6445BD2BD5272B00D4AF74 /* SemesterYear.swift in Sources */,
 				7B6445DB2BDD5FC400D4AF74 /* VerticalButtonGroup.swift in Sources */,
 				7BB1E29C2BE87F58001350DE /* PDFKitView.swift in Sources */,
+				7B593AD92BE9192F00BD2F74 /* SettingViewModel.swift in Sources */,
 				FBABCF042BD636890068178F /* AlarmViewModel.swift in Sources */,
 				FB29306F2BDC09D6009AB2EF /* NavigationDefaultView.swift in Sources */,
 				FB9785F32BE4A45000F8A281 /* MyScholarshopBoxListActor.swift in Sources */,

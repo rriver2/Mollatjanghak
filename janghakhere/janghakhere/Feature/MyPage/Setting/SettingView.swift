@@ -10,11 +10,12 @@ import MessageUI
 
 struct SettingView: View {
     @EnvironmentObject private var pathModel: PathModel
+    @StateObject private var viewModel = SettingViewModel()
     @State private var result: Result<MFMailComposeResult, Error>? = nil
     @State private var isShowingMailView = false
     @State private var showEmailAlert = false
     private let deviceInfo = DeviceInfo()
-    @AppStorage("userName") private var userName: String = ""
+//    @AppStorage("userName") private var userName: String = ""
     
     var body: some View {
         VStack(spacing: 0) {
@@ -33,23 +34,46 @@ struct SettingView: View {
             
             Spacer()
         }
+        .onAppear {
+            viewModel.createView()
+        }
         .sheet(isPresented: $isShowingMailView) {
             MailView(result: $result) { composer in
                 composer.setSubject("여깄장학 문의")
-                let messageBody = """
-===============
-해당 내용을 지우지 마세요!
-문의사항 반영에 도움이 됩니다.
+                var messageBody: String = ""
+                
+                if let decodedData = viewModel.decodedData {
+                    messageBody = """
+    ===============
+    해당 내용을 지우지 마세요!
+    문의사항 반영에 도움이 됩니다.
 
-Device: \(deviceInfo.deviceModel)
-OS Version: \(deviceInfo.systemVersion)
-App Version: \(deviceInfo.appVersion)
-이름: \(userName)
-===============
+    Device: \(deviceInfo.deviceModel)
+    OS Version: \(deviceInfo.systemVersion)
+    App Version: \(deviceInfo.appVersion)
+    ID: \(decodedData.id)
+    ===============
 
-앱에 대한 문의 내용을 입력해주세요.
+    앱에 대한 문의 내용을 입력해주세요.
 
-"""
+    """
+                } else {
+                    messageBody = """
+    ===============
+    해당 내용을 지우지 마세요!
+    문의사항 반영에 도움이 됩니다.
+
+    Device: \(deviceInfo.deviceModel)
+    OS Version: \(deviceInfo.systemVersion)
+    App Version: \(deviceInfo.appVersion)
+    닉네임: (추가부탁드립니다)
+    ===============
+
+    앱에 대한 문의 내용을 입력해주세요.
+
+    """
+                }
+                
                 composer.setMessageBody(messageBody, isHTML: false)
                 composer.setToRecipients(["janghakhere@gmail.com"])
             }
@@ -90,3 +114,6 @@ extension SettingView {
 #Preview {
     SettingView()
 }
+
+
+
