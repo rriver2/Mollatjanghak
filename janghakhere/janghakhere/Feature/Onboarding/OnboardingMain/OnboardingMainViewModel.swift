@@ -43,10 +43,14 @@ final class OnboardingMainViewModel: ObservableObject {
     
     @Published var currentPage: Int = 0
     @Published var name: String = ""
-    @Published var sex: Sex = .notSelected
     @Published var birthDate: Date = .now
     @Published var schoolName: String = ""
+    @Published var previousGrade: Double = 0.0
+    @Published var entireGrade: Double = 0.0
     
+    @Published var sex: Sex = .notSelected
+    @Published var incomeDecile: IncomeDecile = .notSelected
+    @Published var maximumGrade: MaxGradeStatus = .fourDotFive
     @Published var semesterYear: SemesterYear = .notSelected
     @Published var semesterStatus: SemesterStatus = .notSelected
     @Published var enrollmentStatus: EnrollmentStatus = .notSelected
@@ -55,6 +59,8 @@ final class OnboardingMainViewModel: ObservableObject {
     
     @Published var isShowBirthdaySheet = false
     @Published var isShowSemesterSheet = false
+    @Published var isShowIncomeSheet = false
+    @Published var isShowGradeSheet = false
 }
 
 // MARK: - private 함수들

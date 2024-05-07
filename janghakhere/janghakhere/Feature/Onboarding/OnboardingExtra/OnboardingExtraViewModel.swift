@@ -13,15 +13,9 @@ final class OnboardingExtraViewModel: ObservableObject {
     let managerActor: OnboardingExtraActor = OnboardingExtraActor()
     
     @Published var currentPage: Int = 0
-    @Published var previousGrade: Double = 0.0
-    @Published var entireGrade: Double = 0.0
-    @Published var incomeDecile: IncomeDecile = .notSelected
-    @Published var maximumGrade: MaxGradeStatus = .fourDotFive
     @Published var militaryStatus: MilitaryStatus = .notSelected
     @Published var siblingStatus: SiblingStatus = .notSelected
     @Published var degreesStatus: DegreesStatus = .notSelected
-    @Published var isShowIncomeSheet = false
-    @Published var isShowGradeSheet = false
     @Published var isShowBirthdaySheet = false
     @Published var isShowSemesterSheet = false
     
