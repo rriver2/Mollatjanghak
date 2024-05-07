@@ -7,11 +7,6 @@
 
 import SwiftUI
 
-enum ScholarshipBoxListFliteringCategory {
-    case deadline
-    case inquiryCount
-}
-
 actor ScholarshipBoxListActor {
     @AppStorage("userData") private var userData: Data?
     
@@ -21,16 +16,18 @@ actor ScholarshipBoxListActor {
         do {
             var parameter = ""
             switch category {
+            case .recent:
+                parameter = "page=\(page)"
+            case .inquiry:
+                parameter = "page=\(page)&viewCount=true"
             case .deadline:
                 parameter = "page=\(page)&deadline=true"
-            case .inquiryCount:
-                parameter = "page=\(page)"
             }
             guard let userID = getUserID() else { throw URLError(.unknown) }
             
             let (data , response) = try await HTTPUtils.getURL(urlBack: "/api/scholarships?memberId=\(userID)&", parameter: parameter)
             
-            return try MyScholarshopBoxListManager.responseHandling(data, response)
+            return try MyScholarshipBoxListManager.responseHandling(data, response)
         } catch {
             throw error
         }
@@ -42,16 +39,17 @@ actor ScholarshipBoxListActor {
         do {
             var parameter = ""
             switch category {
+            case .recent:
+                parameter = "page=\(page)"
+            case .inquiry:
+                parameter = "page=\(page)&viewCount=true"
             case .deadline:
                 parameter = "page=\(page)&deadline=true"
-            case .inquiryCount:
-                parameter = "page=\(page)"
             }
-            print("0")
             guard let userID = getUserID() else { throw URLError(.unknown) }
             let (data , response) = try await HTTPUtils.getURL(urlBack: "/api/scholarships/members/\(userID)?", parameter: parameter)
             
-            return try MyScholarshopBoxListManager.responseHandling(data, response)
+            return try MyScholarshipBoxListManager.responseHandling(data, response)
         } catch {
             throw error
         }
@@ -66,7 +64,7 @@ actor ScholarshipBoxListActor {
             
             let (data , response) = try await HTTPUtils.getURL(urlBack: "/api/scholarships?memberId=\(userID)&", parameter: parameter)
             
-            return try MyScholarshopBoxListManager.responseHandling(data, response)
+            return try MyScholarshipBoxListManager.responseHandling(data, response)
         } catch {
             throw error
         }

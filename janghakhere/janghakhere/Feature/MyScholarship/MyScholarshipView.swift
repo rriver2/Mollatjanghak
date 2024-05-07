@@ -18,9 +18,57 @@ struct MyScholarshipView: View {
                 VStack(spacing: 0) {
                     header(proxy: proxy)
                     detailHeader(proxy: proxy)
-                    detailScholarshipBoxListView()
+                    switch viewModel.networkStatus {
+                    case .loading:
+                        VStack {
+                            Spacer()
+                            ProgressView()
+                            Spacer()
+                        }
+                    case .success:
+                        if viewModel.totalScholarShipList.isEmpty {
+                            emptyView()
+                        } else {
+                            detailScholarshipBoxListView()
+                        }
+                    case .failed:
+                        ZStack(alignment: .bottom) {
+                            VStack(spacing: 0) {
+                                Spacer()
+                                Button {
+                                    viewModel.reloadButtonPressed()
+                                } label: {
+                                    VStack(spacing: 0) {
+                                        Icon(name: .graduation, size: 122)
+                                            .padding(.bottom, 8)
+                                        Text("잠시 후에 다시 시도해주세요")
+                                            .font(.title_xsm)
+                                            .padding(.bottom, 16)
+                                            .foregroundStyle(.gray600)
+                                        HStack {
+                                            Icon(name: .reload, color: .mainGray, size: 22)
+                                                .padding(.leading, 8)
+                                            Text("새로 고침")
+                                                .foregroundStyle(.mainGray)
+                                        }
+                                        .padding(.vertical, 14)
+                                        .padding(.horizontal, 24)
+                                        .background(.gray70)
+                                        .cornerRadius(130)
+                                    }
+                                }
+                                Spacer()
+                            }
+                            ErrorToastView(.network)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .background(Color.gray50)
+                    }
                 }
             }
+        }
+        .sheet(isPresented: $viewModel.isShowFilteringSheet) {
+            filteringSheet()
         }
         .onChange(of: viewModel.selectedScholarShipList, { oldValue, newValue in
             if let category = viewModel.getStoreChangedtScholarShip() {
@@ -75,10 +123,10 @@ extension MyScholarshipView {
                 .foregroundStyle(.gray100)
                 .frame(height: 2)
                 .frame(maxWidth: .infinity)
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(alignment: .top, spacing: 0) {
-                    switch viewModel.selectedCategory {
-                    case .supported(_):
+            HStack(alignment: .top, spacing: 0) {
+                switch viewModel.selectedCategory {
+                case .supported(_):
+                    HStack(alignment: .top, spacing: 0) {
                         ForEach(SupportedCategory.allCases, id: \.self) { category in
                             Button(action: {
                                 viewModel.scholarshipCategoryButtonPressed(.supported(category))
@@ -89,7 +137,10 @@ extension MyScholarshipView {
                                 detailHeaderButton(name: category.name, proxy: proxy)
                             }
                         }
-                    case .stored(_):
+                        Spacer()
+                    }
+                case .stored(_):
+                    HStack(alignment: .top, spacing: 0) {
                         ForEach(StorageCategory.allCases, id: \.self) { category in
                             Button(action: {
                                 viewModel.scholarshipCategoryButtonPressed(.stored(category))
@@ -100,7 +151,20 @@ extension MyScholarshipView {
                                 detailHeaderButton(name: category.name, proxy: proxy)
                             }
                         }
+                        Spacer()
+                        Button {
+                            viewModel.isShowFilteringSheet = true
+                        } label: {
+                            HStack(spacing: 0) {
+                                Text(viewModel.filteringCategory.title)
+                                    .font(.semi_title_md)
+                                    .padding(.trailing, 4)
+                                Icon(name: .arrowsUpDown, color: .gray500, size: 20)
+                            }
+                            .foregroundStyle(.gray500)
+                        }
                     }
+                    .frame(maxWidth: .infinity)
                 }
             }
             .paddingHorizontal()
@@ -133,6 +197,63 @@ extension MyScholarshipView {
             Spacer()
         }
     }
+    @ViewBuilder
+    private func filteringButton(category: MyScholarshipFilteringCategory) -> some View {
+        HStack(spacing: 16) {
+            Text(category.title)
+                .foregroundStyle(category == viewModel.filteringCategory ? .subGreen : .gray700)
+                .font(.title_xsm)
+            Spacer()
+            if category == viewModel.filteringCategory {
+                Icon(name: .checkFat, color: .subGreen, size: 16)
+            }
+        }
+        .padding(.vertical, 18)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            viewModel.sortingButtonPressed(category)
+            viewModel.isShowFilteringSheet = false
+        }
+    }
+    @ViewBuilder
+    private func emptyView() -> some View {
+        VStack(spacing: 8) {
+            Spacer()
+            Icon(name: .nothing, size: 122)
+            Text("저장한 공고가 없어요\n지원하고 싶은 공고를 저장해보세요")
+                .multilineTextAlignment(.center)
+                .font(.text_md)
+                .foregroundStyle(.gray600)
+            Spacer()
+        }
+    }
+    @ViewBuilder
+    private func filteringSheet() -> some View {
+    VStack(alignment: .leading, spacing: 0) {
+        Text("정렬")
+            .font(.title_xsm)
+            .padding(.top, 20)
+            .frame(maxWidth: .infinity)
+        ForEach(MyScholarshipFilteringCategory.allCases, id: \.self) { category in
+            filteringButton(category: category)
+        }
+        Spacer()
+        Text("닫기")
+            .font(.title_xsm)
+            .foregroundStyle(.white)
+            .padding(.vertical, 16)
+            .frame(maxWidth: .infinity)
+            .background(.mainGray)
+            .cornerRadius(100)
+            .padding(.bottom, 14)
+            .onTapGesture {
+                viewModel.isShowFilteringSheet = false
+            }
+    }
+    .padding(.horizontal, 28)
+    .foregroundStyle(.black)
+    .presentationDetents([.medium])
+}
 }
 
 #Preview {

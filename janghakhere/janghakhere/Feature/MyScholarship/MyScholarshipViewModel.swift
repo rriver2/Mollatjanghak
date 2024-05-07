@@ -7,20 +7,17 @@
 
 import SwiftUI
 
-enum MyScholarshipFilteringCategory {
-    case deadline
-    case recent
-}
-
 @MainActor
 final class MyScholarshipViewModel: ObservableObject {
-    let myScholarshopBoxListActor: MyScholarshopBoxListActor = MyScholarshopBoxListActor()
+    let myScholarshipBoxListActor: MyScholarshipBoxListActor = MyScholarshipBoxListActor()
     
     @Published private(set) var selectedCategory: MyScholarshipCategory = .stored(.all)
     @Published private(set) var selectedCategoryName: String = MyScholarshipCategory.storedName
     @Published private(set) var selectedCategoryDetailName: String = StorageCategory.allCases.first?.name ?? "에베베"
     
     @Published private(set) var networkStatus: NetworkStatus = .loading
+    @Published var filteringCategory: MyScholarshipFilteringCategory = .allCases.first!
+    @Published var isShowFilteringSheet = false
     
     @Published var totalScholarShipList: [ScholarshipBox] = []
     @Published var selectedScholarShipList: [ScholarshipBox] = []
@@ -39,10 +36,18 @@ final class MyScholarshipViewModel: ObservableObject {
     }
     
     // sorting 최신,
-    func sortingButtonPressed() {
-           
+    func sortingButtonPressed(_ category: MyScholarshipFilteringCategory) {
+        self.totalScholarShipList = []
+        self.filteringCategory = category
+        self.getAllScholarShipList(category)
     }
     
+    func reloadButtonPressed() {
+        self.getAllScholarShipList(filteringCategory)
+    }
+    
+    //FIXME: 이게 뭐지
+    // 선택된 값이 달라졌을 때
     func getStoreChangedtScholarShip() -> MyScholarshipCategory? {
         for newScholarship in selectedScholarShipList {
             if let index = totalScholarShipList.firstIndex(where: { $0.id == newScholarship.id }),
@@ -73,6 +78,7 @@ extension MyScholarshipViewModel {
     }
     
     private func getScholarShipList(_ category : MyScholarshipCategory) {
+        
         switch category {
         case .supported(let supportedCategory):
             switch supportedCategory { 
@@ -109,28 +115,26 @@ extension MyScholarshipViewModel {
     }
     
     private func getAllScholarShipList(_ category: MyScholarshipFilteringCategory) {
-//        self.networkStatus = .loading
-//        let task = Task {
-//            do {
-//                let scholarshipList = try await myScholarshopBoxListActor.fetchScholarshipBoxList(category)
-//                self.totalScholarShipList = scholarshipList
-//                self.networkStatus = .success
-//            } catch {
-//                self.networkStatus = .failed
-//                self.totalScholarShipList = ScholarshipBox.mockAllDataList //FIXME: 주석 지우기
-//                print(error)
-//            }
-//        }
-        self.totalScholarShipList = ScholarshipBox.mockAllDataList //FIXME: 주석 지우기
-//        tasks.append(task)
+        self.networkStatus = .loading
+        let task = Task {
+            do {
+                let scholarshipList = try await myScholarshipBoxListActor.fetchScholarshipBoxList(category)
+                self.totalScholarShipList = scholarshipList
+                self.getScholarShipList(selectedCategory)
+                self.networkStatus = .success
+            } catch {
+                self.networkStatus = .failed
+                print(error)
+            }
+        }
+        tasks.append(task)
     }
 }
 
 // 기본 함수들
 extension MyScholarshipViewModel {
     func viewOpened() {
-        self.getAllScholarShipList(.deadline)
-        self.getScholarShipList(MyScholarshipCategory.stored(.all))
+        self.getAllScholarShipList(MyScholarshipFilteringCategory.allCases.first!)
     }
     
     func cancelTasks() {
