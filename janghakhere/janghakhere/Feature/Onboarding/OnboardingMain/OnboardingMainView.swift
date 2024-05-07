@@ -143,7 +143,7 @@ extension OnboardingMainView {
             }
             .padding(.trailing, 8)
             
-            ProgressView(value: Double(viewModel.currentPage) * 0.2)
+            ProgressView(value: Double(viewModel.currentPage) / 7)
                 .tint(.mainGray)
         }
         .paddingHorizontal()
@@ -478,12 +478,8 @@ extension OnboardingMainView {
             MainButtonView(
                 title: "다음",
                 action: {
-                    viewModel.saveUserData()
                     withAnimation {
-                        pathModel.paths.append(.onboardingWaitingView(
-                            userData: viewModel.makeUserData()
-                        )
-                        )
+                        viewModel.currentPage = 6
                     }
                 },
                 disabled: false
@@ -493,43 +489,43 @@ extension OnboardingMainView {
     }
     
     
-    @ViewBuilder
-    private func extraContent() -> some View {
-        VStack(alignment: .leading, spacing: 0) {
-            HStack {
-                Spacer()
-                Button {
-                    // TODO: 다음에 입력
-                } label: {
-                    Text("다음에 입력할래요")
-                        .foregroundStyle(.gray400)
-                        .font(.text_sm)
-                        .underline()
-                }
-            }
-            .padding(.top, 16)
-            
-            Text("해당사항을 모두 선택해주세요")
-                .font(.title_md)
-                .foregroundStyle(.mainGray)
-                .padding(.top, 24)
-                .padding(.bottom, 64)
-            Spacer()
-            MainButtonView(
-                title: "완료",
-                action: {
-                    isKeyboardOn = false
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        withAnimation {
-                            viewModel.currentPage = 1
-                        }
-                    }
-                },
-                disabled: viewModel.name == ""
-            )
-        }
-        .paddingHorizontal()
-    }
+//    @ViewBuilder
+//    private func extraContent() -> some View {
+//        VStack(alignment: .leading, spacing: 0) {
+//            HStack {
+//                Spacer()
+//                Button {
+//                    // TODO: 다음에 입력
+//                } label: {
+//                    Text("다음에 입력할래요")
+//                        .foregroundStyle(.gray400)
+//                        .font(.text_sm)
+//                        .underline()
+//                }
+//            }
+//            .padding(.top, 16)
+//            
+//            Text("해당사항을 모두 선택해주세요")
+//                .font(.title_md)
+//                .foregroundStyle(.mainGray)
+//                .padding(.top, 24)
+//                .padding(.bottom, 64)
+//            Spacer()
+//            MainButtonView(
+//                title: "완료",
+//                action: {
+//                    isKeyboardOn = false
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//                        withAnimation {
+//                            viewModel.currentPage = 1
+//                        }
+//                    }
+//                },
+//                disabled: viewModel.name == ""
+//            )
+//        }
+//        .paddingHorizontal()
+//    }
     
     @ViewBuilder
     func academicInfoContent() -> some View {
@@ -537,7 +533,9 @@ extension OnboardingMainView {
                 HStack {
                     Spacer()
                     Button {
-                        // MARK: 다음에 입력할래요
+                        withAnimation {
+                            viewModel.currentPage += 1
+                        }
                     } label: {
                         Text("다음에 입력할래요")
                             .foregroundStyle(.gray400)
@@ -631,7 +629,7 @@ extension OnboardingMainView {
                     title: "다음",
                     action: {
                         withAnimation {
-                            viewModel.currentPage = 1
+                            viewModel.currentPage = 7
                         }
                     },
                     disabled: viewModel.previousGrade == 0 || viewModel.entireGrade == 0
@@ -646,7 +644,13 @@ extension OnboardingMainView {
             HStack {
                 Spacer()
                 Button {
-                    
+                    viewModel.saveUserData()
+                    withAnimation {
+                        pathModel.paths.append(.onboardingWaitingView(
+                            userData: viewModel.makeUserData()
+                        )
+                        )
+                    }
                 } label: {
                     Text("다음에 입력할래요")
                         .foregroundStyle(.gray400)
@@ -691,9 +695,14 @@ extension OnboardingMainView {
             MainButtonView(
                 title: "다음",
                 action: {
+                    viewModel.saveUserData()
                     withAnimation {
-                        viewModel.currentPage = 2
+                        pathModel.paths.append(.onboardingWaitingView(
+                            userData: viewModel.makeUserData()
+                        )
+                        )
                     }
+                    
                 },
                 disabled: viewModel.incomeDecile == .notSelected
             )

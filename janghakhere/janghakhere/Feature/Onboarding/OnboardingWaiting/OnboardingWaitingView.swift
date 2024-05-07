@@ -78,5 +78,5 @@ struct OnboardingWaitingView: View {
 }
 
 #Preview {
-    OnboardingWaitingView(userData: UserDataMinimum(id: "1", name: "123", sex: "123", birth: "123", schoolName: "123", enrolled: "!23", semester: "123", majorCategory: "!23"))
+    OnboardingWaitingView(userData: UserDataMinimum(id: "1", name: "123", sex: "123", birth: "123", schoolName: "123", enrolled: "!23", semester: "123", majorCategory: "!23", previousGrade: 0, entireGrade: 0, maximumGrade: "", incomeDecile: ""))
 }

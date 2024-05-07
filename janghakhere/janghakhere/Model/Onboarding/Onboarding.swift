@@ -16,4 +16,8 @@ struct UserDataMinimum: Encodable, Hashable {
     let enrolled: String // EnrolledStatus, 입학예정, 재학 등
     let semester: String // 이 정보를 석사, 학기를 통합해서 보여줘야함
     let majorCategory: String
+    let previousGrade: Double?
+    let entireGrade: Double?
+    let maximumGrade: String?
+    let incomeDecile: String?
 }
