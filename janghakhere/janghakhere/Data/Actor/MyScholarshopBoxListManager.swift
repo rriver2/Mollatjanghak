@@ -50,8 +50,8 @@ class MyScholarshipBoxListManager {
                 
                 for entity in entityList {
                     let DDay = entity.endDate == nil ? nil : Date().calculationDday(endDateString: entity.endDate!)
-                    
-                    let scholarshipBox = ScholarshipBox(id: String(entity.id), sponsor: entity.organization, title: entity.productName, DDay: DDay, prize: entity.supportDetails, publicAnnouncementStatus: .nothing)
+                    let status: PublicAnnouncementStatusCategory = PublicAnnouncementStatusCategory.getStatus(text: entity.applyingStatus)
+                    let scholarshipBox = ScholarshipBox(id: String(entity.id), sponsor: entity.organization, title: entity.productName, DDay: DDay, prize: entity.supportDetails, publicAnnouncementStatus: status)
                     returnEntity.append(scholarshipBox)
                 }
                 

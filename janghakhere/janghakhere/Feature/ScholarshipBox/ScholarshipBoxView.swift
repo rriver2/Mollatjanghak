@@ -7,20 +7,31 @@
 
 import SwiftUI
 
+enum BoxCategory {
+    case AllScholarship
+    case MyScholarship
+    case DetailScholarship
+    case SearchScholarship
+}
+
 struct ScholarshipBoxView: View {
     @EnvironmentObject private var pathModel: PathModel
     
-    @State var scholarshipBox: ScholarshipBox
+    @Binding var scholarshipBox: ScholarshipBox
+    @StateObject var viewModel: ScholarshipBoxViewModel = ScholarshipBoxViewModel()
     
-    init(scholarshipBox: ScholarshipBox) {
-        self._scholarshipBox = State(initialValue: scholarshipBox)
+    let category: BoxCategory
+    
+    init(scholarshipBox: Binding<ScholarshipBox>, category: BoxCategory) {
+        self._scholarshipBox = scholarshipBox
+        self.category = category
     }
     
     var body: some View {
         HStack(spacing: 0) {
             content()
             Spacer()
-//            statusRoundRectangle()
+            statusRoundRectangle()
         }
         .animation(.easeIn, value: scholarshipBox)
         .frame(maxWidth: .infinity)
@@ -42,10 +53,12 @@ extension ScholarshipBoxView {
                 .font(.semi_title_sm)
                 .foregroundStyle(Color.gray400)
                 .padding(.bottom, 4)
+                .multilineTextAlignment(.leading)
             Text(scholarshipBox.title)
                 .font(.title_xsm)
                 .foregroundStyle(Color.black)
                 .padding(.bottom, 24)
+                .multilineTextAlignment(.leading)
             HStack(spacing: 0) {
                 Text(getDDayString())
                     .font(.semi_title_sm)
@@ -86,7 +99,27 @@ extension ScholarshipBoxView {
         .cornerRadius(100)
         .foregroundStyle(scholarshipBox.publicAnnouncementStatus.buttonFontColor)
         .onTapGesture {
-//            statusButtonPressed(.saved)
+            switch category {
+            case .AllScholarship, .SearchScholarship:
+                if scholarshipBox.publicAnnouncementStatus == .nothing {
+                    viewModel.mainStorageButtonPressed(id: scholarshipBox.id)
+                } else {
+                    viewModel.isStatusSheet = true
+                }
+            case .DetailScholarship, .MyScholarship:
+                viewModel.isStatusSheet = true
+            }
+        }
+        .sheet(isPresented: $viewModel.isStatusSheet) {
+            ScholarshipPostingSheet(category: $scholarshipBox.publicAnnouncementStatus, statusButtonPressed: { category in
+                viewModel.sheetStorageButtonPressed(id: scholarshipBox.id, status: category)
+                viewModel.isStatusSheet = false
+            })
+        }
+        .onChange(of: viewModel.changedStatus) { oldValue, newValue in
+            if let status = viewModel.changedStatus {
+                scholarshipBox.publicAnnouncementStatus = status
+            }
         }
     }
 }

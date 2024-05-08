@@ -97,7 +97,7 @@ extension AllScholarshipViewModel {
                 
                 self.totalScholarshipCount = totalScholarshipCount
                 self.nextPageNumber = currentPageNumber + 1
-                self.scholarshipList.append(contentsOf: ScholarshipBoxManager.checkScholarshipBoxListStatus(scholarshipBoxList: scholarshipList))
+                self.scholarshipList.append(contentsOf: scholarshipList)
                 self.totalPages = totalPages
                 
                 if !(totalPages < nextPageNumber) {

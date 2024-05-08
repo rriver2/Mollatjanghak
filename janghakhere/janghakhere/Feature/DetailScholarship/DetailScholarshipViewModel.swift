@@ -16,7 +16,6 @@ final class DetailScholarshipViewModel: ObservableObject {
     @Published private(set) var detailScholarship: DetailScholarship?
     @Published var status: PublicAnnouncementStatusCategory = .nothing
 //    @Published private(set) var detailScholarship: DetailScholarship? = nil
-      let successFailActor: ScholarshipStatusActor = ScholarshipStatusActor()
       @Published var isStatusSheet: Bool = false
     private var tasks: [Task<Void, Never>] = []
     
@@ -36,28 +35,6 @@ final class DetailScholarshipViewModel: ObservableObject {
 //            }
 //        }
 //    }
-    
-    func statusButtonPressed(status: PublicAnnouncementStatusCategory, id: String) {
-        self.status = status
-        if let id = Int(id) {
-            // 네트워크 여부와 상관 없이 현재 상태 저장
-            self.postScholarshipStatus(id: id, status: status.rawValue)
-        }
-        if let detailContent = detailContent {
-//            if status == .saved {
-//                let dateString = detailContent.endDate
-//                let dateFormatter = DateFormatter()
-//                dateFormatter.dateFormat = "yyyy-MM-dd"
-//                if let date = dateFormatter.date(from: dateString) {
-//                    NotificationManager.instance.scheduleNotification(.DDayAlarm(id: String(detailContent.id), title: detailContent.productName, date: date))
-//                }
-//            } else if status == .nothing {
-//                NotificationManager.instance.cancelSpecificNotification(id: id)
-//            }
-           
-            self.isStatusSheet = false
-        }
-    }
 }
 
 // private 함수들
@@ -66,6 +43,7 @@ extension DetailScholarshipViewModel {
         let task = Task {
             do {
                 self.detailContent = try await managerActor.fetchDetailScholarship(id)
+                self.status = PublicAnnouncementStatusCategory.getStatus(text: detailContent?.applyingStatus ?? "")
                 self.networkStatus = .success
             } catch {
                 print(error)
@@ -76,14 +54,7 @@ extension DetailScholarshipViewModel {
     }
     
     private func postScholarshipStatus(id: Int, status: String) {
-        let task = Task {
-            do {
-                _ = try await successFailActor.postScholarshipStatus(id: id, status: status)
-            } catch {
-                print(error)
-            }
-        }
-        tasks.append(task)
+        
     }
     
     private func convertToKoreanDate(_ dateString: String) -> String? {

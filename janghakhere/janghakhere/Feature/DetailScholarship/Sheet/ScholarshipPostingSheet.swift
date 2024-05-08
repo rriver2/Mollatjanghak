@@ -9,7 +9,8 @@ import SwiftUI
 
 struct ScholarshipPostingSheet: View {
     @Binding var category: PublicAnnouncementStatusCategory
-    var statusButtonPressed: ((_ status: PublicAnnouncementStatusCategory) -> Void)
+    
+    var statusButtonPressed: ((_ category: PublicAnnouncementStatusCategory) -> Void)
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -31,16 +32,11 @@ struct ScholarshipPostingSheet: View {
                 .padding(.horizontal, 31)
                 .padding(.bottom, 14)
                 .onTapGesture {
-                    statusButtonPressed(.nothing)
+                    statusChanged(.nothing)
                 }
         }
         .foregroundStyle(.black)
         .presentationDetents([.medium])
-        .onAppear {
-            if category == .nothing {
-                category = .saved
-            }
-        }
     }
 }
 
@@ -54,12 +50,18 @@ extension ScholarshipPostingSheet {
             Text(status.title)
                 .foregroundStyle(category == status ? status.detailViewButtonColor : .black)
                 .font(.title_xsm)
+            Spacer()
         }
         .padding(.leading, 28)
         .padding(.vertical, 14)
         .contentShape(Rectangle())
         .onTapGesture {
-            statusButtonPressed(status)
+            statusChanged(status)
         }
+    }
+    
+    private func statusChanged(_ category: PublicAnnouncementStatusCategory) {
+        statusButtonPressed(category)
+        self.category = category
     }
 }
