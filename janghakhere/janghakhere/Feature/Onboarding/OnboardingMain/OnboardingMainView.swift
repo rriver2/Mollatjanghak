@@ -488,45 +488,6 @@ extension OnboardingMainView {
         .paddingHorizontal()
     }
     
-    
-//    @ViewBuilder
-//    private func extraContent() -> some View {
-//        VStack(alignment: .leading, spacing: 0) {
-//            HStack {
-//                Spacer()
-//                Button {
-//                    // TODO: 다음에 입력
-//                } label: {
-//                    Text("다음에 입력할래요")
-//                        .foregroundStyle(.gray400)
-//                        .font(.text_sm)
-//                        .underline()
-//                }
-//            }
-//            .padding(.top, 16)
-//            
-//            Text("해당사항을 모두 선택해주세요")
-//                .font(.title_md)
-//                .foregroundStyle(.mainGray)
-//                .padding(.top, 24)
-//                .padding(.bottom, 64)
-//            Spacer()
-//            MainButtonView(
-//                title: "완료",
-//                action: {
-//                    isKeyboardOn = false
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//                        withAnimation {
-//                            viewModel.currentPage = 1
-//                        }
-//                    }
-//                },
-//                disabled: viewModel.name == ""
-//            )
-//        }
-//        .paddingHorizontal()
-//    }
-    
     @ViewBuilder
     func academicInfoContent() -> some View {
             VStack(alignment: .leading, spacing: 0) {
@@ -561,6 +522,16 @@ extension OnboardingMainView {
                         number: $viewModel.previousGrade,
                         maxGradeStatus: $viewModel.maximumGrade
                     )
+                    .toolbar {
+                        ToolbarItemGroup(placement: .keyboard) {
+                            HStack {
+                                Spacer()
+                                Button("완료") {
+                                    isKeyboardOn = false
+                                }
+                            }
+                        }
+                    }
                     Text("/")
                         .font(.title_sm)
                         .foregroundStyle(.gray300)
@@ -594,7 +565,20 @@ extension OnboardingMainView {
                     .foregroundStyle(.gray600)
                     .padding(.vertical, 7)
                 HStack {
-                    GrayLineNumberFieldView(number: $viewModel.entireGrade, maxGradeStatus: $viewModel.maximumGrade)
+                    GrayLineNumberFieldView(
+                        number: $viewModel.entireGrade,
+                        maxGradeStatus: $viewModel.maximumGrade
+                    )
+                    .toolbar {
+                        ToolbarItemGroup(placement: .keyboard) {
+                            HStack {
+                                Spacer()
+                                Button("완료") {
+                                    isKeyboardOn = false
+                                }
+                            }
+                        }
+                    }
                     Text("/")
                         .font(.title_sm)
                         .foregroundStyle(.gray300)

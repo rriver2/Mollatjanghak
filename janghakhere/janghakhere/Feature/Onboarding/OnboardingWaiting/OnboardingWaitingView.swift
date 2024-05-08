@@ -67,8 +67,6 @@ struct OnboardingWaitingView: View {
             self.finalNumberList = separateDigits(viewModel.matchedScholarships)
             self.isCompleted = true
             print("finalNumberList", finalNumberList)
-            //FIXME: 켄 밑에 줄이랑 onboardingCompleteView는 삭제해도 될 거 같아요!
-//            pathModel.paths.append(.onboardingCompleteView(count: viewModel.matchedScholarships))
         }
     }
     
