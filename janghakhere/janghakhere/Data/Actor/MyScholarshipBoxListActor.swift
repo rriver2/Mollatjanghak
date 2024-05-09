@@ -15,7 +15,7 @@ struct MyScholarshipBoxContent: Decodable {
     let startDate: String?
     let endDate: String?
     let applyingStatus: String
-    let storedDate: Date
+    let storedDate: String
 }
 
 actor MyScholarshipBoxListActor {
@@ -32,6 +32,7 @@ actor MyScholarshipBoxListActor {
             case .recent:
                 parameter = "?recent=true"
             }
+//           /api/scholarships/members/{memberId}/stored
             let (data , response) = try await HTTPUtils.getURL(urlBack: "/api/scholarships/members/\(userID)/stored", parameter: parameter)
             
             let scholarshipList = try responseHandling(data, response)
@@ -55,7 +56,8 @@ actor MyScholarshipBoxListActor {
                 for entity in entityList {
                     let DDay = entity.endDate == nil ? nil : Date().calculationDday(endDateString: entity.endDate!)
                     
-                    let scholarshipBox = ScholarshipBox(id: String(entity.id), sponsor: entity.organization, title: entity.productName, DDay: DDay, prize: entity.supportDetails ?? "", publicAnnouncementStatus: .nothing)
+                    let status = PublicAnnouncementStatusCategory.getStatus(text: entity.applyingStatus)
+                    let scholarshipBox = ScholarshipBox(id: String(entity.id), sponsor: entity.organization, title: entity.productName, DDay: DDay, prize: entity.supportDetails ?? "", publicAnnouncementStatus: status)
                     returnEntity.append(scholarshipBox)
                 }
                 

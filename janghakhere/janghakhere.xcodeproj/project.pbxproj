@@ -481,10 +481,10 @@
 		FB978CB52BCD8ECF00347D47 /* MyScholarship */ = {
 			isa = PBXGroup;
 			children = (
-				FB19C9262BE147970039205E /* MyScholarshipViewModel.swift */,
 				FB978CA52BCD79CF00347D47 /* MyScholarshipView.swift */,
-				FB01DC1C2BE500B10057E37E /* SuccessFailViewModel.swift */,
+				FB19C9262BE147970039205E /* MyScholarshipViewModel.swift */,
 				7BB1E2A52BE898AE001350DE /* SuccessFailView.swift */,
+				FB01DC1C2BE500B10057E37E /* SuccessFailViewModel.swift */,
 			);
 			path = MyScholarship;
 			sourceTree = "<group>";

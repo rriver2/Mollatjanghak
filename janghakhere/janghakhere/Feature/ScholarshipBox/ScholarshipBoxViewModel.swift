@@ -31,8 +31,12 @@ extension ScholarshipBoxViewModel {
     private func postScholarshipStatus(id: String, status: PublicAnnouncementStatusCategory) {
         Task {
             do {
-                let successStatus = try await sholarshipStatusActor.postScholarshipStatus(id: id, status: status.rawValue)
-                if successStatus {
+                async let isStatusSuccess = self.sholarshipStatusActor.postScholarshipStatus(id: id, status: status.rawValue)
+                async let isStoredSuccess = self.sholarshipStatusActor.postScholarshipStatus(id: id, status: "stored")
+                
+                let (success1, success2) = await (try isStatusSuccess, try isStoredSuccess)
+                
+                if success1 && success2 {
                     changedStatus = status
                 } else {
                     // FIXME: Toast 저장 안 됐음 알리기

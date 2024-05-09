@@ -9,22 +9,37 @@ import SwiftUI
 
 @MainActor
 final class SuccessFailViewModel: ObservableObject {
+    let sholarshipStatusActor: ScholarshipStatusActor = ScholarshipStatusActor()
+    
+    @Published var isShowSavedError: Bool = false
     
     private var tasks: [Task<Void, Never>] = []
     
     func susseccButtonPressed(scholarship: ScholarshipBox) {
-        self.postScholarshipStatus(id: Int(scholarship.id) ?? 0, status: PublicAnnouncementStatusCategory.passed.rawValue)
+        self.postScholarshipStatus(id: scholarship.id, status: PublicAnnouncementStatusCategory.passed)
     }
     
     func failButtonPressed(scholarship: ScholarshipBox) {
-        self.postScholarshipStatus(id: Int(scholarship.id) ?? 0, status: PublicAnnouncementStatusCategory.non_passed.rawValue)
+        self.postScholarshipStatus(id: scholarship.id, status: PublicAnnouncementStatusCategory.non_passed)
     }
 }
 
 // private 함수들
 extension SuccessFailViewModel {
-    private func postScholarshipStatus(id: Int, status: String) {
-        
+    private func postScholarshipStatus(id: String, status: PublicAnnouncementStatusCategory) {
+        Task {
+            do {
+                let isStatusSuccess = try await sholarshipStatusActor.postScholarshipStatus(id: id, status: status.rawValue)
+                
+                if !isStatusSuccess {
+                    // FIXME: Toast 저장 안 됐음 알리기
+                    isShowSavedError = true
+                }
+            } catch {
+                isShowSavedError = true
+                print(error)
+            }
+        }
     }
 }
 

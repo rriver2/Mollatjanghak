@@ -115,7 +115,7 @@ extension SuccessFailView {
     @ViewBuilder
     private func failedButton() -> some View {
         Button {
-            scholarshipBox!.publicAnnouncementStatus = .non_passed
+            failedFinishedButtonPressed()
         } label: {
             Text("불합격")
                 .padding(.vertical, 20)
@@ -131,14 +131,7 @@ extension SuccessFailView {
     @ViewBuilder
     private func submitButton() -> some View {
         Button {
-            switch  scholarshipBox!.publicAnnouncementStatus {
-            case .non_passed:
-                failedFinishedButtonPressed()
-            case .passed:
-                passedFinishedButtonPressed()
-            default:
-                break
-            }
+            passedFinishedButtonPressed()
         } label: {
             let isSubmitmode = scholarshipBox!.publicAnnouncementStatus == .non_passed || (scholarshipBox!.publicAnnouncementStatus == .passed && !amount.isEmpty)
             Text("완료")
