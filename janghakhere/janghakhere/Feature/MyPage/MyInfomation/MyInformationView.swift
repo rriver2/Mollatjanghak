@@ -187,23 +187,25 @@ extension MyInformationView {
                     .padding(.bottom, 8)
                 Spacer()
             }
-            Button {
-                // TODO: 생년월일
-            } label: {
-                HStack(spacing: 0) {
-                    Text(viewModel.birth.MyInfoDateFomatter())
-                    Spacer()
-                    Icon(name: .chevronRight, color: .black, size: 16)
-                }
-                .font(.text_md)
-                .foregroundStyle(.black)
-                .padding(.vertical, 16)
-                .padding(.horizontal, 16)
-                .background(
-                    .gray50,
-                    in: RoundedRectangle(cornerRadius: 10)
-                )
+            HStack(spacing: 0) {
+                Text(viewModel.birthDate.MyInfoDateFomatter())
+                Spacer()
+                Icon(name: .chevronRight, color: .black, size: 16)
             }
+            .font(.text_md)
+            .foregroundStyle(.black)
+            .padding(.vertical, 16)
+            .padding(.horizontal, 16)
+            .background(
+                .gray50,
+                in: RoundedRectangle(cornerRadius: 10)
+            )
+        }
+        .onTapGesture {
+            $viewModel.isShowBirthdaySheet.wrappedValue = true
+        }
+        .sheet(isPresented: $viewModel.isShowBirthdaySheet) {
+            DateSelectionView(date: $viewModel.birthDate)
         }
         .padding(.bottom, 24)
     }
@@ -245,22 +247,29 @@ extension MyInformationView {
                 }
                 horizontalDivider()
                 
-                Button {
-                    // 학년 교정 시트
-                } label: {
-                    HStack(spacing: 0) {
-                        Text("학년")
-                            .font(.semi_title_md)
-                            .foregroundStyle(.gray600)
-                        Spacer()
-                        Text(viewModel.schoolYear.description)
-                            .font(.text_md)
-                            .foregroundStyle(.black)
-                            .padding(.trailing, 16)
-                        Icon(name: .chevronRight, color: .black, size: 16)
-                    }
-                }
                 
+                HStack(spacing: 0) {
+                    Text("학년")
+                        .font(.semi_title_md)
+                        .foregroundStyle(.gray600)
+                    Spacer()
+                    Text(viewModel.schoolYear.description)
+                        .font(.text_md)
+                        .foregroundStyle(.black)
+                        .padding(.trailing, 16)
+                    Icon(name: .chevronRight, color: .black, size: 16)
+                }
+                .onTapGesture {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        viewModel.isShowSchoolYearSheet = true
+                    }
+                    
+                }
+                .sheet(isPresented: $viewModel.isShowSchoolYearSheet) {
+                    SemesterYearSelectionView(
+                        year: $viewModel.schoolYear
+                    )
+                }
                 
                 horizontalDivider()
                 Button {
@@ -337,20 +346,21 @@ extension MyInformationView {
                 }
                 
                 horizontalDivider()
-                Button {
-                    // 학교 호출
-                } label: {
-                    HStack(spacing: 0) {
-                        Text("총 학점")
-                            .font(.semi_title_md)
-                            .foregroundStyle(.gray600)
-                        Spacer()
-                        Text(viewModel.maxGrade.description)
-                            .font(.text_md)
-                            .foregroundStyle(.black)
-                            .padding(.trailing, 16)
-                        Icon(name: .chevronRight, color: .black, size: 16)
-                    }
+                HStack(spacing: 0) {
+                    Text("총 학점")
+                        .font(.semi_title_md)
+                        .foregroundStyle(.gray600)
+                    Spacer()
+                    Text(viewModel.maxGrade.description)
+                        .font(.text_md)
+                        .foregroundStyle(.black)
+                        .padding(.trailing, 16)
+                    Icon(name: .chevronRight, color: .black, size: 16)
+                }.onTapGesture {
+                    viewModel.isShowGradeSheet = true
+                }
+                .sheet(isPresented: $viewModel.isShowGradeSheet) {
+                    MaxGradeSheet(maxGrade: $viewModel.maxGrade)
                 }
             }
             .padding(16)
@@ -373,23 +383,27 @@ extension MyInformationView {
                     .padding(.bottom, 8)
                 Spacer()
             }
-            Button {
-                // TODO: 생년월일
-            } label: {
-                HStack(spacing: 0) {
-                    Text(viewModel.incomeStatus.description)
-                    Spacer()
-                    Icon(name: .chevronRight, color: .black, size: 16)
-                }
-                .font(.text_md)
-                .foregroundStyle(.black)
-                .padding(.vertical, 20)
-                .padding(.horizontal, 16)
-                .background(
-                    .gray50,
-                    in: RoundedRectangle(cornerRadius: 10)
-                )
+            
+            HStack(spacing: 0) {
+                Text(viewModel.incomeStatus.description)
+                Spacer()
+                Icon(name: .chevronRight, color: .black, size: 16)
             }
+            .font(.text_md)
+            .foregroundStyle(.black)
+            .padding(.vertical, 20)
+            .padding(.horizontal, 16)
+            .background(
+                .gray50,
+                in: RoundedRectangle(cornerRadius: 10)
+            )
+            .onTapGesture {
+                viewModel.isShowIncomeSheet = true
+            }
+            .sheet(isPresented: $viewModel.isShowIncomeSheet) {
+                IncomeSelectionView(income: $viewModel.incomeStatus)
+            }
+            
         }
         .padding(.bottom, 32)
     }

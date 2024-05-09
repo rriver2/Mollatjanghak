@@ -15,7 +15,7 @@ final class MyInformationViewModel: ObservableObject {
     
     @Published var name: String = "미입력"
     @Published var sex: Sex = .notSelected
-    @Published var birth: Date = Date()
+    @Published var birthDate: Date = Date()
     @Published var militaryStatus: MilitaryStatus = .notSelected
     @Published var incomeStatus: IncomeDecile = .notSelected
     @Published var siblingStatus: SiblingStatus = .notSelected
@@ -25,6 +25,16 @@ final class MyInformationViewModel: ObservableObject {
     @Published var lastSemesterGrade: String = "미입력"
     @Published var totalGrade: String = "미입력"
     @Published var maxGrade: MaxGradeStatus = .notSelected
+    
+    @Published var isShowBirthdaySheet: Bool = false
+    @Published var isShowSchoolYearSheet: Bool = false
+    @Published var isShowGradeSheet: Bool = false
+    
+    @Published var isShowSchoolNameSheet: Bool = false
+    @Published var isShowMajorSheet: Bool = false
+    @Published var isShowGradesSheet: Bool = false
+    @Published var isShowSiblingSheet: Bool = false
+    @Published var isShowIncomeSheet: Bool = false
     
     private var tasks: [Task<Void, Never>] = []
 }
@@ -40,7 +50,7 @@ extension MyInformationViewModel {
                 
                 self.name = loadedUserData.name
                 self.sex = loadedUserData.sex
-                self.birth = loadedUserData.birth
+                self.birthDate = loadedUserData.birth
                 
                 if let lastGrade = loadedUserData.lastSemesterGrade {
                     self.lastSemesterGrade = String(lastGrade)
