@@ -30,6 +30,7 @@ struct DetailScholarshipContent: Decodable {
     let homePageUrl: String?
     let startDate: String?
     let endDate: String?
+    let applyingStatus: String?
 }
 
 actor DetailScholarshipActor {

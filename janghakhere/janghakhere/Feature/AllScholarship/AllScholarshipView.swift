@@ -32,7 +32,7 @@ struct AllScholarshipView: View {
                         if viewModel.scholarshipCategory == .custom && viewModel.scholarshipList.isEmpty {
                             emptyCustomScholarshipView(proxy: proxy)
                         } else {
-                            ScholarshipBoxListView(isGetMoreScholarshipBox: $viewModel.isGetMoreScholarshipBox, scholarshipList: $viewModel.scholarshipList, isShowPassStatus: false)
+                            ScholarshipBoxListView(isGetMoreScholarshipBox: $viewModel.isGetMoreScholarshipBox, scholarshipList: $viewModel.scholarshipList, boxCategory: .AllScholarship, isShowPassStatus: false)
                                 .onChange(of: viewModel.isGetMoreScholarshipBox, { _, _ in
                                     userTouchedBottomOfTheScroll()
                                 })
