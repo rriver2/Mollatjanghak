@@ -43,10 +43,14 @@ final class OnboardingMainViewModel: ObservableObject {
     
     @Published var currentPage: Int = 0
     @Published var name: String = ""
-    @Published var sex: Sex = .notSelected
     @Published var birthDate: Date = .now
     @Published var schoolName: String = ""
+    @Published var previousGrade: Double = 0.0
+    @Published var entireGrade: Double = 0.0
     
+    @Published var sex: Sex = .notSelected
+    @Published var incomeDecile: IncomeDecile = .notSelected
+    @Published var maximumGrade: MaxGradeStatus = .fourDotFive
     @Published var semesterYear: SemesterYear = .notSelected
     @Published var semesterStatus: SemesterStatus = .notSelected
     @Published var enrollmentStatus: EnrollmentStatus = .notSelected
@@ -55,6 +59,39 @@ final class OnboardingMainViewModel: ObservableObject {
     
     @Published var isShowBirthdaySheet = false
     @Published var isShowSemesterSheet = false
+    @Published var isShowIncomeSheet = false
+    @Published var isShowGradeSheet = false
+    
+    private var nilPreviousGrade: Double? {
+        if previousGrade != 0 {
+                return previousGrade
+        } else {
+            return  nil
+        }
+    }
+    private var nilEntireGrade: Double? {
+        if entireGrade != 0 {
+            return entireGrade
+        } else {
+            return nil
+        }
+    }
+    
+    private var nilIncomeDecile: String? {
+        if incomeDecile != .notSelected {
+            return incomeDecile.description
+        } else {
+            return nil
+        }
+    }
+    
+    private var nilMaximumGrade: String? {
+        if maximumGrade != .notSelected {
+            return maximumGrade.description
+        } else {
+            return nil
+        }
+    }
 }
 
 // MARK: - private 함수들
@@ -154,7 +191,11 @@ extension OnboardingMainViewModel {
             schoolName: schoolName,
             enrolled: enrollmentStatus.description,
             semester: refineSemesterInfo,
-            majorCategory: majorField.description
+            majorCategory: majorField.description,
+            previousGrade: nilPreviousGrade,
+            entireGrade: nilEntireGrade,
+            maximumGrade: nilMaximumGrade,
+            incomeDecile: nilIncomeDecile
         )
         return userData
     }
@@ -171,10 +212,10 @@ extension OnboardingMainViewModel {
             schoolYear: semesterYear,
             semester: semesterStatus,
             majorCategory: majorField,
-            lastSemesterGrade: nil,
-            totalGrade: nil,
-            maximumGrade: nil,
-            incomeRange: nil,
+            lastSemesterGrade: nilPreviousGrade,
+            totalGrade: nilEntireGrade,
+            maximumGrade: maximumGrade,
+            incomeRange: incomeDecile,
             militaryService: nil,
             siblingStatus: nil,
             detailedConditions: [],

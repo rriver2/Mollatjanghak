@@ -34,6 +34,7 @@ struct TapView: View {
                 }
                 .tag(2)
         }
+        .tint(.black)
     }
 }
 

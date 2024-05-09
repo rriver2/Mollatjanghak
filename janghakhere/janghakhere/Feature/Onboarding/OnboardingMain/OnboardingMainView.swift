@@ -46,12 +46,37 @@ enum DegreesStatus: String, CaseIterable, CustomStringConvertible, Codable {
     }
 }
 
+enum IncomeDecile: String, CaseIterable, CustomStringConvertible, Codable {
+    case first = "1분위"
+    case second = "2분위"
+    case third = "3분위"
+    case fourth = "4분위"
+    case fifth = "5분위"
+    case sixth = "6분위"
+    case seventh = "7분위"
+    case eighth = "8분위"
+    case ninth = "9분위"
+    case tenth = "10분위"
+    case notSelected = "선택 안 됨"
+    
+    var description: String {
+        self.rawValue
+    }
+}
+
+enum Field: Hashable {
+  case first
+  case second
+}
+
 struct OnboardingMainView: View {
     @EnvironmentObject private var pathModel: PathModel
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = OnboardingMainViewModel()
     @FocusState private var isKeyboardOn: Bool
     @AppStorage("userName") private var userName: String = ""
+    
+    @FocusState var isNumKeyboardOn: Field?
     
     var filteredSemesterStatuses: [SemesterStatus] {
         switch viewModel.semesterYear {
@@ -85,6 +110,10 @@ struct OnboardingMainView: View {
                     .tag(4)
                 majorContent()
                     .tag(5)
+                academicInfoContent()
+                    .tag(6)
+                incomeDecileContent()
+                    .tag(7)
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
         }
@@ -121,7 +150,7 @@ extension OnboardingMainView {
             }
             .padding(.trailing, 8)
             
-            ProgressView(value: Double(viewModel.currentPage) * 0.2)
+            ProgressView(value: Double(viewModel.currentPage) / 7)
                 .tint(.mainGray)
         }
         .paddingHorizontal()
@@ -456,12 +485,8 @@ extension OnboardingMainView {
             MainButtonView(
                 title: "다음",
                 action: {
-                    viewModel.saveUserData()
                     withAnimation {
-                        pathModel.paths.append(.onboardingWaitingView(
-                            userData: viewModel.makeUserData()
-                        )
-                        )
+                        viewModel.currentPage = 6
                     }
                 },
                 disabled: false
@@ -470,14 +495,147 @@ extension OnboardingMainView {
         .paddingHorizontal()
     }
     
+    @ViewBuilder
+    func academicInfoContent() -> some View {
+            VStack(alignment: .leading, spacing: 0) {
+                HStack {
+                    Spacer()
+                    Button {
+                        withAnimation {
+                            viewModel.currentPage += 1
+                        }
+                    } label: {
+                        Text("다음에 입력할래요")
+                            .foregroundStyle(.gray400)
+                            .font(.text_sm)
+                            .underline()
+                    }
+                }
+                .padding(.top, 16)
+                
+                Text("학교 성적을 입력해 주세요")
+                    .font(.title_md)
+                    .foregroundStyle(.black)
+                    .padding(.top, 23)
+                    .padding(.bottom, 31)
+                
+                Text("직전학기 성적")
+                    .font(.title_xsm)
+                    .foregroundStyle(.gray600)
+                    .padding(.vertical, 6)
+                
+                HStack {
+                    GrayLineNumberFieldView(
+                        number: $viewModel.previousGrade,
+                        maxGradeStatus: $viewModel.maximumGrade, 
+                        isKeyboardOn: isNumKeyboardOn == .first
+                    )
+                    .focused($isNumKeyboardOn, equals: .first)
+                    .toolbar {
+                        ToolbarItemGroup(placement: .keyboard) {
+                            HStack {
+                                Spacer()
+                                Button("완료") {
+                                    isNumKeyboardOn = nil
+                                }
+                            }
+                        }
+                    }
+                    Text("/")
+                        .font(.title_sm)
+                        .foregroundStyle(.gray300)
+                    HStack(spacing: 12) {
+                        Text(viewModel.maximumGrade == .notApplicable ? "--" : viewModel.maximumGrade.rawValue)
+                            .font(.title_sm)
+                            .foregroundStyle(.black)
+                        Image(systemName: "chevron.down")
+                            .foregroundStyle(.gray500)
+                    }
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 12)
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(.gray60)
+                    )
+                    .onTapGesture {
+                        viewModel.isShowGradeSheet = true
+                    }
+                    .sheet(isPresented: $viewModel.isShowGradeSheet) {
+                        MaxGradeSheet(maxGrade: $viewModel.maximumGrade)
+                    }
+                    Text("점")
+                        .font(.title_xmd)
+                        .foregroundStyle(.black)
+                }
+                .padding(.bottom, 46)
+                
+                Text("전체학기 성적")
+                    .font(.title_xsm)
+                    .foregroundStyle(.gray600)
+                    .padding(.vertical, 7)
+                HStack {
+                    GrayLineNumberFieldView(
+                        number: $viewModel.entireGrade,
+                        maxGradeStatus: $viewModel.maximumGrade,
+                        isKeyboardOn: isNumKeyboardOn == .second
+                    )
+                    .focused($isNumKeyboardOn, equals: .second)
+                    Text("/")
+                        .font(.title_sm)
+                        .foregroundStyle(.gray300)
+                    HStack(spacing: 12) {
+                        Text(viewModel.maximumGrade == .notApplicable ? "--" : viewModel.maximumGrade.rawValue)
+                            .font(.title_sm)
+                            .foregroundStyle(.black)
+                        Image(systemName: "chevron.down")
+                            .foregroundStyle(.gray500)
+                    }
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 12)
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(.gray60)
+                    )
+                    .onTapGesture {
+                        viewModel.isShowGradeSheet = true
+                    }
+                    .sheet(isPresented: $viewModel.isShowGradeSheet) {
+                        MaxGradeSheet(maxGrade: $viewModel.maximumGrade)
+                    }
+                    Text("점")
+                        .font(.title_xmd)
+                        .foregroundStyle(.black)
+                }
+                .padding(.bottom, 46)
+                
+                Spacer()
+                
+                MainButtonView(
+                    title: "다음",
+                    action: {
+                        withAnimation {
+                            viewModel.currentPage = 7
+                        }
+                    },
+                    disabled: viewModel.previousGrade == 0 || viewModel.entireGrade == 0
+                )
+            }
+            .paddingHorizontal()
+    }
     
     @ViewBuilder
-    private func extraContent() -> some View {
+    func incomeDecileContent() -> some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
                 Spacer()
                 Button {
-                    // TODO: 다음에 입력
+                    viewModel.saveUserData()
+                    withAnimation {
+                        pathModel.paths.append(.onboardingWaitingView(
+                            userData: viewModel.makeUserData()
+                        )
+                        )
+                    }
                 } label: {
                     Text("다음에 입력할래요")
                         .foregroundStyle(.gray400)
@@ -487,23 +645,51 @@ extension OnboardingMainView {
             }
             .padding(.top, 16)
             
-            Text("해당사항을 모두 선택해주세요")
+            Text("소득구간을 선택해 주세요")
                 .font(.title_md)
                 .foregroundStyle(.mainGray)
-                .padding(.top, 24)
-                .padding(.bottom, 64)
+                .padding(.top, 23)
+                .padding(.bottom, 60)
+            
+            GrayBoxGridView<IncomeDecile>(
+                column: .two,
+                titleList: IncomeDecile.allCases,
+                action: {},
+                selectedElement: $viewModel.incomeDecile
+            )
+            .padding(.vertical, 8)
+            
             Spacer()
+            HStack {
+                Spacer()
+                Button {
+                    viewModel.isShowIncomeSheet = true
+                } label: {
+                    Text("소득구간을 잘 모르겠나요?")
+                        .font(.text_md)
+                        .foregroundStyle(.gray500)
+                        .underline()
+                }
+                .sheet(isPresented: $viewModel.isShowIncomeSheet) {
+                    IncomeConfirmView()
+                }
+                Spacer()
+            }
+            Spacer()
+            
             MainButtonView(
-                title: "완료",
+                title: "다음",
                 action: {
-                    isKeyboardOn = false
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        withAnimation {
-                            viewModel.currentPage = 1
-                        }
+                    viewModel.saveUserData()
+                    withAnimation {
+                        pathModel.paths.append(.onboardingWaitingView(
+                            userData: viewModel.makeUserData()
+                        )
+                        )
                     }
+                    
                 },
-                disabled: viewModel.name == ""
+                disabled: viewModel.incomeDecile == .notSelected
             )
         }
         .paddingHorizontal()
