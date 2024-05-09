@@ -24,6 +24,7 @@ final class MyInformationViewModel: ObservableObject {
     @Published var majorField: MajorField = .notSelected
     @Published var lastSemesterGrade: String = "미입력"
     @Published var totalGrade: String = "미입력"
+    @Published var maxGrade: MaxGradeStatus = .notSelected
     
     private var tasks: [Task<Void, Never>] = []
 }
@@ -75,6 +76,13 @@ extension MyInformationViewModel {
                 } else {
                     self.totalGrade = "미입력"
                 }
+                
+                if let maxGrade = loadedUserData.maximumGrade {
+                    self.maxGrade = maxGrade
+                } else {
+                    self.maxGrade = .notSelected
+                }
+                
             } catch {
                 print("Failed to decode user data: \(error)")
             }

@@ -345,7 +345,7 @@ extension MyInformationView {
                             .font(.semi_title_md)
                             .foregroundStyle(.gray600)
                         Spacer()
-                        Text(viewModel.totalGrade)
+                        Text(viewModel.maxGrade.description)
                             .font(.text_md)
                             .foregroundStyle(.black)
                             .padding(.trailing, 16)
