@@ -419,23 +419,26 @@ extension MyInformationView {
                     .padding(.bottom, 8)
                 Spacer()
             }
-            Button {
-                // TODO: 생년월일
-            } label: {
-                HStack(spacing: 0) {
-                    Text(viewModel.siblingStatus.description)
-                    Spacer()
-                    Icon(name: .chevronRight, color: .black, size: 16)
-                }
-                .font(.text_md)
-                .foregroundStyle(.black)
-                .padding(.vertical, 20)
-                .padding(.horizontal, 16)
-                .background(
-                    .gray50,
-                    in: RoundedRectangle(cornerRadius: 10)
-                )
+            HStack(spacing: 0) {
+                Text(viewModel.siblingStatus.description)
+                Spacer()
+                Icon(name: .chevronRight, color: .black, size: 16)
             }
+            .font(.text_md)
+            .foregroundStyle(.black)
+            .padding(.vertical, 20)
+            .padding(.horizontal, 16)
+            .background(
+                .gray50,
+                in: RoundedRectangle(cornerRadius: 10)
+            )
+            .onTapGesture {
+                viewModel.isShowSiblingSheet = true
+            }
+            .sheet(isPresented: $viewModel.isShowSiblingSheet) {
+                SiblingSelectionView(siblingStatus: $viewModel.siblingStatus)
+            }
+            
         }
         .padding(.bottom, 32)
     }

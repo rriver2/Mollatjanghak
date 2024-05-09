@@ -38,6 +38,7 @@
 		7B6445D92BDD489F00D4AF74 /* EnrollmentStatusGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445D82BDD489F00D4AF74 /* EnrollmentStatusGrid.swift */; };
 		7B6445DB2BDD5FC400D4AF74 /* VerticalButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445DA2BDD5FC400D4AF74 /* VerticalButtonGroup.swift */; };
 		7BAD1BEC2BED265A00BFAEA6 /* IncomeSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD1BEB2BED265A00BFAEA6 /* IncomeSelectionView.swift */; };
+		7BAD1BEE2BED2BB600BFAEA6 /* SiblingSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD1BED2BED2BB600BFAEA6 /* SiblingSelectionView.swift */; };
 		7BB1E28B2BE6343C001350DE /* OnboardingChipsGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB1E28A2BE6343C001350DE /* OnboardingChipsGroup.swift */; };
 		7BB1E28D2BE6446B001350DE /* OnboardingChipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB1E28C2BE6446B001350DE /* OnboardingChipModel.swift */; };
 		7BB1E2922BE67AEC001350DE /* TapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB1E2912BE67AEC001350DE /* TapView.swift */; };
@@ -152,6 +153,7 @@
 		7B6445D82BDD489F00D4AF74 /* EnrollmentStatusGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollmentStatusGrid.swift; sourceTree = "<group>"; };
 		7B6445DA2BDD5FC400D4AF74 /* VerticalButtonGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalButtonGroup.swift; sourceTree = "<group>"; };
 		7BAD1BEB2BED265A00BFAEA6 /* IncomeSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeSelectionView.swift; sourceTree = "<group>"; };
+		7BAD1BED2BED2BB600BFAEA6 /* SiblingSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiblingSelectionView.swift; sourceTree = "<group>"; };
 		7BB1E28A2BE6343C001350DE /* OnboardingChipsGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingChipsGroup.swift; sourceTree = "<group>"; };
 		7BB1E28C2BE6446B001350DE /* OnboardingChipModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingChipModel.swift; sourceTree = "<group>"; };
 		7BB1E2912BE67AEC001350DE /* TapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapView.swift; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 				7B6445CE2BD6BAA200D4AF74 /* MaxGradeSheet.swift */,
 				7BB1E2992BE7FD74001350DE /* ServiceAgreementView.swift */,
 				7BAD1BEB2BED265A00BFAEA6 /* IncomeSelectionView.swift */,
+				7BAD1BED2BED2BB600BFAEA6 /* SiblingSelectionView.swift */,
 			);
 			path = Sheet;
 			sourceTree = "<group>";
@@ -773,6 +776,7 @@
 				FB978CA42BCD777000347D47 /* Utils.swift in Sources */,
 				FB29306B2BDC0633009AB2EF /* ResetInfoViewModel.swift in Sources */,
 				FBFB8ED02BE9339C0036B9B9 /* ScholarshipBoxListFliteringCategory.swift in Sources */,
+				7BAD1BEE2BED2BB600BFAEA6 /* SiblingSelectionView.swift in Sources */,
 				FB978CAA2BCD79F300347D47 /* MyPageView.swift in Sources */,
 				FB27A2AC2BD2A118007C62D0 /* SearchScholarshipViewModel.swift in Sources */,
 				7B6445D92BDD489F00D4AF74 /* EnrollmentStatusGrid.swift in Sources */,

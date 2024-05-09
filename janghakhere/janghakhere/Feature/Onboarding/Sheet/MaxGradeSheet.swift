@@ -33,28 +33,24 @@ struct MaxGradeSheet: View {
             }
             ForEach(MaxGradeStatus.allCases, id: \.self) { grade in
                 if grade != .notSelected {
-                    Button {
+                    HStack {
+                        Text(grade.description)
+                            .font(.title_xsm)
+                            .foregroundColor(maxGrade == grade ? .subGreen : .gray700)
+                            .padding(.horizontal, 28)
+                            .padding(.vertical, 21)
+                        
+                        Spacer()
+                        if maxGrade == grade {
+                            Image(systemName: "checkmark")
+                                .foregroundStyle(.green)
+                                .font(.system(size: 16))
+                                .padding()
+                        }
+                    }
+                    .contentShape(RoundedRectangle(cornerRadius: 10))
+                    .onTapGesture {
                         maxGrade = grade
-                    } label: {
-                        HStack {
-                            Text(grade.description)
-                                .font(.title_xsm)
-                                .foregroundColor(maxGrade == grade ? .subGreen : .gray700)
-                                .padding(.horizontal, 28)
-                                .padding(.vertical, 21)
-                            
-                            Spacer()
-                            if maxGrade == grade {
-                                Image(systemName: "checkmark")
-                                    .foregroundStyle(.green)
-                                    .font(.system(size: 16))
-                                    .padding()
-                            }
-                        }
-                        .background {
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(.clear)
-                        }
                     }
                 }
             }
