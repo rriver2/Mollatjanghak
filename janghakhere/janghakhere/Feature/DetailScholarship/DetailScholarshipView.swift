@@ -17,6 +17,8 @@ struct DetailScholarshipView: View {
     @State private var showApplication: Bool = true
     @State private var showSelection: Bool = true
     @State private var showRequirement: Bool = true
+    
+    let scholarshipBoxViewModel = ScholarshipBoxViewModel()
     private let effortLevelTip = EffortLevelTip()
     
     var body: some View {
@@ -45,13 +47,18 @@ struct DetailScholarshipView: View {
                                 .padding(.bottom, 190)
                         }
                     }
-//                    buttons()
+                    buttons()
                 case .failed:
                     VStack {
                         Text("에러 발생")
                         Spacer()
                     }
                 }
+            }
+        }
+        .onChange(of: scholarshipBoxViewModel.changedStatus) { oldValue, newValue in
+            if let status = scholarshipBoxViewModel.changedStatus {
+                viewModel.status = status
             }
         }
         .onAppear {
@@ -93,79 +100,14 @@ extension DetailScholarshipView {
                         .fill(viewModel.status.detailViewButtonColor)
                 )
             }
-            
-//            Button {
-//                
-//            } label: {
-//                HStack(spacing: 8) {
-//                    Icon(name: .floppyDisk, color: .white, size: 20)
-//                    Text("저장완료")
-//                        .font(.title_xsm)
-//                }
-//                .padding(.vertical, 14)
-//                .padding(.horizontal, 24)
-//                .foregroundStyle(.white)
-//                .background(
-//                    Capsule()
-//                        .fill(.subGreen)
-//                )
-//            }
-//            Button {
-//                
-//            } label: {
-//                HStack(spacing: 8) {
-//                    Icon(name: .fire, color: .white, size: 20)
-//                    Text("지원예정")
-//                        .font(.title_xsm)
-//                }
-//                .padding(.vertical, 14)
-//                .padding(.horizontal, 24)
-//                .foregroundStyle(.white)
-//                .background(
-//                    Capsule()
-//                        .fill(.subPink)
-//                )
-//            }
-//            Button {
-//                // 시트 콜
-//            } label: {
-//                HStack(spacing: 8) {
-//                    Icon(name: .check, color: .white, size: 20)
-//                    Text("지원완료")
-//                        .font(.title_xsm)
-//                }
-//                .padding(.vertical, 14)
-//                .padding(.horizontal, 24)
-//                .foregroundStyle(.white)
-//                .background(
-//                    Capsule()
-//                        .fill(.subPurple)
-//                )
-//            }
             .sheet(isPresented: $viewModel.isStatusSheet) {
-                ScholarshipPostingSheet(category: $viewModel.status) { status in
+                ScholarshipPostingSheet(category: $viewModel.status, statusButtonPressed: { category in
                     if let detailContent = viewModel.detailContent {
-                        viewModel.statusButtonPressed(status: status, id: String(detailContent.id))
+                        scholarshipBoxViewModel.sheetStorageButtonPressed(id: String(detailContent.id), status: category)
                     }
-                }
+                    viewModel.isStatusSheet = false
+                })
             }
-            
-//            Button {
-//                // 웹뷰 열기
-//            } label: {
-//                HStack(spacing: 8) {
-//                    Icon(name: .handFist, color: .white, size: 20)
-//                    Text("지원하기")
-//                        .font(.title_xsm)
-//                }
-//                .padding(.vertical, 14)
-//                .padding(.horizontal, 24)
-//                .foregroundStyle(.white)
-//                .background(
-//                    Capsule()
-//                        .fill(.mainGray)
-//                )
-//            }
         }
     }
     

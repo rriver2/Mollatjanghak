@@ -9,7 +9,6 @@ import SwiftUI
 
 @MainActor
 final class SuccessFailViewModel: ObservableObject {
-    let successFailActor: ScholarshipStatusActor = ScholarshipStatusActor()
     
     private var tasks: [Task<Void, Never>] = []
     
@@ -25,14 +24,7 @@ final class SuccessFailViewModel: ObservableObject {
 // private 함수들
 extension SuccessFailViewModel {
     private func postScholarshipStatus(id: Int, status: String) {
-        let task = Task {
-            do {
-                _ = try await successFailActor.postScholarshipStatus(id: id, status: status)
-            } catch {
-                print(error)
-            }
-        }
-        tasks.append(task)
+        
     }
 }
 

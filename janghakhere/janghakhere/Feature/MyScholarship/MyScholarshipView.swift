@@ -190,9 +190,9 @@ extension MyScholarshipView {
         //TODO: TabView
         VStack(spacing: 0) {
             if viewModel.selectedCategoryName == MyScholarshipCategory.storedName {
-                ScholarshipBoxListView(isGetMoreScholarshipBox: .constant(false), scholarshipList: $viewModel.selectedScholarShipList, isShowPassStatus: false)
+                ScholarshipBoxListView(isGetMoreScholarshipBox: .constant(false), scholarshipList: $viewModel.selectedScholarShipList, boxCategory: .DetailScholarship, isShowPassStatus: false)
             } else {
-                ScholarshipBoxListView(isGetMoreScholarshipBox: .constant(false), scholarshipList: $viewModel.selectedScholarShipList, isShowPassStatus: true)
+                ScholarshipBoxListView(isGetMoreScholarshipBox: .constant(false), scholarshipList: $viewModel.selectedScholarShipList, boxCategory: .SearchScholarship, isShowPassStatus: true)
             }
             Spacer()
         }

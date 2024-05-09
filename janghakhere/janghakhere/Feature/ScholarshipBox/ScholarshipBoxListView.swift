@@ -15,6 +15,7 @@ struct ScholarshipBoxListView: View {
     @State var selectedScholarship: ScholarshipBox? = nil
     @Binding var isGetMoreScholarshipBox: Bool
     @Binding var scholarshipList: [ScholarshipBox]
+    let boxCategory: BoxCategory
     
     let isShowPassStatus: Bool
     
@@ -23,22 +24,22 @@ struct ScholarshipBoxListView: View {
             ScrollView {
                 LazyVStack (spacing: 0) {
                     // 장학금 박스들
-                    ForEach(scholarshipList, id: \.self) { scholarship in
+                    ForEach(scholarshipList.indices, id: \.self) { index in
                         Button {
-                            pathModel.paths.append(.detailScholarshipView(id: scholarship.id))
+                            pathModel.paths.append(.detailScholarshipView(id: scholarshipList[index].id))
                         } label: {
                             if !isShowPassStatus {
-                                ScholarshipBoxView(scholarshipBox: scholarship)
+                                ScholarshipBoxView(scholarshipBox: $scholarshipList[index], category: boxCategory)
                             } else {
-                                switch scholarship.publicAnnouncementStatus {
+                                switch scholarshipList[index].publicAnnouncementStatus {
                                 case  .nothing, .saved, .planned, .non_passed, .passed:
-                                    ScholarshipBoxView(scholarshipBox: scholarship)
+                                    ScholarshipBoxView(scholarshipBox: $scholarshipList[index], category: boxCategory)
                                 case .applied:
                                     VStack(alignment: .leading, spacing: 0) {
-                                        ScholarshipBoxView(scholarshipBox: scholarship)
+                                        ScholarshipBoxView(scholarshipBox: $scholarshipList[index], category: boxCategory)
                                         Button {
                                             self.isShowPassModal = true
-                                            self.selectedScholarship = scholarship
+                                            self.selectedScholarship = scholarshipList[index]
                                         } label: {
                                             Text("합격 여부 입력")
                                                 .padding(.vertical, 13)
@@ -59,11 +60,8 @@ struct ScholarshipBoxListView: View {
                         .cornerRadius(8)
                         .padding(.top, 16)
                         .shadow(color: Color(red: 0.51, green: 0.55, blue: 0.58).opacity(0.1), radius: 4, x: 0, y: 0)
-                        .id(scholarship.id)
+                        .id(scholarshipList[index].id)
                         .onAppear {
-                            // 현재 보여진 datum의 index 값을 구하기
-                            guard let index = scholarshipList.firstIndex(where: { $0.id == scholarship.id }) else { return }
-                            
                             // 해당 index가 거의 끝으로 왔다면 데이터 추가
                             if index == scholarshipList.count - 1 {
                                 isGetMoreScholarshipBox = true

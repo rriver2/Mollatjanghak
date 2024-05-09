@@ -70,7 +70,7 @@ extension SearchScholarshipViewModel {
             do {
                 let (scholarshipList, totalScholarshipCount, currentPageNumber, totalPages) = try await managerActor.fetchSearchScholarshipBoxList(page: nextPageNumber, keyword: searchContent)
                 
-                self.scholarshipList.append(contentsOf: ScholarshipBoxManager.checkScholarshipBoxListStatus(scholarshipBoxList: scholarshipList))
+                self.scholarshipList.append(contentsOf: scholarshipList)
                 self.nextPageNumber = currentPageNumber + 1
                 self.totalScholarshipCount = totalScholarshipCount
                 if !(totalPages < nextPageNumber) {

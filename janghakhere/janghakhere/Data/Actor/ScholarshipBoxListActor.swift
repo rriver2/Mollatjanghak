@@ -23,7 +23,7 @@ actor ScholarshipBoxListActor {
             case .deadline:
                 parameter = "page=\(page)&deadline=true"
             }
-            guard let userID = getUserID() else { throw URLError(.unknown) }
+            guard let userID = UserDateActor.getUserID() else { throw URLError(.unknown) }
             
             let (data , response) = try await HTTPUtils.getURL(urlBack: "/api/scholarships?memberId=\(userID)&", parameter: parameter)
             
@@ -46,7 +46,7 @@ actor ScholarshipBoxListActor {
             case .deadline:
                 parameter = "page=\(page)&deadline=true"
             }
-            guard let userID = getUserID() else { throw URLError(.unknown) }
+            guard let userID = UserDateActor.getUserID() else { throw URLError(.unknown) }
             let (data , response) = try await HTTPUtils.getURL(urlBack: "/api/scholarships/members/\(userID)?", parameter: parameter)
             
             return try MyScholarshipBoxListManager.responseHandling(data, response)
@@ -60,7 +60,7 @@ actor ScholarshipBoxListActor {
         do {
             let parameter = "page=\(page)&keyword=\(keyword)&deadline=true"
             
-            guard let userID = getUserID() else { throw URLError(.unknown) }
+            guard let userID = UserDateActor.getUserID() else { throw URLError(.unknown) }
             
             let (data , response) = try await HTTPUtils.getURL(urlBack: "/api/scholarships?memberId=\(userID)&", parameter: parameter)
             
@@ -68,22 +68,5 @@ actor ScholarshipBoxListActor {
         } catch {
             throw error
         }
-    }
-}
-
-extension ScholarshipBoxListActor {
-    private func getUserID() -> String? {
-        if let data = userData {
-            do {
-                let decoder = JSONDecoder()
-                let loadedUserData = try decoder.decode(UserData.self, from: data)
-                
-                return loadedUserData.id
-            } catch {
-                print("Failed to decode user data: \(error)")
-                return nil
-            }
-        }
-        return nil
     }
 }

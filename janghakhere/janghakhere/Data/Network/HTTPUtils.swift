@@ -13,6 +13,8 @@ struct HTTPUtils {
     static func postURL<T: Encodable>(postStruct: T, urlBack: String) async throws -> (data: Data, response: HTTPURLResponse) {
         do {
             guard let url = URL(string: urlFront + urlBack) else { throw URLError(.badURL)}
+            print("post", url)
+            
             var request = URLRequest(url: url)
             
             request.httpMethod = "POST"
@@ -33,7 +35,7 @@ struct HTTPUtils {
     static func getURL(urlBack: String, parameter: String) async throws -> (data: Data, response: HTTPURLResponse) {
         do {
             guard let url = URL(string: urlFront + urlBack + parameter) else { throw URLError(.badURL)}
-            print("url", url)
+            print("get", url)
             var request = URLRequest(url: url)
             
             request.httpMethod = "GET"

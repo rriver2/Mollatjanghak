@@ -24,7 +24,7 @@ actor MyScholarshipBoxListActor {
     // 저장 공고, 지원 공고 조회
     func fetchScholarshipBoxList(_ category: MyScholarshipFilteringCategory) async throws -> [ScholarshipBox] {
         do {
-            guard let userID = getUserID() else { throw URLError(.unknown) }
+            guard let userID = UserDateActor.getUserID() else { throw URLError(.unknown) }
             var parameter = ""
             switch category {
             case .deadline:
@@ -68,21 +68,3 @@ actor MyScholarshipBoxListActor {
         }
     }
 }
-
-extension MyScholarshipBoxListActor {
-    private func getUserID() -> String? {
-        if let data = userData {
-            do {
-                let decoder = JSONDecoder()
-                let loadedUserData = try decoder.decode(UserData.self, from: data)
-                
-                return loadedUserData.id
-            } catch {
-                print("Failed to decode user data: \(error)")
-                return nil
-            }
-        }
-        return nil
-    }
-}
-

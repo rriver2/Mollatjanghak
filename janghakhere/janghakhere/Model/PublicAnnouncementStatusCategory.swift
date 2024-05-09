@@ -145,4 +145,13 @@ enum PublicAnnouncementStatusCategory: String, CaseIterable, Codable {
             20
         }
     }
+    
+    static func getStatus(text: String) -> PublicAnnouncementStatusCategory {
+        for category in PublicAnnouncementStatusCategory.allCases {
+            if text.lowercased() == category.rawValue {
+                return category
+            }
+        }
+        return PublicAnnouncementStatusCategory.allCases.first!
+    }
 }
