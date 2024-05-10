@@ -64,12 +64,19 @@ enum IncomeDecile: String, CaseIterable, CustomStringConvertible, Codable {
     }
 }
 
+enum Field: Hashable {
+  case first
+  case second
+}
+
 struct OnboardingMainView: View {
     @EnvironmentObject private var pathModel: PathModel
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = OnboardingMainViewModel()
     @FocusState private var isKeyboardOn: Bool
     @AppStorage("userName") private var userName: String = ""
+    
+    @FocusState var isNumKeyboardOn: Field?
     
     var filteredSemesterStatuses: [SemesterStatus] {
         switch viewModel.semesterYear {
@@ -520,14 +527,16 @@ extension OnboardingMainView {
                 HStack {
                     GrayLineNumberFieldView(
                         number: $viewModel.previousGrade,
-                        maxGradeStatus: $viewModel.maximumGrade
+                        maxGradeStatus: $viewModel.maximumGrade, 
+                        isKeyboardOn: isNumKeyboardOn == .first
                     )
+                    .focused($isNumKeyboardOn, equals: .first)
                     .toolbar {
                         ToolbarItemGroup(placement: .keyboard) {
                             HStack {
                                 Spacer()
                                 Button("완료") {
-                                    isKeyboardOn = false
+                                    isNumKeyboardOn = nil
                                 }
                             }
                         }
@@ -567,18 +576,10 @@ extension OnboardingMainView {
                 HStack {
                     GrayLineNumberFieldView(
                         number: $viewModel.entireGrade,
-                        maxGradeStatus: $viewModel.maximumGrade
+                        maxGradeStatus: $viewModel.maximumGrade,
+                        isKeyboardOn: isNumKeyboardOn == .second
                     )
-                    .toolbar {
-                        ToolbarItemGroup(placement: .keyboard) {
-                            HStack {
-                                Spacer()
-                                Button("완료") {
-                                    isKeyboardOn = false
-                                }
-                            }
-                        }
-                    }
+                    .focused($isNumKeyboardOn, equals: .second)
                     Text("/")
                         .font(.title_sm)
                         .foregroundStyle(.gray300)

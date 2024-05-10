@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct IncomeConfirmView: View {
+    @EnvironmentObject var pathModel: PathModel
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
@@ -22,7 +23,12 @@ struct IncomeConfirmView: View {
                 .multilineTextAlignment(.center)
                 .padding(.bottom, 20)
             
-            Button {} label: {
+            Button {
+                dismiss()
+                pathModel.paths.append(
+                    .webView(title: "한국장학재단", url: janghakURL))
+                
+            } label: {
                 Text("한국장학재단 방문해서 확인하기")
                     .foregroundStyle(.subGreen)
                     .font(.text_md)

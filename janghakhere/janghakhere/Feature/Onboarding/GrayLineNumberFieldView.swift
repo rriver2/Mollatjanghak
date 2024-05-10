@@ -11,10 +11,11 @@ import SwiftUI
 struct GrayLineNumberFieldView: View {
     @Binding var number: Double
     @Binding var maxGradeStatus: MaxGradeStatus
-    @FocusState var isKeyboardOn: Bool
     
     @State private var inputText: String = ""
     @State private var displayText: String = "0.00"
+    
+    let isKeyboardOn: Bool
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -25,16 +26,7 @@ struct GrayLineNumberFieldView: View {
                     .overlay {
                         TextField("", text: $inputText)
                             .font(.title_xmd)
-                            .focused($isKeyboardOn)
                             .keyboardType(.numberPad)
-                            .toolbar {
-                                ToolbarItemGroup(placement: .keyboard) {
-                                    Spacer()
-                                    Button("완료") {
-                                        isKeyboardOn = false
-                                    }
-                                }
-                            }
                             .onChange(of: inputText) { _, newValue in
                                 if newValue.count <= 3 {
                                     displayText = formatNumber(newValue)
@@ -87,7 +79,7 @@ struct GrayLineNumberFieldView: View {
         @State var number: Double = 0.0
         @State var maxGrade: MaxGradeStatus = .fourDotThree
         var body: some View {
-            GrayLineNumberFieldView(number: $number, maxGradeStatus: $maxGrade)
+            GrayLineNumberFieldView(number: $number, maxGradeStatus: $maxGrade, isKeyboardOn: true)
         }
     }
     return GrayLineNumberFieldPreviewContainer()

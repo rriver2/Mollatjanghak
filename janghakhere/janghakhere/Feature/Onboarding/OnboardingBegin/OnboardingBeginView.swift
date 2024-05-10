@@ -15,7 +15,7 @@ struct OnboardingBeginView: View {
             Spacer()
             Image("grabPaper")
                 .font(.system(size: 144))
-            Text("평균 123개의 장학금을 \n추천받을 수 있어요!")
+            Text("평균 258개의 장학금을 \n추천받을 수 있어요!")
                 .font(.title_md)
                 .foregroundStyle(.black)
                 .multilineTextAlignment(.center)
