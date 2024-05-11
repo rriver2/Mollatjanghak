@@ -23,8 +23,8 @@ struct FirstView: View {
             .tint(.black)
             .navigationDestination(for: PathType.self) { pathType  in
                 switch pathType {
-                case .detailScholarshipView(let id):
-                    DetailScholarshipView(id: id)
+                case .detailScholarshipView(let id, let status):
+                    DetailScholarshipView(id: id, status: status)
                 case .searchScholarshipView:
                     SearchScholarshipView()
                 case .onboardingBeginView:

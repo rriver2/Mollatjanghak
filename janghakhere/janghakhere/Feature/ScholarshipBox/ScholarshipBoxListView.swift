@@ -26,7 +26,7 @@ struct ScholarshipBoxListView: View {
                     // 장학금 박스들
                     ForEach(scholarshipList.indices, id: \.self) { index in
                         Button {
-                            pathModel.paths.append(.detailScholarshipView(id: scholarshipList[index].id))
+                            pathModel.paths.append(.detailScholarshipView(id: scholarshipList[index].id, status: scholarshipList[index].publicAnnouncementStatus))
                         } label: {
                             if !isShowPassStatus {
                                 ScholarshipBoxView(scholarshipBox: $scholarshipList[index], category: boxCategory)
