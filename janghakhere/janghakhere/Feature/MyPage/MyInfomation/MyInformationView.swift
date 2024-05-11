@@ -230,21 +230,27 @@ extension MyInformationView {
             }
             VStack(spacing:16) {
                 
-                Button {
-                    // 학교 호출
-                } label: {
-                    HStack(spacing: 0) {
-                        Text("학교")
-                            .font(.semi_title_md)
-                            .foregroundStyle(.gray600)
-                        Spacer()
-                        Text(viewModel.schoolName.description)
-                            .font(.text_md)
-                            .foregroundStyle(.black)
-                            .padding(.trailing, 16)
-                        Icon(name: .chevronRight, color: .black, size: 16)
-                    }
+                HStack(spacing: 0) {
+                    Text("학교")
+                        .font(.semi_title_md)
+                        .foregroundStyle(.gray600)
+                    Spacer()
+                    Text(viewModel.schoolName.description)
+                        .font(.text_md)
+                        .foregroundStyle(.black)
+                        .padding(.trailing, 16)
+                    Icon(name: .chevronRight, color: .black, size: 16)
                 }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    viewModel.isShowSchoolNameSheet = true
+                }
+                .sheet(isPresented: $viewModel.isShowSchoolNameSheet) {
+                    SchoolNameSheet(
+                        schoolName: $viewModel.schoolName
+                    )
+                }
+                
                 horizontalDivider()
                 
                 
@@ -259,6 +265,7 @@ extension MyInformationView {
                         .padding(.trailing, 16)
                     Icon(name: .chevronRight, color: .black, size: 16)
                 }
+                .contentShape(Rectangle())
                 .onTapGesture {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                         viewModel.isShowSchoolYearSheet = true
@@ -272,20 +279,26 @@ extension MyInformationView {
                 }
                 
                 horizontalDivider()
-                Button {
-                    // 학교 호출
-                } label: {
-                    HStack(spacing: 0) {
-                        Text("전공계열")
-                            .font(.semi_title_md)
-                            .foregroundStyle(.gray600)
-                        Spacer()
-                        Text(viewModel.majorField.description)
-                            .font(.text_md)
-                            .foregroundStyle(.black)
-                            .padding(.trailing, 16)
-                        Icon(name: .chevronRight, color: .black, size: 16)
-                    }
+                
+                HStack(spacing: 0) {
+                    Text("전공계열")
+                        .font(.semi_title_md)
+                        .foregroundStyle(.gray600)
+                    Spacer()
+                    Text(viewModel.majorField.description)
+                        .font(.text_md)
+                        .foregroundStyle(.black)
+                        .padding(.trailing, 16)
+                    Icon(name: .chevronRight, color: .black, size: 16)
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    viewModel.isShowMajorSheet = true
+                }
+                .sheet(isPresented: $viewModel.isShowMajorSheet) {
+                    MajorSelectionView(
+                        major: $viewModel.majorField
+                    )
                 }
                 
                 horizontalDivider()
