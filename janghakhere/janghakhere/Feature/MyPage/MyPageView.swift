@@ -112,22 +112,22 @@ extension MyPageView {
                     .font(.title_md)
                     .foregroundStyle(.black)
                     .padding(.bottom, 12)
-//                Button {
-//                    pathModel.paths.append(.myInformationView)
-//                } label: {
-//                    HStack(spacing: 3) {
-//                        Icon(name: .pencilLine, color: .mainGray, size: 15)
-//                        Text("내 정보 보기")
-//                            .font(.semi_title_md)
-//                    }
-//                    .padding(.vertical, 4)
-//                    .padding(.horizontal, 12)
-//                    .foregroundStyle(.mainGray)
-//                    .background(
-//                        Capsule()
-//                            .fill(.gray100)
-//                    )
-//                }
+                Button {
+                    pathModel.paths.append(.myInformationView)
+                } label: {
+                    HStack(spacing: 3) {
+                        Icon(name: .pencilLine, color: .mainGray, size: 15)
+                        Text("내 정보 보기")
+                            .font(.semi_title_md)
+                    }
+                    .padding(.vertical, 4)
+                    .padding(.horizontal, 12)
+                    .foregroundStyle(.mainGray)
+                    .background(
+                        Capsule()
+                            .fill(.gray100)
+                    )
+                }
             }
             .padding(.bottom, 48)
         }

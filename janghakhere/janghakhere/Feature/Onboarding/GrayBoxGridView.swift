@@ -26,9 +26,13 @@ struct GrayBoxGridView<T: Hashable & CustomStringConvertible>: View {
             let gridItem = GridItem(.flexible(), spacing: 16, alignment: .leading)
             switch self {
             case .two:
-                return Array(repeating: gridItem, count: 2)
+                return Array(
+                    repeating: gridItem,
+                    count: 2)
             case .three:
-                return Array(repeating: gridItem, count: 3)
+                return Array(
+                    repeating: gridItem,
+                    count: 3)
             }
         }
     }

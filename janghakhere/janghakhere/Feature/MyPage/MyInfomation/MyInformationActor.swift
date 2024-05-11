@@ -8,7 +8,16 @@
 import Foundation
 
 actor MyInformationActor {
-    func getData() async throws -> [String] {
-        return []
+    
+    func sendNewUserData(userData: UserDataMaximum) async throws {
+        do {
+            let (_, _) = try await HTTPUtils.postURL(
+                postStruct: userData, urlBack: "/api/members"
+            )
+        } catch {
+            throw error
+        }
     }
 }
+
+
