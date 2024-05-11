@@ -529,6 +529,7 @@ extension MyInformationView {
                 viewModel.saveUserData()
                 let userData = viewModel.makeUserData()
                 viewModel.sendNewUserData(userData: userData)
+                dismiss()
             } label: {
                 Text("저장")
                     .font(.title_xsm)
