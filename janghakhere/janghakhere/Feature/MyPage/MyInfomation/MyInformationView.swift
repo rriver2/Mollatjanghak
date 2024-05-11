@@ -288,22 +288,27 @@ extension MyInformationView {
                     }
                 }
                 
-                
                 horizontalDivider()
                 
                 VStack(spacing: 0) {
-                    Button {
-                        // 학점 기준
-                    } label: {
-                        HStack(spacing: 0) {
-                            Text("학점기준")
-                                .font(.semi_title_md)
-                                .foregroundStyle(.gray600)
-                            Spacer()
-                            Icon(name: .chevronRight, color: .black, size: 16)
-                        }
+                    HStack(spacing: 0) {
+                        Text("학점기준")
+                            .font(.semi_title_md)
+                            .foregroundStyle(.gray600)
+                        Spacer()
+                        Icon(name: .chevronRight, color: .black, size: 16)
                     }
+                    .contentShape(Rectangle())
                     .padding(.bottom, 12)
+                    .onTapGesture {
+                        viewModel.isShowGradesSheet = true
+                    }
+                    .sheet(isPresented: $viewModel.isShowGradesSheet) {
+                        GradesSelectionView(
+                            previousGrade: $viewModel.lastSemesterGrade,
+                            entireGrade: $viewModel.totalGrade,
+                            maxGrade: $viewModel.maxGrade)
+                    }
                     
                     HStack(spacing: 0) {
                         Text("직전학기")
@@ -312,7 +317,7 @@ extension MyInformationView {
                         
                         Spacer()
                         
-                        Text(viewModel.lastSemesterGrade)
+                        Text(viewModel.lastSemesterGrade.description)
                             .font(.text_md)
                             .foregroundStyle(.gray700)
                     }
@@ -332,7 +337,7 @@ extension MyInformationView {
                         
                         Spacer()
                         
-                        Text(viewModel.totalGrade)
+                        Text(viewModel.totalGrade.description)
                             .font(.text_md)
                             .foregroundStyle(.gray700)
                     }
@@ -356,7 +361,11 @@ extension MyInformationView {
                         .foregroundStyle(.black)
                         .padding(.trailing, 16)
                     Icon(name: .chevronRight, color: .black, size: 16)
-                }.onTapGesture {
+                }
+                .contentShape(
+                    RoundedRectangle(cornerRadius: 10)
+                )
+                .onTapGesture {
                     viewModel.isShowGradeSheet = true
                 }
                 .sheet(isPresented: $viewModel.isShowGradeSheet) {

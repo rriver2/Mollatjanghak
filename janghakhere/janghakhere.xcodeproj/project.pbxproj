@@ -39,6 +39,7 @@
 		7B6445DB2BDD5FC400D4AF74 /* VerticalButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6445DA2BDD5FC400D4AF74 /* VerticalButtonGroup.swift */; };
 		7BAD1BEC2BED265A00BFAEA6 /* IncomeSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD1BEB2BED265A00BFAEA6 /* IncomeSelectionView.swift */; };
 		7BAD1BEE2BED2BB600BFAEA6 /* SiblingSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD1BED2BED2BB600BFAEA6 /* SiblingSelectionView.swift */; };
+		7BAD1BF02BEF502900BFAEA6 /* GradesSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD1BEF2BEF502900BFAEA6 /* GradesSelectionView.swift */; };
 		7BB1E28B2BE6343C001350DE /* OnboardingChipsGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB1E28A2BE6343C001350DE /* OnboardingChipsGroup.swift */; };
 		7BB1E28D2BE6446B001350DE /* OnboardingChipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB1E28C2BE6446B001350DE /* OnboardingChipModel.swift */; };
 		7BB1E2922BE67AEC001350DE /* TapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB1E2912BE67AEC001350DE /* TapView.swift */; };
@@ -154,6 +155,7 @@
 		7B6445DA2BDD5FC400D4AF74 /* VerticalButtonGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalButtonGroup.swift; sourceTree = "<group>"; };
 		7BAD1BEB2BED265A00BFAEA6 /* IncomeSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeSelectionView.swift; sourceTree = "<group>"; };
 		7BAD1BED2BED2BB600BFAEA6 /* SiblingSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiblingSelectionView.swift; sourceTree = "<group>"; };
+		7BAD1BEF2BEF502900BFAEA6 /* GradesSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradesSelectionView.swift; sourceTree = "<group>"; };
 		7BB1E28A2BE6343C001350DE /* OnboardingChipsGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingChipsGroup.swift; sourceTree = "<group>"; };
 		7BB1E28C2BE6446B001350DE /* OnboardingChipModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingChipModel.swift; sourceTree = "<group>"; };
 		7BB1E2912BE67AEC001350DE /* TapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapView.swift; sourceTree = "<group>"; };
@@ -323,6 +325,7 @@
 				7BB1E2992BE7FD74001350DE /* ServiceAgreementView.swift */,
 				7BAD1BEB2BED265A00BFAEA6 /* IncomeSelectionView.swift */,
 				7BAD1BED2BED2BB600BFAEA6 /* SiblingSelectionView.swift */,
+				7BAD1BEF2BEF502900BFAEA6 /* GradesSelectionView.swift */,
 			);
 			path = Sheet;
 			sourceTree = "<group>";
@@ -870,6 +873,7 @@
 				FBEF1CFF2BE8F7A600DCAA0E /* ScholarshipBoxListView.swift in Sources */,
 				FBABCF032BD636890068178F /* AlarmView.swift in Sources */,
 				FB01DC1F2BE512B40057E37E /* AlarmScholarship.swift in Sources */,
+				7BAD1BF02BEF502900BFAEA6 /* GradesSelectionView.swift in Sources */,
 				FBEEBBA62BCEB1AA006CE5EA /* HTTPUtils.swift in Sources */,
 				FB2930742BDC0AB3009AB2EF /* WebTotalView.swift in Sources */,
 				7B5C11632BE12E3F0056C2BC /* MyPageActor.swift in Sources */,

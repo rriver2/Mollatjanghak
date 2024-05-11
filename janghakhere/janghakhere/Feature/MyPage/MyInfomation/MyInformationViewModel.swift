@@ -22,8 +22,8 @@ final class MyInformationViewModel: ObservableObject {
     @Published var schoolName: String = "미입력"
     @Published var schoolYear: SemesterYear = .notSelected
     @Published var majorField: MajorField = .notSelected
-    @Published var lastSemesterGrade: String = "미입력"
-    @Published var totalGrade: String = "미입력"
+    @Published var lastSemesterGrade: Double = 0.0
+    @Published var totalGrade: Double = 0.0
     @Published var maxGrade: MaxGradeStatus = .notSelected
     
     @Published var isShowBirthdaySheet: Bool = false
@@ -53,9 +53,9 @@ extension MyInformationViewModel {
                 self.birthDate = loadedUserData.birth
                 
                 if let lastGrade = loadedUserData.lastSemesterGrade {
-                    self.lastSemesterGrade = String(lastGrade)
+                    self.lastSemesterGrade = lastGrade
                 } else {
-                    self.lastSemesterGrade = "미입력"
+                    self.lastSemesterGrade = 0.0
                 }
                 
                 if let military = loadedUserData.militaryService {
@@ -82,9 +82,9 @@ extension MyInformationViewModel {
                 self.majorField = loadedUserData.majorCategory
                 
                 if let totalGrade = loadedUserData.totalGrade {
-                    self.totalGrade = String(totalGrade)
+                    self.totalGrade = totalGrade
                 } else {
-                    self.totalGrade = "미입력"
+                    self.totalGrade = 0.0
                 }
                 
                 if let maxGrade = loadedUserData.maximumGrade {
