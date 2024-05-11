@@ -8,7 +8,7 @@
 import Foundation
 
 enum PathType: Hashable {
-    case detailScholarshipView(id: String)
+    case detailScholarshipView(id: String, status: PublicAnnouncementStatusCategory)
     case searchScholarshipView
     case onboardingBeginView
     case onboardingMainView

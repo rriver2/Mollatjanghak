@@ -39,11 +39,12 @@ final class DetailScholarshipViewModel: ObservableObject {
 
 // private 함수들
 extension DetailScholarshipViewModel {
-    private func getDetailScholarship(_ id: String) {
+    private func getDetailScholarship(_ id: String, _ status: PublicAnnouncementStatusCategory) {
         let task = Task {
             do {
                 self.detailContent = try await managerActor.fetchDetailScholarship(id)
-                self.status = PublicAnnouncementStatusCategory.getStatus(text: detailContent?.applyingStatus ?? "")
+                //FIXME: 백엔드에서 status 값 주면 변경하기
+                self.status = status
                 self.networkStatus = .success
             } catch {
                 print(error)
@@ -72,8 +73,8 @@ extension DetailScholarshipViewModel {
 
 // 기본 함수들
 extension DetailScholarshipViewModel {
-    func viewOpened(_ id: String) {
-        self.getDetailScholarship(id)
+    func viewOpened(_ id: String, _ status: PublicAnnouncementStatusCategory) {
+        self.getDetailScholarship(id, status)
     }
     
     func cancelTasks() {

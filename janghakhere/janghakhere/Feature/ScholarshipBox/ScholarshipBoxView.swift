@@ -40,7 +40,7 @@ struct ScholarshipBoxView: View {
         .padding(.horizontal, 20)
         .background(.white)
         .onTapGesture {
-            pathModel.paths.append(.detailScholarshipView(id: scholarshipBox.id))
+            pathModel.paths.append(.detailScholarshipView(id: scholarshipBox.id, status: scholarshipBox.publicAnnouncementStatus))
         }
     }
 }

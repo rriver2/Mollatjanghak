@@ -12,6 +12,7 @@ struct DetailScholarshipView: View {
     @EnvironmentObject private var pathModel: PathModel
     @Environment(\.dismiss) private var dismiss
     let id: String
+    let status: PublicAnnouncementStatusCategory
     
     @StateObject private var viewModel = DetailScholarshipViewModel()
     @State private var showApplication: Bool = true
@@ -62,7 +63,7 @@ struct DetailScholarshipView: View {
             }
         }
         .onAppear {
-            viewModel.viewOpened(id)
+            viewModel.viewOpened(id, status)
         }
         .navigationBarBackButtonHidden()
     }
@@ -439,6 +440,6 @@ extension DetailScholarshipView {
 }
 
 #Preview {
-    DetailScholarshipView(id: "22")
+    DetailScholarshipView(id: "22", status: .applied)
         .environmentObject(PathModel())
 }
