@@ -526,7 +526,9 @@ extension MyInformationView {
                 .foregroundStyle(.black)
             Spacer()
             Button {
-                // TODO: 저장 기능
+                viewModel.saveUserData()
+                let userData = viewModel.makeUserData()
+                viewModel.sendNewUserData(userData: userData)
             } label: {
                 Text("저장")
                     .font(.title_xsm)
