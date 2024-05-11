@@ -26,11 +26,7 @@ struct MyScholarshipView: View {
                             Spacer()
                         }
                     case .success:
-                        if viewModel.totalScholarShipList.isEmpty {
-                            emptyView()
-                        } else {
-                            detailScholarshipBoxListView()
-                        }
+                        detailScholarshipBoxListView()
                     case .failed:
                         ZStack(alignment: .bottom) {
                             VStack(spacing: 0) {
@@ -189,10 +185,19 @@ extension MyScholarshipView {
     func detailScholarshipBoxListView() -> some View {
         //TODO: TabView
         VStack(spacing: 0) {
-            if viewModel.selectedCategoryName == MyScholarshipCategory.storedName {
-                ScholarshipBoxListView(isGetMoreScholarshipBox: .constant(false), scholarshipList: $viewModel.selectedScholarShipList, boxCategory: .DetailScholarship, isShowPassStatus: false)
-            } else {
-                ScholarshipBoxListView(isGetMoreScholarshipBox: .constant(false), scholarshipList: $viewModel.selectedScholarShipList, boxCategory: .SearchScholarship, isShowPassStatus: true)
+            switch viewModel.selectedCategory {
+            case .supported(let supportedCategory):
+                if viewModel.totalScholarShipList.isEmpty {
+                    IconAndAlert(title: supportedCategory.emptyTitle, subTitle: supportedCategory.emptySubTitle)
+                } else {
+                    ScholarshipBoxListView(isGetMoreScholarshipBox: .constant(false), scholarshipList: $viewModel.selectedScholarShipList, boxCategory: .SearchScholarship, isShowPassStatus: true)
+                }
+            case .stored(let storageCategory):
+                if viewModel.totalScholarShipList.isEmpty {
+                    IconAndAlert(title: storageCategory.emptyTitle, subTitle: storageCategory.emptySubTitle)
+                } else {
+                    ScholarshipBoxListView(isGetMoreScholarshipBox: .constant(false), scholarshipList: $viewModel.selectedScholarShipList, boxCategory: .DetailScholarship, isShowPassStatus: false)
+                }
             }
             Spacer()
         }
@@ -216,44 +221,49 @@ extension MyScholarshipView {
         }
     }
     @ViewBuilder
-    private func emptyView() -> some View {
-        VStack(spacing: 8) {
+    private func filteringSheet() -> some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Text("정렬")
+                .font(.title_xsm)
+                .padding(.top, 20)
+                .frame(maxWidth: .infinity)
+            ForEach(MyScholarshipFilteringCategory.allCases, id: \.self) { category in
+                filteringButton(category: category)
+            }
             Spacer()
-            Icon(name: .nothing, size: 122)
-            Text("저장한 공고가 없어요\n지원하고 싶은 공고를 저장해보세요")
-                .multilineTextAlignment(.center)
-                .font(.text_md)
-                .foregroundStyle(.gray600)
-            Spacer()
+            Text("닫기")
+                .font(.title_xsm)
+                .foregroundStyle(.white)
+                .padding(.vertical, 16)
+                .frame(maxWidth: .infinity)
+                .background(.mainGray)
+                .cornerRadius(100)
+                .padding(.bottom, 14)
+                .onTapGesture {
+                    viewModel.isShowFilteringSheet = false
+                }
         }
+        .padding(.horizontal, 28)
+        .foregroundStyle(.black)
+        .presentationDetents([.medium])
     }
     @ViewBuilder
-    private func filteringSheet() -> some View {
-    VStack(alignment: .leading, spacing: 0) {
-        Text("정렬")
-            .font(.title_xsm)
-            .padding(.top, 20)
-            .frame(maxWidth: .infinity)
-        ForEach(MyScholarshipFilteringCategory.allCases, id: \.self) { category in
-            filteringButton(category: category)
+    func IconAndAlert(title: String, subTitle: String) -> some View {
+        VStack(spacing: 0) {
+            Spacer()
+            Icon(name: .grabPaper, color: .gray400, size: 122)
+                .padding(.bottom, 8)
+            Text(title)
+                .font(.title_xsm)
+                .foregroundStyle(.gray600)
+                .multilineTextAlignment(.center)
+            Text(subTitle)
+                .font(.text_sm)
+                .foregroundStyle(.gray600)
+                .multilineTextAlignment(.center)
+            Spacer()
         }
-        Spacer()
-        Text("닫기")
-            .font(.title_xsm)
-            .foregroundStyle(.white)
-            .padding(.vertical, 16)
-            .frame(maxWidth: .infinity)
-            .background(.mainGray)
-            .cornerRadius(100)
-            .padding(.bottom, 14)
-            .onTapGesture {
-                viewModel.isShowFilteringSheet = false
-            }
     }
-    .padding(.horizontal, 28)
-    .foregroundStyle(.black)
-    .presentationDetents([.medium])
-}
 }
 
 #Preview {

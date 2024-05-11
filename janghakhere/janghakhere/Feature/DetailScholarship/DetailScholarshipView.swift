@@ -11,7 +11,6 @@ import TipKit
 struct DetailScholarshipView: View {
     @EnvironmentObject private var pathModel: PathModel
     @Environment(\.dismiss) private var dismiss
-    let id: String
     
     @StateObject private var viewModel = DetailScholarshipViewModel()
     @State private var showApplication: Bool = true
@@ -20,6 +19,9 @@ struct DetailScholarshipView: View {
     
     let scholarshipBoxViewModel = ScholarshipBoxViewModel()
     private let effortLevelTip = EffortLevelTip()
+    
+    let id: String
+    let status: PublicAnnouncementStatusCategory
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -56,13 +58,8 @@ struct DetailScholarshipView: View {
                 }
             }
         }
-        .onChange(of: scholarshipBoxViewModel.changedStatus) { oldValue, newValue in
-            if let status = scholarshipBoxViewModel.changedStatus {
-                viewModel.status = status
-            }
-        }
         .onAppear {
-            viewModel.viewOpened(id)
+            viewModel.viewOpened(id, status)
         }
         .navigationBarBackButtonHidden()
     }
@@ -101,7 +98,7 @@ extension DetailScholarshipView {
                 )
             }
             .sheet(isPresented: $viewModel.isStatusSheet) {
-                ScholarshipPostingSheet(category: $viewModel.status, statusButtonPressed: { category in
+                ScholarshipPostingSheet(category: $viewModel.status, id: id, statusButtonPressed: { category in
                     if let detailContent = viewModel.detailContent {
                         scholarshipBoxViewModel.sheetStorageButtonPressed(id: String(detailContent.id), status: category)
                     }
@@ -439,6 +436,6 @@ extension DetailScholarshipView {
 }
 
 #Preview {
-    DetailScholarshipView(id: "22")
+    DetailScholarshipView(id: "22", status: .applied)
         .environmentObject(PathModel())
 }

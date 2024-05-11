@@ -43,7 +43,6 @@ extension DetailScholarshipViewModel {
         let task = Task {
             do {
                 self.detailContent = try await managerActor.fetchDetailScholarship(id)
-                self.status = PublicAnnouncementStatusCategory.getStatus(text: detailContent?.applyingStatus ?? "")
                 self.networkStatus = .success
             } catch {
                 print(error)
@@ -51,10 +50,6 @@ extension DetailScholarshipViewModel {
             }
         }
         tasks.append(task)
-    }
-    
-    private func postScholarshipStatus(id: Int, status: String) {
-        
     }
     
     private func convertToKoreanDate(_ dateString: String) -> String? {
@@ -72,8 +67,9 @@ extension DetailScholarshipViewModel {
 
 // 기본 함수들
 extension DetailScholarshipViewModel {
-    func viewOpened(_ id: String) {
+    func viewOpened(_ id: String, _ status: PublicAnnouncementStatusCategory) {
         self.getDetailScholarship(id)
+        self.status = status
     }
     
     func cancelTasks() {

@@ -15,29 +15,38 @@ struct MyScholarshipBoxContent: Decodable {
     let startDate: String?
     let endDate: String?
     let applyingStatus: String
-    let storedDate: String
+    let storedDate: String?
 }
 
 actor MyScholarshipBoxListActor {
     @AppStorage("userData") private var userData: Data?
     
     // 저장 공고, 지원 공고 조회
-    func fetchScholarshipBoxList(_ category: MyScholarshipFilteringCategory) async throws -> [ScholarshipBox] {
+    func fetchScholarshipBoxList( _ category: MyScholarshipCategory, _ filterCategory: MyScholarshipFilteringCategory?) async throws -> [ScholarshipBox] {
         do {
             guard let userID = UserDateActor.getUserID() else { throw URLError(.unknown) }
             var parameter = ""
-            switch category {
-            case .deadline:
-                parameter = "?deadline=true"
-            case .recent:
-                parameter = "?recent=true"
+            
+            var data: Data
+            var response: HTTPURLResponse
+            
+            if let filterCategory {
+                switch filterCategory {
+                case .deadline:
+                    parameter = "?deadline=true"
+                case .recent:
+                    parameter = "?recent=true"
+                }
             }
-//           /api/scholarships/members/{memberId}/stored
-            let (data , response) = try await HTTPUtils.getURL(urlBack: "/api/scholarships/members/\(userID)/stored", parameter: parameter)
+            
+            switch category {
+            case .stored(_):
+                (data , response) = try await HTTPUtils.getURL(urlBack: "/api/scholarships/members/\(userID)/stored", parameter: parameter)
+            case .supported(_):
+                (data , response) = try await HTTPUtils.getURL(urlBack: "/api/scholarships/members/\(userID)/applied", parameter: parameter)
+            }
             
             let scholarshipList = try responseHandling(data, response)
-            
-            print("scholarshipList", scholarshipList)
             return scholarshipList
         } catch {
             throw error

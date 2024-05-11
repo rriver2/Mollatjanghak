@@ -40,7 +40,7 @@ struct ScholarshipBoxView: View {
         .padding(.horizontal, 20)
         .background(.white)
         .onTapGesture {
-            pathModel.paths.append(.detailScholarshipView(id: scholarshipBox.id))
+            pathModel.paths.append(.detailScholarshipView(id: scholarshipBox.id, status: scholarshipBox.publicAnnouncementStatus))
         }
     }
 }
@@ -111,7 +111,7 @@ extension ScholarshipBoxView {
             }
         }
         .sheet(isPresented: $viewModel.isStatusSheet) {
-            ScholarshipPostingSheet(category: $scholarshipBox.publicAnnouncementStatus, statusButtonPressed: { category in
+            ScholarshipPostingSheet(category: $scholarshipBox.publicAnnouncementStatus, id: scholarshipBox.id, statusButtonPressed: { category in
                 viewModel.sheetStorageButtonPressed(id: scholarshipBox.id, status: category)
                 viewModel.isStatusSheet = false
             })

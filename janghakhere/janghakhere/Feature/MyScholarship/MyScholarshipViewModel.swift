@@ -29,10 +29,11 @@ final class MyScholarshipViewModel: ObservableObject {
         switch category {
         case .supported(let supportedCategory):
             changeDetailSupportedCategory(supportedCategory)
+            storeChangedtScholarShip(category)
         case .stored(let storedCategory):
             changeDetailStorageCategory(storedCategory)
+            storeChangedtScholarShip(category)
         }
-        storeChangedtScholarShip(category)
     }
     
     // sorting 최신,
@@ -69,6 +70,7 @@ final class MyScholarshipViewModel: ObservableObject {
 // private 함수들
 extension MyScholarshipViewModel {
     private func storeChangedtScholarShip(_ category : MyScholarshipCategory) {
+        self.getAllScholarShipList(filteringCategory)
         for newScholarship in selectedScholarShipList {
             if let index = totalScholarShipList.firstIndex(where: { $0.id == newScholarship.id }) {
                totalScholarShipList[index].publicAnnouncementStatus = newScholarship.publicAnnouncementStatus
@@ -78,19 +80,18 @@ extension MyScholarshipViewModel {
     }
     
     private func getScholarShipList(_ category : MyScholarshipCategory) {
-        
         switch category {
         case .supported(let supportedCategory):
-            switch supportedCategory { 
+            switch supportedCategory {
             case .applied:
-                selectedScholarShipList = totalScholarShipList.filter({ $0.publicAnnouncementStatus == .applied })
+                selectedScholarShipList = totalScholarShipList
             case .non_passed:
                 selectedScholarShipList = totalScholarShipList.filter({ $0.publicAnnouncementStatus == .non_passed })
             case .passed:
                 selectedScholarShipList = totalScholarShipList.filter({ $0.publicAnnouncementStatus == .passed })
             }
         case .stored(let storedCategory):
-            let filterScholarShipList = totalScholarShipList.filter({ $0.publicAnnouncementStatus != .non_passed && $0.publicAnnouncementStatus != .passed && $0.publicAnnouncementStatus != .nothing})
+            let filterScholarShipList = totalScholarShipList
             switch storedCategory {
             case .all:
                 selectedScholarShipList = filterScholarShipList
@@ -114,11 +115,11 @@ extension MyScholarshipViewModel {
         selectedCategory = .stored(category)
     }
     
-    private func getAllScholarShipList(_ category: MyScholarshipFilteringCategory) {
+    private func getAllScholarShipList(_ category: MyScholarshipFilteringCategory? = nil) {
         self.networkStatus = .loading
         let task = Task {
             do {
-                let scholarshipList = try await myScholarshipBoxListActor.fetchScholarshipBoxList(category)
+                let scholarshipList = try await myScholarshipBoxListActor.fetchScholarshipBoxList(selectedCategory, category)
                 self.totalScholarShipList = scholarshipList
                 self.getScholarShipList(selectedCategory)
                 self.networkStatus = .success

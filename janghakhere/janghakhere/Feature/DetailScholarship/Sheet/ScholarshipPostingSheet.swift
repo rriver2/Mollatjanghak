@@ -10,6 +10,7 @@ import SwiftUI
 struct ScholarshipPostingSheet: View {
     @Binding var category: PublicAnnouncementStatusCategory
     
+    let id: String
     var statusButtonPressed: ((_ category: PublicAnnouncementStatusCategory) -> Void)
     
     var body: some View {

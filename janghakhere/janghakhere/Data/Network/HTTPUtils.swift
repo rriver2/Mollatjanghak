@@ -53,6 +53,7 @@ struct HTTPUtils {
     static func deleteURL(urlBack: String) async throws -> (data: Data, response: HTTPURLResponse) {
         do {
             guard let url = URL(string: urlFront + urlBack) else { throw URLError(.badURL)}
+            print("delete", url)
             var request = URLRequest(url: url)
             
             request.httpMethod = "DELETE"
