@@ -161,7 +161,7 @@ extension OnboardingMainView {
         VStack(alignment: .leading, spacing: 0) {
             Text("이름을 입력해 주세요")
                 .font(.title_md)
-                .foregroundStyle(.mainGray)
+                .foregroundStyle(.black)
                 .padding(.top, 60)
                 .padding(.bottom, 64)
             
@@ -194,7 +194,7 @@ extension OnboardingMainView {
         VStack(alignment: .leading, spacing: 0) {
             Text("성별이 어떻게 되시나요?")
                 .font(.title_md)
-                .foregroundStyle(.mainGray)
+                .foregroundStyle(.black)
                 .padding(.top, 60)
                 .padding(.bottom, 36)
             SexSelectionView(sex: $viewModel.sex)

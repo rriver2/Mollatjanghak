@@ -20,7 +20,7 @@ struct GrayLineTextFieldView: View {
                         limitText(value)
                     }
                     .font(.title_md)
-                
+                    .foregroundStyle(.black)                
                 if !text.isEmpty {
                     Button(action: {
                         text = ""
