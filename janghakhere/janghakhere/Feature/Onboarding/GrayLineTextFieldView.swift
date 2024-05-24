@@ -20,14 +20,12 @@ struct GrayLineTextFieldView: View {
                         limitText(value)
                     }
                     .font(.title_md)
-                    .foregroundStyle(.black)                
+                    .foregroundStyle(.black)
                 if !text.isEmpty {
                     Button(action: {
                         text = ""
                     }) {
-                        Image("erace")
-                            .font(.system(size: 19.5))
-                            .foregroundColor(.gray600)
+                        Icon(name: .erace, color: .gray600, size: 24)
                     }
                     .padding(.leading, 8)
                 }
@@ -56,7 +54,11 @@ struct GrayLineTextFieldView: View {
         @State var text: String = ""
         @FocusState var isKey: Bool
         var body: some View {
-            GrayLineTextFieldView(text: $text, placeHolder: "이름", isKeyBoardOn: isKey)
+            GrayLineTextFieldView(
+                text: $text,
+                placeHolder: "이름",
+                isKeyBoardOn: isKey
+            )
         }
     }
     return BindingViewExamplePreviewContainer()

@@ -224,7 +224,7 @@ extension OnboardingMainView {
                 HStack {
                     Text(viewModel.isEmptyDate(viewModel.birthDate)
                           ? "생년월일"
-                         :  viewModel.birthDate.customDateFomatter())
+                         : viewModel.birthDate.customDateFomatter())
                     .font(.title_md)
                     .foregroundStyle(
                         viewModel.isEmptyDate(
@@ -233,9 +233,11 @@ extension OnboardingMainView {
                         ? .gray300
                         : .mainGray)
                     Spacer()
-                    Image("chevronDown")
-                        .font(.system(size: 16))
-                        .foregroundStyle(.gray500)
+                    Icon(
+                        name: .chevronDown,
+                        color: .gray500,
+                        size: 20
+                    )
                 }
                 .background {
                     RoundedRectangle(cornerRadius: 10)
