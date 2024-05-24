@@ -17,7 +17,12 @@ struct DateSelectionView: View {
                 .font(.title_xsm)
                 .padding()
             Spacer()
-            DatePicker("날짜선택피커", selection: $date, displayedComponents: [.date])
+            DatePicker(
+                "날짜선택피커",
+                selection: $date,
+                in: ...Calendar.current.date(byAdding: .year, value: -14, to: Date())!,
+                displayedComponents: [.date]
+            )
                 .datePickerStyle(.wheel)
                 .labelsHidden()
                 .environment(\.locale, .init(identifier: "ko_KR"))
