@@ -61,18 +61,30 @@ extension View {
 
 // MARK: - UIFont
 extension UIFont {
-    static let title_lg = UIFont.systemFont(ofSize: 30, weight: .semibold)
-    static let title_md = UIFont.systemFont(ofSize: 26, weight: .semibold)
-    static let title_sm = UIFont.systemFont(ofSize: 20, weight: .semibold)
-    static let title_xsm = UIFont.systemFont(ofSize: 17, weight: .semibold)
-    static let title_xmd = UIFont.systemFont(ofSize: 24, weight: .semibold) 
+    static func pretendard(size: CGFloat, weight: UIFont.Weight) -> UIFont {
+        let fontName: String
+        switch weight {
+        case .semibold:
+            fontName = "Pretendard-SemiBold"
+        case .regular:
+            fontName = "Pretendard-Regular"
+        default:
+            fontName = "Pretendard-Regular"
+        }
+        return UIFont(name: fontName, size: size) ?? UIFont.systemFont(ofSize: size, weight: weight)
+    }
+    static let title_lg = UIFont.pretendard(size: 30, weight: .semibold)
+    static let title_md = UIFont.pretendard(size: 26, weight: .semibold)
+    static let title_sm = UIFont.pretendard(size: 20, weight: .semibold)
+    static let title_xsm = UIFont.pretendard(size: 17, weight: .semibold)
+    static let title_xmd = UIFont.pretendard(size: 24, weight: .semibold)
     
-    static let semi_title_md = UIFont.systemFont(ofSize: 15, weight: .semibold)
-    static let semi_title_sm = UIFont.systemFont(ofSize: 12, weight: .semibold)
+    static let semi_title_md = UIFont.pretendard(size: 15, weight: .semibold)
+    static let semi_title_sm = UIFont.pretendard(size: 12, weight: .semibold)
     
-    static let text_md = UIFont.systemFont(ofSize: 16, weight: .regular)
-    static let text_sm = UIFont.systemFont(ofSize: 14, weight: .regular)
-    static let text_caption = UIFont.systemFont(ofSize: 12, weight: .regular)
+    static let text_md = UIFont.pretendard(size: 16, weight: .regular)
+    static let text_sm = UIFont.pretendard(size: 14, weight: .regular)
+    static let text_caption = UIFont.pretendard(size: 12, weight: .regular)
 }
 
 // MARK: - UserDefault

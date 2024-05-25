@@ -13,7 +13,7 @@ struct GrayLineTextFieldView: View {
     var isKeyBoardOn: Bool
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: 0) {
             HStack(spacing: 0) {
                 TextField(placeHolder, text: $text)
                     .onChange(of: text) { _, value in
@@ -21,24 +21,31 @@ struct GrayLineTextFieldView: View {
                     }
                     .font(.title_md)
                     .foregroundStyle(.black)
+                    .textFieldStyle(.plain)
                 if !text.isEmpty {
                     Button(action: {
                         text = ""
                     }) {
-                        Icon(name: .erace, color: .gray600, size: 24)
+                        Icon(
+                            name: .erace,
+                            color: .gray600,
+                            size: 24
+                        )
                     }
-                    .padding(.leading, 8)
                 }
             }
-            .padding(.vertical, 6)
             .padding(.horizontal, 4)
             .accentColor(.black)
-            .overlay(
-                Rectangle()
-                    .foregroundColor(isKeyBoardOn ? .mainGray : .gray300)
-                    .frame(height: 1),
-                alignment: .bottom
-            )
+            
+            Rectangle()
+                .foregroundColor(isKeyBoardOn ? .mainGray : .gray300)
+                .frame(height: 1)
+//            .overlay(
+//                Rectangle()
+//                    .foregroundColor(isKeyBoardOn ? .mainGray : .gray300)
+//                    .frame(height: 1),
+//                    alignment: .bottom
+//            )
         }
     }
     

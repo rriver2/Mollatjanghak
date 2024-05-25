@@ -153,6 +153,7 @@ extension OnboardingMainView {
             ProgressView(value: Double(viewModel.currentPage) / 7)
                 .tint(.mainGray)
         }
+        .padding(.top, 22)
         .paddingHorizontal()
     }
     
@@ -164,7 +165,6 @@ extension OnboardingMainView {
                 .foregroundStyle(.black)
                 .padding(.top, 60)
                 .padding(.bottom, 64)
-            
             GrayLineTextFieldView(
                 text: $viewModel.name,
                 placeHolder: "이름",
