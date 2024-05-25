@@ -280,14 +280,14 @@ extension OnboardingMainView {
          VStack(alignment: .leading, spacing: 20) {
              Text("학교를 다니는 중이신가요?")
                  .font(.title_md)
-                 .foregroundStyle(.mainGray)
+                 .foregroundStyle(.black)
                  .padding(.top, 60)
                  .padding(.bottom, 21)
              
              VStack(alignment: .leading, spacing: 0) {
                  Text("학교")
                      .font(.title_xsm)
-                     .foregroundStyle(.gray600)
+                     .foregroundStyle(.mainGray)
                      .padding(.bottom, 12)
                      .padding(.leading, 4)
                  
@@ -370,7 +370,7 @@ extension OnboardingMainView {
                             .offset(x: -6, y: -6)
                     }
                     .padding(.horizontal, 6)
-                HStack {
+                HStack(spacing: 0) {
                     Text(viewModel.semesterYear.description)
                         .font(.title_md)
                         .foregroundStyle(
@@ -378,9 +378,11 @@ extension OnboardingMainView {
                             ? .gray300
                             : .mainGray)
                     Spacer()
-                    Image("chevronDown")
-                        .font(.system(size: 20))
-                        .foregroundStyle(.gray500)
+                    Icon(
+                        name: .chevronDown,
+                        color: .gray500,
+                        size: 20
+                    )
                 }
                 .padding(.horizontal, 4)
                 .padding(.top, 8)
@@ -523,7 +525,7 @@ extension OnboardingMainView {
                 
                 Text("직전학기 성적")
                     .font(.title_xsm)
-                    .foregroundStyle(.gray600)
+                    .foregroundStyle(.mainGray)
                     .padding(.vertical, 6)
                 
                 HStack {
@@ -544,7 +546,8 @@ extension OnboardingMainView {
                         }
                     }
                     Text("/")
-                        .font(.title_sm)
+//                        .font(.title_sm)
+                        .font(.system(size: 24))
                         .foregroundStyle(.gray300)
                     HStack(spacing: 12) {
                         Text(viewModel.maximumGrade == .notApplicable ? "--" : viewModel.maximumGrade.rawValue)
@@ -573,7 +576,7 @@ extension OnboardingMainView {
                 
                 Text("전체학기 성적")
                     .font(.title_xsm)
-                    .foregroundStyle(.gray600)
+                    .foregroundStyle(.mainGray)
                     .padding(.vertical, 7)
                 HStack {
                     GrayLineNumberFieldView(
@@ -583,7 +586,8 @@ extension OnboardingMainView {
                     )
                     .focused($isNumKeyboardOn, equals: .second)
                     Text("/")
-                        .font(.title_sm)
+//                        .font(.title_sm)
+                        .font(.system(size: 24))
                         .foregroundStyle(.gray300)
                     HStack(spacing: 12) {
                         Text(viewModel.maximumGrade == .notApplicable ? "--" : viewModel.maximumGrade.rawValue)

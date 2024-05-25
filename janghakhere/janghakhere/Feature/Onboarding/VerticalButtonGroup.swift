@@ -28,7 +28,7 @@ struct VerticalButtonGroup<T: Hashable & CustomStringConvertible>: View {
                     .foregroundStyle(
                         selectedElement == button
                         ? .white
-                        : .gray600
+                        : .gray700
                     )
                     .frame(maxWidth: .infinity)
                     .frame(height: 66)
