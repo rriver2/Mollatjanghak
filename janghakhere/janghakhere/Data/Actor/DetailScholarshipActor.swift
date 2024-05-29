@@ -22,6 +22,7 @@ struct DetailScholarshipContent: Decodable {
     let supportDetails: String?
     let specificQualificationDetails: String?
     let localResidencyDetails: String?
+    let formattedSupportDetails: String?
     let selectionMethodDetails: String?
     let selectionCountDetails: String?
     let eligibilityRestrictionDetails: String?
@@ -31,6 +32,7 @@ struct DetailScholarshipContent: Decodable {
     let startDate: String?
     let endDate: String?
     let applyingStatus: String?
+    let effortLabel: String?
 }
 
 actor DetailScholarshipActor {

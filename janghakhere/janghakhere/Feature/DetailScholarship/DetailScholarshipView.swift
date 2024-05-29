@@ -383,7 +383,7 @@ extension DetailScholarshipView {
                     VStack(spacing: 12) {
                         Text("지원금액")
                             .foregroundStyle(.black)
-                        Text("100만원 이상")
+                        Text(detailContent.formattedSupportDetails ?? "상세 공고 확인")
                     }
                     .font(.semi_title_md)
                     
@@ -426,10 +426,10 @@ extension DetailScholarshipView {
             Text("상세")
                 .font(.title_xsm)
             Spacer()
-//            Icon(name: .share, color: .black, size: 28)
-//                .onTapGesture {
-//                    viewModel.shareButtonPressed()
-//                }
+            Icon(name: .share, color: .black, size: 28)
+                .onTapGesture {
+                    viewModel.shareButtonPressed()
+                }
         }
         .paddingHorizontal()
         .foregroundStyle(.black)
