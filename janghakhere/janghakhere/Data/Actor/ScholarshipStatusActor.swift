@@ -25,7 +25,7 @@ actor ScholarshipStatusActor {
             
             switch response.statusCode {
             case 200:
-                print("성공")
+                break
             default: // 기술적 문제
                 throw URLError(.badServerResponse)
             }
@@ -43,7 +43,7 @@ actor ScholarshipStatusActor {
             
             switch response.statusCode {
             case 200:
-                print("성공")
+                break
             default: // 기술적 문제
                 throw URLError(.badServerResponse)
             }

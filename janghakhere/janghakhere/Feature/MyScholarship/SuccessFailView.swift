@@ -40,27 +40,35 @@ struct SuccessFailView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            navigationView()
-            VStack(alignment: .leading, spacing: 0) {
-                Text("합격 여부를 알려주세요")
-                    .font(.title_md)
-                    .padding(.top, 14)
-                    .padding(.bottom, 60)
-                
-                passButton()
-                failedButton()
-                    .padding(.bottom, 60)
-                if isSelectedPass == .pass {
-                    passedAmmountTextField()
+        ZStack(alignment: .top) {
+                VStack(alignment: .leading, spacing: 0) {
+                navigationView()
+                VStack(alignment: .leading, spacing: 0) {
+                    Text("합격 여부를 알려주세요")
+                        .font(.title_md)
+                        .padding(.top, 14)
+                        .padding(.bottom, 60)
+                    
+                    passButton()
+                    failedButton()
+                        .padding(.bottom, 60)
+                    if isSelectedPass == .pass {
+                        passedAmmountTextField()
+                    }
+                    Spacer()
                 }
-                Spacer()
+                if viewModel.isShowSavedError {
+                    ErrorToastView(.network)
+                        .onAppear {
+                            //TODO: ErrorToastView에서 isShowAlert 관리하게 두기...
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                viewModel.isShowSavedError = false
+                            }
+                        }
+                }
             }
         }
         .paddingHorizontal()
-        .onChange(of: scholarshipBox?.publicAnnouncementStatus) { _,_ in
-            print("scholarshipBox?.publicAnnouncementStatus 바뀜", scholarshipBox?.publicAnnouncementStatus)
-        }
     }
 }
 
@@ -108,6 +116,7 @@ extension SuccessFailView {
                             isShowPassModal = false
                             isChangedToPass()
                         })
+                        isKeyBoardOn = false
                     }
             }
         }

@@ -71,12 +71,10 @@ struct ScholarshipBoxListView: View {
                                 SuccessFailView(scholarshipBox: $selectedScholarship, isShowPassModal: $isShowPassModal, isChangedToPass: {
                                     if let index = scholarshipList.firstIndex(where: { $0.id == selectedScholarship.id }) {
                                         scholarshipList[index].publicAnnouncementStatus = .passed
-                                        print("ddd passed")
                                     }
                                 }, isChangedToFailed: {
                                     if let index = scholarshipList.firstIndex(where: { $0.id == selectedScholarship.id }) {
                                         scholarshipList[index].publicAnnouncementStatus = .non_passed
-                                        print("ddd faild")
                                     }
                                 })
                                 .onDisappear {

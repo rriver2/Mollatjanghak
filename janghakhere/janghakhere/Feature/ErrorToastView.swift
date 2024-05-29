@@ -52,6 +52,7 @@ struct ErrorToastView: View {
                         isShowAlert = false
                     }
                 }
+                .frame(maxWidth: .infinity, alignment: .center)
             } else {
                 EmptyView()
             }
