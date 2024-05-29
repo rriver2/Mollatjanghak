@@ -26,39 +26,9 @@ struct MyScholarshipView: View {
                             Spacer()
                         }
                     case .success:
-                            detailScholarshipBoxListView()
+                        detailScholarshipBoxListView()
                     case .failed:
-                        ZStack(alignment: .bottom) {
-                            VStack(spacing: 0) {
-                                Spacer()
-                                Button {
-                                    viewModel.reloadButtonPressed()
-                                } label: {
-                                    VStack(spacing: 0) {
-                                        Icon(name: .graduation, size: 122)
-                                            .padding(.bottom, 8)
-                                        Text("잠시 후에 다시 시도해주세요")
-                                            .font(.title_xsm)
-                                            .padding(.bottom, 16)
-                                            .foregroundStyle(.gray600)
-                                        HStack {
-                                            Icon(name: .reload, color: .mainGray, size: 22)
-                                                .padding(.leading, 8)
-                                            Text("새로 고침")
-                                                .foregroundStyle(.mainGray)
-                                        }
-                                        .padding(.vertical, 14)
-                                        .padding(.horizontal, 24)
-                                        .background(.gray70)
-                                        .cornerRadius(130)
-                                    }
-                                }
-                                Spacer()
-                            }
-                            ErrorToastView(.network)
-                        }
-                        .frame(maxWidth: .infinity)
-                        .background(Color.gray50)
+                        error()
                     }
                 }
             }
@@ -243,31 +213,65 @@ extension MyScholarshipView {
     }
     @ViewBuilder
     private func filteringSheet() -> some View {
-    VStack(alignment: .leading, spacing: 0) {
-        Text("정렬")
-            .font(.title_xsm)
-            .padding(.top, 20)
-            .frame(maxWidth: .infinity)
-        ForEach(MyScholarshipFilteringCategory.allCases, id: \.self) { category in
-            filteringButton(category: category)
-        }
-        Spacer()
-        Text("닫기")
-            .font(.title_xsm)
-            .foregroundStyle(.white)
-            .padding(.vertical, 16)
-            .frame(maxWidth: .infinity)
-            .background(.mainGray)
-            .cornerRadius(100)
-            .padding(.bottom, 14)
-            .onTapGesture {
-                viewModel.isShowFilteringSheet = false
+        VStack(alignment: .leading, spacing: 0) {
+            Text("정렬")
+                .font(.title_xsm)
+                .padding(.top, 20)
+                .frame(maxWidth: .infinity)
+            ForEach(MyScholarshipFilteringCategory.allCases, id: \.self) { category in
+                filteringButton(category: category)
             }
+            Spacer()
+            Text("닫기")
+                .font(.title_xsm)
+                .foregroundStyle(.white)
+                .padding(.vertical, 16)
+                .frame(maxWidth: .infinity)
+                .background(.mainGray)
+                .cornerRadius(100)
+                .padding(.bottom, 14)
+                .onTapGesture {
+                    viewModel.isShowFilteringSheet = false
+                }
+        }
+        .padding(.horizontal, 28)
+        .foregroundStyle(.black)
+        .presentationDetents([.medium])
     }
-    .padding(.horizontal, 28)
-    .foregroundStyle(.black)
-    .presentationDetents([.medium])
-}
+    @ViewBuilder
+    private func error() -> some View {
+        ZStack(alignment: .bottom) {
+            VStack(spacing: 0) {
+                Spacer()
+                Button {
+                    viewModel.reloadButtonPressed()
+                } label: {
+                    VStack(spacing: 0) {
+                        Icon(name: .graduation, size: 122)
+                            .padding(.bottom, 8)
+                        Text("잠시 후에 다시 시도해주세요")
+                            .font(.title_xsm)
+                            .padding(.bottom, 16)
+                            .foregroundStyle(.gray600)
+                        HStack {
+                            Icon(name: .reload, color: .mainGray, size: 22)
+                                .padding(.leading, 8)
+                            Text("새로 고침")
+                                .foregroundStyle(.mainGray)
+                        }
+                        .padding(.vertical, 14)
+                        .padding(.horizontal, 24)
+                        .background(.gray70)
+                        .cornerRadius(130)
+                    }
+                }
+                Spacer()
+            }
+            ErrorToastView(.network)
+        }
+        .frame(maxWidth: .infinity)
+        .background(Color.gray50)
+    }
 }
 
 #Preview {

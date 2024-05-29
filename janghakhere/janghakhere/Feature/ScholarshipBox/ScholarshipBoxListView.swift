@@ -68,13 +68,20 @@ struct ScholarshipBoxListView: View {
                         }
                         .fullScreenCover(isPresented: $isShowPassModal) {
                             if let selectedScholarship {
-                                SuccessFailView(scholarshipBox: $selectedScholarship, isShowPassModal: $isShowPassModal)
-                                    .onDisappear {
-                                        if let index = scholarshipList.firstIndex(where: { $0.id == selectedScholarship.id }) {
-                                            scholarshipList[index].publicAnnouncementStatus = selectedScholarship.publicAnnouncementStatus
-                                        }
-                                        self.selectedScholarship = nil
+                                SuccessFailView(scholarshipBox: $selectedScholarship, isShowPassModal: $isShowPassModal, isChangedToPass: {
+                                    if let index = scholarshipList.firstIndex(where: { $0.id == selectedScholarship.id }) {
+                                        scholarshipList[index].publicAnnouncementStatus = .passed
+                                        print("ddd passed")
                                     }
+                                }, isChangedToFailed: {
+                                    if let index = scholarshipList.firstIndex(where: { $0.id == selectedScholarship.id }) {
+                                        scholarshipList[index].publicAnnouncementStatus = .non_passed
+                                        print("ddd faild")
+                                    }
+                                })
+                                .onDisappear {
+                                    self.selectedScholarship = nil
+                                }
                             }
                         }
                     }

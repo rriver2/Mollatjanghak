@@ -35,17 +35,10 @@ extension ScholarshipBoxViewModel {
     private func postScholarshipStatus(id: String, status: PublicAnnouncementStatusCategory) {
         Task {
             do {
-                async let isStatusSuccess = self.sholarshipStatusActor.postScholarshipStatus(id: id, status: status.rawValue)
-                async let isStoredSuccess = self.sholarshipStatusActor.postScholarshipStatus(id: id, status: "stored")
+                try await sholarshipStatusActor.postScholarshipStatus(id: id, status: status.rawValue)
+                try await sholarshipStatusActor.postScholarshipStatus(id: id, status: "stored")
                 
-                let (success1, success2) = await (try isStatusSuccess, try isStoredSuccess)
-                
-                if success1 && success2 {
-                    changedStatus = status
-                } else {
-                    // FIXME: Toast 저장 안 됐음 알리기
-                    isShowSavedError = true
-                }
+                changedStatus = status
             } catch {
                 isShowSavedError = true
                 print(error)
@@ -56,17 +49,10 @@ extension ScholarshipBoxViewModel {
     private func deleteScholarshipStatus(id: String, status: PublicAnnouncementStatusCategory) {
         Task {
             do {
-                async let isStatusSuccess = self.sholarshipStatusActor.postScholarshipStatus(id: id, status: status.rawValue)
-                async let isStoredSuccess = self.sholarshipStatusActor.deleteScholarshipStatus(id: id)
+                try await sholarshipStatusActor.postScholarshipStatus(id: id, status: status.rawValue)
+                try await sholarshipStatusActor.deleteScholarshipStatus(id: id)
                 
-                let (success1, success2) = await (try isStatusSuccess, try isStoredSuccess)
-                
-                if success1 && success2 {
-                    changedStatus = status
-                } else {
-                    // FIXME: Toast 저장 안 됐음 알리기
-                    isShowSavedError = true
-                }
+                changedStatus = status
             } catch {
                 isShowSavedError = true
                 print(error)

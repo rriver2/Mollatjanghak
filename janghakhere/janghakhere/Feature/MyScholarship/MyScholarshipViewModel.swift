@@ -91,7 +91,7 @@ extension MyScholarshipViewModel {
                 selectedScholarShipList = totalScholarShipList.filter({ $0.publicAnnouncementStatus == .passed })
             }
         case .stored(let storedCategory):
-            let filterScholarShipList = totalScholarShipList.filter({ $0.publicAnnouncementStatus != .non_passed && $0.publicAnnouncementStatus != .passed && $0.publicAnnouncementStatus != .nothing})
+            let filterScholarShipList = totalScholarShipList.filter({ $0.publicAnnouncementStatus != .nothing})
             switch storedCategory {
             case .all:
                 selectedScholarShipList = filterScholarShipList
