@@ -23,40 +23,40 @@ struct DetailScholarshipView: View {
     private let effortLevelTip = EffortLevelTip()
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            navigation()
-            ZStack(alignment: .bottom) {
-                switch viewModel.networkStatus {
-                case .loading:
-                    ProgressView()
-                case .success:
-                    ScrollView(.vertical) {
-                        VStack(spacing: 0) {
-                            detailThumbnail()
-                            contentHeader()
-                                .padding(.vertical, 23)
-                            customDivider()
-                                .padding(.vertical, 8)
-                            recuirtInfoContent()
-                            customDivider()
-                            applicationDetail()
-                            customDivider()
-                            selectionProccess()
-                            customDivider()
-                            requirementContent()
-                            customDivider()
-                                .padding(.bottom, 190)
+            VStack(alignment: .leading, spacing: 0) {
+                navigation()
+                ZStack(alignment: .bottom) {
+                    switch viewModel.networkStatus {
+                    case .loading:
+                        ProgressView()
+                    case .success:
+                        ScrollView(.vertical) {
+                            VStack(spacing: 0) {
+                                detailThumbnail()
+                                contentHeader()
+                                    .padding(.vertical, 23)
+                                customDivider()
+                                    .padding(.vertical, 8)
+                                recuirtInfoContent()
+                                customDivider()
+                                applicationDetail()
+                                customDivider()
+                                selectionProccess()
+                                customDivider()
+                                requirementContent()
+                                customDivider()
+                                    .padding(.bottom, 190)
+                            }
                         }
-                    }
-                    buttons()
-                case .failed:
-                    VStack {
-                        Text("에러 발생")
-                        Spacer()
+                        buttons()
+                    case .failed:
+                        VStack {
+                            Spacer()
+                            ErrorToastView(.network)
+                        }
                     }
                 }
             }
-        }
         .onChange(of: scholarshipBoxViewModel.changedStatus) { oldValue, newValue in
             if let status = scholarshipBoxViewModel.changedStatus {
                 viewModel.status = status
