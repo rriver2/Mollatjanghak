@@ -83,8 +83,11 @@ extension SuccessFailView {
             if !amount.isEmpty {
                 Text("완료")
                     .font(.title_xsm)
-                    .foregroundStyle(.gray600)
-                    .padding(.trailing, 16)
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .background(Color.mainGray)
+                    .cornerRadius(4)
                     .onTapGesture {
                         passedFinishedButtonPressed()
                     }

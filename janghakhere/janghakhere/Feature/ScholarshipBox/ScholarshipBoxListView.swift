@@ -17,8 +17,6 @@ struct ScholarshipBoxListView: View {
     @Binding var scholarshipList: [ScholarshipBox]
     let boxCategory: BoxCategory
     
-    let isShowPassStatus: Bool
-    
     var body: some View {
         VStack(spacing: 0) {
             ScrollView {
@@ -28,9 +26,8 @@ struct ScholarshipBoxListView: View {
                         Button {
                             pathModel.paths.append(.detailScholarshipView(id: scholarshipList[index].id, status: scholarshipList[index].publicAnnouncementStatus))
                         } label: {
-                            if !isShowPassStatus {
-                                ScholarshipBoxView(scholarshipBox: $scholarshipList[index], category: boxCategory)
-                            } else {
+                            switch boxCategory {
+                            case .MyScholarship:
                                 switch scholarshipList[index].publicAnnouncementStatus {
                                 case  .nothing, .saved, .planned, .non_passed, .passed:
                                     ScholarshipBoxView(scholarshipBox: $scholarshipList[index], category: boxCategory)
@@ -55,6 +52,8 @@ struct ScholarshipBoxListView: View {
                                     }
                                     .background(.white)
                                 }
+                            default:
+                                ScholarshipBoxView(scholarshipBox: $scholarshipList[index], category: boxCategory)
                             }
                         }
                         .cornerRadius(8)

@@ -26,11 +26,7 @@ struct MyScholarshipView: View {
                             Spacer()
                         }
                     case .success:
-                        if viewModel.totalScholarShipList.isEmpty {
-                            emptyView()
-                        } else {
                             detailScholarshipBoxListView()
-                        }
                     case .failed:
                         ZStack(alignment: .bottom) {
                             VStack(spacing: 0) {
@@ -189,10 +185,22 @@ extension MyScholarshipView {
     func detailScholarshipBoxListView() -> some View {
         //TODO: TabView
         VStack(spacing: 0) {
-            if viewModel.selectedCategoryName == MyScholarshipCategory.storedName {
-                ScholarshipBoxListView(isGetMoreScholarshipBox: .constant(false), scholarshipList: $viewModel.selectedScholarShipList, boxCategory: .DetailScholarship, isShowPassStatus: false)
+            if viewModel.selectedScholarShipList.isEmpty {
+                switch viewModel.selectedCategory {
+                case.stored(_):
+                    emptyView(title: "여깄장학과 함께 저장하고\n지원해보세요", content: "여깄장학과 함께 저장하고\n지원해보세요")
+                case.supported(let category):
+                    switch category {
+                    case .applied:
+                        emptyView(title: "아직 지원한 장학금이 없어요", content: "여깄장학과 함께 지원하고\n합격해보세요")
+                    case .passed:
+                        emptyView(title: "아직 합격한 장학금이 없어요", content: "여깄장학과 함께 지원하고\n합격해보세요")
+                    case .non_passed:
+                        emptyView(title: "불합격한 장학금이 없어요", content: nil)
+                    }
+                }
             } else {
-                ScholarshipBoxListView(isGetMoreScholarshipBox: .constant(false), scholarshipList: $viewModel.selectedScholarShipList, boxCategory: .SearchScholarship, isShowPassStatus: true)
+                ScholarshipBoxListView(isGetMoreScholarshipBox: .constant(false), scholarshipList: $viewModel.selectedScholarShipList, boxCategory: .MyScholarship)
             }
             Spacer()
         }
@@ -216,14 +224,20 @@ extension MyScholarshipView {
         }
     }
     @ViewBuilder
-    private func emptyView() -> some View {
+    private func emptyView(title: String, content: String?) -> some View {
         VStack(spacing: 8) {
             Spacer()
-            Icon(name: .nothing, size: 122)
-            Text("저장한 공고가 없어요\n지원하고 싶은 공고를 저장해보세요")
+            Icon(name: .grabPaper, color: .gray400, size: 122)
+            Text(title)
                 .multilineTextAlignment(.center)
-                .font(.text_md)
+                .font(.title_xsm)
                 .foregroundStyle(.gray600)
+            if let content {
+                Text(content)
+                    .multilineTextAlignment(.center)
+                    .font(.text_sm)
+                    .foregroundStyle(.gray600)
+            }
             Spacer()
         }
     }
