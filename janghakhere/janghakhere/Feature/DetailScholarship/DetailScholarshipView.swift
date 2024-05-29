@@ -109,6 +109,27 @@ extension DetailScholarshipView {
                     viewModel.isStatusSheet = false
                 })
             }
+            
+            if let url = viewModel.detailContent?.homePageUrl {
+                Link(destination: URL(string: url )!) {
+                    HStack(spacing: 8) {
+                        Icon(name: .handFist, color: .white, size: 20)
+                        
+                        Text("지원하기")
+                            .foregroundStyle(Color.white)
+                            .font(.title_xsm)
+                    }
+                    .padding(.vertical, 14)
+                    .padding(.horizontal, 24)
+                    .background(
+                        Capsule()
+                            .fill(Color.mainGray)
+                    )
+                    .onAppear {
+                        print(url)
+                    }
+                }
+            }
         }
     }
     
