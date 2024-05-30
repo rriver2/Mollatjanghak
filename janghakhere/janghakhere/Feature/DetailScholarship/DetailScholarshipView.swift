@@ -23,40 +23,40 @@ struct DetailScholarshipView: View {
     private let effortLevelTip = EffortLevelTip()
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            navigation()
-            ZStack(alignment: .bottom) {
-                switch viewModel.networkStatus {
-                case .loading:
-                    ProgressView()
-                case .success:
-                    ScrollView(.vertical) {
-                        VStack(spacing: 0) {
-                            detailThumbnail()
-                            contentHeader()
-                                .padding(.vertical, 23)
-                            customDivider()
-                                .padding(.vertical, 8)
-                            recuirtInfoContent()
-                            customDivider()
-                            applicationDetail()
-                            customDivider()
-                            selectionProccess()
-                            customDivider()
-                            requirementContent()
-                            customDivider()
-                                .padding(.bottom, 190)
+            VStack(alignment: .leading, spacing: 0) {
+                navigation()
+                ZStack(alignment: .bottom) {
+                    switch viewModel.networkStatus {
+                    case .loading:
+                        ProgressView()
+                    case .success:
+                        ScrollView(.vertical) {
+                            VStack(spacing: 0) {
+                                detailThumbnail()
+                                contentHeader()
+                                    .padding(.vertical, 23)
+                                customDivider()
+                                    .padding(.vertical, 8)
+                                recuirtInfoContent()
+                                customDivider()
+                                applicationDetail()
+                                customDivider()
+                                selectionProccess()
+                                customDivider()
+                                requirementContent()
+                                customDivider()
+                                    .padding(.bottom, 190)
+                            }
                         }
-                    }
-                    buttons()
-                case .failed:
-                    VStack {
-                        Text("에러 발생")
-                        Spacer()
+                        buttons()
+                    case .failed:
+                        VStack {
+                            Spacer()
+                            ErrorToastView(.network)
+                        }
                     }
                 }
             }
-        }
         .onChange(of: scholarshipBoxViewModel.changedStatus) { oldValue, newValue in
             if let status = scholarshipBoxViewModel.changedStatus {
                 viewModel.status = status
@@ -108,6 +108,27 @@ extension DetailScholarshipView {
                     }
                     viewModel.isStatusSheet = false
                 })
+            }
+            
+            if let url = viewModel.detailContent?.homePageUrl {
+                Link(destination: URL(string: url )!) {
+                    HStack(spacing: 8) {
+                        Icon(name: .handFist, color: .white, size: 20)
+                        
+                        Text("지원하기")
+                            .foregroundStyle(Color.white)
+                            .font(.title_xsm)
+                    }
+                    .padding(.vertical, 14)
+                    .padding(.horizontal, 24)
+                    .background(
+                        Capsule()
+                            .fill(Color.mainGray)
+                    )
+                    .onAppear {
+                        print(url)
+                    }
+                }
             }
         }
     }
@@ -383,7 +404,7 @@ extension DetailScholarshipView {
                     VStack(spacing: 12) {
                         Text("지원금액")
                             .foregroundStyle(.black)
-                        Text("100만원 이상")
+                        Text(detailContent.formattedSupportDetails ?? "상세 공고 확인")
                     }
                     .font(.semi_title_md)
                     
@@ -426,10 +447,10 @@ extension DetailScholarshipView {
             Text("상세")
                 .font(.title_xsm)
             Spacer()
-//            Icon(name: .share, color: .black, size: 28)
-//                .onTapGesture {
-//                    viewModel.shareButtonPressed()
-//                }
+            Icon(name: .share, color: .black, size: 28)
+                .onTapGesture {
+                    viewModel.shareButtonPressed()
+                }
         }
         .paddingHorizontal()
         .foregroundStyle(.black)
