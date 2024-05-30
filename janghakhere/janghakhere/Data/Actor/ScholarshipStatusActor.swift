@@ -15,7 +15,7 @@ actor ScholarshipStatusActor {
     }
     
     // 장학금 지원 status 추가/수정
-    func postScholarshipStatus(id: String, status: String) async throws -> Bool {
+    func postScholarshipStatus(id: String, status: String) async throws {
         do {
             let postStruct = scholarship(id: id, status: status)
             
@@ -25,8 +25,7 @@ actor ScholarshipStatusActor {
             
             switch response.statusCode {
             case 200:
-                print("성공")
-                return true
+                break
             default: // 기술적 문제
                 throw URLError(.badServerResponse)
             }
@@ -36,7 +35,7 @@ actor ScholarshipStatusActor {
     }
     
     // 장학금 지원 status 삭제
-    func deleteScholarshipStatus(id: String) async throws -> Bool {
+    func deleteScholarshipStatus(id: String) async throws {
         do {
             guard let userID = UserDateActor.getUserID() else { throw URLError(.unknown) }
             
@@ -44,8 +43,7 @@ actor ScholarshipStatusActor {
             
             switch response.statusCode {
             case 200:
-                print("성공")
-                return true
+                break
             default: // 기술적 문제
                 throw URLError(.badServerResponse)
             }

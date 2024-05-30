@@ -37,7 +37,6 @@ actor MyScholarshipBoxListActor {
             
             let scholarshipList = try responseHandling(data, response)
             
-            print("scholarshipList", scholarshipList)
             return scholarshipList
         } catch {
             throw error

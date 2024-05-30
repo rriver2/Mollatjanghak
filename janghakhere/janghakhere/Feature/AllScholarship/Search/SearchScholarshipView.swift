@@ -25,7 +25,7 @@ struct SearchScholarshipView: View {
             case .loading:
                 loading()
             case .searchedWithData:
-                ScholarshipBoxListView(isGetMoreScholarshipBox: $isGetMoreScholarshipBox, scholarshipList: $viewModel.scholarshipList, boxCategory: .SearchScholarship, isShowPassStatus: false)
+                ScholarshipBoxListView(isGetMoreScholarshipBox: $isGetMoreScholarshipBox, scholarshipList: $viewModel.scholarshipList, boxCategory: .SearchScholarship)
                     .onChange(of: viewModel.isGetMoreScholarshipBox, { _, _ in
                         userTouchedBottomOfTheScroll()
                     })

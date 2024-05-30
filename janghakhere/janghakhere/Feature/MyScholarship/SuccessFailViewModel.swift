@@ -15,26 +15,22 @@ final class SuccessFailViewModel: ObservableObject {
     
     private var tasks: [Task<Void, Never>] = []
     
-    func susseccButtonPressed(scholarship: ScholarshipBox) {
-        self.postScholarshipStatus(id: scholarship.id, status: PublicAnnouncementStatusCategory.passed)
+    func susseccButtonPressed(scholarship: ScholarshipBox, success: @escaping () -> Void) {
+        self.postScholarshipStatus(id: scholarship.id, status: PublicAnnouncementStatusCategory.passed, success: success)
     }
     
-    func failButtonPressed(scholarship: ScholarshipBox) {
-        self.postScholarshipStatus(id: scholarship.id, status: PublicAnnouncementStatusCategory.non_passed)
+    func failButtonPressed(scholarship: ScholarshipBox, success: @escaping () -> Void) {
+        self.postScholarshipStatus(id: scholarship.id, status: PublicAnnouncementStatusCategory.non_passed, success: success)
     }
 }
 
 // private 함수들
 extension SuccessFailViewModel {
-    private func postScholarshipStatus(id: String, status: PublicAnnouncementStatusCategory) {
+    private func postScholarshipStatus(id: String, status: PublicAnnouncementStatusCategory, success: @escaping () -> Void) {
         Task {
             do {
-                let isStatusSuccess = try await sholarshipStatusActor.postScholarshipStatus(id: id, status: status.rawValue)
-                
-                if !isStatusSuccess {
-                    // FIXME: Toast 저장 안 됐음 알리기
-                    isShowSavedError = true
-                }
+                try await sholarshipStatusActor.postScholarshipStatus(id: id, status: status.rawValue)
+                success()
             } catch {
                 isShowSavedError = true
                 print(error)

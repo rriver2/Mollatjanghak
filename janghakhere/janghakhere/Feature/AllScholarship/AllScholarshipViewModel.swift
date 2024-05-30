@@ -29,6 +29,7 @@ final class AllScholarshipViewModel: ObservableObject {
     @Published var isGetMoreScholarshipBox = false
     @Published var filteringcategory: ScholarshipBoxListFliteringCategory = .allCases.first!
     @Published var isShowFilteringSheet = false
+    @Published var isShowError = false
     @Published var name: String = ""
     
     @Published private(set) var isNewAlarm: Bool = false

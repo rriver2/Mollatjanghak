@@ -100,13 +100,13 @@ extension ScholarshipBoxView {
         .foregroundStyle(scholarshipBox.publicAnnouncementStatus.buttonFontColor)
         .onTapGesture {
             switch category {
-            case .AllScholarship, .SearchScholarship:
+            case .AllScholarship, .SearchScholarship, .MyScholarship:
                 if scholarshipBox.publicAnnouncementStatus == .nothing {
                     viewModel.mainStorageButtonPressed(id: scholarshipBox.id)
                 } else {
                     viewModel.isStatusSheet = true
                 }
-            case .DetailScholarship, .MyScholarship:
+            case .DetailScholarship:
                 viewModel.isStatusSheet = true
             }
         }

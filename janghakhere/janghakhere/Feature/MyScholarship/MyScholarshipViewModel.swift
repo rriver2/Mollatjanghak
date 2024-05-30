@@ -14,6 +14,7 @@ final class MyScholarshipViewModel: ObservableObject {
     @Published private(set) var selectedCategory: MyScholarshipCategory = .stored(.all)
     @Published private(set) var selectedCategoryName: String = MyScholarshipCategory.storedName
     @Published private(set) var selectedCategoryDetailName: String = StorageCategory.allCases.first?.name ?? "에베베"
+    @Published private(set) var selectedDetailCategory: PublicAnnouncementStatusCategory? = nil
     
     @Published private(set) var networkStatus: NetworkStatus = .loading
     @Published var filteringCategory: MyScholarshipFilteringCategory = .allCases.first!
@@ -90,7 +91,7 @@ extension MyScholarshipViewModel {
                 selectedScholarShipList = totalScholarShipList.filter({ $0.publicAnnouncementStatus == .passed })
             }
         case .stored(let storedCategory):
-            let filterScholarShipList = totalScholarShipList.filter({ $0.publicAnnouncementStatus != .non_passed && $0.publicAnnouncementStatus != .passed && $0.publicAnnouncementStatus != .nothing})
+            let filterScholarShipList = totalScholarShipList.filter({ $0.publicAnnouncementStatus != .nothing})
             switch storedCategory {
             case .all:
                 selectedScholarShipList = filterScholarShipList

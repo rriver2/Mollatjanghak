@@ -26,43 +26,9 @@ struct MyScholarshipView: View {
                             Spacer()
                         }
                     case .success:
-                        if viewModel.totalScholarShipList.isEmpty {
-                            emptyView()
-                        } else {
-                            detailScholarshipBoxListView()
-                        }
+                        detailScholarshipBoxListView()
                     case .failed:
-                        ZStack(alignment: .bottom) {
-                            VStack(spacing: 0) {
-                                Spacer()
-                                Button {
-                                    viewModel.reloadButtonPressed()
-                                } label: {
-                                    VStack(spacing: 0) {
-                                        Icon(name: .graduation, size: 122)
-                                            .padding(.bottom, 8)
-                                        Text("잠시 후에 다시 시도해주세요")
-                                            .font(.title_xsm)
-                                            .padding(.bottom, 16)
-                                            .foregroundStyle(.gray600)
-                                        HStack {
-                                            Icon(name: .reload, color: .mainGray, size: 22)
-                                                .padding(.leading, 8)
-                                            Text("새로 고침")
-                                                .foregroundStyle(.mainGray)
-                                        }
-                                        .padding(.vertical, 14)
-                                        .padding(.horizontal, 24)
-                                        .background(.gray70)
-                                        .cornerRadius(130)
-                                    }
-                                }
-                                Spacer()
-                            }
-                            ErrorToastView(.network)
-                        }
-                        .frame(maxWidth: .infinity)
-                        .background(Color.gray50)
+                        error()
                     }
                 }
             }
@@ -189,10 +155,22 @@ extension MyScholarshipView {
     func detailScholarshipBoxListView() -> some View {
         //TODO: TabView
         VStack(spacing: 0) {
-            if viewModel.selectedCategoryName == MyScholarshipCategory.storedName {
-                ScholarshipBoxListView(isGetMoreScholarshipBox: .constant(false), scholarshipList: $viewModel.selectedScholarShipList, boxCategory: .DetailScholarship, isShowPassStatus: false)
+            if viewModel.selectedScholarShipList.isEmpty {
+                switch viewModel.selectedCategory {
+                case.stored(_):
+                    emptyView(title: "여깄장학과 함께 저장하고\n지원해보세요", content: "여깄장학과 함께 저장하고\n지원해보세요")
+                case.supported(let category):
+                    switch category {
+                    case .applied:
+                        emptyView(title: "아직 지원한 장학금이 없어요", content: "여깄장학과 함께 지원하고\n합격해보세요")
+                    case .passed:
+                        emptyView(title: "아직 합격한 장학금이 없어요", content: "여깄장학과 함께 지원하고\n합격해보세요")
+                    case .non_passed:
+                        emptyView(title: "불합격한 장학금이 없어요", content: nil)
+                    }
+                }
             } else {
-                ScholarshipBoxListView(isGetMoreScholarshipBox: .constant(false), scholarshipList: $viewModel.selectedScholarShipList, boxCategory: .SearchScholarship, isShowPassStatus: true)
+                ScholarshipBoxListView(isGetMoreScholarshipBox: .constant(false), scholarshipList: $viewModel.selectedScholarShipList, boxCategory: .MyScholarship)
             }
             Spacer()
         }
@@ -216,44 +194,84 @@ extension MyScholarshipView {
         }
     }
     @ViewBuilder
-    private func emptyView() -> some View {
+    private func emptyView(title: String, content: String?) -> some View {
         VStack(spacing: 8) {
             Spacer()
-            Icon(name: .nothing, size: 122)
-            Text("저장한 공고가 없어요\n지원하고 싶은 공고를 저장해보세요")
+            Icon(name: .grabPaper, color: .gray400, size: 122)
+            Text(title)
                 .multilineTextAlignment(.center)
-                .font(.text_md)
+                .font(.title_xsm)
                 .foregroundStyle(.gray600)
+            if let content {
+                Text(content)
+                    .multilineTextAlignment(.center)
+                    .font(.text_sm)
+                    .foregroundStyle(.gray600)
+            }
             Spacer()
         }
     }
     @ViewBuilder
     private func filteringSheet() -> some View {
-    VStack(alignment: .leading, spacing: 0) {
-        Text("정렬")
-            .font(.title_xsm)
-            .padding(.top, 20)
-            .frame(maxWidth: .infinity)
-        ForEach(MyScholarshipFilteringCategory.allCases, id: \.self) { category in
-            filteringButton(category: category)
-        }
-        Spacer()
-        Text("닫기")
-            .font(.title_xsm)
-            .foregroundStyle(.white)
-            .padding(.vertical, 16)
-            .frame(maxWidth: .infinity)
-            .background(.mainGray)
-            .cornerRadius(100)
-            .padding(.bottom, 14)
-            .onTapGesture {
-                viewModel.isShowFilteringSheet = false
+        VStack(alignment: .leading, spacing: 0) {
+            Text("정렬")
+                .font(.title_xsm)
+                .padding(.top, 20)
+                .frame(maxWidth: .infinity)
+            ForEach(MyScholarshipFilteringCategory.allCases, id: \.self) { category in
+                filteringButton(category: category)
             }
+            Spacer()
+            Text("닫기")
+                .font(.title_xsm)
+                .foregroundStyle(.white)
+                .padding(.vertical, 16)
+                .frame(maxWidth: .infinity)
+                .background(.mainGray)
+                .cornerRadius(100)
+                .padding(.bottom, 14)
+                .onTapGesture {
+                    viewModel.isShowFilteringSheet = false
+                }
+        }
+        .padding(.horizontal, 28)
+        .foregroundStyle(.black)
+        .presentationDetents([.medium])
     }
-    .padding(.horizontal, 28)
-    .foregroundStyle(.black)
-    .presentationDetents([.medium])
-}
+    @ViewBuilder
+    private func error() -> some View {
+        ZStack(alignment: .bottom) {
+            VStack(spacing: 0) {
+                Spacer()
+                Button {
+                    viewModel.reloadButtonPressed()
+                } label: {
+                    VStack(spacing: 0) {
+                        Icon(name: .graduation, size: 122)
+                            .padding(.bottom, 8)
+                        Text("잠시 후에 다시 시도해주세요")
+                            .font(.title_xsm)
+                            .padding(.bottom, 16)
+                            .foregroundStyle(.gray600)
+                        HStack {
+                            Icon(name: .reload, color: .mainGray, size: 22)
+                                .padding(.leading, 8)
+                            Text("새로 고침")
+                                .foregroundStyle(.mainGray)
+                        }
+                        .padding(.vertical, 14)
+                        .padding(.horizontal, 24)
+                        .background(.gray70)
+                        .cornerRadius(130)
+                    }
+                }
+                Spacer()
+            }
+            ErrorToastView(.network)
+        }
+        .frame(maxWidth: .infinity)
+        .background(Color.gray50)
+    }
 }
 
 #Preview {

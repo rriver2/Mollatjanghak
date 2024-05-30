@@ -17,8 +17,6 @@ struct ScholarshipBoxListView: View {
     @Binding var scholarshipList: [ScholarshipBox]
     let boxCategory: BoxCategory
     
-    let isShowPassStatus: Bool
-    
     var body: some View {
         VStack(spacing: 0) {
             ScrollView {
@@ -28,9 +26,8 @@ struct ScholarshipBoxListView: View {
                         Button {
                             pathModel.paths.append(.detailScholarshipView(id: scholarshipList[index].id, status: scholarshipList[index].publicAnnouncementStatus))
                         } label: {
-                            if !isShowPassStatus {
-                                ScholarshipBoxView(scholarshipBox: $scholarshipList[index], category: boxCategory)
-                            } else {
+                            switch boxCategory {
+                            case .MyScholarship:
                                 switch scholarshipList[index].publicAnnouncementStatus {
                                 case  .nothing, .saved, .planned, .non_passed, .passed:
                                     ScholarshipBoxView(scholarshipBox: $scholarshipList[index], category: boxCategory)
@@ -55,6 +52,8 @@ struct ScholarshipBoxListView: View {
                                     }
                                     .background(.white)
                                 }
+                            default:
+                                ScholarshipBoxView(scholarshipBox: $scholarshipList[index], category: boxCategory)
                             }
                         }
                         .cornerRadius(8)
@@ -69,13 +68,18 @@ struct ScholarshipBoxListView: View {
                         }
                         .fullScreenCover(isPresented: $isShowPassModal) {
                             if let selectedScholarship {
-                                SuccessFailView(scholarshipBox: $selectedScholarship, isShowPassModal: $isShowPassModal)
-                                    .onDisappear {
-                                        if let index = scholarshipList.firstIndex(where: { $0.id == selectedScholarship.id }) {
-                                            scholarshipList[index].publicAnnouncementStatus = selectedScholarship.publicAnnouncementStatus
-                                        }
-                                        self.selectedScholarship = nil
+                                SuccessFailView(scholarshipBox: $selectedScholarship, isShowPassModal: $isShowPassModal, isChangedToPass: {
+                                    if let index = scholarshipList.firstIndex(where: { $0.id == selectedScholarship.id }) {
+                                        scholarshipList[index].publicAnnouncementStatus = .passed
                                     }
+                                }, isChangedToFailed: {
+                                    if let index = scholarshipList.firstIndex(where: { $0.id == selectedScholarship.id }) {
+                                        scholarshipList[index].publicAnnouncementStatus = .non_passed
+                                    }
+                                })
+                                .onDisappear {
+                                    self.selectedScholarship = nil
+                                }
                             }
                         }
                     }

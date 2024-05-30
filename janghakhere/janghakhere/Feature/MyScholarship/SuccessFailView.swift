@@ -16,33 +16,55 @@ struct SuccessFailView: View {
     @State var amount: String = ""
     @State private var textRect = CGRect()
     
+    @State var isSelectedPass: selectedButton = .none
+    
+    let isChangedToPass: () -> Void
+    let isChangedToFailed: () -> Void
+    
+    enum selectedButton {
+        case pass
+        case failed
+        case none
+    }
+    
     @FocusState private var isKeyBoardOn: Bool
     
     let placeHolder: String = "0"
     
-    init(scholarshipBox: Binding<ScholarshipBox?>, isShowPassModal: Binding<Bool>) {
+    init(scholarshipBox: Binding<ScholarshipBox?>, isShowPassModal: Binding<Bool>,
+         isChangedToPass: @escaping () -> Void, isChangedToFailed: @escaping () -> Void) {
         self._scholarshipBox = scholarshipBox
         self._isShowPassModal = isShowPassModal
+        self.isChangedToPass = isChangedToPass
+        self.isChangedToFailed = isChangedToFailed
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            navigationView()
-            VStack(alignment: .leading, spacing: 0) {
-                Text("합격 여부를 알려주세요")
-                    .font(.title_md)
-                    .padding(.top, 14)
-                    .padding(.bottom, 60)
-                
-                passButton()
-                failedButton()
-                    .padding(.bottom, 60)
-                if scholarshipBox!.publicAnnouncementStatus == .passed {
-                    passedAmmountTextField()
+        ZStack(alignment: .top) {
+                VStack(alignment: .leading, spacing: 0) {
+                navigationView()
+                VStack(alignment: .leading, spacing: 0) {
+                    Text("합격 여부를 알려주세요")
+                        .font(.title_md)
+                        .padding(.top, 14)
+                        .padding(.bottom, 60)
+                    
+                    passButton()
+                    failedButton()
+                        .padding(.bottom, 60)
+                    if isSelectedPass == .pass {
+                        passedAmmountTextField()
+                    }
+                    Spacer()
                 }
-                Spacer()
-                if !isKeyBoardOn {
-                    submitButton()
+                if viewModel.isShowSavedError {
+                    ErrorToastView(.network)
+                        .onAppear {
+                            //TODO: ErrorToastView에서 isShowAlert 관리하게 두기...
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                viewModel.isShowSavedError = false
+                            }
+                        }
                 }
             }
         }
@@ -83,10 +105,18 @@ extension SuccessFailView {
             if !amount.isEmpty {
                 Text("완료")
                     .font(.title_xsm)
-                    .foregroundStyle(.gray600)
-                    .padding(.trailing, 16)
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .background(Color.mainGray)
+                    .cornerRadius(4)
                     .onTapGesture {
-                        passedFinishedButtonPressed()
+                        passedFinishedButtonPressed(success: {
+                            scholarshipBox!.publicAnnouncementStatus = .passed
+                            isShowPassModal = false
+                            isChangedToPass()
+                        })
+                        isKeyBoardOn = false
                     }
             }
         }
@@ -97,7 +127,7 @@ extension SuccessFailView {
     @ViewBuilder
     private func passButton() -> some View {
         Button {
-            scholarshipBox!.publicAnnouncementStatus = .passed
+            isSelectedPass = .pass
         } label: {
             Text("합격")
                 .multilineTextAlignment(.leading)
@@ -105,8 +135,8 @@ extension SuccessFailView {
                 .padding(.leading, 24)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.title_xsm)
-                .foregroundStyle( scholarshipBox!.publicAnnouncementStatus == .passed ? .white : .gray600)
-                .background( scholarshipBox!.publicAnnouncementStatus == .passed ? .subGreen : .gray70)
+                .foregroundStyle( isSelectedPass == .pass ? .white : .gray600)
+                .background( isSelectedPass == .pass ? .subGreen : .gray70)
                 .cornerRadius(4)
         }
         .padding(.bottom, 20)
@@ -115,35 +145,24 @@ extension SuccessFailView {
     @ViewBuilder
     private func failedButton() -> some View {
         Button {
-            failedFinishedButtonPressed()
+            isSelectedPass = .failed
+            failedFinishedButtonPressed {
+                scholarshipBox!.publicAnnouncementStatus = .non_passed
+                isShowPassModal = false
+                isChangedToFailed()
+            }
         } label: {
             Text("불합격")
                 .padding(.vertical, 20)
                 .padding(.leading, 24)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.title_xsm)
-                .foregroundStyle( scholarshipBox!.publicAnnouncementStatus == .non_passed ? .white : .gray600)
-                .background( scholarshipBox!.publicAnnouncementStatus == .non_passed ? Color.ectRed : .gray70)
+                .foregroundStyle( isSelectedPass == .failed ? .white : .gray600)
+                .background( isSelectedPass == .failed ? Color.ectRed : .gray70)
                 .cornerRadius(4)
         }
     }
-    
-    @ViewBuilder
-    private func submitButton() -> some View {
-        Button {
-            passedFinishedButtonPressed()
-        } label: {
-            let isSubmitmode = scholarshipBox!.publicAnnouncementStatus == .non_passed || (scholarshipBox!.publicAnnouncementStatus == .passed && !amount.isEmpty)
-            Text("완료")
-                .padding(.vertical, 16)
-                .frame(maxWidth: .infinity)
-                .font(.title_xsm)
-                .foregroundStyle(isSubmitmode ? .white :.gray500)
-                .background( isSubmitmode ? .mainGray : .gray100)
-                .cornerRadius(100)
-                .padding(.bottom, 18)
-        }
-    }
+
     @ViewBuilder
     private func TextFieldDynamicWidth() -> some View {
         ZStack {
@@ -152,18 +171,6 @@ extension SuccessFailView {
                 TextField(text: $amount) {
                     Text(placeHolder)
                         .foregroundStyle(.gray300)
-                }
-                .toolbar {
-                    ToolbarItem(placement: .keyboard) {
-                        Spacer()
-                        Button {
-                            passedFinishedButtonPressed()
-                        } label: {
-                            Text("완료")
-                                .font(UIFont.systemFont(ofSize: 17, weight: .semibold))
-                                .foregroundStyle(Color(hex: "3478F6") ?? .blue)
-                        }
-                    }
                 }
                 .focused($isKeyBoardOn)
                 .foregroundStyle(.black)
@@ -195,16 +202,14 @@ extension SuccessFailView {
 }
 
 extension SuccessFailView {
-    private func passedFinishedButtonPressed() {
+    private func passedFinishedButtonPressed(success: @escaping () -> Void) {
         if let scholarshipBox {
-            viewModel.susseccButtonPressed(scholarship: scholarshipBox)
+            viewModel.susseccButtonPressed(scholarship: scholarshipBox, success: success)
         }
-        self.isShowPassModal = false
     }
-    private func failedFinishedButtonPressed() {
+    private func failedFinishedButtonPressed(success: @escaping () -> Void) {
         if let scholarshipBox {
-            viewModel.failButtonPressed(scholarship: scholarshipBox)
+            viewModel.failButtonPressed(scholarship: scholarshipBox, success: success)
         }
-        self.isShowPassModal = false
     }
 }
