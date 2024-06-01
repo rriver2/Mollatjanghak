@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SearchScholarshipView: View {
     @EnvironmentObject private var pathModel: PathModel
+    @EnvironmentObject private var scholarshipStatusViewModel: ScholarshipStatusViewModel
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = SearchScholarshipViewModel()
     @FocusState private var isKeyBoardOn: Bool
@@ -38,6 +39,8 @@ struct SearchScholarshipView: View {
         .background(.gray50)
         .onAppear {
             isKeyBoardOn = true
+            let newScholarShipList = scholarshipStatusViewModel.getFilteringScholarshipList(list: viewModel.scholarshipList)
+            viewModel.scholarshipList = newScholarShipList
             viewModel.viewOpened()
         }
         .onDisappear {

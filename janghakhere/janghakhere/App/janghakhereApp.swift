@@ -26,6 +26,7 @@ struct janghakhereApp: App {
     var body: some Scene {
         WindowGroup {
             FirstView()
+                .environmentObject(ScholarshipStatusViewModel())
         }
         .modelContainer(sharedModelContainer)
     }

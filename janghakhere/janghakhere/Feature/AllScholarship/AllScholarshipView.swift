@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AllScholarshipView: View {
     @EnvironmentObject private var pathModel: PathModel
+    @EnvironmentObject private var scholarshipStatusViewModel: ScholarshipStatusViewModel
     @StateObject private var viewModel = AllScholarshipViewModel()
     @State private var isUserSwipedBanner = false
     
@@ -45,6 +46,9 @@ struct AllScholarshipView: View {
         }
         .onAppear {
             viewModel.viewOpened()
+            let newScholarShipList = scholarshipStatusViewModel.getFilteringScholarshipList(list: viewModel.scholarshipList)
+            viewModel.scholarshipList = newScholarShipList
+            print("viewModel.scholarshipList", viewModel.scholarshipList)
             NotificationManager.instance.requestAuthorization()
         }
         .onDisappear {

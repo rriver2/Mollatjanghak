@@ -11,6 +11,7 @@ struct MyScholarshipView: View {
     @EnvironmentObject private var pathModel: PathModel
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = MyScholarshipViewModel()
+    @EnvironmentObject private var scholarshipStatusViewModel: ScholarshipStatusViewModel
     
     var body: some View {
         VStack(spacing: 0) {
@@ -40,9 +41,13 @@ struct MyScholarshipView: View {
             if let category = viewModel.getStoreChangedtScholarShip() {
                 viewModel.scholarshipCategoryButtonPressed(category)
             }
+            let newScholarShipList = scholarshipStatusViewModel.getFilteringScholarshipList(list: viewModel.selectedScholarShipList)
+            viewModel.selectedScholarShipList = newScholarShipList
         })
         .onAppear {
             viewModel.viewOpened()
+            let newScholarShipList = scholarshipStatusViewModel.getFilteringScholarshipList(list: viewModel.totalScholarShipList)
+            viewModel.totalScholarShipList = newScholarShipList
         }
         .onDisappear {
             viewModel.cancelTasks()
