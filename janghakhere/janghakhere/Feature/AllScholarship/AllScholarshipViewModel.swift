@@ -162,8 +162,6 @@ extension AllScholarshipViewModel {
 // 기본 함수들
 extension AllScholarshipViewModel {
     func viewOpened() {
-        self.scholarshipList = []
-        self.nextPageNumber = 0
         self.getScholarShipList(scholarshipCategory)
         self.timerinit()
         self.initializeUserData()

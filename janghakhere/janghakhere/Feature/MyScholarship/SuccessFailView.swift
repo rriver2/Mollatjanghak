@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SuccessFailView: View {
+    @EnvironmentObject private var scholarshipStatusViewModel: ScholarshipStatusViewModel
+    
     @StateObject var viewModel: SuccessFailViewModel = SuccessFailViewModel()
     
     @Binding var scholarshipBox: ScholarshipBox?
@@ -113,6 +115,7 @@ extension SuccessFailView {
                     .onTapGesture {
                         passedFinishedButtonPressed(success: {
                             scholarshipBox!.publicAnnouncementStatus = .passed
+                            scholarshipStatusViewModel.addScholarship(id: scholarshipBox!.id, status: .passed)
                             isShowPassModal = false
                             isChangedToPass()
                         })
@@ -148,6 +151,7 @@ extension SuccessFailView {
             isSelectedPass = .failed
             failedFinishedButtonPressed {
                 scholarshipBox!.publicAnnouncementStatus = .non_passed
+                scholarshipStatusViewModel.addScholarship(id: scholarshipBox!.id, status: .non_passed)
                 isShowPassModal = false
                 isChangedToFailed()
             }

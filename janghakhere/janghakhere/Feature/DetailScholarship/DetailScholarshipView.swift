@@ -9,16 +9,18 @@ import SwiftUI
 import TipKit
 
 struct DetailScholarshipView: View {
-    @EnvironmentObject private var pathModel: PathModel
     @Environment(\.dismiss) private var dismiss
-    let id: String
-    let status: PublicAnnouncementStatusCategory
+    
+    @EnvironmentObject private var pathModel: PathModel
+    @EnvironmentObject private var scholarshipStatusViewModel: ScholarshipStatusViewModel
     
     @StateObject private var viewModel = DetailScholarshipViewModel()
     @State private var showApplication: Bool = true
     @State private var showSelection: Bool = true
     @State private var showRequirement: Bool = true
     
+    let id: String
+    let status: PublicAnnouncementStatusCategory
     let scholarshipBoxViewModel = ScholarshipBoxViewModel()
     private let effortLevelTip = EffortLevelTip()
     
@@ -104,7 +106,9 @@ extension DetailScholarshipView {
             .sheet(isPresented: $viewModel.isStatusSheet) {
                 ScholarshipPostingSheet(category: $viewModel.status, statusButtonPressed: { category in
                     if let detailContent = viewModel.detailContent {
-                        scholarshipBoxViewModel.sheetStorageButtonPressed(id: String(detailContent.id), status: category)
+                        scholarshipBoxViewModel.sheetStorageButtonPressed(id: String(detailContent.id), status: category) {
+                                scholarshipStatusViewModel.addScholarship(id: String(detailContent.id), status: category)
+                        }
                     }
                     viewModel.isStatusSheet = false
                 })
