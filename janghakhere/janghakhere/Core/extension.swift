@@ -16,6 +16,7 @@ extension View {
     }
     
     func font(_ font: UIFont) -> some View {
+        
         var fontSpacing: CGFloat {
             if font == .text_sm {
                 return font.lineHeight / 100 * 80 / 4
@@ -249,5 +250,17 @@ extension UIDevice {
         case "iPhone16,2":                              return "iPhone15ProMax"
         default:                                        return machineString
         }
+    }
+}
+
+/// 제스처로 NavigationBack을 활성화 시키는 코드
+extension UINavigationController: ObservableObject, UIGestureRecognizerDelegate {
+    override open func viewDidLoad() {
+        super.viewDidLoad()
+        interactivePopGestureRecognizer?.delegate = self
+    }
+
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return viewControllers.count > 1
     }
 }
