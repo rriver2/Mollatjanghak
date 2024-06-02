@@ -13,7 +13,7 @@ enum SemesterYear: String, CaseIterable, CustomStringConvertible, Codable {
     case sophomore = "2학년"
     case junior = "3학년"
     case senior = "4학년"
-    case fifthYear = "5학년(의약학, 건축학)"
+    case fifthYear = "5학년 이상(의약학, 건축학)"
     
     var description: String {
         self.rawValue

@@ -20,7 +20,6 @@ struct OnboardingBeginView: View {
                 .foregroundStyle(.black)
                 .multilineTextAlignment(.center)
                 .padding()
-            
             Text("나를 위한 장학금을 추천받으려면\n몇 가지 정보가 필요해요")
                 .font(.title_xsm)
                 .foregroundStyle(.gray600)
