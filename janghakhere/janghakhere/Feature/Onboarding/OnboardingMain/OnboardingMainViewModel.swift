@@ -62,6 +62,19 @@ final class OnboardingMainViewModel: ObservableObject {
     @Published var isShowIncomeSheet = false
     @Published var isShowGradeSheet = false
     
+    @Published var onboardingItems: [OnboardingItem] = [
+        .init(title: "이름을 입력해 주세요"),
+        .init(title: "성별이 어떻게 되시나요?"),
+        .init(title: "태어난 날짜를 입력해 주세요"),
+        .init(title: "학교를 다니는 중이신가요?"),
+        .init(title: "학교 정보를 입력해 주세요"),
+        .init(title: "전공계열을 알려주세요"),
+        .init(title: "학교 성적을 입력해 주세요"),
+        .init(title: "소득구간을 선택해 주세요")
+    ]
+    
+    
+    
     private var nilPreviousGrade: Double? {
         if previousGrade != 0 {
                 return previousGrade

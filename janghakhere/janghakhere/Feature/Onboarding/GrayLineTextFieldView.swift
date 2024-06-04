@@ -34,18 +34,21 @@ struct GrayLineTextFieldView: View {
                     }
                 }
             }
+            .padding(.bottom, 4)
             .padding(.horizontal, 4)
             .accentColor(.black)
+            .overlay(
+                Rectangle()
+                    .foregroundColor(isKeyBoardOn ? .mainGray : .gray300)
+                    .frame(height: 1),
+                alignment: .bottom
+            )
             
-            Rectangle()
-                .foregroundColor(isKeyBoardOn ? .mainGray : .gray300)
-                .frame(height: 1)
-//            .overlay(
-//                Rectangle()
-//                    .foregroundColor(isKeyBoardOn ? .mainGray : .gray300)
-//                    .frame(height: 1),
-//                    alignment: .bottom
-//            )
+//            Rectangle()
+//                .offset(y: -2)
+//                .foregroundColor(isKeyBoardOn ? .mainGray : .gray300)
+//                .frame(height: 1)
+
         }
     }
     
