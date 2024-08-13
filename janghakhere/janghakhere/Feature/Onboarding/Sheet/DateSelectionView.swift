@@ -13,7 +13,7 @@ struct DateSelectionView: View {
     
     var body: some View {
         VStack {
-            Text("날짜 선택")
+            Text("날짜")
                 .font(.title_xsm)
                 .padding()
             Spacer()

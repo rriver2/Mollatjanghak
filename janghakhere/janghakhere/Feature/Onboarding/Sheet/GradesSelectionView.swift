@@ -29,9 +29,9 @@ struct GradesSelectionView: View {
                     GrayLineNumberFieldView(
                         number: $previousGrade,
                         maxGradeStatus: $maxGrade,
-                        isKeyboardOn: isNumKeyboardOn == .first
+                        isKeyboardOn: isNumKeyboardOn == .previouseGrade
                     )
-                    .focused($isNumKeyboardOn, equals: .first)
+                    .focused($isNumKeyboardOn, equals: .previouseGrade)
                     .toolbar {
                         ToolbarItemGroup(placement: .keyboard) {
                             HStack {
@@ -56,9 +56,9 @@ struct GradesSelectionView: View {
                     GrayLineNumberFieldView(
                         number: $entireGrade,
                         maxGradeStatus: $maxGrade,
-                        isKeyboardOn: isNumKeyboardOn == .second
+                        isKeyboardOn: isNumKeyboardOn == .entireGrade
                     )
-                    .focused($isNumKeyboardOn, equals: .second)
+                    .focused($isNumKeyboardOn, equals: .entireGrade)
                     .toolbar {
                         ToolbarItemGroup(placement: .keyboard) {
                             HStack {

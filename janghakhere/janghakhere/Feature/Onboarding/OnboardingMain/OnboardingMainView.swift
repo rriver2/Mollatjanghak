@@ -65,8 +65,10 @@ enum IncomeDecile: String, CaseIterable, CustomStringConvertible, Codable {
 }
 
 enum Field: Hashable {
-  case first
-  case second
+    case name
+    case schoolName
+    case previouseGrade
+    case entireGrade
 }
 
 struct OnboardingItem: Identifiable {
@@ -90,9 +92,11 @@ struct OnboardingMainView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = OnboardingMainViewModel()
     @FocusState private var isKeyboardOn: Bool
+//    @FocusState var isNumKeyboardOn: Field?
+    @FocusState private var focusedField: Field?
     @AppStorage("userName") private var userName: String = ""
-    @FocusState var isNumKeyboardOn: Field?
     @State var currentIndex: Int = 0
+    
     var filteredSemesterStatuses: [SemesterStatus] {
         switch viewModel.semesterYear {
         case .freshman:
@@ -224,7 +228,20 @@ struct OnboardingMainView: View {
         .onDisappear {
             viewModel.cancelTasks()
         }
+        .toolbar {
+            ToolbarItemGroup(
+                placement: .keyboard
+            ) {
+                HStack {
+                    Spacer()
+                    Button("완료") {
+                        focusedField = nil
+                    }
+                }
+            }
+        }
     }
+    
 }
 
 extension OnboardingMainView {
@@ -265,9 +282,10 @@ extension OnboardingMainView {
             GrayLineTextFieldView(
                 text: $viewModel.name,
                 placeHolder: "이름",
-                isKeyBoardOn: isKeyboardOn
+                isKeyBoardOn: focusedField == .name
             )
-            .focused($isKeyboardOn)
+//            .focused($isKeyboardOn)
+            .focused($focusedField, equals: .name)
         }
     }
     
@@ -343,7 +361,7 @@ extension OnboardingMainView {
                  VStack(alignment: .leading, spacing: 0) {
                      Text("재학상태")
                          .font(.title_xsm)
-                         .foregroundStyle(.gray600)
+                         .foregroundStyle(.mainGray)
                          .padding(.bottom, 14)
                          .padding(.leading, 4)
                      
@@ -375,11 +393,12 @@ extension OnboardingMainView {
                 GrayLineTextFieldView(
                     text: $viewModel.schoolName,
                     placeHolder: "여깄대학교",
-                    isKeyBoardOn: isKeyboardOn
+                    isKeyBoardOn: focusedField == .schoolName
                 )
                 .padding(.top, 2)
                 .autocorrectionDisabled()
-                .focused($isKeyboardOn)
+//                .focused($isKeyboardOn)
+                .focused($focusedField, equals: .schoolName)
             }
             
             VStack(alignment: .leading, spacing: 0) {
@@ -497,19 +516,11 @@ extension OnboardingMainView {
                     GrayLineNumberFieldView(
                         number: $viewModel.previousGrade,
                         maxGradeStatus: $viewModel.maximumGrade, 
-                        isKeyboardOn: isNumKeyboardOn == .first
+//                        isKeyboardOn: isNumKeyboardOn == .first
+                        isKeyboardOn: focusedField == .previouseGrade
                     )
-                    .focused($isNumKeyboardOn, equals: .first)
-                    .toolbar {
-                        ToolbarItemGroup(placement: .keyboard) {
-                            HStack {
-                                Spacer()
-                                Button("완료") {
-                                    isNumKeyboardOn = nil
-                                }
-                            }
-                        }
-                    }
+                    .focused($focusedField, equals: .previouseGrade)
+                    
                     Text("/")
                         .font(.system(size: 24))
                         .foregroundStyle(.gray300)
@@ -546,9 +557,9 @@ extension OnboardingMainView {
                     GrayLineNumberFieldView(
                         number: $viewModel.entireGrade,
                         maxGradeStatus: $viewModel.maximumGrade,
-                        isKeyboardOn: isNumKeyboardOn == .second
+                        isKeyboardOn: focusedField == .entireGrade
                     )
-                    .focused($isNumKeyboardOn, equals: .second)
+                    .focused($focusedField, equals: .entireGrade)
                     Text("/")
                         .font(.system(size: 24))
                         .foregroundStyle(.gray300)
