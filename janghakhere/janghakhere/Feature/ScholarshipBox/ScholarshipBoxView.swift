@@ -16,6 +16,7 @@ enum BoxCategory {
 
 struct ScholarshipBoxView: View {
     @EnvironmentObject private var pathModel: PathModel
+    @EnvironmentObject private var scholarshipStatusViewModel: ScholarshipStatusViewModel
     
     @Binding var scholarshipBox: ScholarshipBox
     @StateObject var viewModel: ScholarshipBoxViewModel = ScholarshipBoxViewModel()
@@ -102,7 +103,9 @@ extension ScholarshipBoxView {
             switch category {
             case .AllScholarship, .SearchScholarship, .MyScholarship:
                 if scholarshipBox.publicAnnouncementStatus == .nothing {
-                    viewModel.mainStorageButtonPressed(id: scholarshipBox.id)
+                    viewModel.mainStorageButtonPressed(id: scholarshipBox.id) {
+                        scholarshipStatusViewModel.addScholarship(id: scholarshipBox.id, status: .saved)
+                    }
                 } else {
                     viewModel.isStatusSheet = true
                 }
@@ -112,7 +115,9 @@ extension ScholarshipBoxView {
         }
         .sheet(isPresented: $viewModel.isStatusSheet) {
             ScholarshipPostingSheet(category: $scholarshipBox.publicAnnouncementStatus, statusButtonPressed: { category in
-                viewModel.sheetStorageButtonPressed(id: scholarshipBox.id, status: category)
+                viewModel.sheetStorageButtonPressed(id: scholarshipBox.id, status: category) {
+                    scholarshipStatusViewModel.addScholarship(id: scholarshipBox.id, status: category)
+                }
                 viewModel.isStatusSheet = false
             })
         }

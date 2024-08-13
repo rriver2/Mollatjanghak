@@ -32,7 +32,7 @@ actor MyScholarshipBoxListActor {
             case .recent:
                 parameter = "?recent=true"
             }
-//           /api/scholarships/members/{memberId}/stored
+            
             let (data , response) = try await HTTPUtils.getURL(urlBack: "/api/scholarships/members/\(userID)/stored", parameter: parameter)
             
             let scholarshipList = try responseHandling(data, response)

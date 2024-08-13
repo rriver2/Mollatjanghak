@@ -102,6 +102,7 @@
 		FBABCF022BD636890068178F /* AlarmActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBABCEFF2BD636890068178F /* AlarmActor.swift */; };
 		FBABCF032BD636890068178F /* AlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBABCF002BD636890068178F /* AlarmView.swift */; };
 		FBABCF042BD636890068178F /* AlarmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBABCF012BD636890068178F /* AlarmViewModel.swift */; };
+		FBDF58902C0A9F7700C55503 /* ScholarshipStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDF588D2C0A9F7700C55503 /* ScholarshipStatusViewModel.swift */; };
 		FBE769772BCF7698007F8DEF /* GrayLineTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE769762BCF7698007F8DEF /* GrayLineTextFieldView.swift */; };
 		FBE769792BCF769E007F8DEF /* MainButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE769782BCF769E007F8DEF /* MainButtonView.swift */; };
 		FBE7697B2BCF76A4007F8DEF /* GrayBoxGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE7697A2BCF76A4007F8DEF /* GrayBoxGridView.swift */; };
@@ -225,6 +226,7 @@
 		FBABCEFF2BD636890068178F /* AlarmActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmActor.swift; sourceTree = "<group>"; };
 		FBABCF002BD636890068178F /* AlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmView.swift; sourceTree = "<group>"; };
 		FBABCF012BD636890068178F /* AlarmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewModel.swift; sourceTree = "<group>"; };
+		FBDF588D2C0A9F7700C55503 /* ScholarshipStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ScholarshipStatusViewModel.swift; path = janghakhere/Feature/ScholarshipStatusViewModel.swift; sourceTree = SOURCE_ROOT; };
 		FBE769762BCF7698007F8DEF /* GrayLineTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayLineTextFieldView.swift; sourceTree = "<group>"; };
 		FBE769782BCF769E007F8DEF /* MainButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButtonView.swift; sourceTree = "<group>"; };
 		FBE7697A2BCF76A4007F8DEF /* GrayBoxGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayBoxGridView.swift; sourceTree = "<group>"; };
@@ -589,6 +591,7 @@
 		FBEEBB9A2BCEA7C1006CE5EA /* Feature */ = {
 			isa = PBXGroup;
 			children = (
+				FBDF588D2C0A9F7700C55503 /* ScholarshipStatusViewModel.swift */,
 				7BB1E28E2BE6781A001350DE /* TapView */,
 				FB9785F82BE4BDC600F8A281 /* ScholarshipBox */,
 				FB7F97022BE7F4760082F6F4 /* ErrorToastView.swift */,
@@ -827,6 +830,7 @@
 				FB27A2B32BD2ABAC007C62D0 /* UserDefaultKey.swift in Sources */,
 				FBEF1CFC2BE7FC7600DCAA0E /* ScholarshipBoxViewModel.swift in Sources */,
 				FB01DC1D2BE500B20057E37E /* SuccessFailViewModel.swift in Sources */,
+				FBDF58902C0A9F7700C55503 /* ScholarshipStatusViewModel.swift in Sources */,
 				FB27A2B12BD2A933007C62D0 /* ChipsGroupView.swift in Sources */,
 				7B5C11602BDFEADC0056C2BC /* ScholarshipPostingSheet.swift in Sources */,
 				FB7F97032BE7F4760082F6F4 /* ErrorToastView.swift in Sources */,
