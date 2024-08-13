@@ -15,14 +15,14 @@ struct SexSelectionView: View {
             Button {
                 sex = .male
             } label: {
-                VStack {
-                    Icon(name: .male, color: sex == .male ? Color.black : .gray400, size: 60)
+                VStack(spacing: 0) {
+                    Spacer()
+                    Icon(name: .male, color: sex == .male ? Color.black : .gray400, size: 78)
+                        .padding(.bottom, 40)
                     Text("남자")
-                        .foregroundStyle(
-                            sex == .male
-                            ? .black
-                            : .gray400
-                        )
+                        .font(.title_sm)
+                        .foregroundStyle(.black)
+                        .padding(.bottom, 28)
                 }
                 .frame(maxWidth: .infinity, maxHeight: 238)
                 .background(.gray60)
@@ -36,10 +36,14 @@ struct SexSelectionView: View {
             Button {
                 sex = .female
             } label: {
-                VStack {
-                    Icon(name: .female, color: sex == .female ? Color.black : .gray400, size: 60)
+                VStack(spacing: 0) {
+                    Spacer()
+                    Icon(name: .female, color: sex == .female ? Color.black : .gray400, size: 78)
+                        .padding(.bottom, 40)
                     Text("여자")
-                        .foregroundStyle(sex == .female ?  .black : .gray400)
+                        .font(.title_sm)
+                        .foregroundStyle(.black)
+                        .padding(.bottom, 28)
                 }
                 .frame(maxWidth: .infinity, maxHeight: 238)
                 .background(.gray60)

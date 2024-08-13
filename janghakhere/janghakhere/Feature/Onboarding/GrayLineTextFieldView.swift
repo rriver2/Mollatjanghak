@@ -13,26 +13,28 @@ struct GrayLineTextFieldView: View {
     var isKeyBoardOn: Bool
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: 0) {
             HStack(spacing: 0) {
                 TextField(placeHolder, text: $text)
                     .onChange(of: text) { _, value in
                         limitText(value)
                     }
                     .font(.title_md)
-                
+                    .foregroundStyle(.black)
+                    .textFieldStyle(.plain)
                 if !text.isEmpty {
                     Button(action: {
                         text = ""
                     }) {
-                        Image("erace")
-                            .font(.system(size: 19.5))
-                            .foregroundColor(.gray600)
+                        Icon(
+                            name: .erace,
+                            color: .gray600,
+                            size: 24
+                        )
                     }
-                    .padding(.leading, 8)
                 }
             }
-            .padding(.vertical, 6)
+            .padding(.bottom, 4)
             .padding(.horizontal, 4)
             .accentColor(.black)
             .overlay(
@@ -41,6 +43,12 @@ struct GrayLineTextFieldView: View {
                     .frame(height: 1),
                 alignment: .bottom
             )
+            
+//            Rectangle()
+//                .offset(y: -2)
+//                .foregroundColor(isKeyBoardOn ? .mainGray : .gray300)
+//                .frame(height: 1)
+
         }
     }
     
@@ -56,7 +64,11 @@ struct GrayLineTextFieldView: View {
         @State var text: String = ""
         @FocusState var isKey: Bool
         var body: some View {
-            GrayLineTextFieldView(text: $text, placeHolder: "이름", isKeyBoardOn: isKey)
+            GrayLineTextFieldView(
+                text: $text,
+                placeHolder: "이름",
+                isKeyBoardOn: isKey
+            )
         }
     }
     return BindingViewExamplePreviewContainer()

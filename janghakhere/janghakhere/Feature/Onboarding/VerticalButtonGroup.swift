@@ -12,7 +12,7 @@ struct VerticalButtonGroup<T: Hashable & CustomStringConvertible>: View {
     @Binding var selectedElement: T
     
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 16) {
             ForEach(buttonList.filter { $0.description != "선택 안 됨" }, id: \.self) { button in
                 Button {
                     withAnimation {
@@ -21,17 +21,17 @@ struct VerticalButtonGroup<T: Hashable & CustomStringConvertible>: View {
                 } label: {
                     HStack {
                         Text(button.description)
-                            .padding(.horizontal, 24)
                         Spacer()
                     }
                     .font(.title_xsm)
+                    .padding(.horizontal, 24)
+                    .padding(.vertical, 18)
                     .foregroundStyle(
                         selectedElement == button
                         ? .white
-                        : .gray600
+                        : .gray700
                     )
                     .frame(maxWidth: .infinity)
-                    .frame(height: 66)
                     .background(
                         RoundedRectangle(cornerRadius: 4)
                             .fill(

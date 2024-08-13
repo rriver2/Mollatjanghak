@@ -65,8 +65,26 @@ enum IncomeDecile: String, CaseIterable, CustomStringConvertible, Codable {
 }
 
 enum Field: Hashable {
-  case first
-  case second
+    case name
+    case schoolName
+    case previouseGrade
+    case entireGrade
+}
+
+struct OnboardingItem: Identifiable {
+    let id = UUID()
+    let title: String
+}
+
+extension AnyTransition {
+    static var bottomFadeIn: AnyTransition {
+        AnyTransition.asymmetric(
+            insertion: 
+                AnyTransition.offset(x:0, y: 40)
+                .combined(with: AnyTransition.opacity.animation(.easeIn(duration: 0.5))),
+            removal: AnyTransition.opacity
+        )
+    }
 }
 
 struct OnboardingMainView: View {
@@ -74,9 +92,10 @@ struct OnboardingMainView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = OnboardingMainViewModel()
     @FocusState private var isKeyboardOn: Bool
+//    @FocusState var isNumKeyboardOn: Field?
+    @FocusState private var focusedField: Field?
     @AppStorage("userName") private var userName: String = ""
-    
-    @FocusState var isNumKeyboardOn: Field?
+    @State var currentIndex: Int = 0
     
     var filteredSemesterStatuses: [SemesterStatus] {
         switch viewModel.semesterYear {
@@ -97,25 +116,111 @@ struct OnboardingMainView: View {
 #endif
         return VStack(spacing: 0) {
             customNavigationToolbar()
-            TabView(selection: $viewModel.currentPage) {
-                nameContent()
-                    .tag(0)
-                sexContent()
-                    .tag(1)
-                birthContent()
-                    .tag(2)
-                studentContent()
-                    .tag(3)
-                schoolContent()
-                    .tag(4)
-                majorContent()
-                    .tag(5)
-                academicInfoContent()
-                    .tag(6)
-                incomeDecileContent()
-                    .tag(7)
+            GeometryReader {
+                let size = $0.size
+                HStack(spacing: 0) {
+                    ForEach(viewModel.onboardingItems) { item in
+                        VStack(alignment: .leading, spacing: 0) {
+                            
+                            let offset = -CGFloat(currentIndex) * size.width
+                            
+                            Text(item.title)
+                                .font(.title_md)
+                                .foregroundStyle(.black)
+                                .padding(.top, 60)
+                                .offset(x: offset)
+                                .animation(.easeInOut(duration: 0.2), value: currentIndex)
+
+                            Group {
+                                switch currentIndex {
+                                case 0:
+                                    nameContent()
+                                        .padding(.top, 64)
+                                case 1:
+                                    sexContent()
+                                        .padding(.top, 36)
+                                case 2:
+                                    birthContent()
+                                        .padding(.top, 64)
+                                case 3:
+                                    studentContent()
+                                        .padding(.top, 36)
+                                case 4:
+                                    schoolContent()
+                                        .padding(.top, 36)
+                                case 5:
+                                    majorContent()
+                                        .padding(.top, 48)
+                                case 6:
+                                    academicInfoContent()
+                                        .padding(.top, 34)
+                                case 7:
+                                    incomeDecileContent()
+                                        .padding(.top, 34)
+                                default:
+                                    EmptyView()
+                                }
+                            }
+                            .transition(.bottomFadeIn)
+                            .animation(.easeIn(duration: 0.3), value: currentIndex)
+                            
+                            Spacer()
+                            MainButtonView(
+                                title: currentIndex == 7 ? "완료" : "다음",
+                                action: {
+                                    isKeyboardOn = false
+                                    if currentIndex < viewModel.onboardingItems.count - 1 {
+                                        currentIndex += 1
+                                    }
+                                    if currentIndex == 7 {
+                                        viewModel.saveUserData()
+                                        withAnimation {
+                                            pathModel.paths.append(
+                                                .onboardingWaitingView(
+                                                    userData: viewModel.makeUserData()
+                                                )
+                                            )
+                                        }
+                                    }
+                                },
+                                disabled: {
+                                    switch currentIndex {
+                                    case 0:
+                                        return viewModel.name.isEmpty
+                                    case 1:
+                                        return viewModel.sex == .notSelected
+                                    case 2:
+                                        return viewModel.isEmptyDate(viewModel.birthDate)
+                                    case 3:
+                                        return viewModel.degreesStatus == .notSelected || viewModel.enrollmentStatus == .notSelected
+                                    case 4:
+                                        return viewModel.schoolName.isEmpty || viewModel.semesterYear == .notSelected || viewModel.semesterStatus == .notSelected
+                                    case 5:
+                                        return viewModel.majorField == .notSelected
+                                    case 6:
+                                        return viewModel.previousGrade == 0 || viewModel.entireGrade == 0
+                                    case 7:
+                                        return viewModel.incomeDecile == .notSelected
+                                    default:
+                                        return false
+                                    }
+                                }()
+                            )
+                            .padding(.vertical, 10)
+                        }
+                        .paddingHorizontal()
+                        .frame(
+                            width: size.width,
+                            height: size.height
+                        )
+                    }
+                    
+                }
+                .frame(
+                    width: size.width * CGFloat(viewModel.onboardingItems.count), 
+                    alignment: .leading
+                )
             }
-            .tabViewStyle(.page(indexDisplayMode: .never))
         }
         .task {
             viewModel.createView()
@@ -123,7 +228,20 @@ struct OnboardingMainView: View {
         .onDisappear {
             viewModel.cancelTasks()
         }
+        .toolbar {
+            ToolbarItemGroup(
+                placement: .keyboard
+            ) {
+                HStack {
+                    Spacer()
+                    Button("완료") {
+                        focusedField = nil
+                    }
+                }
+            }
+        }
     }
+    
 }
 
 extension OnboardingMainView {
@@ -131,161 +249,104 @@ extension OnboardingMainView {
     func customNavigationToolbar() -> some View {
         HStack(spacing: 0) {
             Button {
-                switch viewModel.currentPage {
+                switch currentIndex {
                 case 0:
                     withAnimation {
                         dismiss()
                     }
                 default:
                     withAnimation {
-                        viewModel.currentPage -= 1
+                        currentIndex -= 1
                     }
                 }
             } label: {
                 Icon(
-                    name: viewModel.currentPage == 0
+                    name: currentIndex == 0
                     ? .exit
                     : .arrowLeft,
                     color: .black, size: 28)
             }
             .padding(.trailing, 8)
             
-            ProgressView(value: Double(viewModel.currentPage) / 7)
+            ProgressView(value: Double(currentIndex + 1) / 8)
                 .tint(.mainGray)
         }
+        .padding(.top, 22)
+        .padding(.bottom, 2)
         .paddingHorizontal()
     }
     
     @ViewBuilder
     private func nameContent() -> some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text("이름을 입력해 주세요")
-                .font(.title_md)
-                .foregroundStyle(.mainGray)
-                .padding(.top, 60)
-                .padding(.bottom, 64)
-            
             GrayLineTextFieldView(
                 text: $viewModel.name,
                 placeHolder: "이름",
-                isKeyBoardOn: isKeyboardOn
+                isKeyBoardOn: focusedField == .name
             )
-            .focused($isKeyboardOn)
-            Spacer()
-            MainButtonView(
-                title: "다음",
-                action: {
-                    isKeyboardOn = false
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        withAnimation {
-                            viewModel.currentPage = 1
-                        }
-                    }
-                },
-                disabled: viewModel.name == ""
-            )
-            .padding(.vertical, 10)
+//            .focused($isKeyboardOn)
+            .focused($focusedField, equals: .name)
         }
-        .paddingHorizontal()
     }
     
     @ViewBuilder
     func sexContent() -> some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text("성별이 어떻게 되시나요?")
-                .font(.title_md)
-                .foregroundStyle(.mainGray)
-                .padding(.top, 60)
-                .padding(.bottom, 36)
             SexSelectionView(sex: $viewModel.sex)
-            Spacer()
-            MainButtonView(
-                title: "다음",
-                action: {
-                    withAnimation {
-                        viewModel.currentPage = 2
-                    }
-                },
-                disabled: viewModel.sex == .notSelected
-            )
         }
-        .paddingHorizontal()
     }
     
     @ViewBuilder
     func birthContent() -> some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Text("태어난 날짜를 입력해 주세요")
+        VStack(spacing: 4) {
+            HStack {
+                Text(viewModel.isEmptyDate(viewModel.birthDate)
+                      ? "생년월일"
+                     : viewModel.birthDate.customDateFomatter())
                 .font(.title_md)
-                .foregroundStyle(.black)
-                .padding(.top, 60)
-                .padding(.bottom, 64)
-            VStack(spacing: 4) {
-                HStack {
-                    Text(viewModel.isEmptyDate(viewModel.birthDate)
-                          ? "생년월일"
-                         :  viewModel.birthDate.customDateFomatter())
-                    .font(.title_md)
-                    .foregroundStyle(
-                        viewModel.isEmptyDate(
-                            viewModel.birthDate
-                        )
-                        ? .gray300
-                        : .mainGray)
-                    Spacer()
-                    Image("chevronDown")
-                        .font(.system(size: 16))
-                        .foregroundStyle(.gray500)
-                }
-                .background {
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(.clear)
-                        .contentShape(Rectangle())
-                }
-                .onTapGesture {
-                    $viewModel.isShowBirthdaySheet.wrappedValue = true
-                }
-                .sheet(isPresented: $viewModel.isShowBirthdaySheet) {
-                    DateSelectionView(date: $viewModel.birthDate)
-                }
-                Rectangle()
-                    .foregroundStyle(
-                        viewModel.isEmptyDate(
-                            $viewModel.birthDate.wrappedValue
-                        )
-                        ? .gray300
-                        : .mainGray)
-                    .frame(height: 1)
-            }
-            Spacer()
-            MainButtonView(
-                title: "다음",
-                action: {
-                    withAnimation {
-                        viewModel.currentPage = 3
-                    }
-                },
-                disabled: viewModel.isEmptyDate(
-                    $viewModel.birthDate.wrappedValue
+                .foregroundStyle(
+                    viewModel.isEmptyDate(
+                        viewModel.birthDate
+                    )
+                    ? .gray300
+                    : .mainGray)
+                Spacer()
+                Icon(
+                    name: .chevronDown,
+                    color: .gray500,
+                    size: 20
                 )
-            )
+            }
+            .background {
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(.clear)
+                    .contentShape(Rectangle())
+            }
+            .onTapGesture {
+                $viewModel.isShowBirthdaySheet.wrappedValue = true
+            }
+            .sheet(isPresented: $viewModel.isShowBirthdaySheet) {
+                DateSelectionView(date: $viewModel.birthDate)
+            }
+            Rectangle()
+                .foregroundStyle(
+                    viewModel.isEmptyDate(
+                        $viewModel.birthDate.wrappedValue
+                    )
+                    ? .gray300
+                    : .mainGray)
+                .frame(height: 1)
         }
-        .paddingHorizontal()
     }
     
     @ViewBuilder
      private func studentContent() -> some View {
-         VStack(alignment: .leading, spacing: 20) {
-             Text("학교를 다니는 중이신가요?")
-                 .font(.title_md)
-                 .foregroundStyle(.mainGray)
-                 .padding(.top, 60)
-                 .padding(.bottom, 21)
-             
+         VStack(alignment: .leading, spacing: 0) {
              VStack(alignment: .leading, spacing: 0) {
                  Text("학교")
                      .font(.title_xsm)
-                     .foregroundStyle(.gray600)
+                     .foregroundStyle(.mainGray)
+                     .padding(.top, 2)
                      .padding(.bottom, 12)
                      .padding(.leading, 4)
                  
@@ -294,14 +355,14 @@ extension OnboardingMainView {
                     selectedElement: $viewModel.degreesStatus
                  )
              }
+             .padding(.bottom, 36)
              
              if viewModel.degreesStatus != .notSelected {
                  VStack(alignment: .leading, spacing: 0) {
                      Text("재학상태")
                          .font(.title_xsm)
-                         .foregroundStyle(.gray600)
-                         .padding(.top, 36)
-                         .padding(.bottom, 12)
+                         .foregroundStyle(.mainGray)
+                         .padding(.bottom, 14)
                          .padding(.leading, 4)
                      
                      EnrollmentStatusGrid(
@@ -311,30 +372,12 @@ extension OnboardingMainView {
                      )
                  }
              }
-             
-             Spacer()
-             MainButtonView(
-                 title: "다음",
-                 action: {
-                     withAnimation {
-                         viewModel.currentPage = 4
-                     }
-                 },
-                 disabled: viewModel.degreesStatus == .notSelected || viewModel.enrollmentStatus == .notSelected
-             )
          }
-         .paddingHorizontal()
     }
     
     @ViewBuilder
     func schoolContent() -> some View {
         VStack(alignment: .leading, spacing: 20) {
-            Text("학교 정보를 입력해 주세요")
-                .font(.title_md)
-                .foregroundStyle(.mainGray)
-                .padding(.top, 60)
-                .padding(.bottom, 21)
-            
             VStack(alignment: .leading, spacing: 0) {
                 Text("학교")
                     .font(.title_xsm)
@@ -343,19 +386,20 @@ extension OnboardingMainView {
                         Circle()
                             .fill(.destructiveRed)
                             .frame(width: 6, height: 6)
-                            .offset(x: -6, y: -6)
+                            .offset(x: -6, y: -5)
                     }
+                    .padding(.top, 2)
                     .padding(.horizontal, 6)
                 GrayLineTextFieldView(
                     text: $viewModel.schoolName,
                     placeHolder: "여깄대학교",
-                    isKeyBoardOn: isKeyboardOn
+                    isKeyBoardOn: focusedField == .schoolName
                 )
-                .padding(.vertical, 10)
+                .padding(.top, 2)
                 .autocorrectionDisabled()
-                .focused($isKeyboardOn)
+//                .focused($isKeyboardOn)
+                .focused($focusedField, equals: .schoolName)
             }
-            .padding(.vertical, 10)
             
             VStack(alignment: .leading, spacing: 0) {
                 Text("학년")
@@ -368,7 +412,7 @@ extension OnboardingMainView {
                             .offset(x: -6, y: -6)
                     }
                     .padding(.horizontal, 6)
-                HStack {
+                HStack(spacing: 0) {
                     Text(viewModel.semesterYear.description)
                         .font(.title_md)
                         .foregroundStyle(
@@ -376,9 +420,11 @@ extension OnboardingMainView {
                             ? .gray300
                             : .mainGray)
                     Spacer()
-                    Image("chevronDown")
-                        .font(.system(size: 20))
-                        .foregroundStyle(.gray500)
+                    Icon(
+                        name: .chevronDown,
+                        color: .gray500,
+                        size: 20
+                    )
                 }
                 .padding(.horizontal, 4)
                 .padding(.top, 8)
@@ -404,10 +450,9 @@ extension OnboardingMainView {
                     .foregroundStyle(
                         .gray300)
                     .frame(height: 1)
-                    .padding(.vertical, 10)
+//                    .padding(.vertical, 10)
             }
             .padding(.vertical, 10)
-            
             
             VStack(alignment: .leading, spacing: 0) {
                 Text("학기")
@@ -445,104 +490,39 @@ extension OnboardingMainView {
                         }
                     }
                 }
-                .padding(.vertical, 10)
             }
-            .padding(.vertical, 10)
-            
-            Spacer()
-            
-            MainButtonView(
-                title: "다음",
-                action: {
-                    withAnimation {
-                        viewModel.currentPage = 5
-                    }
-                },
-                disabled: viewModel.schoolName == "" || viewModel.semesterYear == .notSelected || viewModel.semesterStatus == .notSelected
-            )
         }
-        .paddingHorizontal()
     }
     
     @ViewBuilder
     private func majorContent() -> some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Text("전공계열을 알려주세요")
-                .font(.title_md)
-                .foregroundStyle(.mainGray)
-                .padding(.top, 60)
-                .padding(.bottom, 64)
-            
-            GrayBoxGridView(
-                column: .two,
-                titleList: MajorField.allCases,
-                action: {},
-                selectedElement: $viewModel.majorField
-            )
-            
-            Spacer()
-            
-            MainButtonView(
-                title: "다음",
-                action: {
-                    withAnimation {
-                        viewModel.currentPage = 6
-                    }
-                },
-                disabled: false
-            )
-        }
-        .paddingHorizontal()
+        GrayBoxGridView(
+            column: .two,
+            titleList: MajorField.allCases,
+            action: {},
+            selectedElement: $viewModel.majorField
+        )
     }
     
     @ViewBuilder
     func academicInfoContent() -> some View {
             VStack(alignment: .leading, spacing: 0) {
-                HStack {
-                    Spacer()
-                    Button {
-                        withAnimation {
-                            viewModel.currentPage += 1
-                        }
-                    } label: {
-                        Text("다음에 입력할래요")
-                            .foregroundStyle(.gray400)
-                            .font(.text_sm)
-                            .underline()
-                    }
-                }
-                .padding(.top, 16)
-                
-                Text("학교 성적을 입력해 주세요")
-                    .font(.title_md)
-                    .foregroundStyle(.black)
-                    .padding(.top, 23)
-                    .padding(.bottom, 31)
-                
                 Text("직전학기 성적")
                     .font(.title_xsm)
-                    .foregroundStyle(.gray600)
+                    .foregroundStyle(.mainGray)
                     .padding(.vertical, 6)
                 
                 HStack {
                     GrayLineNumberFieldView(
                         number: $viewModel.previousGrade,
                         maxGradeStatus: $viewModel.maximumGrade, 
-                        isKeyboardOn: isNumKeyboardOn == .first
+//                        isKeyboardOn: isNumKeyboardOn == .first
+                        isKeyboardOn: focusedField == .previouseGrade
                     )
-                    .focused($isNumKeyboardOn, equals: .first)
-                    .toolbar {
-                        ToolbarItemGroup(placement: .keyboard) {
-                            HStack {
-                                Spacer()
-                                Button("완료") {
-                                    isNumKeyboardOn = nil
-                                }
-                            }
-                        }
-                    }
+                    .focused($focusedField, equals: .previouseGrade)
+                    
                     Text("/")
-                        .font(.title_sm)
+                        .font(.system(size: 24))
                         .foregroundStyle(.gray300)
                     HStack(spacing: 12) {
                         Text(viewModel.maximumGrade == .notApplicable ? "--" : viewModel.maximumGrade.rawValue)
@@ -571,17 +551,17 @@ extension OnboardingMainView {
                 
                 Text("전체학기 성적")
                     .font(.title_xsm)
-                    .foregroundStyle(.gray600)
+                    .foregroundStyle(.mainGray)
                     .padding(.vertical, 7)
                 HStack {
                     GrayLineNumberFieldView(
                         number: $viewModel.entireGrade,
                         maxGradeStatus: $viewModel.maximumGrade,
-                        isKeyboardOn: isNumKeyboardOn == .second
+                        isKeyboardOn: focusedField == .entireGrade
                     )
-                    .focused($isNumKeyboardOn, equals: .second)
+                    .focused($focusedField, equals: .entireGrade)
                     Text("/")
-                        .font(.title_sm)
+                        .font(.system(size: 24))
                         .foregroundStyle(.gray300)
                     HStack(spacing: 12) {
                         Text(viewModel.maximumGrade == .notApplicable ? "--" : viewModel.maximumGrade.rawValue)
@@ -607,50 +587,12 @@ extension OnboardingMainView {
                         .foregroundStyle(.black)
                 }
                 .padding(.bottom, 46)
-                
-                Spacer()
-                
-                MainButtonView(
-                    title: "다음",
-                    action: {
-                        withAnimation {
-                            viewModel.currentPage = 7
-                        }
-                    },
-                    disabled: viewModel.previousGrade == 0 || viewModel.entireGrade == 0
-                )
             }
-            .paddingHorizontal()
     }
     
     @ViewBuilder
     func incomeDecileContent() -> some View {
         VStack(alignment: .leading, spacing: 0) {
-            HStack {
-                Spacer()
-                Button {
-                    viewModel.saveUserData()
-                    withAnimation {
-                        pathModel.paths.append(.onboardingWaitingView(
-                            userData: viewModel.makeUserData()
-                        )
-                        )
-                    }
-                } label: {
-                    Text("다음에 입력할래요")
-                        .foregroundStyle(.gray400)
-                        .font(.text_sm)
-                        .underline()
-                }
-            }
-            .padding(.top, 16)
-            
-            Text("소득구간을 선택해 주세요")
-                .font(.title_md)
-                .foregroundStyle(.mainGray)
-                .padding(.top, 23)
-                .padding(.bottom, 60)
-            
             GrayBoxGridView<IncomeDecile>(
                 column: .two,
                 titleList: IncomeDecile.allCases,
@@ -676,23 +618,7 @@ extension OnboardingMainView {
                 Spacer()
             }
             Spacer()
-            
-            MainButtonView(
-                title: "다음",
-                action: {
-                    viewModel.saveUserData()
-                    withAnimation {
-                        pathModel.paths.append(.onboardingWaitingView(
-                            userData: viewModel.makeUserData()
-                        )
-                        )
-                    }
-                    
-                },
-                disabled: viewModel.incomeDecile == .notSelected
-            )
         }
-        .paddingHorizontal()
     }
 }
 

@@ -43,7 +43,7 @@ struct EnrollmentStatusGrid<T: Hashable & CustomStringConvertible>: View {
                 } label: {
                     Text(title.description)
                         .font(.title_xsm)
-                        .padding(.vertical, 13)
+                        .padding(.vertical, 14)
                         .foregroundStyle(
                             selectedElement == title
                             ? .white
