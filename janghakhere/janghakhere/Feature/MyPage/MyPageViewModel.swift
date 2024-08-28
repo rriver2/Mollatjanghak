@@ -12,6 +12,7 @@ final class MyPageViewModel: ObservableObject {
     let managerActor: MyPageActor = MyPageActor()
     @AppStorage("userData") private var userData: Data?
     @Published private(set) var decodedData: UserData?
+    @Published var currentUserStatus: CurrentUserScholarshipStatus?
     private var tasks: [Task<Void, Never>] = []
 }
 
@@ -19,13 +20,18 @@ final class MyPageViewModel: ObservableObject {
 extension MyPageViewModel {
     private func initializeUserData() {
         if let data = userData {
-            do {
-                let decoder = JSONDecoder()
-                let loadedUserData = try decoder.decode(UserData.self, from: data)
-                self.decodedData = loadedUserData
-            } catch {
-                print("Failed to decode user data: \(error)")
+            let task = Task {
+                do {
+                    let decoder = JSONDecoder()
+                    let loadedUserData = try decoder.decode(UserData.self, from: data)
+                    self.decodedData = loadedUserData
+                    let data = try await managerActor.getCurrentStatus(id: loadedUserData.id)
+                    currentUserStatus = data
+                } catch {
+                    print("Failed to decode user data: \(error)")
+                }
             }
+            tasks.append(task)
         }
     }
 }

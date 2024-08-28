@@ -17,6 +17,9 @@ struct MyPageView: View {
             VStack(spacing: 0) {
                 navigation()
                 nameContent()
+//                Button("AAA") {
+//                    print(viewModel.currentUserStatus)
+//                }
                 totalScholarshipMoneyContent()
                 myScholarshipStatisticsContent()
                 Spacer()
@@ -34,7 +37,7 @@ extension MyPageView {
     
     @ViewBuilder
     private func myScholarshipStatisticsContent() -> some View {
-        if let decodedData = viewModel.decodedData {
+        if let userStatus = viewModel.currentUserStatus {
             HStack() {
                 Spacer()
                 VStack(alignment: .center, spacing: 0) {
@@ -44,7 +47,7 @@ extension MyPageView {
                         .font(.semi_title_md)
                         .foregroundColor(.gray600)
                         .padding(.bottom, 12)
-                    Text("\(decodedData.applyCount)개")
+                    Text("\(userStatus.appliedScholarshipCount)개")
                         .font(.title_xsm)
                         .foregroundStyle(.black)
                         .padding(.bottom, 10)
@@ -63,8 +66,8 @@ extension MyPageView {
                         .foregroundColor(.gray600)
                         .padding(.bottom, 12)
                     Text(
-                        decodedData.applyCount == 0 ? "0%" :
-                            String(format: "%.0f%%", Double(decodedData.successScholarshipCount) / Double(decodedData.applyCount) * 100)
+                        userStatus.passedScholarshipCount == 0 ? "0%" :
+                            String(format: "%.0f%%", Double(userStatus.passedScholarshipCount) / Double(userStatus.appliedScholarshipCount) * 100)
                     )
                     .font(.title_xsm)
                     .foregroundStyle(.black)
@@ -84,13 +87,13 @@ extension MyPageView {
     
     @ViewBuilder
     private func totalScholarshipMoneyContent() -> some View {
-        if let decodedData = viewModel.decodedData {
+        if let userData = viewModel.currentUserStatus {
             HStack(spacing: 0) {
                 Icon(name: .currencyKrw, color: .subGreen, size: 28)
                     .padding(.trailing, 8)
                 Text("총 수혜 금액")
                 Spacer()
-                Text("\(decodedData.totalScholarshipMoney)원")
+                Text("\(userData.totalSupportedAmount)원")
             }
             .font(.title_xsm)
             .foregroundStyle(.black)
@@ -106,9 +109,9 @@ extension MyPageView {
     
     @ViewBuilder
     private func nameContent() -> some View {
-        if let decodedData = viewModel.decodedData {
+        if let userStatus = viewModel.currentUserStatus {
             VStack(alignment: .center, spacing: 0) {
-                Text("\(decodedData.name)님")
+                Text("\(userStatus.name)님")
                     .font(.title_md)
                     .foregroundStyle(.black)
                     .padding(.bottom, 12)

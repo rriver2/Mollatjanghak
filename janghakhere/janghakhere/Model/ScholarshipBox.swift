@@ -36,7 +36,7 @@ struct ScholarshipBox: Identifiable, Hashable {
 
 extension ScholarshipBox: CustomStringConvertible {
     var description: String {
-        "id: \(id) 장학금 후원자: \(sponsor) 제목: \(title) 디데이: D-\(DDay) 상금: \(prize) 상태: \(publicAnnouncementStatus.rawValue)"
+        "id: \(id) 장학금 후원자: \(sponsor) 제목: \(title) 디데이: D-\(String(describing: DDay)) 상금: \(prize) 상태: \(publicAnnouncementStatus.rawValue)"
     }
 }
 

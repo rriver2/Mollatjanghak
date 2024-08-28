@@ -47,7 +47,8 @@ struct DetailScholarshipView: View {
                                 customDivider()
                                 requirementContent()
                                 customDivider()
-                                    .padding(.bottom, 190)
+//                                    .padding(.bottom, 190)
+                                    .padding(.bottom, 80)
                             }
                         }
                         buttons()
@@ -82,36 +83,39 @@ struct EffortLevelTip: Tip {
 extension DetailScholarshipView {
     @ViewBuilder
     private func buttons() -> some View {
+        
         HStack(spacing: 8) {
-            Button {
-                // 시트 콜
-                viewModel.isStatusSheet = true
-            } label: {
-                HStack(spacing: 8) {
-                    if let name = viewModel.status.IconNameDetailViewButton {
-                        Icon(name: name, color: viewModel.status.detailViewButtonTextColor, size: 20)
-                    }
-                    
-                    Text(viewModel.status.title)
-                        .font(.title_xsm)
-                }
-                .padding(.vertical, 14)
-                .padding(.horizontal, 24)
-                .foregroundStyle(viewModel.status.detailViewButtonTextColor)
-                .background(
-                    Capsule()
-                        .fill(viewModel.status.detailViewButtonColor)
-                )
-            }
-            .sheet(isPresented: $viewModel.isStatusSheet) {
-                ScholarshipPostingSheet(category: $viewModel.status, statusButtonPressed: { category in
-                    if let detailContent = viewModel.detailContent {
-                        scholarshipBoxViewModel.sheetStorageButtonPressed(id: String(detailContent.id), status: category) {
-                                scholarshipStatusViewModel.addScholarship(id: String(detailContent.id), status: category)
+            if viewModel.status != .passed, viewModel.status != .non_passed {
+                Button {
+                    // 시트 콜
+                    viewModel.isStatusSheet = true
+                } label: {
+                    HStack(spacing: 8) {
+                        if let name = viewModel.status.IconNameDetailViewButton {
+                            Icon(name: name, color: viewModel.status.detailViewButtonTextColor, size: 20)
                         }
+                        
+                        Text(viewModel.status.title)
+                            .font(.title_xsm)
                     }
-                    viewModel.isStatusSheet = false
-                })
+                    .padding(.vertical, 14)
+                    .padding(.horizontal, 24)
+                    .foregroundStyle(viewModel.status.detailViewButtonTextColor)
+                    .background(
+                        Capsule()
+                            .fill(viewModel.status.detailViewButtonColor)
+                    )
+                }
+                .sheet(isPresented: $viewModel.isStatusSheet) {
+                    ScholarshipPostingSheet(category: $viewModel.status, statusButtonPressed: { category in
+                        if let detailContent = viewModel.detailContent {
+                            scholarshipBoxViewModel.sheetStorageButtonPressed(id: String(detailContent.id), status: category) {
+                                    scholarshipStatusViewModel.addScholarship(id: String(detailContent.id), status: category)
+                            }
+                        }
+                        viewModel.isStatusSheet = false
+                    })
+                }
             }
             
             if let url = viewModel.detailContent?.homePageUrl {
@@ -212,7 +216,7 @@ extension DetailScholarshipView {
                                 .padding(.bottom, 24)
                             if let restrictionDetail = detailContent.eligibilityRestrictionDetails,
                                restrictionDetail != "해당없음" {
-                                VStack(spacing: 0) {
+                                VStack(alignment: .leading, spacing: 0) {
                                     HStack(spacing: 0) {
                                         Icon(name: .siren, color: .orange, size: 20)
                                         Text("자격제한")
@@ -436,16 +440,18 @@ extension DetailScholarshipView {
                             Text("노력지수")
                                 .foregroundStyle(.black)
                             // TODO: 팝오버 만들기
-                            Icon(name: .question, size: 16)
+//                            Icon(name: .question, size: 16)
                         }
                         .font(.semi_title_md)
                         
                         HStack(spacing: 4) {
-                            // TODO: 노력지수 꾸미기
-                            Text("중")
-                            Icon(name: .batteryMedium, size: 28)
+                            Text(detailContent.effortLabel ?? "중")
+                            if let effortLabel = detailContent.effortLabel {
+                                effortLabel == "중" ? Icon(name: .batteryMedium, size: 28) :
+                                effortLabel == "상" ? Icon(name: .batteryHigh, size: 28) :
+                                Icon(name: .batteryLow, size: 28)
+                            }
                         }
-                        
                     }
                     Spacer()
                 }
