@@ -62,6 +62,9 @@ struct OnboardingCompleteView: View {
             .padding(.bottom, 83)
         }
         .padding(.horizontal, 20)
+        .onAppear {
+            NotificationManager.instance.requestAuthorization()
+        }
     }
     
     func separateDigits(_ number: Int) -> [Int] {

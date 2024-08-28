@@ -14,6 +14,7 @@ struct AllScholarshipView: View {
     @State private var isUserSwipedBanner = false
     
     @Binding var selection: Int
+    @State private var showTestSheet = false
     
     var body: some View {
         VStack(spacing: 0) {
@@ -49,10 +50,34 @@ struct AllScholarshipView: View {
             let newScholarShipList = scholarshipStatusViewModel.getFilteringScholarshipList(list: viewModel.scholarshipList)
             viewModel.scholarshipList = newScholarShipList
             print("viewModel.scholarshipList", viewModel.scholarshipList)
-            NotificationManager.instance.requestAuthorization()
+            
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//                showTestSheet = true
+//            }
         }
         .onDisappear {
             viewModel.cancelTasks()
+        }
+        .sheet(isPresented: $showTestSheet) {
+            VStack(alignment: .center) {
+                Icon(name: .writePencil, size: 144)
+                    .padding(.top, 24)
+                    .padding(.bottom, 20)
+                Text("몇가지 정보를 추가 입력하면\n더 적절한 장학금을 추천해 드릴 수 있어요!")
+                    .font(.title_xsm)
+                    .foregroundStyle(.gray700)
+                    .multilineTextAlignment(.center)
+                    .padding(.bottom, 32)
+                // 버튼 두개, 닫기, 더 입력하기 만들기
+                Spacer()
+                HStack {
+                    
+                    MainButtonView(title: "이름") {
+                        //
+                    }
+                }
+            }
+            .presentationDetents([.medium])
         }
     }
 }

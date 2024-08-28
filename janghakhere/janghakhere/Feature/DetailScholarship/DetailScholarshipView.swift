@@ -168,7 +168,6 @@ extension DetailScholarshipView {
                             Text("[제출서류]")
                                 .padding(.top, 8)
                                 .padding(.bottom, 12)
-                            
                             Text(detailContent.universityCategory ?? "데이터 없음")
                                 .padding(.bottom, 16)
                             Text("[학년구분]")
@@ -189,47 +188,55 @@ extension DetailScholarshipView {
                             Text("[특정자격]")
                                 .padding(.top, 8)
                                 .padding(.bottom, 12)
-                            Text(detailContent.specificQualificationDetails ?? "데이터 없음")
+                            
+//                            Text(detailContent.specificQualificationDetails ?? "데이터 없음")
+                            Text(formatCategory(detailContent.specificQualificationDetails))
                                 .padding(.bottom, 24)
                             Text("[성적기준]")
                                 .padding(.top, 8)
                                 .padding(.bottom, 12)
-                            Text(detailContent.gradeDetails ?? "데이터 없음")
+//                            Text(detailContent.gradeDetails ?? "데이터 없음")
+                            Text(formatCategory(detailContent.gradeDetails))
                                 .padding(.bottom, 24)
                             Text("[지역기준여부]")
                                 .padding(.top, 8)
                                 .padding(.bottom, 12)
-                            Text(detailContent.localResidencyDetails ?? "데이터 없음")
+//                            Text(detailContent.localResidencyDetails ?? "데이터 없음")
+                            Text(formatCategory(detailContent.localResidencyDetails))
                                 .padding(.bottom, 24)
                             Text("[추천필요여부]")
                                 .padding(.top, 8)
                                 .padding(.bottom, 12)
-                            Text(detailContent.recommendationRequiredDetails ?? "데이터 없음")
+//                            Text(detailContent.recommendationRequiredDetails ?? "데이터 없음")
+                            Text(formatCategory(detailContent.recommendationRequiredDetails))
                                 .padding(.bottom, 24)
-                            
-                            VStack(spacing: 0) {
-                                HStack(spacing: 0) {
-                                    Icon(name: .siren, color: .orange, size: 20)
-                                    Text("자격제한")
-                                        .font(.semi_title_md)
-                                        .padding(.leading, 6)
-                                    Spacer()
-                                }
-                                .padding(.top, 16)
-                                .foregroundStyle(.etcOrange)
-                                
-                                Text(detailContent.eligibilityRestrictionDetails ?? "데이터 없음")
-                                    .font(.text_sm)
-                                    .padding(.top, 8)
-                                    .padding(.bottom, 16)
+                            if let restrictionDetail = detailContent.eligibilityRestrictionDetails,
+                               restrictionDetail != "해당없음" {
+                                VStack(spacing: 0) {
+                                    HStack(spacing: 0) {
+                                        Icon(name: .siren, color: .orange, size: 20)
+                                        Text("자격제한")
+                                            .font(.semi_title_md)
+                                            .padding(.leading, 6)
+                                        Spacer()
+                                    }
+                                    .padding(.top, 16)
                                     .foregroundStyle(.etcOrange)
+                                    
+//                                    Text(detailContent.eligibilityRestrictionDetails ?? "데이터 없음")
+                                    Text(formatCategory(detailContent.eligibilityRestrictionDetails))
+                                        .font(.text_sm)
+                                        .padding(.top, 8)
+                                        .padding(.bottom, 16)
+                                        .foregroundStyle(.etcOrange)
+                                }
+                                .padding(.horizontal, 16)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(.etcLightOrange)
+                                )
+                                .padding(.bottom, 24)
                             }
-                            .padding(.horizontal, 16)
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(.etcLightOrange)
-                            )
-                            .padding(.bottom, 24)
                         }
                     }
                     .font(.text_sm)
@@ -264,12 +271,14 @@ extension DetailScholarshipView {
                             Text("[제출서류]")
                                 .padding(.top, 8)
                                 .padding(.bottom, 12)
-                            Text(detailContent.requiredDocumentDetails ?? "데이터 없음")
+                            Text(formatCategory(detailContent.requiredDocumentDetails))
+//                            Text(detailContent.requiredDocumentDetails ?? "데이터 없음")
                                 .padding(.bottom, 16)
                             Text("[선발방법]")
                                 .padding(.top, 8)
                                 .padding(.bottom, 12)
-                            Text(detailContent.selectionMethodDetails ?? "데이터 없음")
+//                            Text(detailContent.selectionMethodDetails ?? "데이터 없음")
+                            Text(formatCategory(detailContent.selectionMethodDetails))
                                 .padding(.bottom, 24)
                         }
                         .font(.text_sm)
@@ -312,7 +321,9 @@ extension DetailScholarshipView {
                             Text("[지원종류]")
                                 .padding(.top, 8)
                                 .padding(.bottom, 12)
-                            Text(detailContent.recommendationRequiredDetails ?? "데이터 없음")
+                            
+//                            Text(detailContent.recommendationRequiredDetails ?? "데이터 없음")
+                            Text(formatCategory(detailContent.recommendationRequiredDetails))
                                 .padding(.bottom, 24)
                         }
                         .font(.text_sm)
@@ -346,7 +357,8 @@ extension DetailScholarshipView {
                     Text("[수혜인원]")
                         .padding(.top, 24)
                     
-                    Text(detailContent.selectionCountDetails ?? "데이터 없음")
+//                    Text(detailContent.selectionCountDetails ?? "데이터 없음")
+                    Text(formatCategory(detailContent.selectionCountDetails))
                         .padding(.top, 12)
                         .padding(.bottom, 24)
                 }
@@ -418,7 +430,8 @@ extension DetailScholarshipView {
                         .foregroundStyle(.gray100)
                     Spacer()
                     
-                    VStack(spacing: 12) {
+                    VStack(spacing: 4) {
+                        
                         HStack(spacing: 4) {
                             Text("노력지수")
                                 .foregroundStyle(.black)
@@ -432,6 +445,7 @@ extension DetailScholarshipView {
                             Text("중")
                             Icon(name: .batteryMedium, size: 28)
                         }
+                        
                     }
                     Spacer()
                 }
@@ -461,6 +475,20 @@ extension DetailScholarshipView {
         .backgroundStyle(.white)
         .padding(.top, 12)
         .padding(.bottom, 16)
+    }
+    
+    func formatCategory(_ category: String?) -> String {
+        guard let category = category, category.contains("○") else {
+            return category ?? "데이터 없음"
+        }
+        
+        let bulletPoints = category.components(separatedBy: "○")
+            .filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+        
+        return bulletPoints.enumerated().map { index, point in
+            let trimmedPoint = point.trimmingCharacters(in: .whitespacesAndNewlines)
+            return index == 0 ? "• \(trimmedPoint)" : "\n• \(trimmedPoint)"
+        }.joined()
     }
 }
 
