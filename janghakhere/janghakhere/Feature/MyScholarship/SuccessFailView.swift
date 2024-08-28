@@ -113,7 +113,7 @@ extension SuccessFailView {
                     .background(Color.mainGray)
                     .cornerRadius(4)
                     .onTapGesture {
-                        passedFinishedButtonPressed(success: {
+                        passedFinishedButtonPressed(amount: Int(amount) ?? 0, success: {
                             scholarshipBox!.publicAnnouncementStatus = .passed
                             scholarshipStatusViewModel.addScholarship(id: scholarshipBox!.id, status: .passed)
                             isShowPassModal = false
@@ -206,9 +206,9 @@ extension SuccessFailView {
 }
 
 extension SuccessFailView {
-    private func passedFinishedButtonPressed(success: @escaping () -> Void) {
+    private func passedFinishedButtonPressed(amount: Int, success: @escaping () -> Void) {
         if let scholarshipBox {
-            viewModel.susseccButtonPressed(scholarship: scholarshipBox, success: success)
+            viewModel.susseccButtonPressed(scholarship: scholarshipBox, amount: amount, success: success)
         }
     }
     private func failedFinishedButtonPressed(success: @escaping () -> Void) {

@@ -1,23 +1,21 @@
 //
-//  MyPageActor.swift
+//  SuccessFailActor.swift
 //  janghakhere
 //
-//  Created by Taehwan Kim on 4/30/24.
+//  Created by Taehwan Kim on 8/28/24.
 //
 
 import Foundation
 
-// MARK: - 아직 현재 뷰는 완성되지 않아서 중간에 만들다 말았음. 아예 새로 만드는게 빠를듯
-struct CurrentUserScholarshipStatus: Decodable {
+struct XXX: Decodable {
     let name: String
     let totalSupportedAmount: Int
     let appliedScholarshipCount: Int
     let passedScholarshipCount: Int
 }
 
-actor MyPageActor {
-    
-    /// 서버에서 유저의 데이터를 가져와서 보여주는 API
+actor SuccessFailActor {
+    ///  서버에 장학금 정보 전송. 아직 미완성
     /// - Parameter id: OnboardingMain에서 생성된 UUID
     func getCurrentStatus(id: String) async throws -> CurrentUserScholarshipStatus {
         do {
@@ -27,13 +25,10 @@ actor MyPageActor {
             throw error
         }
     }
-    
-    func getData() async throws -> [String] {
-        return []
-    }
 }
 
-extension MyPageActor {
+
+extension SuccessFailActor {
     
     private func responseHandling(_ data: Data, _ response: HTTPURLResponse) throws  -> CurrentUserScholarshipStatus {
         do {

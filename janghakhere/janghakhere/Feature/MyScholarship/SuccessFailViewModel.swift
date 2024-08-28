@@ -15,21 +15,21 @@ final class SuccessFailViewModel: ObservableObject {
     
     private var tasks: [Task<Void, Never>] = []
     
-    func susseccButtonPressed(scholarship: ScholarshipBox, success: @escaping () -> Void) {
-        self.postScholarshipStatus(id: scholarship.id, status: PublicAnnouncementStatusCategory.passed, success: success)
+    func susseccButtonPressed(scholarship: ScholarshipBox, amount: Int, success: @escaping () -> Void) {
+        self.postScholarshipStatus(id: scholarship.id, status: PublicAnnouncementStatusCategory.passed, scholorshipAmount: amount, success: success)
     }
     
     func failButtonPressed(scholarship: ScholarshipBox, success: @escaping () -> Void) {
-        self.postScholarshipStatus(id: scholarship.id, status: PublicAnnouncementStatusCategory.non_passed, success: success)
+        self.postScholarshipStatus(id: scholarship.id, status: PublicAnnouncementStatusCategory.non_passed, scholorshipAmount: 0, success: success)
     }
 }
 
 // private 함수들
 extension SuccessFailViewModel {
-    private func postScholarshipStatus(id: String, status: PublicAnnouncementStatusCategory, success: @escaping () -> Void) {
+    private func postScholarshipStatus(id: String, status: PublicAnnouncementStatusCategory, scholorshipAmount: Int, success: @escaping () -> Void) {
         Task {
             do {
-                try await sholarshipStatusActor.postScholarshipStatus(id: id, status: status.rawValue)
+                try await sholarshipStatusActor.postScholarshipStatus(id: id, status: status.rawValue, scholorshipAmount: scholorshipAmount)
                 success()
             } catch {
                 isShowSavedError = true

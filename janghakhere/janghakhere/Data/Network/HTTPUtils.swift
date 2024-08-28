@@ -10,7 +10,7 @@ import SwiftUI
 struct HTTPUtils {
     //TODO: conFig에서 불러오게 코드 수정해야 함
     
-    static func postURL<T: Encodable>(postStruct: T, urlBack: String) async throws -> (data: Data, response: HTTPURLResponse) {
+    static func postURL<T: Encodable>(postStruct: T, urlBack: String, body: [String: String]? = nil) async throws -> (data: Data, response: HTTPURLResponse) {
         do {
             guard let url = URL(string: urlFront + urlBack) else { throw URLError(.badURL)}
             print("post", url)
@@ -20,7 +20,19 @@ struct HTTPUtils {
             request.httpMethod = "POST"
             
             let postData = try JSONEncoder().encode(postStruct)
-            request.httpBody = postData
+            
+//            request.httpBody = postData
+            if let body = body {
+                var jsonObject = try JSONSerialization.jsonObject(with: postData, options: []) as? [String: Any] ?? [:]
+                for (key, value) in body {
+                    jsonObject[key] = value
+                }
+                request.httpBody = try JSONSerialization.data(withJSONObject: jsonObject)
+            } else {
+                request.httpBody = postData
+            }
+            
+            
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             let (data, response) = try await URLSession.shared.data(for: request)
             guard let response = response as? HTTPURLResponse else {

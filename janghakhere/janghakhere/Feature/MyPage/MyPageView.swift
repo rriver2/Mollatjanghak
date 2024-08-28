@@ -17,9 +17,6 @@ struct MyPageView: View {
             VStack(spacing: 0) {
                 navigation()
                 nameContent()
-//                Button("AAA") {
-//                    print(viewModel.currentUserStatus)
-//                }
                 totalScholarshipMoneyContent()
                 myScholarshipStatisticsContent()
                 Spacer()
