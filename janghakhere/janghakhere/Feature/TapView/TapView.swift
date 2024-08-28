@@ -35,6 +35,9 @@ struct TapView: View {
                 .tag(2)
         }
         .tint(.black)
+        .safeAreaInset(edge: .top) {
+            Color.clear.frame(height: 30)
+        }
     }
 }
 
