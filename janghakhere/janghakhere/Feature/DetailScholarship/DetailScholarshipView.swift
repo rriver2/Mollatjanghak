@@ -47,8 +47,8 @@ struct DetailScholarshipView: View {
                                 customDivider()
                                 requirementContent()
                                 customDivider()
-//                                    .padding(.bottom, 190)
-                                    .padding(.bottom, 80)
+                                    .padding(.bottom, 190)
+//                                    .padding(.bottom, 80)
                             }
                         }
                         buttons()
