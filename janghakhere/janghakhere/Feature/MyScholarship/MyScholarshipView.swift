@@ -34,6 +34,7 @@ struct MyScholarshipView: View {
                 }
             }
         }
+        .ignoresSafeArea()
         .sheet(isPresented: $viewModel.isShowFilteringSheet) {
             filteringSheet()
         }

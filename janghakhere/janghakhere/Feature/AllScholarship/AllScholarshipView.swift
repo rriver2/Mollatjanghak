@@ -49,7 +49,7 @@ struct AllScholarshipView: View {
             viewModel.viewOpened()
             let newScholarShipList = scholarshipStatusViewModel.getFilteringScholarshipList(list: viewModel.scholarshipList)
             viewModel.scholarshipList = newScholarShipList
-            print("viewModel.scholarshipList", viewModel.scholarshipList)
+//            print("viewModel.scholarshipList", viewModel.scholarshipList)
             
 //            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
 //                showTestSheet = true

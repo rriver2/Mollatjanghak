@@ -14,21 +14,21 @@ struct TapView: View {
         TabView (selection: $selection) {
             AllScholarshipView(selection: $selection)
                 .tabItem {
-                    Icon(name: .newspaperClipping, color: selection == 0 ? .black : .gray400, size: 28)
+                    Icon(name: .tabOne, color: selection == 0 ? .black : .gray400, size: 32)
                     Text("전체공고")
                         .font(.caption)
                 }
                 .tag(0)
             MyScholarshipView()
                 .tabItem {
-                    Icon(name: .newspaperChecks, color: selection == 1 ? .black : .gray400, size: 28)
+                    Icon(name: .tabTwo, color: selection == 1 ? .black : .gray400, size: 32)
                     Text("내공고")
                         .font(.caption)
                 }
                 .tag(1)
             MyPageView()
                 .tabItem {
-                    Icon(name: .user, color: selection == 2 ? .black : .gray400, size: 28)
+                    Icon(name: .tabThree, color: selection == 2 ? .black : .gray400, size: 32)
                     Text("마이페이지")
                         .font(.caption)
                 }
